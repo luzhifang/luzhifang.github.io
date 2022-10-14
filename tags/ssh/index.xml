@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ssh - 标签 - 码农人生</title>
+        <link>https://luzhifang.github.io/tags/ssh/</link>
+        <description>ssh - 标签 - 码农人生</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 15 Jan 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/ssh/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux使用ssh-kengen生成公私钥和免密登录</title>
+    <link>https://luzhifang.github.io/linux-ssh-kengen/</link>
+    <pubDate>Wed, 15 Jan 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-ssh-kengen/</guid>
+    <description><![CDATA[详细命令 1 2 3 4 5 6 7 ssh-keygen \ -t rsa \ -m PEM \ -b 4096 \ -C &#34;user@server&#34; \ -f /home/username/.ssh/keys/privatekey \ -N passphrase 命令释义 ssh-keygen = 用于创建密钥的程序 -m PEM = 将密钥的格式设为 PEM -t rsa = 要创建的密钥类型，本]]></description>
+</item>
+</channel>
+</rss>

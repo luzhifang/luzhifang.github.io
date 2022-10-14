@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Git使用指北 - 码农人生</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Git使用指北" />
+<meta property="og:description" content="1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/git-guide/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-05T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Git使用指北"/>
+<meta name="twitter:description" content="1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/git-guide/" /><link rel="prev" href="https://luzhifang.github.io/go-multi-version/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git使用指北",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/git-guide\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Git, Git Flow, 版本","wordcount":  2206 ,
+        "url": "https:\/\/luzhifang.github.io\/git-guide\/","datePublished": "2021-06-05T00:00:00+00:00","dateModified": "2021-06-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Git使用指北</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-05">2021-06-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2206 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/git-guide/" class="leancloud_visitors" data-flag-title="Git使用指北">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-起步">1. 起步</a></li>
+    <li><a href="#2-运行前配置">2. 运行前配置</a></li>
+    <li><a href="#3-获取帮助">3. 获取帮助</a></li>
+    <li><a href="#4-基础">4. 基础</a>
+      <ul>
+        <li><a href="#41-获取仓库">4.1 获取仓库</a></li>
+        <li><a href="#42-基础命令">4.2 基础命令</a></li>
+        <li><a href="#43-标签">4.3 标签</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-分支">5. 分支</a></li>
+    <li><a href="#6-更改提交">6. 更改提交</a></li>
+    <li><a href="#7-提交规范">7. 提交规范</a>
+      <ul>
+        <li><a href="#71-type">7.1 type</a></li>
+        <li><a href="#72-scope">7.2 scope</a></li>
+        <li><a href="#73-description">7.3 description</a></li>
+        <li><a href="#74-body">7.4 body</a></li>
+        <li><a href="#75-footer">7.5 footer</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-版本规范">8. 版本规范</a></li>
+    <li><a href="#9-git-flow">9. Git Flow</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-起步">1. 起步</h2>
+<ol>
+<li><a href="https://git-scm.com/download" target="_blank" rel="noopener noreffer ">下载地址</a>，各平台安装方式不一样，可以点进去细看下</li>
+<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer ">中文文档</a></li>
+</ol>
+<h2 id="2-运行前配置">2. 运行前配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git config --list --show-origin <span class="c1"># 查看所有配置</span>
+</span></span><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;luzhifang&#34;</span> <span class="c1"># 配置用户名</span>
+</span></span><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;luzhifang@example.com&#34;</span> <span class="c1"># 配置邮件地址</span>
+</span></span><span class="line"><span class="cl">git config --global core.editor vim <span class="c1"># 配置文本编辑器</span>
+</span></span><span class="line"><span class="cl">git config --global color.ui auto <span class="c1"># git config --global color.ui auto</span>
+</span></span><span class="line"><span class="cl">git <span class="nb">help</span> config <span class="c1"># 查看config的命令手册</span>
+</span></span><span class="line"><span class="cl">cat ~/.gitconfig <span class="c1"># 查看配置文件</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-获取帮助">3. 获取帮助</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git <span class="nb">help</span> config <span class="c1"># git help &lt;verb&gt;，查看命令手册， 和git &lt;verb&gt; --help 、 man git-&lt;verb&gt; 等价</span>
+</span></span><span class="line"><span class="cl">git add -h <span class="c1"># git &lt;verb&gt; -h，不需要全面的手册，可以用这个查看可用选项的快速参考</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-基础">4. 基础</h2>
+<h3 id="41-获取仓库">4.1 获取仓库</h3>
+<ol>
+<li>在已存在目录中初始化仓库</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">mkdir -p /home/user/my_project
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/user/my_project
+</span></span><span class="line"><span class="cl">git init <span class="c1"># 初始化 .git 文件夹</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>克隆现有的仓库</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git clone https://github.com/luzhifang/luzhifang.github.io
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-基础命令">4.2 基础命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">touch README.md
+</span></span><span class="line"><span class="cl">touch .gitignore <span class="c1"># 添加忽略文件</span>
+</span></span><span class="line"><span class="cl">git add . <span class="c1"># 添加到暂存区</span>
+</span></span><span class="line"><span class="cl">git mv README.md README <span class="c1"># git mv 需要添加到版本控制中才能重命名</span>
+</span></span><span class="line"><span class="cl">git rm --cached README <span class="c1"># 从暂存区移除</span>
+</span></span><span class="line"><span class="cl">git rm README <span class="c1"># 非暂存区移除</span>
+</span></span><span class="line"><span class="cl">git status <span class="c1"># 检查当前文件状态</span>
+</span></span><span class="line"><span class="cl">git diff <span class="c1"># 列出具体哪个文件哪一行修改了，加--staged将比对已暂存文件与最后一次提交的文件差异</span>
+</span></span><span class="line"><span class="cl">git commit <span class="c1"># 不带-m则可以添加换行的commit message，建议使用，Linux默认会进去vim编辑模式，按crtl+x再按y进行保存</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s1">&#39;initial project version&#39;</span> <span class="c1"># 提交到本地仓库，git commit -a等同于git add + git commit</span>
+</span></span><span class="line"><span class="cl">git add forgotten_file
+</span></span><span class="line"><span class="cl">git commit --amend <span class="c1"># 修正提交，如果上次有提交则覆盖为一次</span>
+</span></span><span class="line"><span class="cl">git reset HEAD forgotten_file <span class="c1"># 取消暂存</span>
+</span></span><span class="line"><span class="cl">git checkout -- forgotten_file <span class="c1"># 撤销文件的修改</span>
+</span></span><span class="line"><span class="cl">git remote <span class="c1"># 查看已经配置的远程仓库，-v会显示URL</span>
+</span></span><span class="line"><span class="cl">git remote add origin https://github.com/luzhifang/luzhifang.github.io <span class="c1"># git remote add &lt;shortname&gt; &lt;url&gt; 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写，可添加多个</span>
+</span></span><span class="line"><span class="cl">git push origin main <span class="c1"># git push &lt;remote&gt; &lt;branch&gt; 推送到远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote show origin <span class="c1"># git remote show &lt;remote&gt; 查看某个远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote remove origin <span class="c1"># 删除远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote rename origin new <span class="c1"># 远程仓库的重命名</span>
+</span></span><span class="line"><span class="cl">git log <span class="c1"># 查看提交历史， -p 显示每次提交所引入的差异，-2 选项来只显示最近的两次提交，--stat 选项简略统计信息</span>
+</span></span><span class="line"><span class="cl">git log --pretty<span class="o">=</span>format:<span class="s2">&#34;%h - %an, %ar : %s&#34;</span> --graph <span class="c1"># 图标显示并格式化，更多的细节可以查看官方文档和手册</span>
+</span></span><span class="line"><span class="cl">git config --global alias.br branch <span class="c1"># 设置别名</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="43-标签">4.3 标签</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git tag <span class="c1"># 列出所有标签</span>
+</span></span><span class="line"><span class="cl">git tag -l <span class="s2">&#34;v1.8.5&#34;</span> <span class="c1"># 通配符匹配标签</span>
+</span></span><span class="line"><span class="cl">git tag -a v1.5 -m <span class="s2">&#34;标签信息&#34;</span> <span class="c1"># 打附注标签，没有-a 打轻量标签</span>
+</span></span><span class="line"><span class="cl">git show tagname <span class="c1"># 查看标签信息和与之对应的提交信息</span>
+</span></span><span class="line"><span class="cl">git tag -a tagname 9fceb02 <span class="c1"># 指定提交ID打标签</span>
+</span></span><span class="line"><span class="cl">git push origin v1.5 <span class="c1"># 推送指定标签</span>
+</span></span><span class="line"><span class="cl">git push origin --tags <span class="c1"># 推送所有标签</span>
+</span></span><span class="line"><span class="cl">git tag -d tagname <span class="c1"># 删除本地标签</span>
+</span></span><span class="line"><span class="cl">git push origin --delete &lt;tagname&gt; <span class="c1"># 删除远程标签</span>
+</span></span><span class="line"><span class="cl">git checkout tagname <span class="c1"># 检出标签</span>
+</span></span><span class="line"><span class="cl">git checkout -b branch tagname <span class="c1"># 检出标签到分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-分支">5. 分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git branch <span class="c1"># 列出本地所有分支，--merged 与 --no-merged 这两个有用的选项可以过滤这个列表中已经合并或尚未合并到当前分支的分支</span>
+</span></span><span class="line"><span class="cl">git checkout branch <span class="c1"># 切换到已存在的分支</span>
+</span></span><span class="line"><span class="cl">git checkout - <span class="c1"># 切回上一个分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b branch <span class="c1"># 新建分支并检出，等于 git branch branch + git checkout branch</span>
+</span></span><span class="line"><span class="cl">git checkout -b branch origin/branch <span class="c1"># 建立在远程跟踪分支之上</span>
+</span></span><span class="line"><span class="cl">git branch -u origin/branch <span class="c1"># 设置上游分支</span>
+</span></span><span class="line"><span class="cl">git merge branch <span class="c1"># 合并分支，注意合并前需要切换到你想合并入的分支</span>
+</span></span><span class="line"><span class="cl">git branch -d branch <span class="c1"># 删除分支</span>
+</span></span><span class="line"><span class="cl">git push origin --delete branch <span class="c1"># 删除远程分支</span>
+</span></span><span class="line"><span class="cl">git branch -vv <span class="c1"># 查看设置的所有跟踪分支</span>
+</span></span><span class="line"><span class="cl">git fetch origin <span class="c1"># 拉取 origin 的仓库中有但你没有的信息</span>
+</span></span><span class="line"><span class="cl">git pull <span class="c1"># 大多数情况下它的含义是一个 git fetch 紧接着一个 git merge 命令，推荐用fetch + merge 代替pull</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="6-更改提交">6. 更改提交</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">git reset --hard 9fceb02 <span class="c1"># 强制回退到某个提交ID，慎用</span>
+</span></span><span class="line"><span class="cl">git rebase -i HEAD~2 <span class="c1"># 可以选定当前分支中包含HEAD（最新提交）在内的两个最新历史记录为对象，并。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 变基，推荐只对尚未推送或未分享给别人的本地修改执行变基操作清理历史，不对已推送的提交执行变基操作</span>
+</span></span><span class="line"><span class="cl">git rebase -i <span class="c1"># 在编辑器中打开，加上HEAD~2修正最新提交两次提交并在，可以指定commit id指定修改开始和截止区段</span>
+</span></span><span class="line"><span class="cl">git rebase --continue <span class="c1"># 修改提交信息</span>
+</span></span><span class="line"><span class="cl">git push <span class="c1"># 推送</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="7-提交规范">7. 提交规范</h2>
+<p>遵循 <a href="https://www.conventionalcommits.org/zh-hans/v1.0.0/#summary" target="_blank" rel="noopener noreffer ">Conventional Commits</a> 来规范化 commit message</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;type&gt;[optional scope]: &lt;description&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[optional body]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[optional footer(s)]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="71-type">7.1 type</h3>
+<p>提交的 commit 类型主要有以下几种:</p>
+<blockquote>
+<p>主要类型</p>
+</blockquote>
+<p>fix 修复 bug<br>
+feat 新增功能<br>
+deps 依赖修改<br>
+break 不兼容修改</p>
+<blockquote>
+<p>其他类型</p>
+</blockquote>
+<p>perf 性能优化<br>
+docs 文档修改<br>
+refactor 重构<br>
+style 代码格式<br>
+test 测试用例<br>
+chore 日常工作，如文档修改，示例等<br>
+ci 构建脚本</p>
+<h3 id="72-scope">7.2 scope</h3>
+<p>提交的代码修改的代码文件范围：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">transport
+</span></span><span class="line"><span class="cl">examples
+</span></span><span class="line"><span class="cl">middleware
+</span></span><span class="line"><span class="cl">config
+</span></span><span class="line"><span class="cl">cmd
+</span></span><span class="line"><span class="cl">etc.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="73-description">7.3 description</h3>
+<p>用简短的话语清晰的描述提交的代码做了什么事。</p>
+<h3 id="74-body">7.4 body</h3>
+<p>补充说明，用于描述原因、目的、实现逻辑等可以省略。</p>
+<h3 id="75-footer">7.5 footer</h3>
+<p>当存在不兼容(breaking change)更新时，需要描述原因以及影响范围。
+关联相关的 issue，如 Refs #133。
+可能涉及到的文档更新和其他模块的更新的 PR 关联。
+Commit Examples
+只有提交信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">fix: The log debug level should be -1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>包含全部结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">fix(log): [BREAKING-CHANGE] unable to meet the requirement of log Library
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Explain the reason, purpose, realization method, etc.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Close #777
+</span></span><span class="line"><span class="cl">Doc change on doc/#111
+</span></span><span class="line"><span class="cl">BREAKING CHANGE:
+</span></span><span class="line"><span class="cl">  Breaks log.info api, log.log should be used instead
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="8-版本规范">8. 版本规范</h2>
+<p>格式为 x.y.z</p>
+<ol>
+<li>x 代表主版本号，在重大功能变更或新版本不向下兼容时加 1，此时 y 与 z 的数字归 0</li>
+<li>y 代表次版本号，在添加新功能或者删除已有功能时加 1，此时 z 的数字归 0</li>
+<li>z 代表修订号，z 只在进行内部修改后加 1</li>
+</ol>
+<h2 id="9-git-flow">9. Git Flow</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   /add-user           /1.0.0  /1.0.1
+</span></span><span class="line"><span class="cl">    feature  develop  release  hotfix  master
+</span></span><span class="line"><span class="cl">       |        ●         |       |       |
+</span></span><span class="line"><span class="cl">       |      / |         |       |       |
+</span></span><span class="line"><span class="cl">       |    /   |         |       |       |
+</span></span><span class="line"><span class="cl">       |  /     |         |       |       |
+</span></span><span class="line"><span class="cl">       |/       |         |       |       |
+</span></span><span class="line"><span class="cl">start  ●        |         |       |       |
+</span></span><span class="line"><span class="cl">       ↓        |         |       |       |
+</span></span><span class="line"><span class="cl">       ●        |         |       |       |
+</span></span><span class="line"><span class="cl">       ↓        |         |       |       |
+</span></span><span class="line"><span class="cl">finish ●\       |         |       |       |
+</span></span><span class="line"><span class="cl">       |  \     |         |       |       |
+</span></span><span class="line"><span class="cl">       |PR  \   |         |       |       |
+</span></span><span class="line"><span class="cl">       |merge \ |         |       |       |
+</span></span><span class="line"><span class="cl">       |        ●         |       |       |
+</span></span><span class="line"><span class="cl">       |        | \       |       |       |
+</span></span><span class="line"><span class="cl">       |        |   \     |       |       |
+</span></span><span class="line"><span class="cl">       |        |     \   |       |       |
+</span></span><span class="line"><span class="cl">       |        |       \ |       |       |
+</span></span><span class="line"><span class="cl">       |        |         ● start |       |
+</span></span><span class="line"><span class="cl">       |        |         ↓       |       |
+</span></span><span class="line"><span class="cl">       |        |         ●       |       |
+</span></span><span class="line"><span class="cl">       |        |         ↓       |       |
+</span></span><span class="line"><span class="cl">       |        |         ●finish |       |
+</span></span><span class="line"><span class="cl">       |        |       / | \     |       |
+</span></span><span class="line"><span class="cl">       |        |     /   |   \   |       |
+</span></span><span class="line"><span class="cl">       |        |   /     |     \ |       |
+</span></span><span class="line"><span class="cl">       |        | /       |       \       |
+</span></span><span class="line"><span class="cl">       |        ●         |       | \     |
+</span></span><span class="line"><span class="cl">       |        |         |       |   \   |
+</span></span><span class="line"><span class="cl">       |        |         |       |     \ |
+</span></span><span class="line"><span class="cl">       |        |         |       |       ● tag 1.0.0
+</span></span><span class="line"><span class="cl">       |        |         |       |     / |
+</span></span><span class="line"><span class="cl">       |        |         |       |   /   |
+</span></span><span class="line"><span class="cl">       |        |         |       | /     |
+</span></span><span class="line"><span class="cl">       |        |         | start ●       |
+</span></span><span class="line"><span class="cl">       |        |         |       ↓       |
+</span></span><span class="line"><span class="cl">       |        |         |       ●       |
+</span></span><span class="line"><span class="cl">       |        |         |       ↓       |
+</span></span><span class="line"><span class="cl">       |        |         | finish●       |
+</span></span><span class="line"><span class="cl">       |        |         |     / | \     |
+</span></span><span class="line"><span class="cl">       |        |         |   /   |   \   |
+</span></span><span class="line"><span class="cl">       |        |         | /     |     \ |
+</span></span><span class="line"><span class="cl">       |        |         /       |       ● tag 1.0.1
+</span></span><span class="line"><span class="cl">       |        |       / |       |       |
+</span></span><span class="line"><span class="cl">       |        |     /   |       |       |
+</span></span><span class="line"><span class="cl">       |        |   /     |       |       |
+</span></span><span class="line"><span class="cl">       |        | /       |       |       |
+</span></span><span class="line"><span class="cl">       |        ●         |       |       |
+</span></span><span class="line"><span class="cl">       |        |         |       |       |
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-06-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git-guide/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/git-guide/" data-title="Git使用指北" data-hashtags="Git,Git Flow,版本"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/git-guide/" data-hashtag="Git"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/git-guide/" data-title="Git使用指北"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/git-guide/" data-title="Git使用指北"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/git-guide/" data-title="Git使用指北"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/git-flow/">Git Flow</a>,&nbsp;<a href="/tags/%E7%89%88%E6%9C%AC/">版本</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-multi-version/" class="prev" rel="prev" title="Go多版本管理器"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go多版本管理器</a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.5.0/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-CN","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

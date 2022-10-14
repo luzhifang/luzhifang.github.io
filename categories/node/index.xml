@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Node - 分类 - 码农人生</title>
+        <link>https://luzhifang.github.io/categories/node/</link>
+        <description>Node - 分类 - 码农人生</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/node/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux安装node和升级node</title>
+    <link>https://luzhifang.github.io/node-install-upgrade/</link>
+    <pubDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/node-install-upgrade/</guid>
+    <description><![CDATA[下载 Node 进入 Node 最新版下载 https://nodejs.org/en/download/current/ 例：https://nodejs.org/dist/v16.17.1/node-v16.17.1-linux-x64]]></description>
+</item>
+</channel>
+</rss>

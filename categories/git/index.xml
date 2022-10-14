@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Git - 分类 - 码农人生</title>
+        <link>https://luzhifang.github.io/categories/git/</link>
+        <description>Git - 分类 - 码农人生</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Git使用指北</title>
+    <link>https://luzhifang.github.io/git-guide/</link>
+    <pubDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/git-guide/</guid>
+    <description><![CDATA[1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email]]></description>
+</item>
+</channel>
+</rss>
