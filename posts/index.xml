@@ -13,12 +13,36 @@
     <description><![CDATA[1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email]]></description>
 </item>
 <item>
+    <title>Linux 文本三剑客</title>
+    <link>https://luzhifang.github.io/linux-grep-sed-awk/</link>
+    <pubDate>Wed, 19 May 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-grep-sed-awk/</guid>
+    <description><![CDATA[Linux 文本三剑客 awk、grep、sed 是 linux 操作文本的三大利器，合称文本三剑客，也是必须掌握的 linux 命令之一。 三者的功能都是处理文本，但侧重点各不相]]></description>
+</item>
+<item>
     <title>Go多版本管理器</title>
     <link>https://luzhifang.github.io/go-multi-version/</link>
     <pubDate>Sat, 16 Jan 2021 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/go-multi-version/</guid>
     <description><![CDATA[windows 下载多版本管理工具 g，地址：https://github.com/voidint/g/releases，选择g*.windows-amd6]]></description>
+</item>
+<item>
+    <title>正则表达式</title>
+    <link>https://luzhifang.github.io/regexp/</link>
+    <pubDate>Thu, 26 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/regexp/</guid>
+    <description><![CDATA[简介 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符]]></description>
+</item>
+<item>
+    <title>centos6.6安装supervisor3.x方法</title>
+    <link>https://luzhifang.github.io/centos6.6-supervisor3.x/</link>
+    <pubDate>Thu, 06 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/centos6.6-supervisor3.x/</guid>
+    <description><![CDATA[安装 meld (如果缺少的话) 1 2 3 4 5 cd /usr/local wget https://pypi.python.org/packages/0f/5e/3a57c223d8faba2c3c2d69699f7e6cfdd1e5cc31e79cdd0dd48d44580b50/meld3-1.0.1.tar.gz#md5=2f045abe0ae108e3c8343172cffbe21d tar -zxvf meld3-1.0.1.tar.gz cd meld3-1.0.1 python setup.py install 安装 supervisor3 1 2 3 4 5 wget https://pypi.python.org/packages/source/s/supervisor/supervisor-3.0b2.tar.gz --no-check-certificate tar -zxvf supervisor-3.0b2.tar.gz cd supervisor-3.0b2 python setup.py install yum install python-setuptools 创建日志文件 1 2 touch /var/log/supervisord.log chmod 755 /var/log/supervisord.log 创建默认的配置]]></description>
 </item>
 <item>
     <title>hugo添加Algolia搜索系统</title>
@@ -59,14 +83,6 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/markdown/</guid>
     <description><![CDATA[Markdown 简介 Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。 Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。 Markdown 编写]]></description>
-</item>
-<item>
-    <title>vi编辑器</title>
-    <link>https://luzhifang.github.io/vi-editor/</link>
-    <pubDate>Wed, 05 Jun 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/vi-editor/</guid>
-    <description><![CDATA[1. vi 和 vim 的区别 vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种]]></description>
 </item>
 </channel>
 </rss>

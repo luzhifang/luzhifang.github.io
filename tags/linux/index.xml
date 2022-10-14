@@ -4,7 +4,31 @@
         <link>https://luzhifang.github.io/tags/linux/</link>
         <description>Linux - 标签 - 码农人生</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 19 May 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux 文本三剑客</title>
+    <link>https://luzhifang.github.io/linux-grep-sed-awk/</link>
+    <pubDate>Wed, 19 May 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-grep-sed-awk/</guid>
+    <description><![CDATA[Linux 文本三剑客 awk、grep、sed 是 linux 操作文本的三大利器，合称文本三剑客，也是必须掌握的 linux 命令之一。 三者的功能都是处理文本，但侧重点各不相]]></description>
+</item>
+<item>
+    <title>正则表达式</title>
+    <link>https://luzhifang.github.io/regexp/</link>
+    <pubDate>Thu, 26 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/regexp/</guid>
+    <description><![CDATA[简介 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符]]></description>
+</item>
+<item>
+    <title>centos6.6安装supervisor3.x方法</title>
+    <link>https://luzhifang.github.io/centos6.6-supervisor3.x/</link>
+    <pubDate>Thu, 06 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/centos6.6-supervisor3.x/</guid>
+    <description><![CDATA[安装 meld (如果缺少的话) 1 2 3 4 5 cd /usr/local wget https://pypi.python.org/packages/0f/5e/3a57c223d8faba2c3c2d69699f7e6cfdd1e5cc31e79cdd0dd48d44580b50/meld3-1.0.1.tar.gz#md5=2f045abe0ae108e3c8343172cffbe21d tar -zxvf meld3-1.0.1.tar.gz cd meld3-1.0.1 python setup.py install 安装 supervisor3 1 2 3 4 5 wget https://pypi.python.org/packages/source/s/supervisor/supervisor-3.0b2.tar.gz --no-check-certificate tar -zxvf supervisor-3.0b2.tar.gz cd supervisor-3.0b2 python setup.py install yum install python-setuptools 创建日志文件 1 2 touch /var/log/supervisord.log chmod 755 /var/log/supervisord.log 创建默认的配置]]></description>
+</item>
+<item>
     <title>Linux安装node和升级node</title>
     <link>https://luzhifang.github.io/node-install-upgrade/</link>
     <pubDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</pubDate>

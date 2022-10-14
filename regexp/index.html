@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>正则表达式 - 码农人生</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="正则表达式" />
+<meta property="og:description" content="简介 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/regexp/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-26T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="正则表达式"/>
+<meta name="twitter:description" content="简介 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/regexp/" /><link rel="prev" href="https://luzhifang.github.io/centos6.6-supervisor3.x/" /><link rel="next" href="https://luzhifang.github.io/go-multi-version/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "正则表达式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/regexp\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "正则, regexp, Linux","wordcount":  3541 ,
+        "url": "https:\/\/luzhifang.github.io\/regexp\/","datePublished": "2020-11-26T00:00:00+00:00","dateModified": "2020-11-26T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">正则表达式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/regexp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>regexp</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-11-26">2020-11-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3541 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#应用">应用</a></li>
+    <li><a href="#应用领域">应用领域</a></li>
+    <li><a href="#匹配字符释义">匹配字符释义</a></li>
+    <li><a href="#linux-用到的命令">Linux 用到的命令</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<ol>
+<li>正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符&quot;）。</li>
+<li>正则表达式使用单个字符串来描述、匹配一系列匹配某个句法规则的字符串。</li>
+<li>正则表达式是繁琐的，但它是强大的，学会之后的应用会让你除了提高效率外。</li>
+<li>许多程序设计语言都支持利用正则表达式进行字符串操作。</li>
+</ol>
+<h2 id="应用">应用</h2>
+<ol>
+<li>测试字符串内的模式。<br>
+例如，可以测试输入字符串，以查看字符串内是否出现电话号码模式或信用卡号码模式。这称为数据验证。</li>
+<li>替换文本。<br>
+可以使用正则表达式来识别文档中的特定文本，完全删除该文本或者用其他文本替换它。</li>
+<li>基于模式匹配从字符串中提取子字符串。<br>
+可以查找文档内或输入域内特定的文本。</li>
+</ol>
+<h2 id="应用领域">应用领域</h2>
+<p>目前，正则表达式已经在很多软件中得到广泛的应用，包括 *nix（Linux, Unix 等）、HP 等操作系统，PHP、C#、Java 等开发环境，以及很多的应用软件中，都可以看到正则表达式的影子。</p>
+<h2 id="匹配字符释义">匹配字符释义</h2>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>将下一个字符标记为一个特殊字符、或一个原义字符、或一个 向后引用、或一个八进制转义符。例如，&rsquo;n&rsquo; 匹配字符 &ldquo;n&rdquo;。&rsquo;\n&rsquo; 匹配一个换行符。序列 &lsquo;\\&rsquo; 匹配 &ldquo;\&rdquo; 而 &ldquo;\(&rdquo; 则匹配 &ldquo;(&quot;。</td>
+<td></td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置。</td>
+<td></td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结束位置。</td>
+<td></td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。例如，zo* 能匹配 &ldquo;z&rdquo; 以及 &ldquo;zoo&rdquo;。* 等价于{0,}。</td>
+<td></td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。例如，&lsquo;zo+&rsquo; 能匹配 &ldquo;zo&rdquo; 以及 &ldquo;zoo&rdquo;，但不能匹配 &ldquo;z&rdquo;。+ 等价于 {1,}。</td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。例如，&ldquo;do(es)?&rdquo; 可以匹配 &ldquo;do&rdquo; 或 &ldquo;does&rdquo; 。? 等价于 {0,1}。</td>
+<td></td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n 是一个非负整数。匹配确定的 n 次。例如，&lsquo;o{2}&rsquo; 不能匹配 &ldquo;Bob&rdquo; 中的 &lsquo;o&rsquo;，但是能匹配 &ldquo;food&rdquo; 中的两个 o。</td>
+<td></td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>n 是一个非负整数。至少匹配 n 次。例如，&lsquo;o{2,}&rsquo; 不能匹配 &ldquo;Bob&rdquo; 中的 &lsquo;o&rsquo;，但能匹配 &ldquo;foooood&rdquo; 中的所有 o。&lsquo;o{1,}&rsquo; 等价于 &lsquo;o+&rsquo;。&lsquo;o{0,}&rsquo; 则等价于 &lsquo;o*&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>m 和 n 均为非负整数，其中 n &lt;= m。最少匹配 n 次且最多匹配 m 次。例如，&ldquo;o{1,3}&rdquo; 将匹配 &ldquo;fooooood&rdquo; 中的前三个 o。&lsquo;o{0,1}&rsquo; 等价于 &lsquo;o?&rsquo;。请注意在逗号和两个数之间不能有空格。</td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串 &ldquo;oooo&rdquo;，&lsquo;o+?&rsquo; 将匹配单个 &ldquo;o&rdquo;，而 &lsquo;o+&rsquo; 将匹配所有 &lsquo;o&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符（\n、\r）之外的任何单个字符。要匹配包括 &lsquo;\n&rsquo; 在内的任何字符，请使用像```(.</td>
+<td>\n)```的模式。</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配 pattern 并获取这一匹配。使用 $0…$9 属性进行获取。要匹配圆括号字符，请使用 &lsquo;(&rsquo; 或 &lsquo;)&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>(?:pattern)</td>
+<td>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用 &ldquo;或&rdquo; 字符 (|) 来组合一个模式的各个部分时很有用。例如， &lsquo;industr(?:y|ies) 就是一个比 &lsquo;industry|industries&rsquo; 更简略的表达式。</td>
+<td></td>
+</tr>
+<tr>
+<td>(?=pattern)</td>
+<td>正向肯定预查（look ahead positive assert），在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，&ldquo;Windows(?=95|98|NT|2000)&ldquo;能匹配&quot;Windows2000&quot;中的&quot;Windows&rdquo;，但不能匹配&quot;Windows3.1&quot;中的&quot;Windows&rdquo;。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+<td></td>
+</tr>
+<tr>
+<td>(?!pattern)</td>
+<td>正向否定预查(negative assert)，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如&quot;Windows(?!95|98|NT|2000)&ldquo;能匹配&quot;Windows3.1&quot;中的&quot;Windows&rdquo;，但不能匹配&quot;Windows2000&quot;中的&quot;Windows&rdquo;。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+<td></td>
+</tr>
+<tr>
+<td>(?&lt;=pattern)</td>
+<td>反向(look behind)肯定预查，与正向肯定预查类似，只是方向相反。例如，&quot;<code>(?&lt;=95|98|NT|2000)Windows</code>&ldquo;能匹配&rdquo;<code>2000Windows</code>&ldquo;中的&rdquo;<code>Windows</code>&quot;，但不能匹配&quot;<code>3.1Windows</code>&ldquo;中的&rdquo;<code>Windows</code>&quot;。</td>
+<td></td>
+</tr>
+<tr>
+<td>(?&lt;!pattern)</td>
+<td>反向否定预查，与正向否定预查类似，只是方向相反。例如&quot;<code>(?&lt;!95|98|NT|2000)Windows</code>&ldquo;能匹配&rdquo;<code>3.1Windows</code>&ldquo;中的&rdquo;<code>Windows</code>&quot;，但不能匹配&quot;<code>2000Windows</code>&ldquo;中的&rdquo;<code>Windows</code>&quot;。</td>
+<td></td>
+</tr>
+<tr>
+<td>x|y</td>
+<td>匹配 x 或 y。例如，&lsquo;z|food&rsquo; 能匹配 &ldquo;z&rdquo; 或 &ldquo;food&rdquo;。&rsquo;(z|f)ood&rsquo; 则匹配 &ldquo;zood&rdquo; 或 &ldquo;food&rdquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>字符集合。匹配所包含的任意一个字符。例如， &lsquo;[abc]&rsquo; 可以匹配 &ldquo;plain&rdquo; 中的 &lsquo;a&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>[^xyz]</td>
+<td>负值字符集合。匹配未包含的任意字符。例如， &lsquo;[^abc]&rsquo; 可以匹配 &ldquo;plain&rdquo; 中的&rsquo;p&rsquo;、&rsquo;l&rsquo;、&lsquo;i&rsquo;、&rsquo;n&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>字符范围。匹配指定范围内的任意字符。例如，&rsquo;[a-z]&rsquo; 可以匹配 &lsquo;a&rsquo; 到 &lsquo;z&rsquo; 范围内的任意小写字母字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>[^a-z]</td>
+<td>负值字符范围。匹配任何不在指定范围内的任意字符。例如，&rsquo;[^a-z]&rsquo; 可以匹配任何不在 &lsquo;a&rsquo; 到 &lsquo;z&rsquo; 范围内的任意字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如， &rsquo;er\b&rsquo; 可以匹配&quot;never&quot; 中的 &rsquo;er&rsquo;，但不能匹配 &ldquo;verb&rdquo; 中的 &rsquo;er&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。&rsquo;er\B&rsquo; 能匹配 &ldquo;verb&rdquo; 中的 &rsquo;er&rsquo;，但不能匹配 &ldquo;never&rdquo; 中的 &rsquo;er&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>\cx</td>
+<td>匹配由 x 指明的控制字符。例如， \cI 匹配一个 Control+I，等价于\t。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 &lsquo;c&rsquo; 字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符。等价于 [0-9]。</td>
+<td></td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于 [^0-9]。</td>
+<td></td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符。等价于 \x0c 和 \cL。</td>
+<td></td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符。等价于 \x0a 和 \cJ。</td>
+<td></td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符。等价于 \x0d 和 \cM。</td>
+<td></td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+<td></td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+<td></td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符。等价于 \x09 和 \cI。</td>
+<td></td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符。等价于 \x0b 和 \cK。</td>
+<td></td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母、数字、下划线。等价于&rsquo;[A-Za-z0-9_]&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母、数字、下划线。等价于 &lsquo;[^a-za-z0-9_]&rsquo;。</td>
+<td></td>
+</tr>
+<tr>
+<td>\xn</td>
+<td>匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，&rsquo;\x41&rsquo; 匹配 &ldquo;A&rdquo;。&rsquo;\x041&rsquo; 则等价于 &lsquo;\x04&rsquo; &amp; &ldquo;1&rdquo;。正则表达式中可以使用 ASCII 编码。</td>
+<td></td>
+</tr>
+<tr>
+<td>\num</td>
+<td>匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，&rsquo;(.)\1&rsquo; 匹配两个连续的相同字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>\un</td>
+<td>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， \u0041 匹配字母 A。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="linux-用到的命令">Linux 用到的命令</h2>
+<ul>
+<li>grep cat find vim grep egrep awk sed cp mv rm 等等</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-11-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/regexp/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/regexp/" data-title="正则表达式" data-hashtags="正则,regexp,Linux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/regexp/" data-hashtag="正则"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/regexp/" data-title="正则表达式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/regexp/" data-title="正则表达式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/regexp/" data-title="正则表达式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%AD%A3%E5%88%99/">正则</a>,&nbsp;<a href="/tags/regexp/">regexp</a>,&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/centos6.6-supervisor3.x/" class="prev" rel="prev" title="centos6.6安装supervisor3.x方法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>centos6.6安装supervisor3.x方法</a>
+            <a href="/go-multi-version/" class="next" rel="next" title="Go多版本管理器">Go多版本管理器<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
