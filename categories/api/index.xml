@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>API - 分类 - 码农人生</title>
+        <link>https://luzhifang.github.io/categories/api/</link>
+        <description>API - 分类 - 码农人生</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Feb 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/api/" rel="self" type="application/rss+xml" /><item>
+    <title>RESTful API 设计规范</title>
+    <link>https://luzhifang.github.io/restful/</link>
+    <pubDate>Thu, 06 Feb 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/restful/</guid>
+    <description><![CDATA[1. RESTful API 介绍 REST 本身并没有创造新的技术、组件或服务，它代表的是一种软件架构风格，是一组架构约束条件和原则，而不是技术框架。REST 它是 Representational State Transfer 的简]]></description>
+</item>
+</channel>
+</rss>

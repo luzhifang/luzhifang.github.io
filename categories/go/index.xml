@@ -4,13 +4,29 @@
         <link>https://luzhifang.github.io/categories/go/</link>
         <description>Go - 分类 - 码农人生</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Jan 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/go/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 May 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/go/" rel="self" type="application/rss+xml" /><item>
+    <title>Go项目目录规范</title>
+    <link>https://luzhifang.github.io/go-project-layout/</link>
+    <pubDate>Sun, 16 May 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-project-layout/</guid>
+    <description><![CDATA[目录结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 ├── api ├── assets ├── build │ ├── ci │ └── package ├── cmd │ └── _your_app_]]></description>
+</item>
+<item>
     <title>Go多版本管理器</title>
     <link>https://luzhifang.github.io/go-multi-version/</link>
     <pubDate>Sat, 16 Jan 2021 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/go-multi-version/</guid>
     <description><![CDATA[windows 下载多版本管理工具 g，地址：https://github.com/voidint/g/releases，选择g*.windows-amd6]]></description>
+</item>
+<item>
+    <title>Go包管理</title>
+    <link>https://luzhifang.github.io/go-mod/</link>
+    <pubDate>Wed, 03 Jun 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-mod/</guid>
+    <description><![CDATA[包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发]]></description>
 </item>
 </channel>
 </rss>

@@ -4,9 +4,17 @@
         <link>https://luzhifang.github.io/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</lastBuildDate>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://luzhifang.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>开发流程</title>
+    <link>https://luzhifang.github.io/development-workflow/</link>
+    <pubDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/development-workflow/</guid>
+    <description><![CDATA[1. 需求阶段 市场调研 可行性分析 需求分析 需求文档 需求评审 2. 设计阶段 产品设计 交互设计 视觉设计 技术设计 技术评审 需求排期 3. 开发阶段 3.1 开发 Git Flow 工作流 生成]]></description>
+</item>
+<item>
     <title>Git使用指北</title>
     <link>https://luzhifang.github.io/git-guide/</link>
     <pubDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</pubDate>
@@ -21,6 +29,14 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/linux-grep-sed-awk/</guid>
     <description><![CDATA[Linux 文本三剑客 awk、grep、sed 是 linux 操作文本的三大利器，合称文本三剑客，也是必须掌握的 linux 命令之一。 三者的功能都是处理文本，但侧重点各不相]]></description>
+</item>
+<item>
+    <title>Go项目目录规范</title>
+    <link>https://luzhifang.github.io/go-project-layout/</link>
+    <pubDate>Sun, 16 May 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-project-layout/</guid>
+    <description><![CDATA[目录结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 ├── api ├── assets ├── build │ ├── ci │ └── package ├── cmd │ └── _your_app_]]></description>
 </item>
 <item>
     <title>Go多版本管理器</title>
@@ -63,28 +79,12 @@
     <description><![CDATA[1. 注册 Github 账号并创建仓库 注册账号和创建仓库此不赘述，说一下需要注意的点 仓库的名字必须以 github.io 结尾 Repository name 需要与 Owner 一致，不一致的话会多一个层级。例：ow]]></description>
 </item>
 <item>
-    <title>Linux安装node和升级node</title>
-    <link>https://luzhifang.github.io/node-install-upgrade/</link>
-    <pubDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</pubDate>
+    <title>Go包管理</title>
+    <link>https://luzhifang.github.io/go-mod/</link>
+    <pubDate>Wed, 03 Jun 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
-    <guid>https://luzhifang.github.io/node-install-upgrade/</guid>
-    <description><![CDATA[下载 Node 进入 Node 最新版下载 https://nodejs.org/en/download/current/ 例：https://nodejs.org/dist/v16.17.1/node-v16.17.1-linux-x64]]></description>
-</item>
-<item>
-    <title>Linux使用ssh-kengen生成公私钥和免密登录</title>
-    <link>https://luzhifang.github.io/linux-ssh-kengen/</link>
-    <pubDate>Wed, 15 Jan 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/linux-ssh-kengen/</guid>
-    <description><![CDATA[详细命令 1 2 3 4 5 6 7 ssh-keygen \ -t rsa \ -m PEM \ -b 4096 \ -C &#34;user@server&#34; \ -f /home/username/.ssh/keys/privatekey \ -N passphrase 命令释义 ssh-keygen = 用于创建密钥的程序 -m PEM = 将密钥的格式设为 PEM -t rsa = 要创建的密钥类型，本]]></description>
-</item>
-<item>
-    <title>Markdown指北</title>
-    <link>https://luzhifang.github.io/markdown/</link>
-    <pubDate>Mon, 05 Aug 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/markdown/</guid>
-    <description><![CDATA[Markdown 简介 Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。 Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。 Markdown 编写]]></description>
+    <guid>https://luzhifang.github.io/go-mod/</guid>
+    <description><![CDATA[包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发]]></description>
 </item>
 </channel>
 </rss>

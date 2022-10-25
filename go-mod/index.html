@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go包管理 - 码农人生</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Go包管理" />
+<meta property="og:description" content="包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/go-mod/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-03T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Go包管理"/>
+<meta name="twitter:description" content="包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/go-mod/" /><link rel="prev" href="https://luzhifang.github.io/node-install-upgrade/" /><link rel="next" href="https://luzhifang.github.io/hugo-loveit/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go包管理",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/go-mod\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "包管理","wordcount":  928 ,
+        "url": "https:\/\/luzhifang.github.io\/go-mod\/","datePublished": "2020-06-03T00:00:00+00:00","dateModified": "2020-06-03T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="码农人生"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go包管理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-06-03">2020-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 928 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#包管理演进">包管理演进</a>
+      <ul>
+        <li><a href="#gopath-模式">GOPATH 模式</a></li>
+        <li><a href="#vendor-机制">vendor 机制</a></li>
+        <li><a href="#go-mod">Go Mod</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-mod-1">Go Mod</a>
+      <ul>
+        <li><a href="#go-mod-环境变量">Go Mod 环境变量</a></li>
+        <li><a href="#go-mod-操作命令">Go Mod 操作命令</a></li>
+        <li><a href="#gomod-文件">go.mod 文件</a></li>
+        <li><a href="#依赖的下载和更新">依赖的下载和更新</a></li>
+        <li><a href="#gosum-文件">go.sum 文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="包管理演进">包管理演进</h2>
+<h3 id="gopath-模式">GOPATH 模式</h3>
+<p>版本：最初版本就有了，1.13 之后不推荐使用了</p>
+<p>用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发时，需要将代码放在 GOPATH 目录的 src 文件夹下。go get 命令获取依赖，也会自动下载到 GOPATH 的 src 下。</p>
+<p>缺点：go get 命令使用时，没有版本选择机制，拉下来的依赖代码都会默认当前最新版本</p>
+<h3 id="vendor-机制">vendor 机制</h3>
+<p>版本：1.5 之后</p>
+<p>用法：每个项目都可以有一个 vendor/ 目录来存放项目所需版本依赖的拷贝（vendor 目录需在 GOPATH 之内）。</p>
+<p>缺点：基于该机制的管理工具虽然丰富，但是不同版本工具之间不兼容，无法协作，各种工具还都有学习成本。</p>
+<h3 id="go-mod">Go Mod</h3>
+<p>版本：Go 1.11 和 1.12 需要设置 GO111MODULE=on 才能强制使用 Go Mod，1.13 之后默认在 GOPATH 之外开始使用 Go Mod</p>
+<p>用法：后面细讲</p>
+<h2 id="go-mod-1">Go Mod</h2>
+<h3 id="go-mod-环境变量">Go Mod 环境变量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GO111MODULE=&#34;auto&#34; # auto/on/off三种值，可通过go env -w GO111MODULE=on设置
+</span></span><span class="line"><span class="cl">GOPROXY=&#34;https://goproxy.io,direct&#34; # 设置 Go 模块代理，go env -w GOPROXY=https://goproxy.cn,direct
+</span></span><span class="line"><span class="cl">GONOPROXY=&#34;&#34; # 禁用代理的模块，逗号隔开，不建议使用
+</span></span><span class="line"><span class="cl">GOSUMDB=&#34;sum.golang.org&#34; # 默认值为：sum.golang.org，设置了代理会走代理的，设置为off则禁用校验模块版本
+</span></span><span class="line"><span class="cl">GONOSUMDB=&#34;&#34; # 禁用校验的模块，逗号隔开，不建议使用
+</span></span><span class="line"><span class="cl">GOPRIVATE=&#34;&#34; # 私有模块，禁用代理和校验，go env -w GOPRIVATE=&#34;*.test.com,github.com/test/pkg&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="go-mod-操作命令">Go Mod 操作命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">download # 下载依赖包到本地缓存GOPATH/src/pkg/mod
+</span></span><span class="line"><span class="cl">edit #编辑 go.mod 文件一般直接用 ide 编辑就行
+</span></span><span class="line"><span class="cl">graph # 打印模块依赖图
+</span></span><span class="line"><span class="cl">init # 初始化go.mod文件，例：go mod init test.com/demo1
+</span></span><span class="line"><span class="cl">tidy # 拉取缺少的模块，移除不用的模块
+</span></span><span class="line"><span class="cl">vendor # 从mod cache中拷贝到项目的vendor，使用vendor：go build -mod vendor
+</span></span><span class="line"><span class="cl">verify # 验证依赖是否正确
+</span></span><span class="line"><span class="cl">why # 解释为什么需要依赖
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gomod-文件">go.mod 文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="o">#</span> <span class="nv">指定当前项目的模块导入路径为</span> <span class="nv">test</span><span class="p">.</span><span class="nv">com</span><span class="o">/</span><span class="nv">demo1</span>
+</span></span><span class="line"><span class="cl"><span class="kn">module</span> <span class="nv">test</span><span class="p">.</span><span class="nv">com</span><span class="o">/</span><span class="nv">demo1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">#</span> <span class="nv">指定go版本</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="mf">1.14</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">#</span> <span class="nv">引入包</span>
+</span></span><span class="line"><span class="cl"><span class="nv">require</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">github</span><span class="p">.</span><span class="nv">com</span><span class="o">/</span><span class="nv">jinzhu</span><span class="o">/</span><span class="nv">gorm</span> <span class="nv">v1</span><span class="mf">.0.0</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">#</span> <span class="nv">排除一个特定的模块版本</span>
+</span></span><span class="line"><span class="cl"><span class="nv">exclude</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">github</span><span class="p">.</span><span class="nv">com</span><span class="o">/</span><span class="nv">google</span><span class="o">/</span><span class="nv">uuid</span> <span class="nv">v1</span><span class="mf">.1.0</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">#</span> <span class="nv">替换一个无法下载的包</span><span class="err">，</span><span class="nv">或者引入一个本地的包</span>
+</span></span><span class="line"><span class="cl"><span class="nv">replace</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">github</span><span class="p">.</span><span class="nv">com</span><span class="o">/</span><span class="nv">google</span><span class="o">/</span><span class="nv">uuid</span> <span class="nv">v1</span><span class="mf">.1.1</span> <span class="o">=</span><span class="p">&gt;</span> <span class="o">../</span><span class="nv">uuid</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="依赖的下载和更新">依赖的下载和更新</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># go get 默认下载最新版本</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># go get 命令使用的版本是 git 中的 tag</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># go get 之后会在go.mod的require中增加一项，并会更新go.sum</span>
+</span></span><span class="line"><span class="cl">go get github.com/jinzhu/gorm@v1.0.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用-u表示更新版本</span>
+</span></span><span class="line"><span class="cl">go get -u github.com/jinzhu/gorm@v1.0.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gosum-文件">go.sum 文件</h3>
+<ol>
+<li>用途：防止下载依赖包被恶意篡改</li>
+<li>生成过程：如果本地计算出的依赖包版本哈希值与 GOSUMDB 服务器给出的哈希值不一致，go 命令将拒绝向下执行，也不会更新 go.sum 文件。</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/go-mod/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/go-mod/" data-title="Go包管理" data-hashtags="包管理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/go-mod/" data-hashtag="包管理"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/go-mod/" data-title="Go包管理"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/go-mod/" data-title="Go包管理"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/go-mod/" data-title="Go包管理"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86/">包管理</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node-install-upgrade/" class="prev" rel="prev" title="Linux安装node和升级node"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Linux安装node和升级node</a>
+            <a href="/hugo-loveit/" class="next" rel="next" title="基于Hugo &#43; Github Pages搭建LoveIt主题个人博客">基于Hugo + Github Pages搭建LoveIt主题个人博客<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
