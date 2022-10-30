@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/restful\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "规范, API, RESTful","wordcount":  1522 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "规范, API, RESTful","wordcount":  2202 ,
         "url": "https:\/\/luzhifang.github.io\/restful\/","datePublished": "2020-02-06T00:00:00+00:00","dateModified": "2020-02-06T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">RESTful API 设计规范</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%A7%84%E8%8C%83/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>规范</a>&nbsp;<a href="/categories/api/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>API</a>&nbsp;<a href="/categories/restful/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>RESTful</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-02-06">2020-02-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1522 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-02-06">2020-02-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2202 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -120,7 +120,9 @@
     <li><a href="#5-api-版本管理">5. API 版本管理</a></li>
     <li><a href="#6-统一分页--过滤--排序--搜索功能">6. 统一分页 / 过滤 / 排序 / 搜索功能</a></li>
     <li><a href="#7-统一返回格式">7. 统一返回格式</a></li>
-    <li><a href="#8-参考">8. 参考</a></li>
+    <li><a href="#8-状态码">8. 状态码</a></li>
+    <li><a href="#9-域名">9. 域名</a></li>
+    <li><a href="#10-参考">10. 参考</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="1-restful-api-介绍">1. RESTful API 介绍</h2>
@@ -253,7 +255,58 @@
 </span></span><span class="line"><span class="cl">}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="8-参考">8. 参考</h2>
+</div><h2 id="8-状态码">8. 状态码</h2>
+<ol>
+<li>
+<p>各类型状态码</p>
+<ul>
+<li>1xx: 信息，请求收到了，继续处理。</li>
+<li>2xx: 代表成功. 行为被成功地接收、理解及采纳。</li>
+<li>3xx: 重定向。</li>
+<li>4xx: 客户端错误，请求包含语法错误或请求无法实现。</li>
+<li>5xx: 服务器端错误.</li>
+</ul>
+</li>
+<li>
+<p>2xx 状态码</p>
+<ul>
+<li>200 OK [GET]: 服务器端成功返回用户请求的数据。</li>
+<li>201 CREATED [POST/PUT/PATCH]: 用户新建或修改数据成功。</li>
+<li>202 Accepted 表示一个请求已经进入后台排队(一般是异步任务)。</li>
+<li>204 NO CONTENT -[DELETE]: 用户删除数据成功。</li>
+</ul>
+</li>
+<li>
+<p>4xx 状态码</p>
+<ul>
+<li>400：Bad Request - [POST/PUT/PATCH]: 用户发出的请求有错误，服务器不理解客户端的请求，未做任何处理。</li>
+<li>401: Unauthorized; 表示用户没有权限(令牌、用户名、密码错误)。</li>
+<li>403：Forbidden: 表示用户得到授权了，但是访问被禁止了, 也可以理解为不具有访问资源的权限。</li>
+<li>404：Not Found: 所请求的资源不存在，或不可用。</li>
+<li>405：Method Not Allowed: 用户已经通过了身份验证, 但是所用的 HTTP 方法不在它的权限之内。</li>
+<li>406：Not Acceptable: 用户的请求的格式不可得(比如用户请求的是 JSON 格式，但是只有 XML 格式)。</li>
+<li>410：Gone - [GET]: 用户请求的资源被转移或被删除。且不会再得到的。</li>
+<li>415: Unsupported Media Type: 客户端要求的返回格式不支持，比如，API 只能返回 JSON 格式，但是客户端要求返回 XML 格式。</li>
+<li>422：Unprocessable Entity: 客户端上传的附件无法处理，导致请求失败。</li>
+<li>429：Too Many Requests: 客户端的请求次数超过限额。</li>
+</ul>
+</li>
+<li>
+<p>5xx 状态码</p>
+<ul>
+<li>500：INTERNAL SERVER ERROR; 服务器发生错误。</li>
+<li>502：网关错误。</li>
+<li>503: Service Unavailable 服务器端当前无法处理请求。</li>
+<li>504：网关超时。</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-域名">9. 域名</h2>
+<ol>
+<li>应该尽量将 API 部署在专用域名之下。例：https://api.example.com</li>
+<li>如果确定 API 很简单，不会有进一步扩展，可以考虑放在主域名下。例：https://example.com/api/</li>
+</ol>
+<h2 id="10-参考">10. 参考</h2>
 <p><a href="https://blog.restcase.com" target="_blank" rel="noopener noreffer ">https://blog.restcase.com</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
