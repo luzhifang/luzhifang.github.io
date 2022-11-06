@@ -2,15 +2,18 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/scrum/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E6%95%8F%E6%8D%B7/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/development-workflow/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E6%B5%81%E7%A8%8B/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/%E6%B5%81%E7%A8%8B/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/git/</loc><lastmod>2021-06-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/git/</loc><lastmod>2021-06-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/git-flow/</loc><lastmod>2021-06-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -35,11 +38,14 @@
             <loc>https://luzhifang.github.io/tags/supervisor/</loc><lastmod>2020-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/algolia/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/github-pages/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/go-error/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/hugo/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/hugo/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/hugo-loveit-algolia/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/loveit/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E9%94%99%E8%AF%AF%E7%A0%81/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/hugo-loveit/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E6%97%A5%E5%BF%97/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-mod/</loc><lastmod>2020-06-03T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc><lastmod>2020-06-03T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/node-install-upgrade/</loc><lastmod>2020-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

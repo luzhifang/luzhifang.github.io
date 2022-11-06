@@ -4,7 +4,15 @@
         <link>https://luzhifang.github.io/posts/</link>
         <description>所有文章 | 码农人生</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 26 Aug 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>scrum</title>
+    <link>https://luzhifang.github.io/scrum/</link>
+    <pubDate>Thu, 26 Aug 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/scrum/</guid>
+    <description><![CDATA[1. 起源 Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。 OODA: 又称为“博伊德循环”，是一种空战]]></description>
+</item>
+<item>
     <title>开发流程</title>
     <link>https://luzhifang.github.io/development-workflow/</link>
     <pubDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</pubDate>
@@ -61,28 +69,20 @@
     <description><![CDATA[安装 meld (如果缺少的话) 1 2 3 4 5 cd /usr/local wget https://pypi.python.org/packages/0f/5e/3a57c223d8faba2c3c2d69699f7e6cfdd1e5cc31e79cdd0dd48d44580b50/meld3-1.0.1.tar.gz#md5=2f045abe0ae108e3c8343172cffbe21d tar -zxvf meld3-1.0.1.tar.gz cd meld3-1.0.1 python setup.py install 安装 supervisor3 1 2 3 4 5 wget https://pypi.python.org/packages/source/s/supervisor/supervisor-3.0b2.tar.gz --no-check-certificate tar -zxvf supervisor-3.0b2.tar.gz cd supervisor-3.0b2 python setup.py install yum install python-setuptools 创建日志文件 1 2 touch /var/log/supervisord.log chmod 755 /var/log/supervisord.log 创建默认的配置]]></description>
 </item>
 <item>
+    <title>Go错误处理</title>
+    <link>https://luzhifang.github.io/go-error/</link>
+    <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-error/</guid>
+    <description><![CDATA[panic 在程序启动的时候，如果有强依赖的服务出现故障时 panic 退出 在程序启动的时候，如果发现有配置明显不符合要求， 可以 panic 退出（防御编程） 其他情况下只要不]]></description>
+</item>
+<item>
     <title>hugo添加Algolia搜索系统</title>
     <link>https://luzhifang.github.io/hugo-loveit-algolia/</link>
     <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/hugo-loveit-algolia/</guid>
     <description><![CDATA[1. 注册 Algolia 注册 algolia 添加索引 data sources 点击 Settings -&gt; API Keys，查看自己的 Application ID 和 Search-Only API Key 2. 生成索引文件 修改 config.toml 注意 outputs 下面 home 的末尾要有&quot;Algolia&q]]></description>
-</item>
-<item>
-    <title>基于Hugo &#43; Github Pages搭建LoveIt主题个人博客</title>
-    <link>https://luzhifang.github.io/hugo-loveit/</link>
-    <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/hugo-loveit/</guid>
-    <description><![CDATA[1. 注册 Github 账号并创建仓库 注册账号和创建仓库此不赘述，说一下需要注意的点 仓库的名字必须以 github.io 结尾 Repository name 需要与 Owner 一致，不一致的话会多一个层级。例：ow]]></description>
-</item>
-<item>
-    <title>Go包管理</title>
-    <link>https://luzhifang.github.io/go-mod/</link>
-    <pubDate>Wed, 03 Jun 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/go-mod/</guid>
-    <description><![CDATA[包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发]]></description>
 </item>
 </channel>
 </rss>
