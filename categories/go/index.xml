@@ -28,5 +28,13 @@
     <guid>https://luzhifang.github.io/go-mod/</guid>
     <description><![CDATA[包管理演进 GOPATH 模式 版本：最初版本就有了，1.13 之后不推荐使用了 用法：GOPATH 是配置 Go 开发环境时所设置的一个环境变量。历史版本的 go 语言开发]]></description>
 </item>
+<item>
+    <title>Go Makefile使用</title>
+    <link>https://luzhifang.github.io/go-makefile/</link>
+    <pubDate>Fri, 01 May 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-makefile/</guid>
+    <description><![CDATA[Makefile 简介 Makefile 是一个工程文件的编译规则，描述了整个工程的编译和链接等规则，这些规则里包含了这些内容： 工程中的哪些源文件需要编译，以及如何编译； 需要]]></description>
+</item>
 </channel>
 </rss>
