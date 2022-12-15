@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>CPU - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/cpu/</link>
+        <description>CPU - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/cpu/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux性能优化-CPU</title>
+    <link>https://luzhifang.github.io/linux-perf-cpu/</link>
+    <pubDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-cpu/</guid>
+    <description><![CDATA[各种延时 CPU 性能指标 CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU]]></description>
+</item>
+</channel>
+</rss>

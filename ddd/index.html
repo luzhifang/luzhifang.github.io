@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>DDD - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="DDD" />
+<meta property="og:description" content="基本概念 aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/ddd/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-02-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-02-16T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="DDD"/>
+<meta name="twitter:description" content="基本概念 aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/ddd/" /><link rel="prev" href="https://luzhifang.github.io/microservices/" /><link rel="next" href="https://luzhifang.github.io/vi-editor/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DDD",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/ddd\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "微服务, DDD","wordcount":  3690 ,
+        "url": "https:\/\/luzhifang.github.io\/ddd\/","datePublished": "2019-02-16T00:00:00+00:00","dateModified": "2019-02-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DDD</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-16">2019-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3690 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#领域建模">领域建模</a>
+      <ul>
+        <li><a href="#有效建模的要素">有效建模的要素</a></li>
+        <li><a href="#领域建模容易产生问题的应对方法">领域建模容易产生问题的应对方法</a></li>
+        <li><a href="#常用建模方法">常用建模方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#ddd-与其他开发方法的区别">DDD 与其他开发方法的区别</a>
+      <ul>
+        <li><a href="#ddd-与面向对象-ooad-的区别">DDD 与面向对象 OOAD 的区别</a></li>
+        <li><a href="#ddd-与敏捷">DDD 与敏捷</a></li>
+      </ul>
+    </li>
+    <li><a href="#战略战术设计">战略战术设计</a>
+      <ul>
+        <li><a href="#战略设计">战略设计</a>
+          <ul>
+            <li><a href="#领域划分">领域划分</a></li>
+            <li><a href="#核心域">核心域</a></li>
+            <li><a href="#限界上下文">限界上下文</a></li>
+            <li><a href="#上下文映射">上下文映射</a></li>
+          </ul>
+        </li>
+        <li><a href="#战术设计">战术设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#分层架构">分层架构</a></li>
+    <li><a href="#领域模型">领域模型</a>
+      <ul>
+        <li><a href="#实体和值对象">实体和值对象</a></li>
+        <li><a href="#对象构造">对象构造</a></li>
+        <li><a href="#资源库数据访问层">资源库(数据访问层)</a></li>
+        <li><a href="#聚合和聚合根">聚合和聚合根</a></li>
+        <li><a href="#领域服务">领域服务</a></li>
+        <li><a href="#应用层">应用层</a></li>
+        <li><a href="#领域事件">领域事件</a></li>
+        <li><a href="#事件风暴法">事件风暴法</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="基本概念">基本概念</h2>
+<ul>
+<li>aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界之内应用一组一致的规则。</li>
+<li>bounded context（限界上下文）：特定模型的限界应用。限界上下文使团队所有成员能够明确地知道什么必须保持一致，什么必须独立开发。</li>
+<li>context（上下文）：一个单词或句子出现的环境，它决定了其含义。参见 bounded context 。</li>
+<li>context map（上下文图）：项目所涉及的限界上下文以及它们与模型之间的关系的一种表示。</li>
+<li>core domain（核心领域）：模型的独特部分，是用户的核心目标，它使得应用程序与众不同并且有价值。</li>
+<li>deep model（深层模型）：领域专家们最关心的问题以及与这些问题最相关的知识的清晰表示。深层模型不停留在领域的表层和粗浅的理解上。</li>
+<li>distillation（精炼）：精炼是把一堆混杂在一起的组件分开的过程，从中提取出最重要的内容，使得它更有价值，也更有用。在软件设计中，精炼就是对模型中的关键方面进行抽象，或者是对大系统进行划分，从而把核心领域提取出来。</li>
+<li>领域（domain）：知识、影响或活动的范围。</li>
+<li>领域专家（domain expert）：软件项目的成员之一，精通的是软件的应用领域而不是软件开发。并非软件的任何使用者都是领域专家，领域专家需要具备深厚的专业知识。</li>
+<li>domain layer（领域层）：在分层架构中负责领域逻辑的那部分设计和实现。领域层是在软件中用来表示领域模型的地方。</li>
+<li>entity（实体）：一种对象，它不是由属性来定义的，而是通过一连串的连续事件和标识定义的。</li>
+<li>factory（工厂）：一种封装机制，把复杂的创建逻辑封装起来，并为客户抽象出所创建的对象的类型。</li>
+<li>implicit concept（隐式概念）：一种为了理解模型和设计的意义而必不可少的概念，但它从未被提及。</li>
+<li>layered architecture（分层架构）：一种用于分离软件系统关注点的技术，它把领域层与其他层分开。</li>
+<li>model（模型）：一个抽象的系统，描述了领域的所选方面，可用于解决与该领域有关的问题。</li>
+<li>model driven design （模型驱动的设计）：软件元素的某个子集严格对应于模型的元素。也代表一种合作开发模型和实现以便互相保持一致的过程。</li>
+<li>repository （存储库）：一种把存储、检索和搜索行为封装起来的机制，它类似于一个对象集合。</li>
+<li>service （服务）：一种作为接口提供的操作，它在模型中是独立的，没有封装的状态。</li>
+<li>strategic design（战略设计）：一种针对系统整体的建模和设计决策。这样的决策影响整个项目，而且必须由团队来制定。</li>
+<li>ubiquitous language （通用语言）：围绕领域模型建立的一种语言，团队所有成员都使用这种语言把团队的所有活动与软件联系起来。</li>
+<li>value object （值对象）：一种描述了某种特征或属性但没有概念标识的对象。</li>
+</ul>
+<h2 id="领域建模">领域建模</h2>
+<ul>
+<li>模型是对领域的抽象，建模是针对特定问题建立领域的合理模型</li>
+<li>领域 -&gt; 模型(领域知识/业务需求) -&gt; 代码(技术实现)</li>
+<li>模型分解(领域划分/限界上下文)解决面向对象的复杂性(一个对象太臃肿)</li>
+<li>复杂性来源于业务本身的复杂性和技术引入的额外复杂性</li>
+<li>领域驱动设计通过分解模型和模型驱动设计控制复杂性</li>
+</ul>
+<h3 id="有效建模的要素">有效建模的要素</h3>
+<ol>
+<li>模型和实现的绑定。</li>
+<li>建立了一种基于模型的通用语言。</li>
+<li>开发一个蕴含丰富知识的模型。</li>
+<li>提炼模型。</li>
+<li>头脑风暴和实验。</li>
+</ol>
+<h3 id="领域建模容易产生问题的应对方法">领域建模容易产生问题的应对方法</h3>
+<ol>
+<li>不要单纯以角色的行为(活动)为中心进行沟通和建模</li>
+<li>领域沟通过程中，研发人员发挥主动性，以便发现深层模型</li>
+<li>场景走查</li>
+</ol>
+<h3 id="常用建模方法">常用建模方法</h3>
+<ol>
+<li>Domain Storytelling (领域故事陈述法)<a href="https://github.com/WPS/domain-story-modeler/releases" target="_blank" rel="noopener noreffer ">本地工具</a> <a href="https://www.wps.de/modeler/index.html" target="_blank" rel="noopener noreffer ">在线工具</a></li>
+<li>Event Storming (事件风暴法)</li>
+<li>4C (四色建模法)</li>
+</ol>
+<h2 id="ddd-与其他开发方法的区别">DDD 与其他开发方法的区别</h2>
+<h3 id="ddd-与面向对象-ooad-的区别">DDD 与面向对象 OOAD 的区别</h3>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>联系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OOAD 没有战略设计，DDD 通过战略设计划分领域和模型</td>
+<td>都是建模和设计方法</td>
+</tr>
+<tr>
+<td>OOAD 仅用对象描述世界，DDD 的描述更细致(实体/值对象/聚合/聚合根)</td>
+<td>部分建模方法和工具可复用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ddd-与敏捷">DDD 与敏捷</h3>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>联系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>敏捷：关注流程和文化，DDD：关注建模和设计方法 <br>敏捷：重人员轻文档，DDD：重视统一语言的建立</td>
+<td>都是软件工程领域的思想，解决软件工程中的不同问题，一般可结合应用</td>
+</tr>
+</tbody>
+</table>
+<h2 id="战略战术设计">战略战术设计</h2>
+<p>建模和设计的整体流程：挖掘用户故事 -&gt; 建立通用语言 -&gt; 战略设计 -&gt; 战术设计</p>
+<h3 id="战略设计">战略设计</h3>
+<ol>
+<li>DDD 中对问题空间和解决方案空间进行分解的过程</li>
+<li>目的是分解模型以控制复杂性</li>
+<li>战略设计是与传统建模和设计方法的核心区别之一</li>
+</ol>
+<p>战略设计包含三部分：领域划分 -&gt; 寻找限界上下文(BC) -&gt; 确定上下文映射</p>
+<h4 id="领域划分">领域划分</h4>
+<ol>
+<li>领域划分是以分离关注点为原则对问题空间的划分</li>
+<li>子域是领域中某个方面的问题和解决它所设计的一切</li>
+<li>基于领域划分进行分工协作而非基于需求</li>
+<li>传统模式的问题：模块分给不同开发人员导致模型重叠</li>
+<li>基于用户故事分解可以让领域划分清晰化</li>
+</ol>
+<h4 id="核心域">核心域</h4>
+<ol>
+<li>领域 -&gt; 精炼(分离和萃取) -&gt; (核心域，通用子域，支撑子域)</li>
+<li>团队尽量减少非核心域的投入</li>
+<li>从个人发展角度看，程序员尽量投入到核心域的工作</li>
+</ol>
+<h4 id="限界上下文">限界上下文</h4>
+<ol>
+<li>限界上下文：是一种语义上的上下文边界。意思是在这个边界里的软件模型组件都有它特定的含义并且做特定的事。一个限界上下文内的组件都是上下文特定的并且语义明确的。</li>
+<li>为什么需要限界上下文
+<ol>
+<li>自然语言有歧义，同一个事物在不同场景的含义不一样</li>
+<li>控制复杂性，便于分工协作</li>
+</ol>
+</li>
+<li>限界上下文的划分方式
+<ol>
+<li>领域故事陈述法</li>
+<li>事件风暴法</li>
+<li>基于子域概念提取</li>
+</ol>
+</li>
+<li>微服务是限界上下文的一种实现方式，一般一个限界上下文对应一个服务</li>
+<li>聚合是限界上下文粒度的下限</li>
+</ol>
+<h4 id="上下文映射">上下文映射</h4>
+<ol>
+<li>上下文映射是指限界上下文之间的模型映射关系</li>
+<li>描述团队之间的协作关系以及上下文之间的集成关系</li>
+<li>决定上下文之间如何集成以及如何设置防腐层</li>
+<li>上下文映射模式：合伙人、共享内核、客户/供应商、顺从者、防腐层、分道扬镳、开放主机服务、公开语言、大泥球</li>
+</ol>
+<h3 id="战术设计">战术设计</h3>
+<ol>
+<li>对各个 BC 的细节设计过程</li>
+<li>BC 内部的模型结构与完整技术方案</li>
+</ol>
+<ul>
+<li>战术设计是包括编码的，设计人员和架构师是需要深度编码的</li>
+<li>类图无法描述跨域限界上下文之间关系的，会淹没在细节之中</li>
+</ul>
+<h2 id="分层架构">分层架构</h2>
+<ol>
+<li>架构分层能够避免模型在实现中被省略或者污染</li>
+<li>四层架构
+<ol>
+<li>用户界面层</li>
+<li>应用层</li>
+<li>领域层</li>
+<li>基础设施层</li>
+</ol>
+</li>
+<li>六边形架构
+<ol>
+<li>端口和适配器</li>
+<li>应用程序</li>
+<li>领域模型</li>
+</ol>
+</li>
+</ol>
+<h2 id="领域模型">领域模型</h2>
+<h3 id="实体和值对象">实体和值对象</h3>
+<table>
+<thead>
+<tr>
+<th>实体</th>
+<th>值对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID 相等性</td>
+<td>属性相等性</td>
+</tr>
+<tr>
+<td>要跟踪状态变化</td>
+<td>不变性，可互换</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>是什么：具有 ID 相等性且需要跟踪状态变化的是实体，否则是值对象</li>
+<li>为什么：值对象的实现更简单，技术负担更小，尽可能使用值对象</li>
+<li>怎么做：基于对象的技术特征、基于更直观的模型特点</li>
+</ol>
+<h3 id="对象构造">对象构造</h3>
+<ol>
+<li>工厂方法、抽象工厂、Builder 模式</li>
+<li>生成实体 ID 的方式：程序自动生成、数据库自增 ID、ID 生成器(推荐)</li>
+</ol>
+<h3 id="资源库数据访问层">资源库(数据访问层)</h3>
+<ol>
+<li>资源库放到适配层更好</li>
+<li>资源库最好是依赖接口，可以方便更换存储层实现，比如是数据库还是缓存</li>
+</ol>
+<h3 id="聚合和聚合根">聚合和聚合根</h3>
+<p>聚合就是一组相关对象的集合(比如汽车包含轮胎、方向盘、发动机)，我们把它作为数据修改的单元。每个聚合都有一个根和一个边界。
+聚合根是聚合所包含的一个特定实体。对聚合而言，外部对象只引用根，而边界内部的对象之间则可以互相引用。
+聚合是拥有事务一致性(强一致性)的领域对象组合</p>
+<ul>
+<li>聚合的原则</li>
+</ul>
+<ol>
+<li>聚合内的实体适用事务一致性</li>
+<li>聚合之间适用最终一致性</li>
+<li>不脱离聚合根修改聚合内部对象</li>
+<li>聚合根有全局唯一标识，聚合内部实体只有局部标识</li>
+<li>聚合根可以从资源库获取，聚合内部实体不能</li>
+</ol>
+<ul>
+<li>聚合的识别</li>
+</ul>
+<ol>
+<li>实体是否在所有活动中都协同变更</li>
+</ol>
+<h3 id="领域服务">领域服务</h3>
+<p>当领域中的某个重要的过程或转换操作不是实体或值对象的自然职责时，应该在模型中添加一个作为独立接口的操作，并将其声明为领域服务。定义接口时要使用模型语言，并确保操作名称是通用语言中的术语。此外，应该使领域服务成为无状态的。</p>
+<ol>
+<li>领域服务只包含业务逻辑(不包含事务管理、访问授权、数据格式转换)</li>
+<li>不属于实体或值对象的逻辑，才可以放到领域服务</li>
+<li>领域服务是无状态的</li>
+</ol>
+<h3 id="应用层">应用层</h3>
+<p>定义软件要完成的任务，并且指挥表达领域概念的对象来解决问题。这一层所负责的工作对业务来说意义重大，也是与其他系统的应用层进行交互的必要渠道。
+应用层要尽量简单，不包含业务规则或者知识，而只为下一层中的领域对象协调任务，分配工作，使他们互相协作。</p>
+<ul>
+<li>应用层的职责</li>
+</ul>
+<ol>
+<li>事务控制</li>
+<li>身份认证和访问权限</li>
+<li>定时任务调度</li>
+<li>事件订阅(事件监听(适配层)、事件处理(应用层))</li>
+<li>调用领域层</li>
+</ol>
+<h3 id="领域事件">领域事件</h3>
+<ul>
+<li>是什么：</li>
+</ul>
+<ol>
+<li>领域中发生的任何领域专家感兴趣的事情</li>
+<li>领域事件一般由聚合产生</li>
+<li>领域事件不是技术概念，是通用语言</li>
+</ol>
+<ul>
+<li>为什么：</li>
+</ul>
+<ol>
+<li>领域事件能够驱动建模</li>
+<li>领域事件和很多重要思想相关，比如 CQRS、Event Sourcing</li>
+<li>领域事件和大数据处理和分析相关</li>
+</ol>
+<ul>
+<li>发布和订阅方式</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>外部系统</th>
+<th>内部系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API 定向通知(回调 URL)</td>
+<td>观察者模式</td>
+</tr>
+<tr>
+<td>API 定时拉取</td>
+<td>数据库流水</td>
+</tr>
+<tr>
+<td>消息队列(安全性：SSL)</td>
+<td>消息队列</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>事件存储</li>
+</ul>
+<ol>
+<li>直接使用消息中间件的存储，需要做好冗余备份</li>
+<li>基于数据库，mongoDB、postgresql、mysql，做好分布式、按时间分区</li>
+</ol>
+<ul>
+<li>事件处理的要求</li>
+</ul>
+<ol>
+<li>顺序性：聚合 ID、存储分片、消费分组</li>
+<li>幂等性：代替分布式事务(状态判断或者去重)</li>
+</ol>
+<h3 id="事件风暴法">事件风暴法</h3>
+<table>
+<thead>
+<tr>
+<th>核心词汇</th>
+<th>便利贴颜色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角色</td>
+<td>黄色</td>
+</tr>
+<tr>
+<td>策略</td>
+<td>深紫</td>
+</tr>
+<tr>
+<td>决策命令</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>聚合</td>
+<td>淡黄</td>
+</tr>
+<tr>
+<td>领域事件</td>
+<td>橙色</td>
+</tr>
+<tr>
+<td>读模型</td>
+<td>绿色</td>
+</tr>
+<tr>
+<td>外部系统</td>
+<td>粉色</td>
+</tr>
+<tr>
+<td>问题/热点</td>
+<td>紫红</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>正向驱动</li>
+</ul>
+<p>列出领域事件 -&gt; 选定领域事件 -&gt; 确定决策命令 -&gt; 确定用户或者策略 -&gt; 确定聚合 -&gt; 选定一个事件</p>
+<ul>
+<li>反向驱动</li>
+</ul>
+<p>选定领域事件 -&gt; 确定命令的读模型 -&gt; 由读模型驱动出上游领域事件</p>
+<h2 id="参考">参考</h2>
+<p>《领域驱动设计：软件核心复杂性应对之道》 Eric Evans</p>
+<p>《实现领域驱动设计》 沃恩.弗农</p>
+<p>《领域驱动设计 Thoughtworks 洞见》</p>
+<p><a href="https://github.com/go-kratos/beer-shop" target="_blank" rel="noopener noreffer ">https://github.com/go-kratos/beer-shop</a></p>
+<p><a href="https://github.com/e-commerce-sample/order-backend" target="_blank" rel="noopener noreffer ">https://github.com/e-commerce-sample/order-backend</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-02-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/ddd/" data-title="DDD" data-hashtags="微服务,DDD"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/ddd/" data-hashtag="微服务"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/ddd/" data-title="DDD"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/ddd/" data-title="DDD"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/ddd/" data-title="DDD"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>,&nbsp;<a href="/tags/ddd/">DDD</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/microservices/" class="prev" rel="prev" title="微服务"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>微服务</a>
+            <a href="/vi-editor/" class="next" rel="next" title="vi编辑器">vi编辑器<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

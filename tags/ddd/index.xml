@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>DDD - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/ddd/</link>
+        <description>DDD - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/ddd/" rel="self" type="application/rss+xml" /><item>
+    <title>DDD</title>
+    <link>https://luzhifang.github.io/ddd/</link>
+    <pubDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/ddd/</guid>
+    <description><![CDATA[基本概念 aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界]]></description>
+</item>
+</channel>
+</rss>

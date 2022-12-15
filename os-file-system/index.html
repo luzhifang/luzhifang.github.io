@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>文件系统 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="文件系统" />
+<meta property="og:description" content="文件系统 操作系统为磁盘提供的抽象就是：文件及文件系统，或者说，文件系统就是磁盘的抽象。当然文件系统不一定在磁盘上，也可以在光盘上。 文件系统的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/os-file-system/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-06-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-06-05T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="文件系统"/>
+<meta name="twitter:description" content="文件系统 操作系统为磁盘提供的抽象就是：文件及文件系统，或者说，文件系统就是磁盘的抽象。当然文件系统不一定在磁盘上，也可以在光盘上。 文件系统的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/os-file-system/" /><link rel="prev" href="https://luzhifang.github.io/os-disk/" /><link rel="next" href="https://luzhifang.github.io/process-thread-coroutine/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "文件系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/os-file-system\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "操作系统","wordcount":  4027 ,
+        "url": "https:\/\/luzhifang.github.io\/os-file-system\/","datePublished": "2018-06-05T00:00:00+00:00","dateModified": "2018-06-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">文件系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>操作系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-05">2018-06-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4027 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#文件系统">文件系统</a></li>
+    <li><a href="#虚拟文件系统">虚拟文件系统</a></li>
+    <li><a href="#文件系统布局">文件系统布局</a></li>
+    <li><a href="#文件的存储">文件的存储</a></li>
+    <li><a href="#空闲空间管理">空闲空间管理</a></li>
+    <li><a href="#软链接和硬链接">软链接和硬链接</a></li>
+    <li><a href="#读取和写入">读取和写入</a>
+      <ul>
+        <li><a href="#读取">读取</a></li>
+        <li><a href="#写入">写入</a></li>
+      </ul>
+    </li>
+    <li><a href="#缓存和缓冲">缓存和缓冲</a></li>
+    <li><a href="#文件操作">文件操作</a></li>
+    <li><a href="#目录操作">目录操作</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="文件系统">文件系统</h2>
+<p>操作系统为磁盘提供的抽象就是：文件及文件系统，或者说，文件系统就是磁盘的抽象。当然文件系统不一定在磁盘上，也可以在光盘上。</p>
+<p>文件系统的基本数据单位是文件，文件系统的目的是对磁盘上的文件进行组织管理，组织方式不同，就会形成不同的文件系统。</p>
+<p>Linux 上所有东西都是文件，不仅普通的文件和目录，就连块设备、管道、socket 等，也都是统一交给文件系统管理的。</p>
+<p>Linux 文件系统会为每个文件分配两个数据结构：索引节点（index node）和目录项（directory entry），它们主要用来记录文件的元信息和目录层次结构。</p>
+<ul>
+<li>索引节点，也就是 inode，用来记录文件的元信息，比如 inode 编号、文件大小、访问权限、创建时间、修改时间、数据在磁盘的位置等等。索引节点是文件的唯一标识，它们之间一一对应，也同样都会被存储在硬盘中，所以索引节点同样占用磁盘空间。</li>
+<li>目录项，也就是 dentry，用来记录文件的名字、索引节点指针以及与其他目录项的层级关联关系。多个目录项关联起来，就会形成目录结构，但它与索引节点不同的是，目录项是由内核维护的一个数据结构，不存放于磁盘，而是缓存在内存。</li>
+</ul>
+<p>由于索引节点唯一标识一个文件，而目录项记录着文件的名，所以目录项和索引节点的关系是多对一，也就是说，一个文件可以有多个别字。比如，硬链接的实现就是多个目录项中的索引节点指向同一个文件。</p>
+<p>注意，目录也是文件，也是用索引节点唯一标识，和普通文件不同的是，普通文件在磁盘里面保存的是文件数据，而目录文件在磁盘里面保存子目录或文件。</p>
+<h2 id="虚拟文件系统">虚拟文件系统</h2>
+<p>文件系统的种类众多，而操作系统希望对用户提供一个统一的接口，于是在用户层与文件系统层引入了中间层，这个中间层就称为虚拟文件系统（Virtual File System，VFS）。</p>
+<p>Linux 文件系统中，用户空间、系统调用、虚拟机文件系统、缓存、文件系统以及存储之间的关系如下图：</p>
+<img src="/images/os/vfs.png" alt="虚拟文件系统" width="65%" />
+<p>Linux 支持的文件系统也不少，根据存储位置的不同，可以把文件系统分为三类：</p>
+<ul>
+<li>磁盘的文件系统，它是直接把数据存储在磁盘中，比如 Ext 2/3/4、XFS 等都是这类文件系统。</li>
+<li>内存的文件系统，这类文件系统的数据不是存储在硬盘的，而是占用内存空间，我们经常用到的 /proc 和 /sys 文件系统都属于这一类，读写这类文件，实际上是读写内核中相关的数据数据。</li>
+<li>网络的文件系统，用来访问其他计算机主机数据的文件系统，比如 NFS、SMB 等等。</li>
+</ul>
+<p>文件系统首先要先挂载到某个目录才可以正常使用，比如 Linux 系统在启动时，会把文件系统挂载到根目录。</p>
+<h2 id="文件系统布局">文件系统布局</h2>
+<p>在计算机启动时，处于主板 ROM 里面的 BIOS 程序首先运行。BIOS 在进行一些基本的系统配置扫描后对磁盘的扇面 0 进行读操作，将 MBR 里面的程序读到内存并运行。MBR 程序接下来找到系统主分区，并将主分区里面的 Boot Record 加载并运行。Boot Record 里面的内容是一个小程序，该程序将负责找到操作系统映像，并加载到内存，从而启动操作系统。</p>
+<p>在该记录块后面的磁盘内容布局因文件系统的不同可以不同。但在通常情况下，紧接着引导记录后面的是一个超级数据块（Super Block），该块里面存放的是关于该文件系统的各种参数，如文件系统类型、文件系统数据块尺寸等。在 Super Block 后面则是磁盘的自由空间，其后面是 I-NODE 区，再后面是文件系统根目录区。分区的最后存放的是用户文件和文件夹区。</p>
+<p>文件系统的布局如下：</p>
+<img src="/images/os/file-system-layout.jpg" alt="文件系统布局" width="65%" />
+<h2 id="文件的存储">文件的存储</h2>
+<p>文件的数据是要存储在硬盘上面的，数据在磁盘上的存放方式，就像程序在内存中存放的方式那样，有以下两种：</p>
+<ul>
+<li>连续空间存放方式（会造成碎片）</li>
+<li>非连续空间存放方式</li>
+</ul>
+<p>其中，非连续空间存放方式又可以分为「链表方式」（查询效率低）和「索引方式」。</p>
+<h2 id="空闲空间管理">空闲空间管理</h2>
+<p>文件系统必须记录哪些 inode 和数据块是空闲的，哪些不是，这样在分配新文件或目录时，就可以为它找到空间。因此，空闲空间管理（free space management）对于所有文件系统都很重要。在 VSFS 中，我们用两个简单的位图来完成这个任务。</p>
+<h2 id="软链接和硬链接">软链接和硬链接</h2>
+<p>Linux 给文件别名的方式有两种：硬链接（Hard Link） 和软链接（Symbolic Link），它们都是比较特殊的文件，但是实现方式也是不相同的。</p>
+<p>硬链接是多个目录项中的「索引节点」指向一个文件，也就是指向同一个 inode，但是 inode 是不可能跨越文件系统的，每个文件系统都有各自的 inode 数据结构和列表，所以硬链接是不可用于跨文件系统的。由于多个目录项都是指向一个 inode，那么只有删除文件的所有硬链接以及源文件时，系统才会彻底删除该文件。</p>
+<p>软链接相当于重新创建一个文件，这个文件有独立的 inode，但是这个文件的内容是另外一个文件的路径，所以访问软链接的时候，实际上相当于访问到了另外一个文件，所以软链接是可以跨文件系统的，甚至目标文件被删除了，链接文件还是在的，只不过指向的文件找不到了而已。</p>
+<h2 id="读取和写入">读取和写入</h2>
+<h3 id="读取">读取</h3>
+<p>所有遍历都从文件系统的根开始，即根目录（root directory），它就记为/。在大多数 UNIX 文件系统中，根的 inode 号为 2。因此，要开始该过程，文件系统会读入 inode 号 2 的块（第一个 inode 块）。</p>
+<p>一旦 inode 被读入，文件系统可以在其中查找指向数据块的指针，数据块包含根目录的内容。因此，文件系统将使用这些磁盘上的指针来读取目录，在这个例子中，寻找 foo 的条目。通过读入一个或多个目录数据块，它将找到 foo 的条目。一旦找到，文件系统也会找到下一个需要的 foo 的 inode 号（假定是 44）。</p>
+<p>下一步是递归遍历路径名，直到找到所需的 inode。在这个例子中，文件系统读取包含 foo 的 inode 及其目录数据的块，最后找到 bar 的 inode 号。open()的最后一步是将 bar 的 inode 读入内存。然后文件系统进行最后的权限检查，在每个进程的打开文件表中，为此进程分配一个文件描述符，并将它返回给用户。</p>
+<h3 id="写入">写入</h3>
+<p>写入文件是一个类似的过程。首先，文件必须打开（如上所述）。其次，应用程序可以发出 write()调用以用新内容更新文件。最后，关闭该文件。</p>
+<p>与读取不同，写入文件也可能会分配（allocate）一个块（除非块被覆写）。当写入一个新文件时，每次写入操作不仅需要将数据写入磁盘，还必须首先决定将哪个块分配给文件，从而相应地更新磁盘的其他结构（例如数据位图和 inode）。</p>
+<p>因此，每次写入文件在逻辑上会导致 5 个 I/O：一个读取数据位图（然后更新以标记新分配的块被使用），一个写入位图（将它的新状态存入磁盘），再有两次 I/O，其中一次是读取 inode，另一次是写 inode（为了更新块的位置），最后一次写入真正的数据块本身。</p>
+<h2 id="缓存和缓冲">缓存和缓冲</h2>
+<p>读取和写入文件可能是昂贵的，会导致（慢速）磁盘的许多 I/O。这显然是一个巨大的性能问题，为了弥补，大多数文件系统积极使用系统内存（DRAM）来缓存重要的块。</p>
+<h2 id="文件操作">文件操作</h2>
+<p>使用文件的目的是用来存储信息并方便以后的检索。对于存储和检索，不同的系统提供了不同的操作。以下是与文件有关的最常用的一些系统调用：</p>
+<ul>
+<li><code>Create</code>，创建不包含任何数据的文件。调用的目的是表示文件即将建立，并对文件设置一些属性。</li>
+<li><code>Delete</code>，当文件不再需要，必须删除它以释放内存空间。为此总会有一个系统调用来删除文件。</li>
+<li><code>Open</code>，在使用文件之前，必须先打开文件。这个调用的目的是允许系统将属性和磁盘地址列表保存到主存中，用来以后的快速访问。</li>
+<li><code>Close</code>，当所有进程完成时，属性和磁盘地址不再需要，因此应关闭文件以释放表空间。很多系统限制进程打开文件的个数，以此达到鼓励用户关闭不再使用的文件。磁盘以块为单位写入，关闭文件时会强制写入最后一块，即使这个块空间内部还不满。</li>
+<li><code>Read</code>，数据从文件中读取。通常情况下，读取的数据来自文件的当前位置。调用者必须指定需要读取多少数据，并且提供存放这些数据的缓冲区。</li>
+<li><code>Write</code>，向文件写数据，写操作一般也是从文件的当前位置开始进行。如果当前位置是文件的末尾，则会直接追加进行写入。如果当前位置在文件中，则现有数据被覆盖，并且永远消失。</li>
+<li><code>append</code>，使用 append 只能向文件末尾添加数据。</li>
+<li><code>seek</code>，对于随机访问的文件，要指定从何处开始获取数据。通常的方法是用 seek 系统调用把当前位置指针指向文件中的特定位置。seek 调用结束后，就可以从指定位置开始读写数据了。</li>
+<li><code>get attributes</code>，进程运行时通常需要读取文件属性。</li>
+<li><code>set attributes</code>，用户可以自己设置一些文件属性，甚至是在文件创建之后，实现该功能的是 set attributes 系统调用。</li>
+<li><code>rename</code>，用户可以自己更改已有文件的名字，rename 系统调用用于这一目的。</li>
+</ul>
+<h2 id="目录操作">目录操作</h2>
+<p>不同文件中管理目录的系统调用的差别比管理文件的系统调用差别大。为了了解这些系统调用有哪些以及它们怎样工作，下面给出一个例子（取自 UNIX）。</p>
+<ul>
+<li><code>Create</code>，创建目录，除了目录项 . 和 .. 外，目录内容为空。</li>
+<li><code>Delete</code>，删除目录，只有空目录可以删除。只包含 . 和 .. 的目录被认为是空目录，这两个目录项通常不能删除</li>
+<li><code>opendir</code>，目录内容可被读取。例如，未列出目录中的全部文件，程序必须先打开该目录，然后读其中全部文件的文件名。与打开和读文件相同，在读目录前，必须先打开文件。</li>
+<li><code>closedir</code>，读目录结束后，应该关闭目录用于释放内部表空间。</li>
+<li><code>readdir</code>，系统调用 readdir 返回打开目录的下一个目录项。以前也采用 read 系统调用来读取目录，但是这种方法有一个缺点：程序员必须了解和处理目录的内部结构。相反，不论采用哪一种目录结构，readdir 总是以标准格式返回一个目录项。</li>
+<li><code>rename</code>，在很多方面目录和文件都相似。文件可以更换名称，目录也可以。</li>
+<li><code>link</code>，链接技术允许在多个目录中出现同一个文件。这个系统调用指定一个存在的文件和一个路径名，并建立从该文件到路径所指名字的链接。这样，可以在多个目录中出现同一个文件。有时也被称为硬链接(hard link)。</li>
+<li><code>unlink</code>，删除目录项。如果被解除链接的文件只出现在一个目录中，则将它从文件中删除。如果它出现在多个目录中，则只删除指定路径名的链接，依然保留其他路径名的链接。在 UNIX 中，用于删除文件的系统调用就是 unlink。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p>《操作系统之哲学原理第 2 版》邹恒明</p>
+<p>《操作系统导论》</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-06-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/os-file-system/" data-title="文件系统" data-hashtags="操作系统"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/os-file-system/" data-hashtag="操作系统"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/os-file-system/" data-title="文件系统"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/os-file-system/" data-title="文件系统"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/os-file-system/" data-title="文件系统"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/os-disk/" class="prev" rel="prev" title="磁盘"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>磁盘</a>
+            <a href="/process-thread-coroutine/" class="next" rel="next" title="进程线程协程的区别">进程线程协程的区别<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>网络总结 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="网络总结" />
+<meta property="og:description" content="网络层次划分 为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在 1978 年提出了&quot;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/summary-of-network-/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-08-16T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="网络总结"/>
+<meta name="twitter:description" content="网络层次划分 为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在 1978 年提出了&quot;"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/summary-of-network-/" /><link rel="prev" href="https://luzhifang.github.io/how-is-the-network-connected/" /><link rel="next" href="https://luzhifang.github.io/tcp/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "网络总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/summary-of-network-\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "网络, TCP\/IP, ICMP","wordcount":  4906 ,
+        "url": "https:\/\/luzhifang.github.io\/summary-of-network-\/","datePublished": "2018-08-16T00:00:00+00:00","dateModified": "2018-08-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">网络总结</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%BD%91%E7%BB%9C/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>网络</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-08-16">2018-08-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4906 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#网络层次划分">网络层次划分</a></li>
+    <li><a href="#osi-七层模型">OSI 七层模型</a>
+      <ul>
+        <li><a href="#物理层physical-layer">物理层（Physical Layer）</a></li>
+        <li><a href="#数据链路层data-link-layer">数据链路层（Data Link Layer）</a></li>
+        <li><a href="#网络层network-layer">网络层（Network Layer）</a></li>
+        <li><a href="#传输层transport-layer">传输层（Transport Layer）</a></li>
+        <li><a href="#会话层">会话层</a></li>
+        <li><a href="#表示层">表示层</a></li>
+        <li><a href="#应用层">应用层</a></li>
+      </ul>
+    </li>
+    <li><a href="#arprarp-协议">ARP/RARP 协议</a></li>
+    <li><a href="#tcpip-协议">TCP/IP 协议</a></li>
+    <li><a href="#udp-协议">UDP 协议</a></li>
+    <li><a href="#dns-协议">DNS 协议</a></li>
+    <li><a href="#nat-协议">NAT 协议</a></li>
+    <li><a href="#dhcp-协议">DHCP 协议</a></li>
+    <li><a href="#http-协议">HTTP 协议</a></li>
+    <li><a href="#网络性能指标">网络性能指标</a>
+      <ul>
+        <li><a href="#速率">速率</a></li>
+        <li><a href="#带宽">带宽</a></li>
+        <li><a href="#吞吐量">吞吐量</a></li>
+        <li><a href="#时延">时延</a></li>
+        <li><a href="#时延带宽积">时延带宽积</a></li>
+        <li><a href="#往返时间">往返时间</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="网络层次划分">网络层次划分</h2>
+<p>为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在 1978 年提出了&quot;开放系统互联参考模型&quot;，即著名的 OSI/RM 模型（Open System Interconnection/Reference Model）。</p>
+<p>除了标准的 OSI 七层模型以外，常见的网络层次划分还有 TCP/IP 四层协议以及 TCP/IP 五层协议，它们之间的对应关系如下图所示：</p>
+<img src="/images/net/net-457-layer.jpg" alt="" width="100%" />
+<p>在网络体系结构中网络通信的建立必须是在通信双方的对等层进行，不能交错。</p>
+<p>在整个数据传输过程中，数据在发送端时经过各层时都要附加上相应层的协议头和协议尾（仅数据链路层需要封装协议尾）部分，也就是要对数据进行协议封装，以标识对应层所用的通信协议。</p>
+<p>不同层的数据包如下</p>
+<ul>
+<li>在四层，既传输层数据被称作段（Segments）；</li>
+<li>三层网络层数据被称做包（Packages）；</li>
+<li>二层数据链路层时数据被称为帧（Frames）；</li>
+<li>一层物理层时数据被称为比特流（Bits）。</li>
+</ul>
+<h2 id="osi-七层模型">OSI 七层模型</h2>
+<p>在理论上，还有一个 OSI 七层模型：物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。这是一个理想模型，由于其复杂性并没有被大家广泛采用。</p>
+<img src="/images/net/net-7-layer.png" alt="" width="100%" />
+<h3 id="物理层physical-layer">物理层（Physical Layer）</h3>
+<p>激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。</p>
+<h3 id="数据链路层data-link-layer">数据链路层（Data Link Layer）</h3>
+<p>数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能，主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。</p>
+<p>有关数据链路层的重要知识点：</p>
+<ol>
+<li>数据链路层为网络层提供可靠的数据传输；</li>
+<li>基本数据单位为帧；</li>
+<li>主要的协议：以太网协议；</li>
+<li>两个重要设备名称：网桥和交换机。</li>
+</ol>
+<h3 id="网络层network-layer">网络层（Network Layer）</h3>
+<p>网络层的目的是实现两个端系统之间的数据透明传送，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果您想用尽量少的词来记住网络层，那就是&quot;路径选择、路由及逻辑寻址&quot;。</p>
+<p>网络层中涉及众多的协议，其中包括最重要的协议，也是 TCP/IP 的核心协议——IP 协议。IP 协议非常简单，仅仅提供不可靠、无连接的传送服务。IP 协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与 IP 协议配套使用实现其功能的还有地址解析协议 ARP、逆地址解析协议 RARP、因特网报文协议 ICMP、因特网组管理协议 IGMP。具体的协议我们会在接下来的部分进行总结，有关网络层的重点为：</p>
+<ol>
+<li>网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能；</li>
+<li>基本数据单位为 IP 数据报；</li>
+<li>包含的主要协议：
+<ol>
+<li>IP 协议（Internet Protocol，因特网互联协议）;</li>
+<li>ICMP 协议（Internet Control Message Protocol，因特网控制报文协议）;</li>
+<li>ARP 协议（Address Resolution Protocol，地址解析协议）;</li>
+<li>RARP 协议（Reverse Address Resolution Protocol，逆地址解析协议）。</li>
+</ol>
+</li>
+<li>重要的设备：路由器。</li>
+</ol>
+<h3 id="传输层transport-layer">传输层（Transport Layer）</h3>
+<p>第一个端到端，即主机到主机的层次。传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。 传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为段或报文。 网络层只是根据网络地址将源结点发出的数据包传送到目的结点，而传输层则负责将数据可靠地传送到相应的端口。 有关网络层的重点：</p>
+<ol>
+<li>传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题；</li>
+<li>包含的主要协议：TCP 协议（Transmission Control Protocol，传输控制协议）、UDP 协议（User Datagram Protocol，用户数据报协议）；</li>
+<li>重要设备：网关。</li>
+</ol>
+<h3 id="会话层">会话层</h3>
+<p>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<h3 id="表示层">表示层</h3>
+<p>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<h3 id="应用层">应用层</h3>
+<p>为操作系统或网络应用程序提供访问网络服务的接口。</p>
+<p>会话层、表示层和应用层重点：</p>
+<ol>
+<li>数据传输基本单位为报文；</li>
+<li>包含的主要协议：FTP（文件传送协议）、Telnet（远程登录协议）、DNS（域名解析协议）、SMTP（邮件传送协议），POP3 协议（邮局协议），HTTP 协议（Hyper Text Transfer Protocol）。</li>
+</ol>
+<h2 id="arprarp-协议">ARP/RARP 协议</h2>
+<p>地址解析协议，即 ARP（Address Resolution Protocol），是根据 IP 地址获取物理地址的一个 TCP/IP 协议。主机发送信息时将包含目标 IP 地址的 ARP 请求广播到网络上的所有主机，并接收返回消息，以此确定目标的物理地址；收到返回消息后将该 IP 地址和物理地址存入本机 ARP 缓存中并保留一定时间，下次请求时直接查询 ARP 缓存以节约资源。地址解析协议是建立在网络中各个主机互相信任的基础上的，网络上的主机可以自主发送 ARP 应答消息，其他主机收到应答报文时不会检测该报文的真实性就会将其记入本机 ARP 缓存；由此攻击者就可以向某一主机发送伪 ARP 应答报文，使其发送的信息无法到达预期的主机或到达错误的主机，这就构成了一个 ARP 欺骗。ARP 命令可用于查询本机 ARP 缓存中 IP 地址和 MAC 地址的对应关系、添加或删除静态对应关系等。</p>
+<p>ARP 工作流程举例：</p>
+<p>主机 A 的 IP 地址为 192.168.1.1，MAC 地址为 0A-11-22-33-44-01；</p>
+<p>主机 B 的 IP 地址为 192.168.1.2，MAC 地址为 0A-11-22-33-44-02；</p>
+<p>当主机 A 要与主机 B 通信时，地址解析协议可以将主机 B 的 IP 地址（192.168.1.2）解析成主机 B 的 MAC 地址，以下为工作流程：</p>
+<ol>
+<li>根据主机 A 上的路由表内容，IP 确定用于访问主机 B 的转发 IP 地址是 192.168.1.2。然后 A 主机在自己的本地 ARP 缓存中检查主机 B 的匹配 MAC 地址。</li>
+<li>如果主机 A 在 ARP 缓存中没有找到映射，它将询问 192.168.1.2 的硬件地址，从而将 ARP 请求帧广播到本地网络上的所有主机。源主机 A 的 IP 地址和 MAC 地址都包括在 ARP 请求中。本地网络上的每台主机都接收到 ARP 请求并且检查是否与自己的 IP 地址匹配。如果主机发现请求的 IP 地址与自己的 IP 地址不匹配，它将丢弃 ARP 请求。</li>
+<li>主机 B 确定 ARP 请求中的 IP 地址与自己的 IP 地址匹配，则将主机 A 的 IP 地址和 MAC 地址映射添加到本地 ARP 缓存中。</li>
+<li>主机 B 将包含其 MAC 地址的 ARP 回复消息直接发送回主机 A。</li>
+<li>当主机 A 收到从主机 B 发来的 ARP 回复消息时，会用主机 B 的 IP 和 MAC 地址映射更新 ARP 缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机 B 的 MAC 地址一旦确定，主机 A 就能向主机 B 发送 IP 通信了。</li>
+</ol>
+<p>逆地址解析协议，即 RARP，功能和 ARP 协议相对，其将局域网中某个主机的物理地址转换为 IP 地址。</p>
+<p>比如局域网中有一台主机只知道物理地址而不知道 IP 地址，那么可以通过 RARP 协议发出征求自身 IP 地址的广播请求，然后由 RARP 服务器负责回答。</p>
+<p>RARP 协议工作流程：</p>
+<ol>
+<li>给主机发送一个本地的 RARP 广播，在此广播包中，声明自己的 MAC 地址并且请求任何收到此请求的 RARP 服务器分配一个 IP 地址；</li>
+<li>本地网段上的 RARP 服务器收到此请求后，检查其 RARP 列表，查找该 MAC 地址对应的 IP 地址；</li>
+<li>如果存在，RARP 服务器就给源主机发送一个响应数据包并将此 IP 地址提供给对方主机使用；</li>
+<li>如果不存在，RARP 服务器对此不做任何的响应；</li>
+</ol>
+<h2 id="tcpip-协议">TCP/IP 协议</h2>
+<p>TCP/IP 协议是 Internet 最基本的协议、Internet 国际互联网络的基础，由网络层的 IP 协议和传输层的 TCP 协议组成。通俗而言：TCP 负责发现传输的问题，一有问题就发出信号，要求重新传输，直到所有数据安全正确地传输到目的地。而 IP 是给因特网的每一台联网设备规定一个地址。</p>
+<p>详情看<a href="/tcp" rel="">TCP 协议</a></p>
+<p>详情看<a href="/ip" rel="">IP 协议</a></p>
+<h2 id="udp-协议">UDP 协议</h2>
+<p>详情看<a href="/udp" rel="">UDP 协议</a></p>
+<h2 id="dns-协议">DNS 协议</h2>
+<p>DNS 是域名系统(DomainNameSystem)的缩写，该系统用于命名组织到域层次结构中的计算机和网络服务，可以简单地理解为将 URL 转换为 IP 地址。域名是由圆点分开一串单词或缩写组成的，每一个域名都对应一个惟一的 IP 地址，在 Internet 上域名与 IP 地址之间是一一对应的，DNS 就是进行域名解析的服务器。DNS 命名用于 Internet 等 TCP/IP 网络中，通过用户友好的名称查找计算机和服务。</p>
+<h2 id="nat-协议">NAT 协议</h2>
+<p>NAT 网络地址转换(Network Address Translation)属接入广域网(WAN)技术，是一种将私有（保留）地址转化为合法 IP 地址的转换技术，它被广泛应用于各种类型 Internet 接入方式和各种类型的网络中。原因很简单，NAT 不仅完美地解决了 lP 地址不足的问题，而且还能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机。</p>
+<h2 id="dhcp-协议">DHCP 协议</h2>
+<p>DHCP 动态主机设置协议（Dynamic Host Configuration Protocol）是一个局域网的网络协议，使用 UDP 协议工作，主要有两个用途：给内部网络或网络服务供应商自动分配 IP 地址，给用户或者内部网络管理员作为对所有计算机作中央管理的手段。</p>
+<h2 id="http-协议">HTTP 协议</h2>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。</p>
+<p>详情看<a href="/http" rel="">HTTP 协议</a></p>
+<h2 id="网络性能指标">网络性能指标</h2>
+<h3 id="速率">速率</h3>
+<p>在计算机与计算机之间通信时传输数据位数的速率 单位 bit/s 1 bit 也就是 1 位</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">byte 与 bit 的区别和换算
+</span></span><span class="line"><span class="cl">byte：字节 　　　 bit：位
+</span></span><span class="line"><span class="cl">1byte = 8bit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">按字节换算
+</span></span><span class="line"><span class="cl">1 k = 1024byte 　　 M 与 byte 之间的换算是 1024
+</span></span><span class="line"><span class="cl">1M = 1024K
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">按位换算
+</span></span><span class="line"><span class="cl">1kb = 1000bit
+</span></span><span class="line"><span class="cl">1Mb = 1000Kb
+</span></span><span class="line"><span class="cl">1Gb = 1000Mb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们人们常说的我的网络是 8M 为什么下载速度只有 1M/S 呢？</p>
+<p>这里的 8M，单位是 Mb，也就是按位来算的， 而下载速度是按字节算的 8M = 8000Kb = 8000，000bit = 1000，000 byte ≈1000kb ≈1M</p>
+<p>所以一般都市直接除以 8，8M 的网络下载速度就是 1M/s 100M 的网下载速度也就 10M/s</p>
+<h3 id="带宽">带宽</h3>
+<p>接口支持最高的传输速率， 也就是我们的带宽是 8M， 带宽是 100M. 就是最高支持一次传输 8M，自己换算一下，能传多个位。</p>
+<h3 id="吞吐量">吞吐量</h3>
+<p>单位时间内通过某个网络的数据量</p>
+<p>简单的说，就是通过一根网线一次性传输的多少个位，最高位就是带宽，但不是每次传输都达到了带宽值，有可能通过的只有 3M，5M，都不一定，通过的量就是我们说的吞吐量</p>
+<h3 id="时延">时延</h3>
+<p>发送时延、传播时延、处理时延、排队时延</p>
+<p>发送时延 = 数据块长度(bit)/信道宽度(bit/s)</p>
+<p>过一个特定情景来讲解</p>
+<p>A&mdash;&mdash;&mdash;&mdash;&mdash;-路由器&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;B</p>
+<p>A 发送 0101010101(10bit)数据到 B 带宽是 10bit/s 　　 A 距离 B 100 米 信号在信道上的传播速率 10 米/s</p>
+<p>当从开始发送 1 到最后一个 0 从 A 的网卡中出来结束，发送时延 = 10bit/10bit/s = 1s</p>
+<p>传播时延 = 信道长度（米）/信号在信道上传播速率(米/秒)</p>
+<p>传播时延：从 A 发送 1 开始，到路由器，接受最后一个 0 结束，这一段也算是传播时延，路由器到 B 之间也是 100/10 = 10 秒。 在电线上花费的时间是 10 秒</p>
+<p>排队时延：路由器接受数据，有一个缓冲区，相当于队列，数据到路由器，先到缓冲区排队等待路由器一个个接受数据，直到路由器开始接受第一个位，这就是排队时延，从路由器出来也需要排队时延</p>
+<p>处理时延：路由器开始接受第一个位，这就开始处理数据了，到最后一个位接受完，这之间就是处理时延</p>
+<h3 id="时延带宽积">时延带宽积</h3>
+<p>其实也就是在信道中有多少位数据在其中，用的是带宽，也就是最高的数据。</p>
+<p>传播时延 * 带宽</p>
+<h3 id="往返时间">往返时间</h3>
+<p>从 A 到 B，在 B 返回数据到 A，之间用了多少时间</p>
+<p>使用命令 ping <a href="https://www.baidu.com" target="_blank" rel="noopener noreffer ">www.baidu.com</a> 从我们浏览器到存放百度地址的主机，然后返回数据到我们计算机需要的时间</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://tonydeng.github.io/sdn-handbook/basic/tcpip.html" target="_blank" rel="noopener noreffer ">https://tonydeng.github.io/sdn-handbook/basic/tcpip.html</a></p>
+<p><a href="https://www.runoob.com/w3cnote/summary-of-network.html" target="_blank" rel="noopener noreffer ">https://www.runoob.com/w3cnote/summary-of-network.html</a></p>
+<p><a href="https://www.cnblogs.com/zhangyinhua/p/7598603.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/zhangyinhua/p/7598603.html</a></p>
+<p><a href="https://www.51cto.com/article/597961.html" target="_blank" rel="noopener noreffer ">https://www.51cto.com/article/597961.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-08-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/summary-of-network-/" data-title="网络总结" data-hashtags="网络,TCP/IP,ICMP"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/summary-of-network-/" data-hashtag="网络"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/summary-of-network-/" data-title="网络总结"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/summary-of-network-/" data-title="网络总结"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/summary-of-network-/" data-title="网络总结"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%BD%91%E7%BB%9C/">网络</a>,&nbsp;<a href="/tags/tcp/ip/">TCP/IP</a>,&nbsp;<a href="/tags/icmp/">ICMP</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/how-is-the-network-connected/" class="prev" rel="prev" title="网络是怎样连接的"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>网络是怎样连接的</a>
+            <a href="/tcp/" class="next" rel="next" title="TCP">TCP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

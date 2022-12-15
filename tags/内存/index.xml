@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>内存 - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/%E5%86%85%E5%AD%98/</link>
+        <description>内存 - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 29 Jan 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%86%85%E5%AD%98/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux性能优化-内存</title>
+    <link>https://luzhifang.github.io/linux-perf-memory/</link>
+    <pubDate>Tue, 29 Jan 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-memory/</guid>
+    <description><![CDATA[内存性能指标 系统内存使用情况 已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。 共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内]]></description>
+</item>
+</channel>
+</rss>

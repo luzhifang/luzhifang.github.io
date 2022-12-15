@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>进程 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="进程" />
+<meta property="og:description" content="进程简介 进程就是运行中的程序。操作系统运行程序必须做的第一件事是将代码和所有静态数据（例如初始化变量）加载（load）到内存中，加载到进程的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/os-process/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-06-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-06-01T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="进程"/>
+<meta name="twitter:description" content="进程简介 进程就是运行中的程序。操作系统运行程序必须做的第一件事是将代码和所有静态数据（例如初始化变量）加载（load）到内存中，加载到进程的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/os-process/" /><link rel="next" href="https://luzhifang.github.io/os-thread/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "进程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/os-process\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "操作系统","wordcount":  2003 ,
+        "url": "https:\/\/luzhifang.github.io\/os-process\/","datePublished": "2018-06-01T00:00:00+00:00","dateModified": "2018-06-01T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">进程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>操作系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-01">2018-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2003 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#进程简介">进程简介</a></li>
+    <li><a href="#进程的内存占用">进程的内存占用</a></li>
+    <li><a href="#内核态和用户态">内核态和用户态</a></li>
+    <li><a href="#进程的创建过程">进程的创建过程</a></li>
+    <li><a href="#进程的-api">进程的 API</a></li>
+    <li><a href="#进程调度算法">进程调度算法</a></li>
+    <li><a href="#进程状态">进程状态</a></li>
+    <li><a href="#进程通信方式">进程通信方式</a>
+      <ul>
+        <li><a href="#进程切换开销">进程切换开销</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="进程简介">进程简介</h2>
+<p>进程就是运行中的程序。操作系统运行程序必须做的第一件事是将代码和所有静态数据（例如初始化变量）加载（load）到内存中，加载到进程的地址空间中。</p>
+<p>操作系统用于维护进程记录的结构就是进程表或进程控制块（Process Control Block,PCB）。</p>
+<p>维护的资料信息应当包括寄存器、程序计数器、状态字、栈指针、优先级、进程 ID、信号、创建时间、所耗 CPU 时间、当前持有的各种句柄等。</p>
+<h2 id="进程的内存占用">进程的内存占用</h2>
+<p>从高地址到低地址依次为</p>
+<ol>
+<li>Stack</li>
+<li>未分配内存</li>
+<li>Heap</li>
+<li>BSS（未初始化数据）</li>
+<li>Data（初始化数据）</li>
+<li>Text（程序代码）</li>
+</ol>
+<p>Linux 通过<code>size 编译的二进制文件</code>可以查看各个块的大小</p>
+<h2 id="内核态和用户态">内核态和用户态</h2>
+<p>当处理器执行到&quot;syscall&quot;指令时，察觉这是一个系统调用指令，将进行如下操作：</p>
+<ol>
+<li>设置处理器至内核态。</li>
+<li>保存当前寄存器（栈指针、程序计数器、通用寄存器）。</li>
+<li>将栈指针设置指向内核栈地址。</li>
+<li>将程序计数器设置为一个事先约定的地址上。该地址上存放的是系统调用处理程序的起始地址。</li>
+</ol>
+<p>系统调用和过程调用之间的关键区别在于，系统调用将控制转移（跳转）到 OS 中，同时提高硬件特权级别。</p>
+<p>用户应用程序以所谓的用户模式（user mode）运行，这意味着硬件限制了应用程序的功能。</p>
+<p>例如，以用户模式运行的应用程序通常不能发起对磁盘的 I/O 请求，不能访问任何物理内存页或在网络上发送数据包。</p>
+<p>在发起系统调用时 ，通常通过一个称为陷阱（trap）的特殊硬件指令，硬件将控制转移到预先指定的陷阱处理程序（trap handler）（即预先设置的操作系统），并同时将特权级别提升到内核模式（kernel mode）。在内核模式下，操作系统可以完全访问系统的硬件，因此可以执行诸如发起 I/O 请求或为程序提供更多内存等功能。</p>
+<p>当操作系统完成请求的服务时，它通过特殊的陷阱返回（return-from-trap）指令将控制权交还给用户，该指令返回到用户模式，同时将控制权交还给应用程序，回到应用离开的地方。</p>
+<h2 id="进程的创建过程">进程的创建过程</h2>
+<ol>
+<li>分配进程控制块。</li>
+<li>初始化机器寄存器。</li>
+<li>初始化页表。</li>
+<li>将程序代码从磁盘读进内存。</li>
+<li>将处理器状态设置为“用户态”。</li>
+<li>跳转到程序的起始地址（设置程序计数器）。</li>
+</ol>
+<h2 id="进程的-api">进程的 API</h2>
+<ol>
+<li>fork() 创建新进程，父进程通过 fork 创建子进程，子进程并不是完全拷贝了父进程。具体来说，虽然它拥有自己的地址空间（即拥有自己的私有内存）、寄存器、程序计数器等。</li>
+<li>wait() 父进程需要等待子进程执行完毕。</li>
+<li>exec() 让子进程执行与父进程不同的程序。</li>
+</ol>
+<h2 id="进程调度算法">进程调度算法</h2>
+<ol>
+<li>先来先服务</li>
+<li>最短任务优先</li>
+<li>最短完成时间优先</li>
+<li>时间片轮转</li>
+<li>优先级调度</li>
+<li>多级反馈队列</li>
+</ol>
+<h2 id="进程状态">进程状态</h2>
+<p>进程分为 3 种状态：执行、阻塞和就绪，但是只支持四种转换。</p>
+<ol>
+<li>执行 → 就绪</li>
+<li>执行 → 阻塞</li>
+<li>阻塞 → 就绪</li>
+<li>就绪 → 执行</li>
+</ol>
+<h2 id="进程通信方式">进程通信方式</h2>
+<ol>
+<li>管道（记名管道和匿名管道）</li>
+</ol>
+<p>管道所占的空间既可以是内存，也可以是磁盘。要创建一个管道，一个进程只需调用管道创建的系统调用即可。该系统调用所做的事情就是在某种存储介质上划出一片空间，赋给其中一个进程写的权利，另一个进程读的权利即可。</p>
+<p>记名管道：如果要在两个不相关的进程（如两个不同进程里面的进程）之间进行管道通信，则需要使用记名管道。</p>
+<p>管道只能一端读，一端写。</p>
+<ol start="2">
+<li>套接字</li>
+</ol>
+<p>套接字也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同机器间的进程通信。</p>
+<ol start="3">
+<li>信号</li>
+</ol>
+<p>信号就是一个内核对象，或者说是一个内核数据结构。发送方将该数据结构的内容填好，并指明该信号的目标进程后，发出特定的软件中断。操作系统接收到特定的中断请求后，知道是有进程要发送信号，于是到特定的内核数据结构里查找信号接收方，并进行通知。接到通知的进程则对信号进行相应处理。</p>
+<p>使用信号用来传输很小的信息，使用管道或套接字不划算。</p>
+<ol start="4">
+<li>信号量</li>
+</ol>
+<p>信号量实际上就是一个简单整数。一个进程在信号变为 0 或者 1 的情况下推进，并且将信号变为 1 或 0 来防止别的进程推进。当进程完成任务后，则将信号再改变为 0 或 1，从而允许其他进程执行。需要注意的是，信号量不只是一种通信机制，更是一种同步机制。</p>
+<ol start="5">
+<li>共享内存</li>
+</ol>
+<p>共享内存就是两个进程共同拥有同一片内存。对于这片内存中的任何内容，二者均可以访问。要使用共享内存进行通信，一个进程首先需要创建一片内存空间专门作为通信用，而其他进程则将该片内存映射到自己的（虚拟）地址空间。这样，读写自己地址空间中对应共享内存的区域时，就是在和其他进程进行通信。</p>
+<p>主要用于共享大量数据。</p>
+<ol start="6">
+<li>消息队列</li>
+</ol>
+<p>消息队列相比管道，它无需固定的读写进程，任何进程都可以读写（当然是有权限的进程）。其次，它可以同时支持多个进程，多个进程可以读写消息队列。即所谓的多对多，而不是管道的点对点。</p>
+<p>linux 通过<code>ipcs</code>命令可以查看消息队列、共享内存、信号量的具体信息</p>
+<h3 id="进程切换开销">进程切换开销</h3>
+<ol>
+<li>
+<p>直接开销</p>
+<ol>
+<li>切换页表全局目录（PGD）</li>
+<li>切换内核态堆栈</li>
+<li>切换硬件上下文（进程恢复前，必须装入寄存器的数据统称为硬件上下文）</li>
+<li>刷新 TLB</li>
+<li>系统调度器的代码执行</li>
+</ol>
+</li>
+<li>
+<p>间接开销</p>
+<ol>
+<li>CPU 缓存失效导致的进程需要到内存直接访问的 IO 操作变多</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p>《操作系统之哲学原理第 2 版》邹恒明</p>
+<p>《操作系统导论》</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-06-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/os-process/" data-title="进程" data-hashtags="操作系统"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/os-process/" data-hashtag="操作系统"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/os-process/" data-title="进程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/os-process/" data-title="进程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/os-process/" data-title="进程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/os-thread/" class="next" rel="next" title="线程">线程<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

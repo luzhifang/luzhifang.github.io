@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Linux - 分类 - 码农人生</title>
+        <title>Linux - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/linux/</link>
-        <description>Linux - 分类 - 码农人生</description>
+        <description>Linux - 分类 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
             <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 19 May 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/linux/" rel="self" type="application/rss+xml" /><item>
     <title>Linux 文本三剑客</title>
@@ -35,6 +35,22 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/vi-editor/</guid>
     <description><![CDATA[1. vi 和 vim 的区别 vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种]]></description>
+</item>
+<item>
+    <title>Linux性能优化-内存</title>
+    <link>https://luzhifang.github.io/linux-perf-memory/</link>
+    <pubDate>Tue, 29 Jan 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-memory/</guid>
+    <description><![CDATA[内存性能指标 系统内存使用情况 已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。 共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内]]></description>
+</item>
+<item>
+    <title>Linux性能优化-CPU</title>
+    <link>https://luzhifang.github.io/linux-perf-cpu/</link>
+    <pubDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-cpu/</guid>
+    <description><![CDATA[各种延时 CPU 性能指标 CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU]]></description>
 </item>
 </channel>
 </rss>

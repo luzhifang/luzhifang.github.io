@@ -1,0 +1,64 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>操作系统 - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+        <description>操作系统 - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 06 Jun 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
+    <title>IO</title>
+    <link>https://luzhifang.github.io/os-io/</link>
+    <pubDate>Wed, 06 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-io/</guid>
+    <description><![CDATA[计算机 IO IO，英文全称是 Input/Output，翻译过来就是输入/输出。比如磁盘 IO，网络 IO。 输入设备是向计算机输入数据和信息的设备，键]]></description>
+</item>
+<item>
+    <title>进程线程协程的区别</title>
+    <link>https://luzhifang.github.io/process-thread-coroutine/</link>
+    <pubDate>Wed, 06 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/process-thread-coroutine/</guid>
+    <description><![CDATA[进程与线程的区别 每个线程都是一个轻量级进程(Light Weight Process)，都有自己的唯一 PID 和一个 TGID(Thread group ID)。TGID 是启动整个进程的 thread 的 PI]]></description>
+</item>
+<item>
+    <title>文件系统</title>
+    <link>https://luzhifang.github.io/os-file-system/</link>
+    <pubDate>Tue, 05 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-file-system/</guid>
+    <description><![CDATA[文件系统 操作系统为磁盘提供的抽象就是：文件及文件系统，或者说，文件系统就是磁盘的抽象。当然文件系统不一定在磁盘上，也可以在光盘上。 文件系统的]]></description>
+</item>
+<item>
+    <title>磁盘</title>
+    <link>https://luzhifang.github.io/os-disk/</link>
+    <pubDate>Mon, 04 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-disk/</guid>
+    <description><![CDATA[磁盘的物理结构 硬盘内部主要部件为磁盘盘片、传动手臂、读写磁头和主轴马达。实际数据都是写在盘片上，读写主要是通过传动手臂上的读写磁头来完成。实]]></description>
+</item>
+<item>
+    <title>内存</title>
+    <link>https://luzhifang.github.io/os-memory/</link>
+    <pubDate>Sun, 03 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-memory/</guid>
+    <description><![CDATA[内存简介 内存架构：缓存 -&gt; 主存 -&gt; 磁盘 -&gt; 磁带 内存管理：该机制负责对内存架构进行管理，使程序在内存架构的任何一个层次上的存放对于用户来说都是一样的]]></description>
+</item>
+<item>
+    <title>线程</title>
+    <link>https://luzhifang.github.io/os-thread/</link>
+    <pubDate>Sat, 02 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-thread/</guid>
+    <description><![CDATA[线程简介 一个程序只有一个执行点（一个程序计数器，用来存放要执行的指令），但多线程（multi-threaded）程序会有多个执行点（多个程序]]></description>
+</item>
+<item>
+    <title>进程</title>
+    <link>https://luzhifang.github.io/os-process/</link>
+    <pubDate>Fri, 01 Jun 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/os-process/</guid>
+    <description><![CDATA[进程简介 进程就是运行中的程序。操作系统运行程序必须做的第一件事是将代码和所有静态数据（例如初始化变量）加载（load）到内存中，加载到进程的]]></description>
+</item>
+</channel>
+</rss>

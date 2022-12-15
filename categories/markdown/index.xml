@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>markdown - 分类 - 码农人生</title>
+        <title>markdown - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/markdown/</link>
-        <description>markdown - 分类 - 码农人生</description>
+        <description>markdown - 分类 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
             <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Aug 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/markdown/" rel="self" type="application/rss+xml" /><item>
     <title>Markdown指北</title>

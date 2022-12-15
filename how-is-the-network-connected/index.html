@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>网络是怎样连接的 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="网络是怎样连接的" />
+<meta property="og:description" content="生成 HTTP 请求消息 浏览器输入网址 浏览器先要解析 URL（有 http:、file:、ftp:、news:、mailto:等协议），获取域名 生成 HTTP 请求" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/how-is-the-network-connected/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-08-10T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="网络是怎样连接的"/>
+<meta name="twitter:description" content="生成 HTTP 请求消息 浏览器输入网址 浏览器先要解析 URL（有 http:、file:、ftp:、news:、mailto:等协议），获取域名 生成 HTTP 请求"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/how-is-the-network-connected/" /><link rel="prev" href="https://luzhifang.github.io/os-io/" /><link rel="next" href="https://luzhifang.github.io/summary-of-network-/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "网络是怎样连接的",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/how-is-the-network-connected\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "网络","wordcount":  2090 ,
+        "url": "https:\/\/luzhifang.github.io\/how-is-the-network-connected\/","datePublished": "2018-08-10T00:00:00+00:00","dateModified": "2018-08-10T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">网络是怎样连接的</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%BD%91%E7%BB%9C/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>网络</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-08-10">2018-08-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2090 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#生成-http-请求消息">生成 HTTP 请求消息</a></li>
+    <li><a href="#dns-解析-ip-地址">DNS 解析 IP 地址　</a></li>
+    <li><a href="#创建套接字">创建套接字</a></li>
+    <li><a href="#建立连接">建立连接</a></li>
+    <li><a href="#tcp-收发数据">TCP 收发数据　　</a></li>
+    <li><a href="#ip-与以太网的包收发操作">IP 与以太网的包收发操作</a></li>
+    <li><a href="#从网线到网络设备-探索集线器交换机和路由器">从网线到网络设备-探索集线器、交换机和路由器</a></li>
+    <li><a href="#通过接入网进入互联网内部">通过接入网进入互联网内部　　</a></li>
+    <li><a href="#进入服务端的局域网">进入服务端的局域网</a></li>
+    <li><a href="#服务器接收">服务器接收</a></li>
+    <li><a href="#服务器响应">服务器响应</a></li>
+    <li><a href="#浏览器接收响应消息并显示内容">浏览器接收响应消息并显示内容　　</a></li>
+    <li><a href="#从服务器断开并删除套接字">从服务器断开并删除套接字　　</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="生成-http-请求消息">生成 HTTP 请求消息</h2>
+<ol>
+<li>浏览器输入网址</li>
+<li>浏览器先要解析 URL（有 http:、file:、ftp:、news:、mailto:等协议），获取域名</li>
+<li>生成 HTTP 请求消息（请求行、请求头、空行、消息报文）</li>
+</ol>
+<p>注意：1 条请求消息中只能写 1 个 URI。如果需要获取多个文件，必须对每个文件单独发送 1 条请求。</p>
+<h2 id="dns-解析-ip-地址">DNS 解析 IP 地址　</h2>
+<ol>
+<li>查看浏览器缓存</li>
+<li>查看系统缓存（hosts 文件里面的 ip）</li>
+<li>查看路由器缓存</li>
+<li>查看 ISP（也就是本地域名服务器，一般都是你的网络接入服务器商提供，比如中国电信，中国移动等） DNS 缓存</li>
+<li>由 ISP 询问根域名服务器</li>
+<li>询问顶级域名服务器</li>
+<li>询问权威域名（主域名）服务器</li>
+<li>保存结果至缓存：本地域名服务器把返回的结果保存到缓存，以备下一次使用，同时将该结果反馈给客户端，客户端通过这个 IP 地址即可访问目标 Web 服务器。</li>
+</ol>
+<img src="/images/net/dns-parse.png" alt="" width="80%" />
+<p>域名和 IP 地址并用的理由：</p>
+<ul>
+<li>IP 地址不方便记忆，网址中用域名更好</li>
+<li>路由器中的路由表会需要根据 IP 地址来传送到什么地方，如果用域名代替 IP 地址，占用空间会很大。</li>
+</ul>
+<h2 id="创建套接字">创建套接字</h2>
+<p>创建套接字创建套接字（创建套接字阶段），首先分配一个套接字所需的内存空间，然后向其中写入初始状态。</p>
+<h2 id="建立连接">建立连接</h2>
+<p>将管道连接到服务器端的套接字上（连接阶段）</p>
+<ol>
+<li>连接操作的第一步是在 TCP 模块处创建表示连接控制信息的头部。</li>
+<li>通过 TCP 头部中的发送方和接收方端口号可以找到要连接的套接字。</li>
+</ol>
+<p>IP 地址和端口号：客户端和服务器之间用来识别对方套接字的机制</p>
+<p>描述符：应用程序用来识别套接字的机制，使用描述符来指代套接字的原因如下：</p>
+<ol>
+<li>等待连接的套接字中没有客户端 IP 地址和端口号</li>
+<li>使用描述符这一种信息比较简单</li>
+</ol>
+<h2 id="tcp-收发数据">TCP 收发数据　　</h2>
+<ol>
+<li>将 HTTP 请求消息交给协议栈</li>
+<li>对较大的数据进行拆分</li>
+<li>使用 ACK 号确认网络包已收到</li>
+<li>根据网络包平均往返时间调整 ACK 号等待时间</li>
+<li>使用窗口有效管理 ACK 号</li>
+<li>ACK 与窗口的合并</li>
+<li>接收 HTTP 响应消息</li>
+</ol>
+<img src="/images/net/mtu-mss.png" alt="" width="90%" />
+<p>MTU：一个网络包的最大长度，以太网中一般为 1500 字节。</p>
+<p>MSS：除去头部之后，一个网络包所能容纳的 TCP 数据的最大长度。</p>
+<h2 id="ip-与以太网的包收发操作">IP 与以太网的包收发操作</h2>
+<ol>
+<li>生成包含接收方 IP 地址的 IP 头部</li>
+<li>生成以太网用的 MAC 头部</li>
+<li>通过 ARP 查询目标路由器的 MAC 地址</li>
+<li>将 IP 包转换成电或光信号</li>
+<li>给网络包再加 3 个控制数据（报头、起始帧分界符、帧校验序列）</li>
+<li>向集线器发送网络包</li>
+<li>接收返回包</li>
+<li>将服务器的响应包从 IP 层传递给 TCP 层</li>
+</ol>
+<img src="/images/net/packet-progress.png" alt="" width="90%" />
+<p>IP 模块负责添加如下两个头部。</p>
+<ul>
+<li>MAC 头部：以太网用的头部，包含 MAC 地址</li>
+<li>IP 头部：IP 用的头部，包含 IP 地址</li>
+</ul>
+<h2 id="从网线到网络设备-探索集线器交换机和路由器">从网线到网络设备-探索集线器、交换机和路由器</h2>
+<ol>
+<li>信号在网线和集线器中传输</li>
+<li>交换机根据地址表进行转发</li>
+</ol>
+<p>交换机端口的 MAC 模块不具有 MAC 地址。</p>
+<p>交换机根据 MAC 地址表查找 MAC 地址，然后将信号发送到相应的端口。</p>
+<p>路由器的各个端口都具有 MAC 地址和 IP 地址。</p>
+<ol start="3">
+<li>路由器的包接收（路由器的端口都具有 MAC 地址，只接收与自身地址匹配的包，遇到不匹配的包则直接丢弃。）</li>
+<li>路由器的包转发，路由器判断下一个转发目标的方法如下：
+<ol>
+<li>根据包的接收方 IP 地址查询路由表中的目标地址栏，以找到相匹配的记录。</li>
+<li>这个匹配并不是匹配全部 32 个比特，而是根据子网掩码列中的值判断网络号的比特数，并匹配相应数量的比特。</li>
+<li>会匹配到多条候选记录，路由器寻找网络号比特数最长的一条记录。</li>
+<li>如果存在网络号长度相同的多条记录，则根据跃点数匹配，跃点计数越小说明该路由越近，因此应选择跃点计数较小的记录。</li>
+<li>路由器也会使用 ARP 来查询下一个转发目标的 MAC 地址。</li>
+<li>找不到匹配路由时选择默认路由（路由表中子网掩码为 0.0.0.0 的记录表示“默认路由”。）</li>
+<li>如果在路由表中无法找到匹配的记录，路由器会丢弃这个包，并通过 ICMP 消息告知发送方。</li>
+</ol>
+</li>
+</ol>
+<img src="/images/net/route-table.png" alt="" width="90%" />
+<p>注意：路由器也会使用 ARP 来查询下一个转发目标的 MAC 地址。</p>
+<h2 id="通过接入网进入互联网内部">通过接入网进入互联网内部　　</h2>
+<ol>
+<li>ADSL 接入网</li>
+<li>光纤接入网（FTTH）</li>
+<li>网络包通过接入网之后，到达运营商 POP（接入点）的路由器。</li>
+<li>接着进入 NOC（网络运营中心，某运营商的）</li>
+<li>通过 IX（互联网交互中心）到达其他运营商</li>
+</ol>
+<img src="/images/net/pop-noc-ix.png" alt="" width="90%" />
+<h2 id="进入服务端的局域网">进入服务端的局域网</h2>
+<ol>
+<li>经过防火墙，过滤规则如下
+<ol>
+<li>发送方 MAC 地址</li>
+<li>发送方 IP 地址、接收方 IP 地址、协议号</li>
+<li>发送方端口号、接收方端口号、TCP 控制位、分片</li>
+<li>ICMP 消息类型</li>
+</ol>
+</li>
+<li>通过 DNS 轮询将请求派发到不同的服务器</li>
+<li>使用缓存服务器（CDN、反向代理 nginx 也可）分担负载</li>
+</ol>
+<h2 id="服务器接收">服务器接收</h2>
+<ol>
+<li>网卡将接收到的信号转换成数字信息
+<ol>
+<li>网卡的 MAC 模块将网络包从信号还原为数字信息，校验 FCS 并存入缓冲区。</li>
+<li>网卡驱动会根据 MAC 头部判断协议类型，并将包交给相应的协议栈。</li>
+</ol>
+</li>
+<li>IP 模块的接收操作
+<ol>
+<li>协议栈的 IP 模块会检查 IP 头部，（1）判断是不是发给自己的；（2）判断网络包是否经过分片；（3）将包转交给 TCP 模块或 UDP 模块。</li>
+</ol>
+</li>
+<li>TCP 模块处理连接包
+<ol>
+<li>如果收到的是发起连接的包，则 TCP 模块会（1）确认 TCP 头部的控制位 SYN;（2）检查接收方端口号；（3）为相应的等待连接套接字复制一个新的副本；（4）记录发送方 IP 地址和端口号等信息。</li>
+</ol>
+</li>
+<li>断开操作完成后，套接字会在经过一段时间后被删除。</li>
+</ol>
+<h2 id="服务器响应">服务器响应</h2>
+<ol>
+<li>URI 指定的是文件（html、图片等）则直接返回文件</li>
+<li>URI 指定的是 CGI 或者其他程序则由程序返回具体内容</li>
+<li>返回响应消息</li>
+</ol>
+<h2 id="浏览器接收响应消息并显示内容">浏览器接收响应消息并显示内容　　</h2>
+<ol>
+<li>通过响应的数据类型判断其中的内容</li>
+<li>如果是 html，浏览器需要解析 html，并请求 html 代码中的资源（如 js、css、图片等）</li>
+<li>浏览器对页面进行渲染呈现给用户</li>
+<li>断开连接，删除套接字</li>
+</ol>
+<h2 id="从服务器断开并删除套接字">从服务器断开并删除套接字　　</h2>
+<ol>
+<li>数据发送完毕后断开连接</li>
+<li>删除套接字</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://weread.qq.com/web/reader/6f932ec05dd9eb6f96f14b9kc51323901dc51ce410c121b" target="_blank" rel="noopener noreffer ">《网络是怎样连接的》</a></p>
+<p><a href="https://www.sfn.cn/news/technology/detail/222.html" target="_blank" rel="noopener noreffer ">https://www.sfn.cn/news/technology/detail/222.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-08-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/how-is-the-network-connected/" data-title="网络是怎样连接的" data-hashtags="网络"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/how-is-the-network-connected/" data-hashtag="网络"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/how-is-the-network-connected/" data-title="网络是怎样连接的"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/how-is-the-network-connected/" data-title="网络是怎样连接的"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/how-is-the-network-connected/" data-title="网络是怎样连接的"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%BD%91%E7%BB%9C/">网络</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/os-io/" class="prev" rel="prev" title="IO"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>IO</a>
+            <a href="/summary-of-network-/" class="next" rel="next" title="网络总结">网络总结<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

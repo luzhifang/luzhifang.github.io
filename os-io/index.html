@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>IO - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="IO" />
+<meta property="og:description" content="计算机 IO IO，英文全称是 Input/Output，翻译过来就是输入/输出。比如磁盘 IO，网络 IO。 输入设备是向计算机输入数据和信息的设备，键" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/os-io/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-06-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-06-06T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="IO"/>
+<meta name="twitter:description" content="计算机 IO IO，英文全称是 Input/Output，翻译过来就是输入/输出。比如磁盘 IO，网络 IO。 输入设备是向计算机输入数据和信息的设备，键"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/os-io/" /><link rel="prev" href="https://luzhifang.github.io/process-thread-coroutine/" /><link rel="next" href="https://luzhifang.github.io/how-is-the-network-connected/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "IO",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/os-io\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "操作系统","wordcount":  2555 ,
+        "url": "https:\/\/luzhifang.github.io\/os-io\/","datePublished": "2018-06-06T00:00:00+00:00","dateModified": "2018-06-06T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">IO</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>操作系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-06">2018-06-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2555 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#计算机-io">计算机 IO</a></li>
+    <li><a href="#操作系统-io">操作系统 IO</a></li>
+    <li><a href="#阻塞-io-模型">阻塞 IO 模型</a></li>
+    <li><a href="#非阻塞-io-模型">非阻塞 IO 模型</a></li>
+    <li><a href="#io-多路复用模型">IO 多路复用模型</a>
+      <ul>
+        <li><a href="#select">select</a></li>
+        <li><a href="#epoll">epoll</a></li>
+      </ul>
+    </li>
+    <li><a href="#信号驱动-io-模型">信号驱动 IO 模型</a></li>
+    <li><a href="#异步-io-模型aio">异步 IO 模型(AIO)</a></li>
+    <li><a href="#阻塞非阻塞同步异步-io-划分">阻塞、非阻塞、同步、异步 IO 划分</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="计算机-io">计算机 IO</h2>
+<p>IO，英文全称是 Input/Output，翻译过来就是输入/输出。比如磁盘 IO，网络 IO。</p>
+<p>输入设备是向计算机输入数据和信息的设备，键盘，鼠标都属于输入设备;输出设备是计算机硬件系统的终端设备，用于接收计算机数据的输出显示，一般显示器、打印机属于输出设备。</p>
+<p>鼠标、显示器这只是直观表面的输入输出，回到计算机架构来说，涉及计算机核心与其他设备间数据迁移的过程，就是 IO。如磁盘 IO，就是从磁盘读取数据到内存，这算一次输入，对应的，将内存中的数据写入磁盘，就算输出。这就是 IO 的本质。</p>
+<h2 id="操作系统-io">操作系统 IO</h2>
+<p>将内存中的数据写入到磁盘的话，主体会可能是一个应用程序，比如一个 Java 进程或者 Go 进程。</p>
+<p>以 32 位操作系统为例，它为每一个进程都分配了 4G(2 的 32 次方)的内存空间。这 4G 可访问的内存空间分为二部分，一部分是用户空间，一部分是内核空间。</p>
+<p>内核空间是操作系统内核访问的区域，是受保护的内存空间，而用户空间是用户应用程序访问的内存区域。</p>
+<p>应用程序是跑在用户空间的，它不存在实质的 IO 过程，真正的 IO 是在操作系统执行的。即应用程序的 IO 操作分为两种动作：IO 调用和 IO 执行。</p>
+<ul>
+<li>IO 调用：应用程序进程向操作系统内核发起调用。</li>
+<li>IO 执行：操作系统内核完成 IO 操作。</li>
+</ul>
+<p>IO 调用是由进程(应用程序的运行态)发起，而 IO 执行是操作系统内核的工作。此时所说的 IO 是应用程序对操作系统 IO 功能的一次触发，即 IO 调用。</p>
+<p>操作系统内核完成 IO 操作还包括两个过程：</p>
+<ul>
+<li>准备数据阶段：内核等待 I/O 设备准备好数据。</li>
+<li>拷贝数据阶段：将数据从内核缓冲区拷贝到用户进程缓冲区。</li>
+</ul>
+<img src="/images/os/io-call.jpg" alt="" width="90%" />
+<p>IO 就是把进程的内部数据转移到外部设备，或者把外部设备的数据迁移到进程内部。外部设备一般指硬盘、socket 通讯的网卡。一个完整的 IO 过程包括以下几个步骤：</p>
+<ol>
+<li>应用程序进程向操作系统发起 IO 调用请求</li>
+<li>操作系统准备数据，把 IO 外部设备的数据，加载到内核缓冲区</li>
+<li>操作系统拷贝数据，即将内核缓冲区的数据，拷贝到用户进程缓冲区</li>
+</ol>
+<h2 id="阻塞-io-模型">阻塞 IO 模型</h2>
+<p>用程序的进程发起 IO 调用，但是如果内核的数据还没准备好的话，那应用程序进程就一直在阻塞等待，一直等到内核数据准备好了，从内核拷贝到用户空间，才返回成功提示，此次 IO 操作，称之为阻塞 IO。</p>
+<img src="/images/os/blocking-io.jpg" alt="" width="90%" />
+<p>阻塞 IO 的缺点就是：如果内核数据一直没准备好，那用户进程将一直阻塞，浪费性能，可以使用非阻塞 IO 优化。</p>
+<h2 id="非阻塞-io-模型">非阻塞 IO 模型</h2>
+<p>如果内核数据还没准备好，可以先返回错误信息给用户进程，让它不需要等待，而是通过轮询的方式再来请求。这就是非阻塞 IO。</p>
+<img src="/images/os/non-blocking-io.jpg" alt="" width="90%" />
+<p>相对于阻塞 IO，虽然大幅提升了性能，但是它依然存在性能问题，即频繁的轮询，导致频繁的系统调用，同样会消耗大量的 CPU 资源。可以考虑 IO 复用模型，去解决这个问题。</p>
+<h2 id="io-多路复用模型">IO 多路复用模型</h2>
+<p>IO 复用模型核心思路：操作系统提供了一类函数(比如 select、poll、epoll 函数)，它们可以同时监控多个 fd(socket 或者文件)的操作，任何一个返回内核数据就绪，应用进程再发起 recvfrom 系统调用。</p>
+<h3 id="select">select</h3>
+<p>应用进程通过调用 select 函数，可以同时监控多个 fd，在 select 函数监控的 fd 中，只要有任何一个数据状态准备就绪了，select 函数就会返回可读状态，这时应用进程再发起 recvfrom 请求去读取数据。</p>
+<img src="/images/os/select-io.jpg" alt="" width="90%" />
+<p>非阻塞 IO 模型(NIO)中，需要 N(N&gt;=1)次轮询系统调用，然而借助 select 的 IO 多路复用模型，只需要发起一次询问就够了,大大优化了性能。</p>
+<p>但是呢，select 有几个缺点：</p>
+<ul>
+<li>监听的 IO 最大连接数有限，在 Linux 系统上一般为 1024。</li>
+<li>select 函数返回后，是通过遍历 fdset，找到就绪的描述符 fd。(仅知道有 I/O 事件发生，却不知是哪几个流，所以遍历所有流)</li>
+</ul>
+<p>因为存在连接数限制，所以后来又提出了 poll。与 select 相比，poll 解决了连接数限制问题。但是呢，select 和 poll 一样，还是需要通过遍历文件描述符来获取已经就绪的 socket。如果同时连接的大量客户端，在一时刻可能只有极少处于就绪状态，伴随着监视的描述符数量的增长，效率也会线性下降。</p>
+<h3 id="epoll">epoll</h3>
+<img src="/images/os/epoll-io.jpg" alt="" width="90%" />
+<p>epoll 先通过 epoll_ctl()来注册一个 fd(文件描述符)，一旦基于某个 fd 就绪时，内核会采用回调机制，迅速激活这个 fd，当进程调用 epoll_wait()时便得到通知。这里去掉了遍历文件描述符的操作，而是采用监听事件回调的机制。这就是 epoll 的亮点。</p>
+<p>select、poll、epoll 的区别</p>
+<table>
+<thead>
+<tr>
+<th>select</th>
+<th>poll</th>
+<th>epoll</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>底层数据结构</td>
+<td>数组</td>
+<td>链表</td>
+<td>红黑树和双链表</td>
+</tr>
+<tr>
+<td>获取就绪的 fd</td>
+<td>遍历</td>
+<td>遍历</td>
+<td>事件回调</td>
+</tr>
+<tr>
+<td>时间复杂度</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>最大连接数</td>
+<td>1024</td>
+<td>无限制</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>fd 数据拷贝</td>
+<td>每次调用 select，需要将 fd 数据从用户空间拷贝到内核空间</td>
+<td>每次调用 poll，需要将 fd 数据从用户空间拷贝到内核空间</td>
+<td>使用内存映射(mmap)，不需要从用户空间频繁拷贝 fd 数据到内核空间</td>
+</tr>
+</tbody>
+</table>
+<p>epoll 明显优化了 IO 的执行效率，但在进程调用 epoll_wait()时，仍然可能被阻塞。能不能不用老是去问你数据是否准备就绪，等发出请求后，数据准备好了通知程序就行了，这就诞生了信号驱动 IO 模型。</p>
+<h2 id="信号驱动-io-模型">信号驱动 IO 模型</h2>
+<p>信号驱动 IO 不再用主动询问的方式去确认数据是否就绪，而是向内核发送一个信号(调用 sigaction 的时候建立一个 SIGIO 的信号)，然后应用用户进程可以去做别的事，不用阻塞。当内核数据准备好后，再通过 SIGIO 信号通知应用进程，数据准备好后的可读状态。应用用户进程收到信号之后，立即调用 recvfrom，去读取数据。</p>
+<img src="/images/os/sig-io.jpg" alt="" width="90%" />
+<p>信号驱动 IO 模型，在应用进程发出信号后，是立即返回的，不会阻塞进程。它已经有异步操作的感觉了。但是你细看上面的流程图，发现数据复制到应用缓冲的时候，应用进程还是阻塞的。回过头来看下，不管是 BIO，还是 NIO，还是信号驱动，在数据从内核复制到应用缓冲的时候，都是阻塞的。</p>
+<h2 id="异步-io-模型aio">异步 IO 模型(AIO)</h2>
+<p>AIO 实现了 IO 全流程的非阻塞，就是应用进程发出系统调用后，是立即返回的，但是立即返回的不是处理结果，而是表示提交成功类似的意思。等内核数据准备好，将数据拷贝到用户进程缓冲区，发送信号通知用户进程 IO 操作执行完毕。</p>
+<img src="/images/os/aio.jpg" alt="" width="90%" />
+<p>异步 IO 的优化思路很简单，只需要向内核发送一次请求，就可以完成数据状态询问和数据拷贝的所有操作，并且不用阻塞等待结果。日常开发中，有类似思想的业务场景：</p>
+<p>比如发起一笔批量转账，但是批量转账处理比较耗时，这时候后端可以先告知前端转账提交成功，等到结果处理完，再通知前端结果即可。</p>
+<h2 id="阻塞非阻塞同步异步-io-划分">阻塞、非阻塞、同步、异步 IO 划分</h2>
+<table>
+<thead>
+<tr>
+<th>IO 模型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阻塞 I/O 模型</td>
+<td>同步阻塞</td>
+</tr>
+<tr>
+<td>非阻塞 I/O 模型</td>
+<td>同步非阻塞</td>
+</tr>
+<tr>
+<td>I/O 多路复用模型</td>
+<td>同步阻塞</td>
+</tr>
+<tr>
+<td>信号驱动 I/O 模型</td>
+<td>同步非阻塞</td>
+</tr>
+<tr>
+<td>异步 IO（AIO）模型</td>
+<td>异步非阻塞</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.51cto.com/article/693213.html" target="_blank" rel="noopener noreffer ">https://www.51cto.com/article/693213.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-06-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/os-io/" data-title="IO" data-hashtags="操作系统"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/os-io/" data-hashtag="操作系统"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/os-io/" data-title="IO"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/os-io/" data-title="IO"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/os-io/" data-title="IO"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/process-thread-coroutine/" class="prev" rel="prev" title="进程线程协程的区别"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>进程线程协程的区别</a>
+            <a href="/how-is-the-network-connected/" class="next" rel="next" title="网络是怎样连接的">网络是怎样连接的<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -2,13 +2,18 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/go/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/go-code-style/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/go-makefile/</loc><lastmod>2021-11-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/makefile/</loc><lastmod>2021-11-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/scrum/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E6%95%8F%E6%8D%B7/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</loc><lastmod>2021-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/development-workflow/</loc><lastmod>2021-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -26,7 +31,6 @@
             <loc>https://luzhifang.github.io/linux-grep-sed-awk/</loc><lastmod>2021-05-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/sed/</loc><lastmod>2021-05-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/go/</loc><lastmod>2021-05-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/categories/go/</loc><lastmod>2021-05-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-project-layout/</loc><lastmod>2021-05-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83/</loc><lastmod>2021-05-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-multi-version/</loc><lastmod>2021-01-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -34,6 +38,7 @@
             <loc>https://luzhifang.github.io/categories/regexp/</loc><lastmod>2020-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E6%AD%A3%E5%88%99/</loc><lastmod>2020-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/regexp/</loc><lastmod>2020-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/go-command/</loc><lastmod>2020-11-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/centos6.6-supervisor3.x/</loc><lastmod>2020-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/supervisor/</loc><lastmod>2020-08-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/algolia/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -48,8 +53,6 @@
             <loc>https://luzhifang.github.io/tags/%E6%97%A5%E5%BF%97/</loc><lastmod>2020-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-mod/</loc><lastmod>2020-06-03T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc><lastmod>2020-06-03T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/go-makefile/</loc><lastmod>2020-05-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/makefile/</loc><lastmod>2020-05-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/node-install-upgrade/</loc><lastmod>2020-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/node/</loc><lastmod>2020-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/node/</loc><lastmod>2020-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -61,6 +64,10 @@
             <loc>https://luzhifang.github.io/linux-ssh-kengen/</loc><lastmod>2020-01-15T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/ssh/</loc><lastmod>2020-01-15T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</loc><lastmod>2020-01-15T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/kafka/</loc><lastmod>2020-01-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/kafka/</loc><lastmod>2020-01-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/kafka-config/</loc><lastmod>2020-01-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/kafka-quick-tour/</loc><lastmod>2020-01-08T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</loc><lastmod>2019-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/</loc><lastmod>2019-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/software-life-cycle/</loc><lastmod>2019-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -70,4 +77,34 @@
             <loc>https://luzhifang.github.io/markdown/</loc><lastmod>2019-08-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/vi/</loc><lastmod>2019-08-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/vi-editor/</loc><lastmod>2019-06-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/about/</loc><priority>0</priority></url></urlset>
+            <loc>https://luzhifang.github.io/tags/ddd/</loc><lastmod>2019-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/ddd/</loc><lastmod>2019-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc><lastmod>2019-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc><lastmod>2019-02-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/microservices/</loc><lastmod>2019-02-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/linux-perf-memory/</loc><lastmod>2019-01-29T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E5%86%85%E5%AD%98/</loc><lastmod>2019-01-29T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/cpu/</loc><lastmod>2019-01-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/linux-perf-cpu/</loc><lastmod>2019-01-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E7%BD%91%E7%BB%9C/</loc><lastmod>2018-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E7%BD%91%E7%BB%9C/</loc><lastmod>2018-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/net-perf/</loc><lastmod>2018-08-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/https/</loc><lastmod>2018-08-23T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/http/</loc><lastmod>2018-08-22T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/udp/</loc><lastmod>2018-08-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/ip/</loc><lastmod>2018-08-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tcp/</loc><lastmod>2018-08-18T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/icmp/</loc><lastmod>2018-08-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/summary-of-network-/</loc><lastmod>2018-08-16T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/how-is-the-network-connected/</loc><lastmod>2018-08-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-io/</loc><lastmod>2018-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc><lastmod>2018-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc><lastmod>2018-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/process-thread-coroutine/</loc><lastmod>2018-06-06T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-file-system/</loc><lastmod>2018-06-05T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-disk/</loc><lastmod>2018-06-04T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-memory/</loc><lastmod>2018-06-03T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-thread/</loc><lastmod>2018-06-02T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/os-process/</loc><lastmod>2018-06-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/about/</loc><priority>0</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/tcp/ip/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>

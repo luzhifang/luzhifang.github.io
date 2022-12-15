@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Linux性能优化-内存 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Linux性能优化-内存" />
+<meta property="og:description" content="内存性能指标 系统内存使用情况 已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。 共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/linux-perf-memory/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-01-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-01-29T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Linux性能优化-内存"/>
+<meta name="twitter:description" content="内存性能指标 系统内存使用情况 已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。 共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/linux-perf-memory/" /><link rel="prev" href="https://luzhifang.github.io/linux-perf-cpu/" /><link rel="next" href="https://luzhifang.github.io/microservices/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux性能优化-内存",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/linux-perf-memory\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Linux, 内存","wordcount":  2562 ,
+        "url": "https:\/\/luzhifang.github.io\/linux-perf-memory\/","datePublished": "2019-01-29T00:00:00+00:00","dateModified": "2019-01-29T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Linux性能优化-内存</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-01-29">2019-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2562 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#内存性能指标">内存性能指标</a>
+      <ul>
+        <li><a href="#系统内存使用情况">系统内存使用情况</a></li>
+        <li><a href="#进程内存使用情况">进程内存使用情况</a></li>
+        <li><a href="#缺页异常">缺页异常</a></li>
+        <li><a href="#swap-的使用情况">Swap 的使用情况</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存性能工具">内存性能工具</a></li>
+    <li><a href="#查看内存使用情况">查看内存使用情况</a></li>
+    <li><a href="#缓存命中率">缓存命中率</a></li>
+    <li><a href="#内存泄漏">内存泄漏</a></li>
+    <li><a href="#swap">Swap</a></li>
+    <li><a href="#内存优化思路">内存优化思路</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="内存性能指标">内存性能指标</h2>
+<img src="/images/linux/memory-indicator-mind.png" alt="" width="90%" />
+<h3 id="系统内存使用情况">系统内存使用情况</h3>
+<ul>
+<li>已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。</li>
+<li>共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内存大小。tmpfs 其实也是一种特殊的缓存。</li>
+<li>可用内存是新进程可以使用的最大内存，它包括剩余内存和可回收缓存。</li>
+<li>缓存包括两部分，一部分是磁盘读取文件的页缓存，用来缓存从磁盘读取的数据，可以加快以后再次访问的速度。另一部分，则是 Slab 分配器中的可回收内存。</li>
+<li>缓冲区是对原始磁盘块的临时存储，用来缓存将要写入磁盘的数据。这样，内核就可以把分散的写集中起来，统一优化磁盘写入。</li>
+</ul>
+<h3 id="进程内存使用情况">进程内存使用情况</h3>
+<ul>
+<li>虚拟内存，包括了进程代码段、数据段、共享内存、已经申请的堆内存和已经换出的内存等。这里要注意，已经申请的内存，即使还没有分配物理内存，也算作虚拟内存。</li>
+<li>常驻内存是进程实际使用的物理内存，不过，它不包括 Swap 和共享内存。</li>
+<li>共享内存，既包括与其他进程共同使用的真实的共享内存，还包括了加载的动态链接库以及程序的代码段等。</li>
+<li>Swap 内存，是指通过 Swap 换出到磁盘的内存。</li>
+</ul>
+<h3 id="缺页异常">缺页异常</h3>
+<ul>
+<li>可以直接从物理内存中分配时，被称为次缺页异常。</li>
+<li>需要磁盘 I/O 介入（比如 Swap）时，被称为主缺页异常。</li>
+</ul>
+<h3 id="swap-的使用情况">Swap 的使用情况</h3>
+<ul>
+<li>已用空间和剩余空间很好理解，就是字面上的意思，已经使用和没有使用的内存空间。</li>
+<li>换入和换出速度，则表示每秒钟换入和换出内存的大小。</li>
+</ul>
+<h2 id="内存性能工具">内存性能工具</h2>
+<img src="/images/linux/memory-indicator-to-tool.png" alt="" width="90%" />
+<p><strong>为了迅速定位内存问题，我通常会先运行几个覆盖面比较大的性能工具，比如 free、top、vmstat、pidstat 等。</strong></p>
+<p>具体的分析思路主要有这几步。</p>
+<ol>
+<li>先用 free 和 top，查看系统整体的内存使用情况。</li>
+<li>再用 vmstat 和 pidstat，查看一段时间的趋势，从而判断出内存问题的类型。</li>
+<li>最后进行详细分析，比如内存分配分析、缓存 / 缓冲区分析、具体进程的内存使用分析等。</li>
+</ol>
+<img src="/images/linux/memory-perf-steps.png" alt="" width="100%" />
+<h2 id="查看内存使用情况">查看内存使用情况</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ free -w
+</span></span><span class="line"><span class="cl">              total        used        free      shared     buffers       cache   available
+</span></span><span class="line"><span class="cl">Mem:        <span class="m">8113464</span>      <span class="m">214652</span>     <span class="m">7745064</span>          <span class="m">64</span>       <span class="m">14180</span>      <span class="m">139568</span>     <span class="m">7689660</span>
+</span></span><span class="line"><span class="cl">Swap:       <span class="m">2097152</span>           <span class="m">0</span>     <span class="m">2097152</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># total 是总内存大小；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># used 是已使用内存的大小，包含了共享内存；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># free 是未使用内存的大小；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># shared 是共享内存的大小；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># buffers 是对磁盘数据的缓存，会用在读和写请求上</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cache 是文件数据的缓存，会用在读和写请求上</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># available 是新进程可用内存的大小。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ top
+</span></span><span class="line"><span class="cl">top - 17:13:55 up <span class="m">29</span> min,  <span class="m">0</span> users,  load average: 0.01, 0.00, 0.00
+</span></span><span class="line"><span class="cl">Tasks:   <span class="m">9</span> total,   <span class="m">1</span> running,   <span class="m">8</span> sleeping,   <span class="m">0</span> stopped,   <span class="m">0</span> zombie
+</span></span><span class="line"><span class="cl">%Cpu<span class="o">(</span>s<span class="o">)</span>:  0.0 us,  0.1 sy,  0.0 ni, 99.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+</span></span><span class="line"><span class="cl">KiB Mem :  <span class="m">8113464</span> total,  <span class="m">7745304</span> free,   <span class="m">213904</span> used,   <span class="m">154256</span> buff/cache
+</span></span><span class="line"><span class="cl">KiB Swap:  <span class="m">2097152</span> total,  <span class="m">2097152</span> free,        <span class="m">0</span> used.  <span class="m">7690156</span> avail Mem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+</span></span><span class="line"><span class="cl">   <span class="m">40</span> root      <span class="m">20</span>   <span class="m">0</span>  <span class="m">836056</span> <span class="m">140424</span>  <span class="m">34740</span> S   0.3  1.7   0:27.98 hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># VIRT 是进程虚拟内存的大小，只要是进程申请过的内存，即便还没有真正分配物理内存，也会计算在内。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RES 是常驻内存的大小，也就是进程实际使用的物理内存大小，但不包括 Swap 和共享内存。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SHR 是共享内存的大小，比如与其他进程共同使用的共享内存、加载的动态链接库以及程序的代码段等。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># %MEM 是进程使用物理内存占系统总内存的百分比。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="缓存命中率">缓存命中率</h2>
+<p>Buffer 和 Cache 的设计目的，是为了提升系统的 I/O 性能。它们利用内存，充当起慢速磁盘与快速 CPU 之间的桥梁，可以加速 I/O 的访问速度。</p>
+<p>Buffer 和 Cache 分别缓存的是对磁盘和文件系统的读写数据。</p>
+<p>缓存命中率是指直接通过缓存获取数据的请求次数，占所有请求次数的百分比。命中率越高说明缓存带来的收益越高，应用程序的性能也就越好。</p>
+<p>安装 bcc 包后可以通过 cachestat 和 cachetop 来监测缓存的读写命中情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 可以把bcc工具加到环境变量中，export PATH=$PATH:/usr/share/bcc/tools</span>
+</span></span><span class="line"><span class="cl">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb https://repo.iovisor.org/apt/xenial xenial main&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/iovisor.list
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install -y bcc-tools libbcc-examples linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cachestat 提供了整个操作系统缓存的读写命中情况。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># TOTAL ，表示总的 I/O 次数；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MISSES ，表示缓存未命中的次数；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># HITS ，表示缓存命中的次数；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DIRTIES， 表示新增到缓存中的脏页数；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BUFFERS_MB 表示 Buffers 的大小，以 MB 为单位；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CACHED_MB 表示 Cache 的大小，以 MB 为单位。</span>
+</span></span><span class="line"><span class="cl">$ cachestat <span class="m">1</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl">   TOTAL   MISSES     HITS  DIRTIES   BUFFERS_MB  CACHED_MB
+</span></span><span class="line"><span class="cl">       <span class="m">2</span>        <span class="m">0</span>        <span class="m">2</span>        <span class="m">1</span>           <span class="m">17</span>        <span class="m">279</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cachetop 提供了每个进程的缓存命中情况。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># READ_HIT 和 WRITE_HIT ，分别表示读和写的缓存命中率。</span>
+</span></span><span class="line"><span class="cl">$ cachetop
+</span></span><span class="line"><span class="cl">11:58:50 Buffers MB: <span class="m">258</span> / Cached MB: <span class="m">347</span> / Sort: HITS / Order: ascending
+</span></span><span class="line"><span class="cl">PID      UID      CMD              HITS     MISSES   DIRTIES  READ_HIT%  WRITE_HIT%
+</span></span><span class="line"><span class="cl">   <span class="m">13029</span> root     python                  <span class="m">1</span>        <span class="m">0</span>        <span class="m">0</span>     100.0%       0.0%
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="内存泄漏">内存泄漏</h2>
+<p>虚拟内存分布从低到高分别是只读段，数据段，堆，内存映射段，栈五部分。其中会导致内存泄漏的是：</p>
+<ul>
+<li>堆：由应用程序自己来分配和管理，除非程序退出这些堆内存不会被系统自动释放。</li>
+<li>内存映射段：包括动态链接库和共享内存，其中共享内存由程序自动分配和管理</li>
+</ul>
+<p>内存泄漏的危害比较大，这些忘记释放的内存，不仅应用程序自己不能访问，系统也不能把它们再次分配给其他应用。内存泄漏不断累积甚至会耗尽系统内存。</p>
+<p>bcc 软件包中的 memleak 工具可以用来检测内存泄漏</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 可以根据内存分配的调用栈，定位内存的分配位置，从而释放不再访问的内存。</span>
+</span></span><span class="line"><span class="cl">$ /usr/share/bcc/tools/memleak -a -p <span class="k">$(</span>pidof app<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>避免内存泄漏，最重要的一点就是养成良好的编程习惯，比如分配内存后，一定要先写好内存释放的代码，再去开发其他逻辑。</p>
+<h2 id="swap">Swap</h2>
+<p>对于程序自动分配的堆内存，也就是我们在内存管理中的匿名页，虽然这些内存不能直接释放，但是 Linux 提供了 Swap 机制将不常访问的内存写入到磁盘来释放内存，再次访问时从磁盘读取到内存即可。</p>
+<p>Swap 本质就是把一块磁盘空间或者一个本地文件当作内存来使用，包括换入和换出两个过程：</p>
+<ul>
+<li>换出：将进程暂时不用的内存数据存储到磁盘中，并释放这些内存</li>
+<li>换入：进程再次访问内存时，将它们从磁盘读到内存中</li>
+</ul>
+<p>当 Swap 变高时，你可以用 sar、/proc/zoneinfo、/proc/pid/status 等方法，查看系统和进程的内存使用情况，进而找出 Swap 升高的根源和受影响的进程。</p>
+<p><strong>Swap 优化：</strong></p>
+<ul>
+<li>禁止 Swap，现在服务器的内存足够大，所以除非有必要，禁用 Swap 就可以了。随着云计算的普及，大部分云平台中的虚拟机都默认禁止 Swap。</li>
+<li>如果实在需要用到 Swap，可以尝试降低 swappiness 的值，减少内存回收时 Swap 的使用倾向。</li>
+<li>响应延迟敏感的应用，如果它们可能在开启 Swap 的服务器中运行，你还可以用库函数 mlock() 或者 mlockall() 锁定内存，阻止它们的内存换出。</li>
+</ul>
+<h2 id="内存优化思路">内存优化思路</h2>
+<ul>
+<li>最好禁止 Swap。如果必须开启 Swap，降低 swappiness 的值，减少内存回收时 Swap 的使用倾向。</li>
+<li>减少内存的动态分配。比如，可以使用内存池、大页（HugePage）等。</li>
+<li>尽量使用缓存和缓冲区来访问数据。比如，可以使用堆栈明确声明内存空间，来存储需要缓存的数据；或者用 Redis 这类的外部缓存组件，优化数据的访问。</li>
+<li>使用 cgroups 等方式限制进程的内存使用情况。这样，可以确保系统内存不会被异常进程耗尽。</li>
+<li>通过 /proc/pid/oom_adj ，调整核心应用的 oom_score。这样，可以保证即使内存紧张，核心应用也不会被 OOM 杀死。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.eet-china.com/mp/a117035.html" target="_blank" rel="noopener noreffer ">https://www.eet-china.com/mp/a117035.html</a></p>
+<p><a href="https://weread.qq.com/web/reader/6da3218071fd5aa16dabd75k8e232ec02198e296a067180" target="_blank" rel="noopener noreffer ">性能之巅-洞悉系统、企业与云计算</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/linux-perf-memory/" data-title="Linux性能优化-内存" data-hashtags="Linux,内存"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/linux-perf-memory/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/linux-perf-memory/" data-title="Linux性能优化-内存"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/linux-perf-memory/" data-title="Linux性能优化-内存"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/linux-perf-memory/" data-title="Linux性能优化-内存"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/%E5%86%85%E5%AD%98/">内存</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux-perf-cpu/" class="prev" rel="prev" title="Linux性能优化-CPU"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Linux性能优化-CPU</a>
+            <a href="/microservices/" class="next" rel="next" title="微服务">微服务<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
