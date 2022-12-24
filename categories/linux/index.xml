@@ -37,6 +37,22 @@
     <description><![CDATA[1. vi 和 vim 的区别 vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种]]></description>
 </item>
 <item>
+    <title>Linux性能优化-网络</title>
+    <link>https://luzhifang.github.io/linux-perf-net/</link>
+    <pubDate>Tue, 19 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-net/</guid>
+    <description><![CDATA[性能指标 通常用带宽、吞吐量、延时、PPS（Packet Per Second）等指标衡量网络的性能。 带宽，表示链路的最大传输速率，单位通常为 b/s （比特]]></description>
+</item>
+<item>
+    <title>Linux性能优化-IO</title>
+    <link>https://luzhifang.github.io/linux-perf-io/</link>
+    <pubDate>Fri, 08 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/linux-perf-io/</guid>
+    <description><![CDATA[磁盘性能指标 说到磁盘性能的衡量标准，必须要提到五个常见指标，也就是我们经常用到的，使用率、饱和度、IOPS、吞吐量以及响应时间等。这五个指标]]></description>
+</item>
+<item>
     <title>Linux性能优化-内存</title>
     <link>https://luzhifang.github.io/linux-perf-memory/</link>
     <pubDate>Tue, 29 Jan 2019 00:00:00 &#43;0000</pubDate>
