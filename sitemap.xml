@@ -2,12 +2,21 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/goland-plugins/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/idea-plugins/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/vscode-plugins/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-04-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/windows/</loc><lastmod>2022-03-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/windows/</loc><lastmod>2022-03-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/wsl/</loc><lastmod>2022-03-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/win11-optimization/</loc><lastmod>2022-03-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/go/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-code-style/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/posts/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/tags/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://luzhifang.github.io/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E8%A7%84%E8%8C%83/</loc><lastmod>2021-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-makefile/</loc><lastmod>2021-11-10T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

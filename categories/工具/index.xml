@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>工具 - 分类 - 半生戎码</title>
+        <link>https://luzhifang.github.io/categories/%E5%B7%A5%E5%85%B7/</link>
+        <description>工具 - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%B7%A5%E5%85%B7/" rel="self" type="application/rss+xml" /><item>
+    <title>Goland 插件推荐</title>
+    <link>https://luzhifang.github.io/goland-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/goland-plugins/</guid>
+    <description><![CDATA[开发效率 Eclipse keymap，eclipse 快捷键。 Translation，翻译插件。 Key Promoter X，快捷键提示。 String Manipulation，字符串处理，]]></description>
+</item>
+<item>
+    <title>IDEA 插件推荐</title>
+    <link>https://luzhifang.github.io/idea-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/idea-plugins/</guid>
+    <description><![CDATA[Intellij IDEA 的插件主页地址是https://plugins.jetbrains.com。打开网站测速 - 站长工具找到最快的IP，配置到hosts文件中]]></description>
+</item>
+<item>
+    <title>VSCODE 插件推荐</title>
+    <link>https://luzhifang.github.io/vscode-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/vscode-plugins/</guid>
+    <description><![CDATA[开发效率 EditorConfig for VS Code，代码格式统一。 vscode-json，操作美化 json。 快捷键 cmd+alt+v，验证 cmd+alt+b，格式化 cm]]></description>
+</item>
+</channel>
+</rss>

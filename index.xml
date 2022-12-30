@@ -4,9 +4,49 @@
         <link>https://luzhifang.github.io/</link>
         <description>Hugo theme - LoveIt</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 13 Nov 2021 00:00:00 &#43;0000</lastBuildDate>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://luzhifang.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Goland 插件推荐</title>
+    <link>https://luzhifang.github.io/goland-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/goland-plugins/</guid>
+    <description><![CDATA[开发效率 Eclipse keymap，eclipse 快捷键。 Translation，翻译插件。 Key Promoter X，快捷键提示。 String Manipulation，字符串处理，]]></description>
+</item>
+<item>
+    <title>IDEA 插件推荐</title>
+    <link>https://luzhifang.github.io/idea-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/idea-plugins/</guid>
+    <description><![CDATA[Intellij IDEA 的插件主页地址是https://plugins.jetbrains.com。打开网站测速 - 站长工具找到最快的IP，配置到hosts文件中]]></description>
+</item>
+<item>
+    <title>VSCODE 插件推荐</title>
+    <link>https://luzhifang.github.io/vscode-plugins/</link>
+    <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/vscode-plugins/</guid>
+    <description><![CDATA[开发效率 EditorConfig for VS Code，代码格式统一。 vscode-json，操作美化 json。 快捷键 cmd+alt+v，验证 cmd+alt+b，格式化 cm]]></description>
+</item>
+<item>
+    <title>Windows11 安装 Linux 子系统</title>
+    <link>https://luzhifang.github.io/wsl/</link>
+    <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/wsl/</guid>
+    <description><![CDATA[启用相关功能 首先搜索【启用或关闭 Winsows 功能】 然后勾选【适用于 linux 的 Windows 子系统】和【虚拟平台】 下载安装 Linux 内核更新包 wsl_update_x64.msi 设置默认版本为 WSL 2 1 wsl --set-default-version 2 安装 Linux 最]]></description>
+</item>
+<item>
+    <title>Windows11 优化</title>
+    <link>https://luzhifang.github.io/win11-optimization/</link>
+    <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/win11-optimization/</guid>
+    <description><![CDATA[关闭系统透明效果，设置 -&gt; 个性化 -&gt; 颜色 视觉效果调整为最佳性能，高级系统设置 -&gt; 性能 -&gt; 设置 -&gt; 调整为最佳性能 禁用游戏模式，设置 -&gt; 游戏 -&gt; 游戏模式 关闭启]]></description>
+</item>
+<item>
     <title>Go编码规范</title>
     <link>https://luzhifang.github.io/go-code-style/</link>
     <pubDate>Sat, 13 Nov 2021 00:00:00 &#43;0000</pubDate>
@@ -45,46 +85,6 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/git-guide/</guid>
     <description><![CDATA[1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email]]></description>
-</item>
-<item>
-    <title>Linux 文本三剑客</title>
-    <link>https://luzhifang.github.io/linux-grep-sed-awk/</link>
-    <pubDate>Wed, 19 May 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/linux-grep-sed-awk/</guid>
-    <description><![CDATA[Linux 文本三剑客 awk、grep、sed 是 linux 操作文本的三大利器，合称文本三剑客，也是必须掌握的 linux 命令之一。 三者的功能都是处理文本，但侧重点各不相]]></description>
-</item>
-<item>
-    <title>Go项目目录规范</title>
-    <link>https://luzhifang.github.io/go-project-layout/</link>
-    <pubDate>Sun, 16 May 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/go-project-layout/</guid>
-    <description><![CDATA[目录结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 ├── api ├── assets ├── build │ ├── ci │ └── package ├── cmd │ └── _your_app_]]></description>
-</item>
-<item>
-    <title>Go多版本管理器</title>
-    <link>https://luzhifang.github.io/go-multi-version/</link>
-    <pubDate>Sat, 16 Jan 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/go-multi-version/</guid>
-    <description><![CDATA[windows 下载多版本管理工具 g，地址：https://github.com/voidint/g/releases，选择g*.windows-amd6]]></description>
-</item>
-<item>
-    <title>正则表达式</title>
-    <link>https://luzhifang.github.io/regexp/</link>
-    <pubDate>Thu, 26 Nov 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/regexp/</guid>
-    <description><![CDATA[简介 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为&quot;元字符]]></description>
-</item>
-<item>
-    <title>Go命令详解</title>
-    <link>https://luzhifang.github.io/go-command/</link>
-    <pubDate>Sun, 01 Nov 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/go-command/</guid>
-    <description><![CDATA[概述 输入 go 命令我们可以看到全部命令，使用 go help 可以查看某个命令的详细解释和用法 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 root@luzhifang:~# go Go is]]></description>
 </item>
 </channel>
 </rss>

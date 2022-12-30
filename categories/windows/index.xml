@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Windows - 分类 - 半生戎码</title>
+        <link>https://luzhifang.github.io/categories/windows/</link>
+        <description>Windows - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/windows/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows11 安装 Linux 子系统</title>
+    <link>https://luzhifang.github.io/wsl/</link>
+    <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/wsl/</guid>
+    <description><![CDATA[启用相关功能 首先搜索【启用或关闭 Winsows 功能】 然后勾选【适用于 linux 的 Windows 子系统】和【虚拟平台】 下载安装 Linux 内核更新包 wsl_update_x64.msi 设置默认版本为 WSL 2 1 wsl --set-default-version 2 安装 Linux 最]]></description>
+</item>
+<item>
+    <title>Windows11 优化</title>
+    <link>https://luzhifang.github.io/win11-optimization/</link>
+    <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/win11-optimization/</guid>
+    <description><![CDATA[关闭系统透明效果，设置 -&gt; 个性化 -&gt; 颜色 视觉效果调整为最佳性能，高级系统设置 -&gt; 性能 -&gt; 设置 -&gt; 调整为最佳性能 禁用游戏模式，设置 -&gt; 游戏 -&gt; 游戏模式 关闭启]]></description>
+</item>
+</channel>
+</rss>
