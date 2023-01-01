@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Docker Dockerfile - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Docker Dockerfile" />
+<meta property="og:description" content="什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/dokcer-dockerfile/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-28T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Docker Dockerfile"/>
+<meta name="twitter:description" content="什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/dokcer-dockerfile/" /><link rel="prev" href="https://luzhifang.github.io/docker-command/" /><link rel="next" href="https://luzhifang.github.io/win11-optimization/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker Dockerfile",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/dokcer-dockerfile\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  2354 ,
+        "url": "https:\/\/luzhifang.github.io\/dokcer-dockerfile\/","datePublished": "2022-02-28T00:00:00+00:00","dateModified": "2022-02-28T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker Dockerfile</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-28">2022-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2354 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是-dockerfile">什么是 Dockerfile</a></li>
+    <li><a href="#dockerfile-构建镜像的过程">Dockerfile 构建镜像的过程</a></li>
+    <li><a href="#使用-dockerfile-定制镜像">使用 Dockerfile 定制镜像</a>
+      <ul>
+        <li><a href="#下面以定制一个-nginx-镜像构建好的镜像内会有一个-usrsharenginxhtmlindexhtml-文件">下面以定制一个 nginx 镜像（构建好的镜像内会有一个 /usr/share/nginx/html/index.html 文件）</a></li>
+        <li><a href="#from-和-run-指令的作用">FROM 和 RUN 指令的作用</a></li>
+        <li><a href="#构建镜像">构建镜像</a></li>
+      </ul>
+    </li>
+    <li><a href="#dockerfile-指令详解">Dockerfile 指令详解</a>
+      <ul>
+        <li><a href="#from">FROM</a></li>
+        <li><a href="#maintainer">MAINTAINER</a></li>
+        <li><a href="#copy">COPY</a></li>
+        <li><a href="#add">ADD</a></li>
+        <li><a href="#workdir">WORKDIR</a></li>
+        <li><a href="#run">RUN</a></li>
+        <li><a href="#cmd">CMD</a></li>
+        <li><a href="#entrypoint">ENTRYPOINT</a></li>
+        <li><a href="#env">ENV</a></li>
+        <li><a href="#arg">ARG</a></li>
+        <li><a href="#expose">EXPOSE</a></li>
+        <li><a href="#volume">VOLUME</a></li>
+        <li><a href="#onbuild">ONBUILD</a></li>
+        <li><a href="#user">USER</a></li>
+        <li><a href="#label">LABEL</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="什么是-dockerfile">什么是 Dockerfile</h2>
+<p>Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。</p>
+<h2 id="dockerfile-构建镜像的过程">Dockerfile 构建镜像的过程</h2>
+<ol>
+<li>从 base 镜像运行一个容器。</li>
+<li>执行一条指令，对容器做修改。</li>
+<li>执行类似 docker commit 的操作，生成一个新的镜像层。</li>
+<li>Docker 再基于刚刚提交的镜像运行一个新容器。</li>
+<li>重复 2 ～ 4 步，直到 Dockerfile 中的所有指令执行完毕。</li>
+</ol>
+<h2 id="使用-dockerfile-定制镜像">使用 Dockerfile 定制镜像</h2>
+<p>这里仅讲解如何运行 Dockerfile 文件来定制一个镜像，具体 Dockerfile 文件内指令详解，将在下一节中介绍，这里你只要知道构建的流程即可。</p>
+<h3 id="下面以定制一个-nginx-镜像构建好的镜像内会有一个-usrsharenginxhtmlindexhtml-文件">下面以定制一个 nginx 镜像（构建好的镜像内会有一个 /usr/share/nginx/html/index.html 文件）</h3>
+<p>在一个空目录下，新建一个名为 Dockerfile 文件，并在文件内添加以下内容：</p>
+<p>FROM nginx
+RUN echo &lsquo;这是一个本地构建的 nginx 镜像&rsquo; &gt; /usr/share/nginx/html/index.html</p>
+<h3 id="from-和-run-指令的作用">FROM 和 RUN 指令的作用</h3>
+<p>FROM：定制的镜像都是基于 FROM 的镜像，这里的 nginx 就是定制需要的基础镜像。后续的操作都是基于 nginx。</p>
+<p>RUN：用于执行后面跟着的命令行命令。</p>
+<p><strong>注意</strong>：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">FROM centos
+</span></span><span class="line"><span class="cl">RUN yum -y install wget
+</span></span><span class="line"><span class="cl">RUN wget -O redis.tar.gz <span class="s2">&#34;http://download.redis.io/releases/redis-5.0.3.tar.gz&#34;</span>
+</span></span><span class="line"><span class="cl">RUN tar -xvf redis.tar.gz
+</span></span><span class="line"><span class="cl">以上执行会创建 <span class="m">3</span> 层镜像。可简化为以下格式：
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">FROM centos
+</span></span><span class="line"><span class="cl">RUN yum -y install wget <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> wget -O redis.tar.gz <span class="s2">&#34;http://download.redis.io/releases/redis-5.0.3.tar.gz&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> tar -xvf redis.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上，以 &amp;&amp; 符号连接命令，这样执行后，只会创建 1 层镜像。</p>
+<h3 id="构建镜像">构建镜像</h3>
+<p>在 Dockerfile 文件的存放目录下，执行<a href="/docker-command/#docker-build" rel="">docker build</a>构建动作。</p>
+<p>以下示例，通过目录下的 Dockerfile 构建一个 nginx:v3（镜像名称:镜像标签）。</p>
+<p><strong>注意</strong>：最后的 . 代表本次执行的上下文路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ docker build -t nginx:v3 .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="dockerfile-指令详解">Dockerfile 指令详解</h2>
+<h3 id="from">FROM</h3>
+<p>指定 base 镜像。</p>
+<h3 id="maintainer">MAINTAINER</h3>
+<p>设置镜像的作者，可以是任意字符串。</p>
+<h3 id="copy">COPY</h3>
+<p>将文件从 build context 复制到镜像。COPY 支持两种形式： COPY src dest 与 COPY [&ldquo;src&rdquo;, &ldquo;dest&rdquo;]。</p>
+<p><strong>注意</strong>：src 只能指定 build context 中的文件或目录。</p>
+<h3 id="add">ADD</h3>
+<p>与 COPY 类似（同样需求下，官方推荐使用 COPY），从 build context 复制文件到镜像。不同的是，如果 src 是归档文件（tar、zip、tgz、xz 等），文件会被自动解压到 dest。</p>
+<h3 id="workdir">WORKDIR</h3>
+<p>为后面的 RUN、CMD、ENTRYPOINT、ADD 或 COPY 指令设置镜像中的当前工作目录。</p>
+<h3 id="run">RUN</h3>
+<p>在容器中运行指定的命令。有以下俩种格式：</p>
+<p>shell 格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">RUN &lt;命令行命令&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>exec 格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">RUN <span class="o">[</span><span class="s2">&#34;可执行文件&#34;</span>, <span class="s2">&#34;参数1&#34;</span>, <span class="s2">&#34;参数2&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 例如：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RUN [&#34;./test.php&#34;, &#34;dev&#34;, &#34;offline&#34;] 等价于 RUN ./test.php dev offline</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cmd">CMD</h3>
+<p>类似于 RUN 指令，用于运行程序，但二者运行的时间点不同:</p>
+<ul>
+<li>CMD 在 docker run 时运行。</li>
+<li>RUN 是在 docker build。</li>
+</ul>
+<p>作用：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。CMD 指令指定的程序可被 docker run 命令行参数中指定要运行的程序所覆盖。</p>
+<p><strong>注意</strong>：如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">CMD &lt;shell 命令&gt;
+</span></span><span class="line"><span class="cl">CMD <span class="o">[</span><span class="s2">&#34;&lt;可执行文件或命令&gt;&#34;</span>,<span class="s2">&#34;&lt;param1&gt;&#34;</span>,<span class="s2">&#34;&lt;param2&gt;&#34;</span>,...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">CMD <span class="o">[</span><span class="s2">&#34;&lt;param1&gt;&#34;</span>,<span class="s2">&#34;&lt;param2&gt;&#34;</span>,...<span class="o">]</span>  <span class="c1"># 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>推荐使用第二种格式，执行过程比较明确。第一种格式实际上在运行的过程中也会自动转换成第二种格式运行，并且默认可执行文件是 sh。</p>
+<h3 id="entrypoint">ENTRYPOINT</h3>
+<p>类似于 CMD 指令，但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</p>
+<p>但是, 如果运行 docker run 时使用了 &ndash;entrypoint 选项，将覆盖 ENTRYPOINT 指令指定的程序。</p>
+<p>优点：在执行 docker run 的时候可以指定 ENTRYPOINT 运行所需的参数。</p>
+<p><strong>注意</strong>：如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">ENTRYPOINT <span class="o">[</span><span class="s2">&#34;&lt;executeable&gt;&#34;</span>,<span class="s2">&#34;&lt;param1&gt;&#34;</span>,<span class="s2">&#34;&lt;param2&gt;&#34;</span>,...<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以搭配 CMD 命令使用：一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参，以下示例会提到。</p>
+<p>示例：</p>
+<p>假设已通过 Dockerfile 构建了 nginx:test 镜像：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">FROM nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENTRYPOINT <span class="o">[</span><span class="s2">&#34;nginx&#34;</span>, <span class="s2">&#34;-c&#34;</span><span class="o">]</span> <span class="c1"># 定参</span>
+</span></span><span class="line"><span class="cl">CMD <span class="o">[</span><span class="s2">&#34;/etc/nginx/nginx.conf&#34;</span><span class="o">]</span> <span class="c1"># 变参</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>RUN、CMD、ENTRYPOINT 三者用法最佳实践</p>
+<ol>
+<li>RUN：使用 RUN 指令安装应用和软件包，创建新的镜像层。</li>
+<li>CMD：如果想为容器设置默认的启动命令，可使用 CMD 指令。用户可在 docker run 命令行中替换此默认命令。</li>
+<li>ENTRYPOINT：如果 Docker 镜像的用途是运行应用程序或服务，比如运行一个 MySQL，应该优先使用 Exec 格式的 ENTRYPOINT 指令。CMD 可为 ENTRYPOINT 提供额外的默认参数，同时可利用 docker run 命令行替换默认参数。</li>
+</ol>
+<h3 id="env">ENV</h3>
+<p>设置环境变量，环境变量可被后面的指令使用。</p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">ENV &lt;key&gt; &lt;value&gt;
+</span></span><span class="line"><span class="cl">ENV &lt;key1&gt;<span class="o">=</span>&lt;value1&gt; &lt;key2&gt;<span class="o">=</span>&lt;value2&gt;...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以下示例设置 NODE_VERSION = 7.2.0 ， 在后续的指令中可以通过 $NODE_VERSION 引用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">ENV NODE_VERSION 7.2.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN curl -SLO <span class="s2">&#34;https://nodejs.org/dist/v</span><span class="nv">$NODE_VERSION</span><span class="s2">/node-v</span><span class="nv">$NODE_VERSION</span><span class="s2">-linux-x64.tar.xz&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> curl -SLO <span class="s2">&#34;https://nodejs.org/dist/v</span><span class="nv">$NODE_VERSION</span><span class="s2">/SHASUMS256.txt.asc&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="arg">ARG</h3>
+<p>构建参数，与 ENV 作用一致。不过作用域不一样。ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</p>
+<h3 id="expose">EXPOSE</h3>
+<p>仅仅只是声明端口。</p>
+<p>作用：</p>
+<ul>
+<li>帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。</li>
+<li>在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。</li>
+</ul>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">EXPOSE &lt;端口1&gt; <span class="o">[</span>&lt;端口2&gt;...<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="volume">VOLUME</h3>
+<p>定义匿名数据卷。在启动容器时忘记挂载数据卷，会自动挂载到匿名卷。</p>
+<p>作用：</p>
+<ul>
+<li>避免重要的数据，因容器重启而丢失，这是非常致命的。</li>
+<li>避免容器不断变大。</li>
+</ul>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">VOLUME <span class="o">[</span><span class="s2">&#34;&lt;路径1&gt;&#34;</span>, <span class="s2">&#34;&lt;路径2&gt;&#34;</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">VOLUME &lt;路径&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在启动容器 docker run 的时候，我们可以通过 -v 参数修改挂载点。</p>
+<h3 id="onbuild">ONBUILD</h3>
+<p>用于延迟构建命令的执行。简单的说，就是 Dockerfile 里用 ONBUILD 指定的命令，在本次构建镜像的过程中不会执行（假设镜像为 test-build）。当有新的 Dockerfile 使用了之前构建的镜像 FROM test-build ，这时执行新镜像的 Dockerfile 构建时候，会执行 test-build 的 Dockerfile 里的 ONBUILD 指定的命令。</p>
+<h3 id="user">USER</h3>
+<p>用于指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）。</p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">USER &lt;用户名&gt;<span class="o">[</span>:&lt;用户组&gt;<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="label">LABEL</h3>
+<p>LABEL 指令用来给镜像添加一些元数据（metadata），以键值对的形式，语法格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">LABEL &lt;key&gt;<span class="o">=</span>&lt;value&gt; &lt;key&gt;<span class="o">=</span>&lt;value&gt; &lt;key&gt;<span class="o">=</span>&lt;value&gt; ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比如我们可以添加镜像的作者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">LABEL org.opencontainers.image.authors<span class="o">=</span><span class="s2">&#34;ubuntu&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://weread.qq.com/web/reader/93d325a0719b200493d5ba9k6f4322302126f4922f45dec" target="_blank" rel="noopener noreffer ">《每天 5 分钟玩转 Docker 容器技术》</a></p>
+<p><a href="https://www.runoob.com/docker/docker-dockerfile.html" target="_blank" rel="noopener noreffer ">https://www.runoob.com/docker/docker-dockerfile.html</a></p>
+<p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer ">https://docs.docker.com/engine/reference/builder/</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/dokcer-dockerfile/" data-title="Docker Dockerfile" data-hashtags="docker,容器"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/dokcer-dockerfile/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/dokcer-dockerfile/" data-title="Docker Dockerfile"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/dokcer-dockerfile/" data-title="Docker Dockerfile"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/dokcer-dockerfile/" data-title="Docker Dockerfile"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">docker</a>,&nbsp;<a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/docker-command/" class="prev" rel="prev" title="Docker 常用命令"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Docker 常用命令</a>
+            <a href="/win11-optimization/" class="next" rel="next" title="Windows11 优化">Windows11 优化<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

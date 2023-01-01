@@ -47,44 +47,44 @@
     <description><![CDATA[关闭系统透明效果，设置 -&gt; 个性化 -&gt; 颜色 视觉效果调整为最佳性能，高级系统设置 -&gt; 性能 -&gt; 设置 -&gt; 调整为最佳性能 禁用游戏模式，设置 -&gt; 游戏 -&gt; 游戏模式 关闭启]]></description>
 </item>
 <item>
+    <title>Docker Dockerfile</title>
+    <link>https://luzhifang.github.io/dokcer-dockerfile/</link>
+    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/dokcer-dockerfile/</guid>
+    <description><![CDATA[什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生]]></description>
+</item>
+<item>
+    <title>Docker 常用命令</title>
+    <link>https://luzhifang.github.io/docker-command/</link>
+    <pubDate>Sat, 26 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-command/</guid>
+    <description><![CDATA[Dcoker 基本概念 Docker 包括三个基本概念： 镜像（Image）：Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外]]></description>
+</item>
+<item>
+    <title>Docker 实现原理</title>
+    <link>https://luzhifang.github.io/docker-implementation/</link>
+    <pubDate>Tue, 22 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-implementation/</guid>
+    <description><![CDATA[容器的实现原理 从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰]]></description>
+</item>
+<item>
+    <title>Ubuntu 安装 Docker</title>
+    <link>https://luzhifang.github.io/docker-install/</link>
+    <pubDate>Sat, 19 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-install/</guid>
+    <description><![CDATA[使用官方安装脚本自动安装 注意：脚本安装适合在测试和开发环境使用。 安装命令如下： 1 2 curl -fsSL get.docker.com -o get-docker.sh sh get-docker.sh --mirror Aliyun 也可以使用国内 daocloud 一键安装命令： 1 curl -sSL https://get.daocloud.io/docker |]]></description>
+</item>
+<item>
     <title>Go编码规范</title>
     <link>https://luzhifang.github.io/go-code-style/</link>
     <pubDate>Sat, 13 Nov 2021 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/go-code-style/</guid>
     <description><![CDATA[1. 代码风格 1.1 代码格式 代码都必须用 gofmt 进行格式化。 运算符和操作数之间要留空格。 建议一行代码不超过 120 个字符，超过部分，请采用合适的换行方式换行。但]]></description>
-</item>
-<item>
-    <title>Go Makefile使用</title>
-    <link>https://luzhifang.github.io/go-makefile/</link>
-    <pubDate>Wed, 10 Nov 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/go-makefile/</guid>
-    <description><![CDATA[Makefile 简介 Makefile 是一个工程文件的编译规则，描述了整个工程的编译和链接等规则，这些规则里包含了这些内容： 工程中的哪些源文件需要编译，以及如何编译； 需要]]></description>
-</item>
-<item>
-    <title>scrum</title>
-    <link>https://luzhifang.github.io/scrum/</link>
-    <pubDate>Thu, 26 Aug 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/scrum/</guid>
-    <description><![CDATA[1. 起源 Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。 OODA: 又称为“博伊德循环”，是一种空战]]></description>
-</item>
-<item>
-    <title>开发流程</title>
-    <link>https://luzhifang.github.io/development-workflow/</link>
-    <pubDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/development-workflow/</guid>
-    <description><![CDATA[1. 需求阶段 市场调研 可行性分析 需求分析 需求文档 需求评审 2. 设计阶段 产品设计 交互设计 视觉设计 技术设计 技术评审 需求排期 3. 开发阶段 3.1 开发 Git Flow 工作流 生成]]></description>
-</item>
-<item>
-    <title>Git使用指北</title>
-    <link>https://luzhifang.github.io/git-guide/</link>
-    <pubDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/git-guide/</guid>
-    <description><![CDATA[1. 起步 下载地址，各平台安装方式不一样，可以点进去细看下 中文文档 2. 运行前配置 1 2 3 4 5 6 7 git config --list --show-origin # 查看所有配置 git config --global user.name &#34;luzhifang&#34; # 配置用户名 git config --global user.email]]></description>
 </item>
 </channel>
 </rss>

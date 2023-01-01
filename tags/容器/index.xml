@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>容器 - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/%E5%AE%B9%E5%99%A8/</link>
+        <description>容器 - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%AE%B9%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker Dockerfile</title>
+    <link>https://luzhifang.github.io/dokcer-dockerfile/</link>
+    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/dokcer-dockerfile/</guid>
+    <description><![CDATA[什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生]]></description>
+</item>
+<item>
+    <title>Docker 常用命令</title>
+    <link>https://luzhifang.github.io/docker-command/</link>
+    <pubDate>Sat, 26 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-command/</guid>
+    <description><![CDATA[Dcoker 基本概念 Docker 包括三个基本概念： 镜像（Image）：Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外]]></description>
+</item>
+<item>
+    <title>Docker 实现原理</title>
+    <link>https://luzhifang.github.io/docker-implementation/</link>
+    <pubDate>Tue, 22 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-implementation/</guid>
+    <description><![CDATA[容器的实现原理 从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰]]></description>
+</item>
+<item>
+    <title>Ubuntu 安装 Docker</title>
+    <link>https://luzhifang.github.io/docker-install/</link>
+    <pubDate>Sat, 19 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-install/</guid>
+    <description><![CDATA[使用官方安装脚本自动安装 注意：脚本安装适合在测试和开发环境使用。 安装命令如下： 1 2 curl -fsSL get.docker.com -o get-docker.sh sh get-docker.sh --mirror Aliyun 也可以使用国内 daocloud 一键安装命令： 1 curl -sSL https://get.daocloud.io/docker |]]></description>
+</item>
+</channel>
+</rss>

@@ -14,11 +14,11 @@
 </item>
 <item>
     <title>微服务</title>
-    <link>https://luzhifang.github.io/microservices/</link>
+    <link>https://luzhifang.github.io/microservice/</link>
     <pubDate>Tue, 05 Feb 2019 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
-    <guid>https://luzhifang.github.io/microservices/</guid>
-    <description><![CDATA[什么是微服务 微服务是一种架构模式，相比较单体架构，微服务架构更加独立，能够单独更新和发布。 微服务里面的服务仅仅用于某一个特地给的业务功能。 为]]></description>
+    <guid>https://luzhifang.github.io/microservice/</guid>
+    <description><![CDATA[什么是微服务 随着领域驱动设计、持续交付、按需虚拟化、基础设施自动化、小型自治团队、大型集群系统这些实践的流行，微服务也应运而生。 微服务：把应]]></description>
 </item>
 </channel>
 </rss>
