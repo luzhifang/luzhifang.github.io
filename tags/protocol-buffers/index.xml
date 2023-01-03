@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Protocol Buffers - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/protocol-buffers/</link>
+        <description>Protocol Buffers - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/protocol-buffers/" rel="self" type="application/rss+xml" /><item>
+    <title>Protocol Buffers 详解</title>
+    <link>https://luzhifang.github.io/protobuf/</link>
+    <pubDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/protobuf/</guid>
+    <description><![CDATA[简介 protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。 Protocol Buffers 是一种灵活，高]]></description>
+</item>
+</channel>
+</rss>
