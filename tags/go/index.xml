@@ -21,6 +21,14 @@
     <description><![CDATA[windows 下载多版本管理工具 g，地址：https://github.com/voidint/g/releases，选择g*.windows-amd6]]></description>
 </item>
 <item>
+    <title>Go 安装、升级、卸载</title>
+    <link>https://luzhifang.github.io/go-install/</link>
+    <pubDate>Fri, 13 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-install/</guid>
+    <description><![CDATA[卸载 如果以前安装过版本，可以先卸载 如果是用 Ubuntu 用 apt 安装的，用以下命令卸载 1 2 sudo apt-get remove golang-go sudo apt-get remove --auto-remove golang-go 如果是手动下载安装的，删除相应目录即可 安装 下载 go]]></description>
+</item>
+<item>
     <title>Go命令详解</title>
     <link>https://luzhifang.github.io/go-command/</link>
     <pubDate>Sun, 01 Nov 2020 00:00:00 &#43;0000</pubDate>

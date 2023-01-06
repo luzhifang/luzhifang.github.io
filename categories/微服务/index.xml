@@ -4,7 +4,15 @@
         <link>https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
         <description>微服务 - 分类 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 18 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="self" type="application/rss+xml" /><item>
+    <title>Go 使用 gRPC</title>
+    <link>https://luzhifang.github.io/grpc/</link>
+    <pubDate>Mon, 18 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/grpc/</guid>
+    <description><![CDATA[简介 gRPC 是一个高性能、通用的开源 RPC 框架，其由 Google 主要面向移动应用开发并基于 HTTP/2 协议标准而设计，基于 ProtoBuf(Protocol Buffers) 序列化协议开发，且支持众多开发语言。 gRPC 基于 HTTP/2]]></description>
+</item>
+<item>
     <title>DDD</title>
     <link>https://luzhifang.github.io/ddd/</link>
     <pubDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</pubDate>

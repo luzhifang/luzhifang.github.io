@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/protobuf\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "protobuf, Protocol Buffers","wordcount":  3566 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "protobuf, Protocol Buffers","wordcount":  3640 ,
         "url": "https:\/\/luzhifang.github.io\/protobuf\/","datePublished": "2019-02-16T00:00:00+00:00","dateModified": "2019-02-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Protocol Buffers 详解</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-16">2019-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3566 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-16">2019-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3640 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -147,7 +147,7 @@
 <p>protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。</p>
 <p>Protocol Buffers 是一种灵活，高效，自动化机制的结构数据序列化方法－可类比 XML，但是比 XML 更小（3 ~ 10 倍）、更快（20 ~ 100 倍）、更为简单。</p>
 <p>json\xml 都是基于文本格式，protobuf 是二进制格式。</p>
-<p>你可以通过 ProtoBuf 定义数据结构，然后通过 ProtoBuf 工具生成各种语言版本的数据结构类库，用于操作 ProtoBuf 协议数据</p>
+<p>你可以通过 ProtoBuf 定义数据结构，然后通过 ProtoBuf 工具生成各种语言版本的数据结构类库，用于操作 ProtoBuf 协议数据。</p>
 <h2 id="protoc-下载安装">protoc 下载安装</h2>
 <p>Protobuf 的 release 版本，下载可以移步：<a href="https://github.com/protocolbuffers/protobuf/releases" target="_blank" rel="noopener noreffer ">Protobuf release</a>版本。</p>
 <p>如果是 Linux 操作系统下，可以直接下载：protoc-xxx-linux-x86_64.zip。</p>
@@ -212,6 +212,21 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 定义proto的版本
@@ -229,6 +244,21 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 可以是Protobuf定义的option，或者自定义的option。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">option</span> <span class="nx">java_package</span> <span class="p">=</span> <span class="s">&#34;com.example.foo&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">option</span> <span class="nx">go_package</span> <span class="p">=</span> <span class="s">&#34;main&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义消息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">message</span> <span class="nx">SearchRequest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">string</span> <span class="nx">query</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">message</span> <span class="nx">SearchResponse</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">string</span> <span class="nx">answer</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义服务
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 需要与协议缓冲区搭配使用，最直接的 RPC 系统是 gRPC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">service</span> <span class="nx">SearchService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">rpc</span> <span class="nf">Search</span><span class="p">(</span><span class="nx">SearchRequest</span><span class="p">)</span> <span class="nf">returns</span> <span class="p">(</span><span class="nx">SearchResponse</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="数据类型">数据类型</h2>
@@ -714,6 +744,7 @@
 <p><a href="https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/" target="_blank" rel="noopener noreffer ">https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/</a></p>
 <p><a href="https://www.lixueduan.com/posts/protobuf/02-encode-core/" target="_blank" rel="noopener noreffer ">https://www.lixueduan.com/posts/protobuf/02-encode-core/</a></p>
 <p><a href="https://blog.csdn.net/qq_38410730/article/details/103702827" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/qq_38410730/article/details/103702827</a></p>
+<p><a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#services" target="_blank" rel="noopener noreffer ">https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#services</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

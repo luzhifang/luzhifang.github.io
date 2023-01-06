@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>分布式链路追踪系列1-OpenTracing 规范 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="分布式链路追踪系列1-OpenTracing 规范" />
+<meta property="og:description" content="简介 OpenTracing 是一个中立的（厂商无关、平台无关）分布式追踪的 API 规范，提供了统一接口方便开发者在自己的服务中集成一种或者多种分布式追踪的实现。 OpenTracing 数据模" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/opentracing/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-10-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-22T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="分布式链路追踪系列1-OpenTracing 规范"/>
+<meta name="twitter:description" content="简介 OpenTracing 是一个中立的（厂商无关、平台无关）分布式追踪的 API 规范，提供了统一接口方便开发者在自己的服务中集成一种或者多种分布式追踪的实现。 OpenTracing 数据模"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/opentracing/" /><link rel="prev" href="https://luzhifang.github.io/centos6.6-supervisor3.x/" /><link rel="next" href="https://luzhifang.github.io/tracing-tech-selection/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "分布式链路追踪系列1-OpenTracing 规范",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/opentracing\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "OpenTracing","wordcount":  4417 ,
+        "url": "https:\/\/luzhifang.github.io\/opentracing\/","datePublished": "2020-10-22T00:00:00+00:00","dateModified": "2020-10-22T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">分布式链路追踪系列1-OpenTracing 规范</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>链路追踪</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-10-22">2020-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4417 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#opentracing-数据模型">OpenTracing 数据模型</a>
+      <ul>
+        <li><a href="#span-间关系">Span 间关系</a></li>
+      </ul>
+    </li>
+    <li><a href="#opentracing-api">OpenTracing API</a>
+      <ul>
+        <li><a href="#tracer"><code>Tracer</code></a>
+          <ul>
+            <li><a href="#创建一个新span">创建一个新<code>Span</code></a></li>
+            <li><a href="#将spancontext上下文-inject注入到-carrier">将<code>SpanContext</code>上下文 Inject（注入）到 carrier</a></li>
+            <li><a href="#将spancontext上下文从-carrier-中-extract提取">将<code>SpanContext</code>上下文从 carrier 中 Extract（提取）</a></li>
+            <li><a href="#注意对于-inject注入和-extract提取format是必须的">注意，对于 Inject（注入）和 Extract（提取），<strong>format</strong>是必须的。</a></li>
+          </ul>
+        </li>
+        <li><a href="#span">Span</a>
+          <ul>
+            <li><a href="#获取span的spancontext">获取<code>Span</code>的<code>SpanContext</code></a></li>
+            <li><a href="#复写操作名operation-name">复写操作名（operation name）</a></li>
+            <li><a href="#结束span">结束<code>Span</code></a></li>
+            <li><a href="#为span设置-tag">为<code>Span</code>设置 tag</a></li>
+            <li><a href="#log-结构化数据">Log 结构化数据</a></li>
+            <li><a href="#设置一个baggage随行数据元素">设置一个<strong>baggage</strong>（随行数据）元素</a></li>
+            <li><a href="#获取一个baggage元素">获取一个<strong>baggage</strong>元素</a></li>
+          </ul>
+        </li>
+        <li><a href="#spancontext"><code>SpanContext</code></a>
+          <ul>
+            <li><a href="#遍历所有的-baggage-元素">遍历所有的 baggage 元素</a></li>
+          </ul>
+        </li>
+        <li><a href="#nooptracer"><code>NoopTracer</code></a></li>
+        <li><a href="#可选-api-元素">可选 API 元素</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<p>OpenTracing 是一个中立的（厂商无关、平台无关）分布式追踪的 API 规范，提供了统一接口方便开发者在自己的服务中集成一种或者多种分布式追踪的实现。</p>
+<h2 id="opentracing-数据模型">OpenTracing 数据模型</h2>
+<p><strong>Trace</strong>：OpenTracing 中的<code>Trace</code>（调用链）通过归属于此调用链的<code>Span</code>来隐性的定义，一条<code>Trace</code>可以被认为是一个由多个<code>Span</code>组成的有向无环图（DAG 图）。</p>
+<p><strong>References</strong>：<code>Span</code> 与 <code>Span</code> 的关系被命名为<code>References</code>。</p>
+<p><strong>Span</strong>：可以被翻译为跨度，可以被理解为一次方法调用, 一个程序块的调用, 或者一次 RPC/数据库访问.只要是一个具有完整时间周期的程序访问，都可以被认为是一个 <code>span</code>。</p>
+<p>例如：下面的示例<strong>Trace</strong>就是由 8 个<strong>Span</strong>组成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">单个Trace中，span间的因果关系
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        [Span A]  ←←←(the root span)
+</span></span><span class="line"><span class="cl">            |
+</span></span><span class="line"><span class="cl">     +------+------+
+</span></span><span class="line"><span class="cl">     |             |
+</span></span><span class="line"><span class="cl"> [Span B]      [Span C] ←←←(Span C 是 Span A 的孩子节点, ChildOf)
+</span></span><span class="line"><span class="cl">     |             |
+</span></span><span class="line"><span class="cl"> [Span D]      +---+-------+
+</span></span><span class="line"><span class="cl">               |           |
+</span></span><span class="line"><span class="cl">           [Span E]    [Span F] &gt;&gt;&gt; [Span G] &gt;&gt;&gt; [Span H]
+</span></span><span class="line"><span class="cl">                                       ↑
+</span></span><span class="line"><span class="cl">                                       ↑
+</span></span><span class="line"><span class="cl">                                       ↑
+</span></span><span class="line"><span class="cl">                         (Span G 在 Span F 后被调用, FollowsFrom)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有些时候，使用下面这种，基于时间轴的时序图可以更好的展现<strong>Trace</strong>（调用链）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">单个Trace中，span间的时间关系
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–&gt; time
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> [Span A···················································]
+</span></span><span class="line"><span class="cl">   [Span B··············································]
+</span></span><span class="line"><span class="cl">      [Span D··········································]
+</span></span><span class="line"><span class="cl">    [Span C········································]
+</span></span><span class="line"><span class="cl">         [Span E·······]        [Span F··] [Span G··] [Span H··]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个<strong>Span</strong>包含以下的状态:</p>
+<ul>
+<li>An operation name，操作名称</li>
+<li>A start timestamp，起始时间</li>
+<li>A finish timestamp，结束时间</li>
+<li><strong>Span Tag</strong>：一组键值对构成的 Span 标签集合。键值对中，键必须为 string，值可以是字符串，布尔，或者数字类型。</li>
+<li><strong>Span Log</strong>：一组 span 的日志集合。
+每次 log 操作包含一个键值对，以及一个时间戳。
+键值对中，键必须为 string，值可以是任意类型。
+但是需要注意，不是所有的支持 OpenTracing 的 Tracer,都需要支持所有的值类型。</li>
+<li><strong>SpanContext</strong>：上下文对象。SpanContext 携带着一些用于跨服务通信的（跨进程）数据，主要包含：
+<ul>
+<li>任何一个 OpenTracing 的实现，都需要将当前调用链的状态（例如：trace 和 span 的 id），依赖一个独特的 Span 去跨进程边界传输。</li>
+<li><strong>Baggage Items</strong>：Trace 的随行数据，是一个键值对集合，它存在于 trace 中，也需要跨进程边界传输。</li>
+</ul>
+</li>
+<li><strong>References</strong>：Span 间的关系，相关的零个或者多个 Span（<strong>Span</strong>间通过<strong>SpanContext</strong>建立这种关系）</li>
+</ul>
+<h3 id="span-间关系">Span 间关系</h3>
+<p>一个 Span 可以与一个或者多个<strong>SpanContexts</strong>存在因果关系。OpenTracing 目前定义了两种关系：<code>ChildOf</code>（父子） 和 <code>FollowsFrom</code>（跟随）。<strong>这两种关系明确的给出了两个父子关系的 Span 的因果模型。</strong> 将来，OpenTracing 可能提供非因果关系的 span 间关系。（例如：span 被批量处理，span 被阻塞在同一个队列中，等等）。</p>
+<p><strong><code>ChildOf</code> 引用:</strong> 一个 span 可能是一个父级 span 的孩子，即&quot;ChildOf&quot;关系。在&quot;ChildOf&quot;引用关系下，父级 span 某种程度上取决于子 span。下面这些情况会构成&quot;ChildOf&quot;关系：</p>
+<ul>
+<li>一个 RPC 调用的服务端的 span，和 RPC 服务客户端的 span 构成 ChildOf 关系</li>
+<li>一个 sql insert 操作的 span，和 ORM 的 save 方法的 span 构成 ChildOf 关系</li>
+<li>很多 span 可以并行工作（或者分布式工作）都可能是一个父级的 span 的子项，他会合并所有子 span 的执行结果，并在指定期限内返回</li>
+</ul>
+<p>下面都是合理的表述一个&quot;ChildOf&quot;关系的父子节点关系的时序图。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    [-Parent Span---------]
+</span></span><span class="line"><span class="cl">         [-Child Span----]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    [-Parent Span--------------]
+</span></span><span class="line"><span class="cl">         [-Child Span A----]
+</span></span><span class="line"><span class="cl">          [-Child Span B----]
+</span></span><span class="line"><span class="cl">        [-Child Span C----]
+</span></span><span class="line"><span class="cl">         [-Child Span D---------------]
+</span></span><span class="line"><span class="cl">         [-Child Span E----]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>FollowsFrom</code> 引用:</strong> 一些父级节点不以任何方式依赖他们子节点的执行结果，这种情况下，我们说这些子 span 和父 span 之间是&quot;FollowsFrom&quot;的因果关系。&ldquo;FollowsFrom&quot;关系可以被分为很多不同的子类型，未来版本的 OpenTracing 中将正式的区分这些类型</p>
+<p>下面都是合理的表述一个&quot;FollowFrom&quot;关系的父子节点关系的时序图。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    [-Parent Span-]  [-Child Span-]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    [-Parent Span--]
+</span></span><span class="line"><span class="cl">     [-Child Span-]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    [-Parent Span-]
+</span></span><span class="line"><span class="cl">                [-Child Span-]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="opentracing-api">OpenTracing API</h2>
+<p>OpenTracing 标准中有三个重要的相互关联的类型，分别是<code>Tracer</code>, <code>Span</code> 和 <code>SpanContext</code>。每种类型的行为都会在各语言实现层面上，会演变成一个方法。</p>
+<h3 id="tracer"><code>Tracer</code></h3>
+<p><code>Tracer</code>接口用来创建<code>Span</code>，以及处理如何<code>Inject</code>(serialize) 和 <code>Extract</code> (deserialize)，用于跨进程边界传递。它具有如下能力：</p>
+<h4 id="创建一个新span">创建一个新<code>Span</code></h4>
+<p>必填参数</p>
+<ul>
+<li><strong>operation name</strong>, 操作名, 一个具有可读性的字符串，代表这个 span 所做的工作（例如：RPC 方法名，方法名，或者一个大型计算中的某个阶段或子任务）。操作名应该是一个<strong>抽象、通用，明确、具有统计意义</strong>的名称。因此，<code>&quot;get_user&quot;</code> 作为操作名，比 <code>&quot;get_user/314159&quot;</code>更好。</li>
+</ul>
+<p>例如，假设一个获取账户信息的 span 会有如下可能的名称：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作名</th>
+<th style="text-align:left">指导意见</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>get</code></td>
+<td style="text-align:left">太抽象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>get_account/792</code></td>
+<td style="text-align:left">太明确</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>get_account</code></td>
+<td style="text-align:left">正确的操作名，关于<code>account_id=792</code>的信息应该使用<code>Tag</code>操作</td>
+</tr>
+</tbody>
+</table>
+<p>可选参数</p>
+<ul>
+<li>零个或者多个关联（<strong>references</strong>）的<code>SpanContext</code>，如果可能，同时快速指定关系类型，<code>ChildOf</code> 还是 <code>FollowsFrom</code>。</li>
+<li>一个可选的显性传递的<strong>开始时间</strong>；如果忽略，当前时间被用作开始时间。</li>
+<li>零个或者多个<strong>tag</strong>。</li>
+</ul>
+<p><strong>返回值</strong>，返回一个已经启动<code>Span</code>实例。</p>
+<h4 id="将spancontext上下文-inject注入到-carrier">将<code>SpanContext</code>上下文 Inject（注入）到 carrier</h4>
+<p>必填参数</p>
+<ul>
+<li><strong><code>SpanContext</code></strong> 实例</li>
+<li><strong>format</strong>（格式化）描述，一般会是一个字符串常量，但不做强制要求。通过此描述，通知<code>Tracer</code>实现，如何对<code>SpanContext</code>进行编码放入到 carrier 中。</li>
+<li><strong>carrier</strong>，根据<strong>format</strong>确定。<code>Tracer</code>实现根据<strong>format</strong>声明的格式，将<code>SpanContext</code>序列化到 carrier 对象中。</li>
+</ul>
+<h4 id="将spancontext上下文从-carrier-中-extract提取">将<code>SpanContext</code>上下文从 carrier 中 Extract（提取）</h4>
+<p>必填参数</p>
+<ul>
+<li><strong>format</strong>（格式化）描述，一般会是一个字符串常量，但不做强制要求。通过此描述，通知<code>Tracer</code>实现，如何从 carrier 中解码<code>SpanContext</code>。</li>
+<li><strong>carrier</strong>，根据<strong>format</strong>确定。<code>Tracer</code>实现根据<strong>format</strong>声明的格式，从 carrier 中解码<code>SpanContext</code>。</li>
+</ul>
+<p><strong>返回值</strong>，返回一个<code>SpanContext</code>实例，可以使用这个<code>SpanContext</code>实例，通过<code>Tracer</code>创建新的<code>Span</code>。</p>
+<h4 id="注意对于-inject注入和-extract提取format是必须的">注意，对于 Inject（注入）和 Extract（提取），<strong>format</strong>是必须的。</h4>
+<p>Inject（注入）和 Extract（提取）依赖于可扩展的<strong>format</strong>参数。<strong>format</strong>参数规定了另一个参数&quot;carrier&quot;的类型，同时约束了&quot;carrier&quot;中<code>SpanContext</code>是如何编码的。所有的 Tracer 实现，都必须支持下面的<strong>format</strong>。</p>
+<ul>
+<li><strong>Text Map</strong>: 基于字符串：字符串的 map,对于 key 和 value 不约束字符集。</li>
+<li><strong>HTTP Headers</strong>: 适合作为 HTTP 头信息的，基于字符串：字符串的 map。（<a href="https://tools.ietf.org/html/rfc7230#section-3.2.4" target="_blank" rel="noopener noreffer ">RFC 7230</a>.在工程实践中，如何处理 HTTP 头具有多样性，强烈建议 tracer 的使用者谨慎使用 HTTP 头的键值空间和转义符）</li>
+<li><strong>Binary</strong>: 一个简单的二进制大对象，记录<code>SpanContext</code>的信息。</li>
+</ul>
+<h3 id="span">Span</h3>
+<p>当<code>Span</code>结束后(<code>span.finish()</code>)，除了通过<code>Span</code>获取<code>SpanContext</code>外，下列其他所有方法都不允许被调用。</p>
+<h4 id="获取span的spancontext">获取<code>Span</code>的<code>SpanContext</code></h4>
+<p>不需要任何参数。</p>
+<p><strong>返回值</strong>，<code>Span</code>构建时传入的<code>SpanContext</code>。这个返回值在<code>Span</code>结束后(<code>span.finish()</code>)，依然可以使用。</p>
+<h4 id="复写操作名operation-name">复写操作名（operation name）</h4>
+<p>必填参数</p>
+<ul>
+<li>新的操作名<strong>operation name</strong>，覆盖构建<code>Span</code>时，传入的操作名。</li>
+</ul>
+<h4 id="结束span">结束<code>Span</code></h4>
+<p>可选参数</p>
+<ul>
+<li>一个明确的<strong>完成时间</strong>;如果省略此参数，使用当前时间作为完成时间。</li>
+</ul>
+<h4 id="为span设置-tag">为<code>Span</code>设置 tag</h4>
+<p>必填参数</p>
+<ul>
+<li>tag key，必须是 string 类型</li>
+<li>tag value，类型为字符串，布尔或者数字</li>
+</ul>
+<p>注意，OpenTracing 标准包含**<a href="https://github.com/opentracing-contrib/opentracing-specification-zh/blob/master/semantic_conventions.md" target="_blank" rel="noopener noreffer ">&ldquo;standard tags，标准 Tag&rdquo;</a>**，此文档中定义了 Tag 的标准含义。</p>
+<h4 id="log-结构化数据">Log 结构化数据</h4>
+<p>必填参数</p>
+<ul>
+<li>一个或者多个键值对，其中键必须是字符串类型，值可以是任意类型。某些 OpenTracing 实现，可能支持更多的 log 值类型。</li>
+</ul>
+<p>可选参数</p>
+<ul>
+<li>一个明确的时间戳。如果指定时间戳，那么它必须在 span 的开始和结束时间之内。</li>
+</ul>
+<p>注意，OpenTracing 标准包含**<a href="https://github.com/opentracing-contrib/opentracing-specification-zh/blob/master/semantic_conventions.md" target="_blank" rel="noopener noreffer ">&ldquo;standard log keys，标准 log 的键&rdquo;</a>**，此文档中定义了这些键的标准含义。</p>
+<h4 id="设置一个baggage随行数据元素">设置一个<strong>baggage</strong>（随行数据）元素</h4>
+<p>Baggage 元素是一个键值对集合，将这些值设置给给定的<code>Span</code>，<code>Span</code>的<code>SpanContext</code>，以及<strong>所有和此<code>Span</code>有直接或者间接关系的本地<code>Span</code>。</strong> 也就是说，baggage 元素随 trace 一起保持在带内传递。（译者注：带内传递，在这里指，随应用程序调用过程一起传递）</p>
+<p>Baggage 元素具有强大的功能，使得 OpenTracing 能够实现全栈集成（例如：任意的应用程序数据，可以在移动端创建它，显然的，它会一直传递了系统最底层的存储系统），同时他也会产生巨大的开销，请小心使用此特性。</p>
+<p>必填参数</p>
+<ul>
+<li><strong>baggage key</strong>, 字符串类型</li>
+<li><strong>baggage value</strong>, 字符串类型</li>
+</ul>
+<h4 id="获取一个baggage元素">获取一个<strong>baggage</strong>元素</h4>
+<p>必填参数</p>
+<ul>
+<li><strong>baggage key</strong>, 字符串类型</li>
+</ul>
+<p><strong>返回值</strong>，相应的<strong>baggage value</strong>,或者可以标识元素值不存在的返回值（译者注：如 Null）。</p>
+<h3 id="spancontext"><code>SpanContext</code></h3>
+<p>相对于 OpenTracing 中其他的功能，<code>SpanContext</code>更多的是一个“概念”。也就是说，OpenTracing 实现中，需要重点考虑，并提供一套自己的 API。
+OpenTracing 的使用者仅仅需要，在创建 span、向传输协议 Inject（注入）和从传输协议中 Extract（提取）时，使用<code>SpanContext</code>和<code>references</code>。</p>
+<p>OpenTracing 要求，<code>SpanContext</code>是<strong>不可变</strong>的，目的是防止由于<code>Span</code>的结束和相互关系，造成的复杂生命周期问题。</p>
+<h4 id="遍历所有的-baggage-元素">遍历所有的 baggage 元素</h4>
+<p>遍历模型依赖于语言，实现方式可能不一致。在语义上，要求调用者可以通过给定的<code>SpanContext</code>实例，高效的遍历所有的 baggage 元素</p>
+<h3 id="nooptracer"><code>NoopTracer</code></h3>
+<p>所有的 OpenTracing API 实现，必须提供某种方式的<code>NoopTracer</code>实现。<code>NoopTracer</code>可以被用作控制或者测试时，进行无害的 inject 注入（等等）。例如，在 OpenTracing-Java 实现中，<code>NoopTracer</code>在他自己的模块中。</p>
+<h3 id="可选-api-元素">可选 API 元素</h3>
+<p>有些语言的 OpenTracing 实现，为了在串行处理中，传递活跃的<code>Span</code>或<code>SpanContext</code>，提供了一些工具类。例如，<code>opentracing-go</code>中，通过<code>context.Context</code>机制，可以设置和获取活跃的<code>Span</code>。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://opentracing.io/docs/overview/" target="_blank" rel="noopener noreffer ">https://opentracing.io/docs/overview/</a></p>
+<p><a href="https://github.com/opentracing-contrib/opentracing-specification-zh/blob/master/specification.md" target="_blank" rel="noopener noreffer ">https://github.com/opentracing-contrib/opentracing-specification-zh/blob/master/specification.md</a></p>
+<p><a href="https://github.com/opentracing/specification/blob/master/specification.md" target="_blank" rel="noopener noreffer ">https://github.com/opentracing/specification/blob/master/specification.md</a></p>
+<p><a href="https://github.com/opentracing/specification/blob/master/semantic_conventions.md" target="_blank" rel="noopener noreffer ">https://github.com/opentracing/specification/blob/master/semantic_conventions.md</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/opentracing/" data-title="分布式链路追踪系列1-OpenTracing 规范" data-hashtags="OpenTracing"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/opentracing/" data-hashtag="OpenTracing"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/opentracing/" data-title="分布式链路追踪系列1-OpenTracing 规范"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/opentracing/" data-title="分布式链路追踪系列1-OpenTracing 规范"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/opentracing/" data-title="分布式链路追踪系列1-OpenTracing 规范"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/opentracing/">OpenTracing</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/centos6.6-supervisor3.x/" class="prev" rel="prev" title="centos6.6安装supervisor3.x方法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>centos6.6安装supervisor3.x方法</a>
+            <a href="/tracing-tech-selection/" class="next" rel="next" title="分布式链路追踪系列2-技术选型">分布式链路追踪系列2-技术选型<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
