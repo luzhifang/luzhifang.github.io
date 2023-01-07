@@ -5,6 +5,14 @@
         <description>容器 - 标签 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
             <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%AE%B9%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker Compose</title>
+    <link>https://luzhifang.github.io/docker-compose/</link>
+    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/docker-compose/</guid>
+    <description><![CDATA[Compose 简介 Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以]]></description>
+</item>
+<item>
     <title>Docker Dockerfile</title>
     <link>https://luzhifang.github.io/dokcer-dockerfile/</link>
     <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>

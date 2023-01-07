@@ -17,6 +17,7 @@
             <loc>https://luzhifang.github.io/win11-optimization/</loc><lastmod>2022-03-19T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/docker/</loc><lastmod>2022-02-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/categories/docker/</loc><lastmod>2022-02-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/docker-compose/</loc><lastmod>2022-02-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/dokcer-dockerfile/</loc><lastmod>2022-02-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/%E5%AE%B9%E5%99%A8/</loc><lastmod>2022-02-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/docker-command/</loc><lastmod>2022-02-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -55,7 +56,13 @@
             <loc>https://luzhifang.github.io/tags/%E6%AD%A3%E5%88%99/</loc><lastmod>2020-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/regexp/</loc><lastmod>2020-11-26T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-install/</loc><lastmod>2020-11-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/alertmanager/</loc><lastmod>2020-11-02T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/alertmanager/</loc><lastmod>2020-11-02T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/</loc><lastmod>2020-11-02T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/categories/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/</loc><lastmod>2020-11-02T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/go-command/</loc><lastmod>2020-11-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/tags/prometheus/</loc><lastmod>2020-11-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://luzhifang.github.io/prometheus/</loc><lastmod>2020-11-01T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/jaeger/</loc><lastmod>2020-10-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/tags/opentracing/</loc><lastmod>2020-10-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://luzhifang.github.io/jaeger/</loc><lastmod>2020-10-28T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

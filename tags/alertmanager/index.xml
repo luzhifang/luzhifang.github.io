@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Alertmanager - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/alertmanager/</link>
+        <description>Alertmanager - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 02 Nov 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/alertmanager/" rel="self" type="application/rss+xml" /><item>
+    <title>Prometheus Alertmanager</title>
+    <link>https://luzhifang.github.io/alertmanager/</link>
+    <pubDate>Mon, 02 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/alertmanager/</guid>
+    <description><![CDATA[Alertmanager 简介 告警能力在 Prometheus 的架构中被划分成两个独立的部分。如下所示，通过在 Prometheus 中定义 AlertRule（告警规则），Prometheus 会周期性的对告]]></description>
+</item>
+</channel>
+</rss>
