@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/go-project-layout\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go, 目录规范","wordcount":  2193 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go, 目录规范","wordcount":  2199 ,
         "url": "https:\/\/luzhifang.github.io\/go-project-layout\/","datePublished": "2021-05-16T00:00:00+00:00","dateModified": "2021-05-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go项目目录规范</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-05-16">2021-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2193 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-05-16">2021-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2199 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -254,9 +254,9 @@
 <h3 id="pkg"><code>/pkg</code></h3>
 <p>外部应用程序可以使用的库代码（如，<code>/pkg/mypubliclib</code>）。其他项目将会导入这些库来保证项目可以正常运行，所以在将代码放在这里前，一定要三思而行。请注意，<code>internal</code>目录是一个更好的选择来确保项目私有代码不会被其他人导入，因为这是 Go 强制执行的。使用<code>/pkg</code>目录来明确表示代码可以被其他人安全的导入仍然是一个好方式。</p>
 <p>如果项目确实很小并且嵌套的层次并不会带来多少价值（除非你就是想用它），那么就不要使用它。请仔细思考这种情况，当项目变得很大，并且根目录中包含的内容相当繁杂（尤其是有很多非 Go 的组件）。</p>
-<p>微服务建议尽量不使用pkg，公用的代码建议做成私有库（go module），除非公用的代码只在有限几个项目中可公用。</p>
+<p>微服务建议尽量不使用 pkg，公用的代码建议做成私有库（go module），除非公用的代码只在有限几个项目中可公用。</p>
 <h3 id="api"><code>/api</code></h3>
-<p>OpenAPI/Swagger 规范，JSON 模式文件，协议定义文件。</p>
+<p>OpenAPI/Swagger 规范，JSON 模式文件，协议定义文件，比如 proto 文件。</p>
 <p>更多样例查看<a href="https://github.com/golang-standards/project-layout/blob/master/api/README.md" target="_blank" rel="noopener noreffer "><code>/api</code></a>目录。</p>
 <h3 id="configs"><code>/configs</code></h3>
 <p>配置文件模板或默认配置。</p>

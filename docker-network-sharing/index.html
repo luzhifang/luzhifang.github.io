@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Docker 网络共享 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Docker 网络共享" />
+<meta property="og:description" content="完整示例请移步 Github docker 网卡介绍 1 2 3 4 5 $ docker network ls NETWORK ID NAME DRIVER SCOPE 60ca2bcc3925 bridge bridge local 4fba5fc9c823 host host local 15b262a2e321 none null local bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/docker-network-sharing/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-28T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Docker 网络共享"/>
+<meta name="twitter:description" content="完整示例请移步 Github docker 网卡介绍 1 2 3 4 5 $ docker network ls NETWORK ID NAME DRIVER SCOPE 60ca2bcc3925 bridge bridge local 4fba5fc9c823 host host local 15b262a2e321 none null local bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/docker-network-sharing/" /><link rel="prev" href="https://luzhifang.github.io/docker-command/" /><link rel="next" href="https://luzhifang.github.io/dokcer-dockerfile/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker 网络共享",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/docker-network-sharing\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  1261 ,
+        "url": "https:\/\/luzhifang.github.io\/docker-network-sharing\/","datePublished": "2022-02-28T00:00:00+00:00","dateModified": "2022-02-28T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker 网络共享</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-28">2022-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1261 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-网卡介绍">docker 网卡介绍</a></li>
+    <li><a href="#docker-自定义网络">docker 自定义网络</a></li>
+    <li><a href="#link-方式共享">link 方式共享</a>
+      <ul>
+        <li><a href="#docker-run-使用-link-参数">docker run 使用 link 参数</a></li>
+        <li><a href="#docker-composedocker-compose-使用-links-参数"><a href="/docker-compose">docker compose</a> 使用 links 参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义网络共享">自定义网络共享</a>
+      <ul>
+        <li><a href="#docker-run-使用自定义网络">docker run 使用自定义网络</a></li>
+        <li><a href="#docker-compose-使用自定义网络">docker compose 使用自定义网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>完整示例请移步 <a href="https://github.com/luzhifang/prometheus-grafana-demo" target="_blank" rel="noopener noreffer ">Github</a></p>
+<h2 id="docker-网卡介绍">docker 网卡介绍</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ docker network ls
+</span></span><span class="line"><span class="cl">NETWORK ID     NAME                                         DRIVER    SCOPE
+</span></span><span class="line"><span class="cl">60ca2bcc3925   bridge                                       bridge    <span class="nb">local</span>
+</span></span><span class="line"><span class="cl">4fba5fc9c823   host                                         host      <span class="nb">local</span>
+</span></span><span class="line"><span class="cl">15b262a2e321   none                                         null      <span class="nb">local</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部的端口需要进行端口映射。</li>
+<li>host：直接使用主机网络，类似于 VMware 的桥接模式，访问容器内部的端口时不需要进行端口映射，直接访问即可，但是可能会与主机的端口号冲突。</li>
+<li>none：禁止所有联网，没有网络驱动。</li>
+</ul>
+<h2 id="docker-自定义网络">docker 自定义网络</h2>
+<p>使用 <code>docker network create custom-local-net</code> 创建一个名为 custom-local-net 的 Docker 网卡，这个网卡是基于 bridge 模式的，但是和 bridge 模式又有一定的区别。</p>
+<ol>
+<li>用户自定义的网络是基于 bridge 的，并且容器间可以通过容器名或别名进行自动 DNS 相互解析的功能！</li>
+<li>使用默认的 bridge 网络仅仅能通过各自的 IP 地址来进行通信，除非使用 &ndash;link 选项</li>
+<li>&ndash;link 选项实现的容器相互访问功能已经被官方认定是过时的</li>
+</ol>
+<h2 id="link-方式共享">link 方式共享</h2>
+<h3 id="docker-run-使用-link-参数">docker run 使用 link 参数</h3>
+<p>在不使用 Docker Compose 的时候，在启动命令中加入 &ndash;link 参数，就可以实现容器之间的访问</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 启动 prometheus 容器</span>
+</span></span><span class="line"><span class="cl">docker run --rm --name prometheus -p 9090:9090 -d quay.io/prometheus/prometheus
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 grafana 容器</span>
+</span></span><span class="line"><span class="cl">docker run --rm --name grafana -p 3000:3000 -d grafana/grafana
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 进入 grafana 容器，查看是否可以 ping 通</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it 60ca2bcc3925 bash
+</span></span><span class="line"><span class="cl">ping prometheus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-composedocker-compose-使用-links-参数"><a href="/docker-compose" rel="">docker compose</a> 使用 links 参数</h3>
+<p>相比使用 docker run 命令启动容器，显然 docker compose 才是更为推荐的那一个方式，把启动所需的镜像、环境等全都写到一份 docker-compose.yaml 文件中，方便使用。</p>
+<p>如果使用 docker compose 的方式，就是把两个容器的启动信息都写到同一份文件中，再在需要依赖另一个容器的容器启动信息中加入 depends_on、links 参数，这样 grafana 也可以使用 prometheus 解析到其容器的 IP 地址，得到的结果和上面使用 docker run 的方式得到的结果是一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#39;3.4&#39;
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  prometheus:
+</span></span><span class="line"><span class="cl">    image: quay.io/prometheus/prometheus
+</span></span><span class="line"><span class="cl">    container_name: prometheus
+</span></span><span class="line"><span class="cl">    hostname: prometheus
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 9090:9090
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+</span></span><span class="line"><span class="cl">      - ./rules:/etc/prometheus/rules
+</span></span><span class="line"><span class="cl">  grafana:
+</span></span><span class="line"><span class="cl">    image: grafana/grafana
+</span></span><span class="line"><span class="cl">    container_name: grafana
+</span></span><span class="line"><span class="cl">    hostname: grafana
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 3000:3000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./grafana.ini:/etc/grafana/grafana.ini
+</span></span><span class="line"><span class="cl">    depends_on:
+</span></span><span class="line"><span class="cl">      - prometheus
+</span></span><span class="line"><span class="cl">    links:
+</span></span><span class="line"><span class="cl">      - prometheus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="自定义网络共享">自定义网络共享</h2>
+<p>在上面我们简单地介绍了一下如何自定义网络，并且知道使用 link 参数的方式已经是过时的，那通过自定义网络，让 grafana 容器和 prometheus 容器处于同一个网络，并且他们可以互相进行 DNS 解析，就可以让 grafana 访问到 prometheus 容器了。</p>
+<h3 id="docker-run-使用自定义网络">docker run 使用自定义网络</h3>
+<p>docker run 命令也可以手动指定容器连接的网络，使用 network 参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 自定义网络 custom-local-net</span>
+</span></span><span class="line"><span class="cl">docker network create custom-local-net
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 prometheus 容器</span>
+</span></span><span class="line"><span class="cl">docker run --rm --name prometheus -p 9090:9090 --network custom-local-net -d quay.io/prometheus/prometheus
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 grafana 容器</span>
+</span></span><span class="line"><span class="cl">docker run --rm --name grafana -p 3000:3000 --network custom-local-net -d grafana/grafana
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 进入 grafana 容器中 ping prometheus 查看是否能ping 通</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it 60ca2bcc3925 bash
+</span></span><span class="line"><span class="cl">ping prometheus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-compose-使用自定义网络">docker compose 使用自定义网络</h3>
+<p>docker-compose.yaml 文件中有两种使用自定义网络的方式：</p>
+<ol>
+<li>创建并使用，如果没有手动使用 <code>docker network create</code> 命令，需要在使用前创建</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#39;3.4&#39;
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  prometheus:
+</span></span><span class="line"><span class="cl">    image: quay.io/prometheus/prometheus
+</span></span><span class="line"><span class="cl">    container_name: prometheus
+</span></span><span class="line"><span class="cl">    hostname: prometheus
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 9090:9090
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+</span></span><span class="line"><span class="cl">      - ./rules:/etc/prometheus/rules
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">      - custom-local-net-1
+</span></span><span class="line"><span class="cl">  grafana:
+</span></span><span class="line"><span class="cl">    image: grafana/grafana
+</span></span><span class="line"><span class="cl">    container_name: grafana
+</span></span><span class="line"><span class="cl">    hostname: grafana
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 3000:3000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./grafana.ini:/etc/grafana/grafana.ini
+</span></span><span class="line"><span class="cl">    depends_on:
+</span></span><span class="line"><span class="cl">      - prometheus
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">      - custom-local-net-1
+</span></span><span class="line"><span class="cl">networks:
+</span></span><span class="line"><span class="cl">  custom-local-net-1:
+</span></span><span class="line"><span class="cl">    # 声明使用的网络是使用 bridge 驱动来创建的
+</span></span><span class="line"><span class="cl">    driver: bridge
+</span></span><span class="line"><span class="cl">    ipam:
+</span></span><span class="line"><span class="cl">      # 网络配置
+</span></span><span class="line"><span class="cl">      config:
+</span></span><span class="line"><span class="cl">        # 分配的子网网段
+</span></span><span class="line"><span class="cl">        - subnet: 172.25.64.0/18
+</span></span><span class="line"><span class="cl">          # 网关地址
+</span></span><span class="line"><span class="cl">          gateway: 172.25.64.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>声明并使用，如果已经手动创建了网络，在 docker-compose.yaml 文件中只需声明一下即可</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#39;3.4&#39;
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  prometheus:
+</span></span><span class="line"><span class="cl">    image: quay.io/prometheus/prometheus
+</span></span><span class="line"><span class="cl">    container_name: prometheus
+</span></span><span class="line"><span class="cl">    hostname: prometheus
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 9090:9090
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+</span></span><span class="line"><span class="cl">      - ./rules:/etc/prometheus/rules
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">      - custom-local-net
+</span></span><span class="line"><span class="cl">  grafana:
+</span></span><span class="line"><span class="cl">    image: grafana/grafana
+</span></span><span class="line"><span class="cl">    container_name: grafana
+</span></span><span class="line"><span class="cl">    hostname: grafana
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 3000:3000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - ./grafana.ini:/etc/grafana/grafana.ini
+</span></span><span class="line"><span class="cl">    depends_on:
+</span></span><span class="line"><span class="cl">      - prometheus
+</span></span><span class="line"><span class="cl">    networks:
+</span></span><span class="line"><span class="cl">      - custom-local-net
+</span></span><span class="line"><span class="cl">networks:
+</span></span><span class="line"><span class="cl">  custom-local-net:
+</span></span><span class="line"><span class="cl">  	# 声明这个网络是外部定义的
+</span></span><span class="line"><span class="cl">    external: true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>Docker 容器之间相互访问是实际生产中难以绕开的一道坎，诚然可以使用桥接模式，但是桥接模式不太利于环境的迁移。显然使用能自动完成 DNS 解析的网络模式会更为灵活，也更为优雅。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://juejin.cn/post/7143883774818795527" target="_blank" rel="noopener noreffer ">https://juejin.cn/post/7143883774818795527</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/docker-network-sharing/" data-title="Docker 网络共享" data-hashtags="docker,容器"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/docker-network-sharing/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/docker-network-sharing/" data-title="Docker 网络共享"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/docker-network-sharing/" data-title="Docker 网络共享"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/docker-network-sharing/" data-title="Docker 网络共享"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">docker</a>,&nbsp;<a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/docker-command/" class="prev" rel="prev" title="Docker 常用命令"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Docker 常用命令</a>
+            <a href="/dokcer-dockerfile/" class="next" rel="next" title="Docker Dockerfile">Docker Dockerfile<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

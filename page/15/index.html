@@ -100,15 +100,15 @@
         alt="/images/avatar.png"
         title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/go-error/">Go错误处理</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-06-06">2020-06-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%A7%84%E8%8C%83/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>规范</a></span></div><div class="content">panic 在程序启动的时候，如果有强依赖的服务出现故障时 panic 退出 在程序启动的时候，如果发现有配置明显不符合要求， 可以 panic 退出（防御编程） 其他情况下只要不</div><div class="post-footer">
-        <a href="/go-error/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E9%94%99%E8%AF%AF%E7%A0%81/">错误码</a>,&nbsp;<a href="/tags/%E6%97%A5%E5%BF%97/">日志</a></div></div>
+        <a href="/centos6.6-supervisor3.x/">centos6.6安装supervisor3.x方法</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-08-06">2020-08-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div><div class="content">安装 meld (如果缺少的话) 1 2 3 4 5 cd /usr/local wget https://pypi.python.org/packages/0f/5e/3a57c223d8faba2c3c2d69699f7e6cfdd1e5cc31e79cdd0dd48d44580b50/meld3-1.0.1.tar.gz#md5=2f045abe0ae108e3c8343172cffbe21d tar -zxvf meld3-1.0.1.tar.gz cd meld3-1.0.1 python setup.py install 安装 supervisor3 1 2 3 4 5 wget https://pypi.python.org/packages/source/s/supervisor/supervisor-3.0b2.tar.gz --no-check-certificate tar -zxvf supervisor-3.0b2.tar.gz cd supervisor-3.0b2 python setup.py install yum install python-setuptools 创建日志文件 1 2 touch /var/log/supervisord.log chmod 755 /var/log/supervisord.log 创建默认的配置</div><div class="post-footer">
+        <a href="/centos6.6-supervisor3.x/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/supervisor/">supervisor</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/hugo-loveit-algolia/">hugo添加Algolia搜索系统</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-06-06">2020-06-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hugo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>hugo</a></span></div><div class="content">1. 注册 Algolia 注册 algolia 添加索引 data sources 点击 Settings -&gt; API Keys，查看自己的 Application ID 和 Search-Only API Key 2. 生成索引文件 修改 config.toml 注意 outputs 下面 home 的末尾要有&quot;Algolia&q</div><div class="post-footer">
-        <a href="/hugo-loveit-algolia/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hugo/">hugo</a>,&nbsp;<a href="/tags/algolia/">algolia</a></div></div>
+        <a href="/elasticsearch-install/">Elasticsearch 安装</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-08-06">2020-08-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/elk/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>ELK</a></span></div><div class="content">单节点安装 修改相关配置文件 1 2 3 4 5 echo &#34;vm.max_map_count=262144&#34; &gt;&gt; /etc/sysctl.conf echo &#34;* soft nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* soft nofile 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nofile 131072&#34; &gt;&gt; /etc/security/limits.conf 二进制方式安装 官网下载链接 1 2 3 4 5 6 7</div><div class="post-footer">
+        <a href="/elasticsearch-install/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/elk/">ELK</a>,&nbsp;<a href="/tags/elasticsearch/">Elasticsearch</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -139,7 +139,7 @@
                     <span class="page-link" aria-hidden="true">&hellip;</span>
                 </li><li class="page-item ">
                     <span class="page-link">
-                        <a href="/page/32/">32</a>
+                        <a href="/page/35/">35</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Elasticsearch 性能优化 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Elasticsearch 性能优化" />
+<meta property="og:description" content="硬件配置优化 CPU 配置 一般说来，CPU 繁忙的原因有以下几个： 线程中有无限空循环、无阻塞、正则匹配或者单纯的计算； 发生了频繁的 GC； 多线程的上下文" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/elasticsearch-perf/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-05T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Elasticsearch 性能优化"/>
+<meta name="twitter:description" content="硬件配置优化 CPU 配置 一般说来，CPU 繁忙的原因有以下几个： 线程中有无限空循环、无阻塞、正则匹配或者单纯的计算； 发生了频繁的 GC； 多线程的上下文"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/elasticsearch-perf/" /><link rel="prev" href="https://luzhifang.github.io/elasticsearch-conception/" /><link rel="next" href="https://luzhifang.github.io/elasticsearch-install/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Elasticsearch 性能优化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/elasticsearch-perf\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "ELK, Elasticsearch","wordcount":  4618 ,
+        "url": "https:\/\/luzhifang.github.io\/elasticsearch-perf\/","datePublished": "2020-08-05T00:00:00+00:00","dateModified": "2020-08-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Elasticsearch 性能优化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/elk/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>ELK</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-08-05">2020-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4618 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#硬件配置优化">硬件配置优化</a>
+      <ul>
+        <li><a href="#cpu-配置">CPU 配置</a></li>
+        <li><a href="#内存配置">内存配置</a>
+          <ul>
+            <li><a href="#内存分配">内存分配</a></li>
+            <li><a href="#禁止-swap">禁止 swap</a></li>
+            <li><a href="#gc-设置">GC 设置</a></li>
+          </ul>
+        </li>
+        <li><a href="#磁盘">磁盘</a></li>
+      </ul>
+    </li>
+    <li><a href="#操作系统">操作系统</a></li>
+    <li><a href="#写入速度优化">写入速度优化</a>
+      <ul>
+        <li><a href="#调整配置项-translog-的持久化策略-indextranslogdurability">调整配置项 translog 的持久化策略 <code>index.translog.durability</code></a></li>
+        <li><a href="#调整配置项索引刷新间隔-indexrefresh_interval">调整配置项索引刷新间隔 <code>index.refresh_interval</code></a></li>
+        <li><a href="#段合并优化">段合并优化</a></li>
+        <li><a href="#减少副本数量-elasticsearch">减少副本数量 Elasticsearch</a></li>
+        <li><a href="#indexing-buffer">indexing buffer</a></li>
+        <li><a href="#使用-bulk-请求">使用 bulk 请求</a></li>
+        <li><a href="#索引过程调整和优化">索引过程调整和优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#搜索速度优化">搜索速度优化</a>
+      <ul>
+        <li><a href="#为文件系统-cache-预留足够的内存">为文件系统 cache 预留足够的内存</a></li>
+        <li><a href="#使用更快的硬件">使用更快的硬件</a></li>
+        <li><a href="#文档模型">文档模型</a></li>
+        <li><a href="#字段映射-mappings">字段映射 mappings</a></li>
+        <li><a href="#为只读索引执行-force-merge">为只读索引执行 force-merge</a></li>
+        <li><a href="#预索引">预索引</a></li>
+        <li><a href="#使用-filter-代替-query">使用 filter 代替 query</a></li>
+        <li><a href="#避免深度分页">避免深度分页</a></li>
+        <li><a href="#使用-keyword-类型">使用 Keyword 类型</a></li>
+        <li><a href="#避免使用脚本">避免使用脚本</a></li>
+        <li><a href="#预热文件系统-cache">预热文件系统 cache</a></li>
+        <li><a href="#调节搜索请求中的-batched_reduce_size">调节搜索请求中的 <code>batched_reduce_size</code></a></li>
+        <li><a href="#限制搜索请求的分片数">限制搜索请求的分片数</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="硬件配置优化">硬件配置优化</h2>
+<h3 id="cpu-配置">CPU 配置</h3>
+<p>一般说来，CPU 繁忙的原因有以下几个：</p>
+<ul>
+<li>线程中有无限空循环、无阻塞、正则匹配或者单纯的计算；</li>
+<li>发生了频繁的 GC；</li>
+<li>多线程的上下文切换；</li>
+</ul>
+<p>大多数 Elasticsearch 部署往往对 CPU 要求不高（写入的时候比较耗 CPU）。因此，相对其它资源，具体配置多少个（CPU）不是那么关键。你应该选择具有多个内核的现代处理器，常见的集群使用 2 到 8 个核的机器。</p>
+<h3 id="内存配置">内存配置</h3>
+<p>如果有一种资源是最先被耗尽的，它可能是内存。排序和聚合都很耗内存，所以有足够的堆空间来应付它们是很重要的。即使堆空间是比较小的时候，也能为操作系统文件缓存提供额外的内存。因为 Lucene 使用的许多数据结构是基于磁盘的格式，Elasticsearch 利用操作系统缓存能产生很大效果。</p>
+<p>64 GB 内存的机器是非常理想的，但是 32 GB 和 16 GB 机器也是很常见的。少于 8 GB 会适得其反（你最终需要很多很多的小机器），大于 64 GB 的机器也会有问题。</p>
+<p>由于 ES 构建基于 lucene，而 lucene 设计强大之处在于 lucene 能够很好的利用操作系统内存来缓存索引数据，以提供快速的查询性能。lucene 的索引文件 segements 是存储在单文件中的，并且不可变，对于 OS 来说，能够很友好地将索引文件保持在 cache 中，以便快速访问；因此，我们很有必要将一半的物理内存留给 lucene；另一半的物理内存留给 ES（JVM heap）。</p>
+<h4 id="内存分配">内存分配</h4>
+<p>当机器内存小于 64G 时，遵循通用的原则，50% 给 ES，50% 留给 lucene。</p>
+<p>当机器内存大于 64G 时，遵循以下原则：Jvm heap 大小不要超过物理内存的 50%，最大也不要超过 32GB（compressed oop），它可用于其内部缓存的内存就越多，但可供操作系统用于文件系统缓存的内存就越少，heap 过大会导致 GC 时间过长。</p>
+<h4 id="禁止-swap">禁止 swap</h4>
+<p>禁止 swap，一旦允许内存与磁盘的交换，会引起致命的性能问题。可以通过在 elasticsearch.yml 中 bootstrap.memory_lock: true，以保持 JVM 锁定内存，保证 ES 的性能。</p>
+<h4 id="gc-设置">GC 设置</h4>
+<p>修改 jvm.options 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-XX:+UseG1GC
+</span></span><span class="line"><span class="cl">-XX:MaxGCPauseMillis=50
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中 -XX:MaxGCPauseMillis 是控制预期的最高 GC 时长，默认值为 200ms，如果线上业务特性对于 GC 停顿非常敏感，可以适当设置低一些。但是 这个值如果设置过小，可能会带来比较高的 cpu 消耗。</p>
+<p>G1 对于集群正常运作的情况下减轻 G1 停顿对服务时延的影响还是很有效的，但是如果是你描述的 GC 导致集群卡死，那么很有可能换 G1 也无法根本上解决问题。 通常都是集群的数据模型或者 Query 需要优化。</p>
+<h3 id="磁盘">磁盘</h3>
+<p>在经济压力能承受的范围下，尽量使用固态硬盘（SSD）。</p>
+<p>使用 RAID0 是提高硬盘速度的有效途径，对机械硬盘和 SSD 来说都是如此。</p>
+<h2 id="操作系统">操作系统</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#设置虚拟内存大小，这个是MMPFILE存储内存需要;禁用内存交换
+</span></span><span class="line"><span class="cl">echo &#34;vm.max_map_count=262144&#34; &gt;&gt; /etc/sysctl.conf
+</span></span><span class="line"><span class="cl">echo &#34;vm.swappiness=1&#34; &gt;&gt; /etc/sysctl.conf sysctl -p
+</span></span><span class="line"><span class="cl">#设置文件句柄数与线程限制，因为ES的索引会产生和调用大量文件数
+</span></span><span class="line"><span class="cl">echo &#34;* soft nproc 131072&#34; &gt;&gt; /etc/security/limits.conf
+</span></span><span class="line"><span class="cl">echo &#34;* hard nproc 131072&#34; &gt;&gt; /etc/security/limits.conf
+</span></span><span class="line"><span class="cl">echo &#34;* soft nofile 131072&#34; &gt;&gt; /etc/security/limits.conf
+</span></span><span class="line"><span class="cl">echo &#34;* hard nofile 131072&#34; &gt;&gt; /etc/security/limits.conf
+</span></span><span class="line"><span class="cl">#内存锁定交换
+</span></span><span class="line"><span class="cl">echo &#34;* hard memlock unlimited&#34; &gt;&gt; /etc/security/limits.conf
+</span></span><span class="line"><span class="cl">echo &#34;* soft memlock unlimited&#34; &gt;&gt; /etc/security/limits.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="写入速度优化">写入速度优化</h2>
+<p><a href="https://weread.qq.com/web/reader/f9c32dc07184876ef9cdeb6k1af32e502831afa34a7fe44" target="_blank" rel="noopener noreffer ">配置参考</a></p>
+<h3 id="调整配置项-translog-的持久化策略-indextranslogdurability">调整配置项 translog 的持久化策略 <code>index.translog.durability</code></h3>
+<ol>
+<li>index.translog.durability: <code>request</code>，这是影响 ES 写入速度的最大因素。但是只有这样，写操作才有可能是可靠的。</li>
+<li>index.translog.durability: <code>async</code>，设置为 async 表示 translog 的刷盘策略按 sync_interval 配置指定的时间周期进行。</li>
+<li>index.translog.sync_interval: 120s，加大 translog 刷盘间隔时间。默认为 5s，不可低于 100ms。</li>
+<li>index.translog.flush_threshold_size: 1024mb，超过这个大小会导致 refresh 操作，产生新的 Lucene 分段。默认值为 512MB。</li>
+</ol>
+<h3 id="调整配置项索引刷新间隔-indexrefresh_interval">调整配置项索引刷新间隔 <code>index.refresh_interval</code></h3>
+<p>默认情况下索引的 refresh_interval 为 1 秒，这意味着数据写 1 秒后就可以被搜索到，每次索引的 refresh 会产生一个新的 Lucene 段，这会导致频繁的 segment merge 行为，如果不需要这么高的搜索实时性，应该降低索引 refresh 周期，例如：index.refresh_interval: 120s</p>
+<h3 id="段合并优化">段合并优化</h3>
+<p>segment merge 操作对系统 I/O 和内存占用都比较高，从 ES 2.0 开始，merge 行为不再由 ES 控制，而是由 Lucene 控制。</p>
+<ol>
+<li>
+<p><code>index.merge.scheduler.max_thread_count</code></p>
+<p>最大线程数 max_thread_count 的默认值如下：Math.max（1, Math.min（4, Runtime.getRuntime（）.availableProcessors（） / 2））以上是一个比较理想的值，如果只有一块硬盘并且非 SSD，则应该把它设置为 1，因为在旋转存储介质上并发写，由于寻址的原因，只会降低写入速度。</p>
+</li>
+<li>
+<p><code>index.merge.policy</code></p>
+<p>merge 策略 index.merge.policy 有三种：</p>
+<ul>
+<li>tiered（默认策略，推荐）；</li>
+<li>log_byte_size；</li>
+<li>log_doc。</li>
+</ul>
+</li>
+</ol>
+<p>索引创建时合并策略就已确定，不能更改，但是可以动态更新策略参数，可以不做此项调整。</p>
+<p>如果堆栈经常有很多 merge，则可以尝试调整以下策略配置：index.merge.policy.segments_per_tier 该属性指定了每层分段的数量，取值越小则最终 segment 越少，因此需要 merge 的操作更多，可以考虑适当增加此值。默认为 10，其应该大于等于 index.merge.policy.max_merge_at_once。</p>
+<h3 id="减少副本数量-elasticsearch">减少副本数量 Elasticsearch</h3>
+<p>默认副本数量为 3 个，虽然这样会提高集群的可用性，增加搜索的并发数，但是同时也会影响写入索引的效率。</p>
+<p>在索引过程中，需要把更新的文档发到副本节点上，等副本节点生效后在进行返回结束。使用 Elasticsearch 做业务搜索的时候，建议副本数目还是设置为 3 个，但是像内部 ELK 日志系统、分布式跟踪系统中，完全可以将副本数目设置为 1 个。</p>
+<p><code>index.merge.policy.max_merged_segment</code> 指定了单个 segment 的最大容量，默认为 5GB，可以考虑适当降低此值。</p>
+<h3 id="indexing-buffer">indexing buffer</h3>
+<p>indexing buffer 在为 doc 建立索引时使用，当缓冲满时会刷入磁盘，生成一个新的 segment，这是除 refresh_interval 刷新索引外，另一个生成新 segment 的机会。每个 shard 有自己的 indexing buffer。</p>
+<p>在执行大量的索引操作时，<code>indices.memory.index_buffer_size</code>的默认设置可能不够，这和可用堆内存、单节点上的 shard 数量相关，可以考虑适当<strong>增大该值</strong>。</p>
+<h3 id="使用-bulk-请求">使用 bulk 请求</h3>
+<p>建立索引的过程属于计算密集型任务，应该使用<strong>固定大小的线程池配置</strong>，来不及处理的任务放入队列。线程池最大线程数量应配置为 CPU 核心数+1，这也是 bulk 线程池的默认设置，可以避免过多的上下文切换。<strong>队列大小可以适当增加，但一定要严格控制大小，过大的队列导致较高的 GC 压力，并可能导致 FGC 频繁发生</strong>。</p>
+<h3 id="索引过程调整和优化">索引过程调整和优化</h3>
+<ul>
+<li>
+<p><strong>自动生成 doc ID</strong>，通过 ES 写入流程可以看出，写入 doc 时如果外部指定了 id，则 ES 会先尝试读取原来 doc 的版本号，以判断是否需要更新。这会涉及一次读取磁盘的操作，通过自动生成 doc ID 可以避免这个环节。</p>
+</li>
+<li>
+<p><strong>调整字段 Mappings</strong></p>
+<ol>
+<li>减少字段数量，对于不需要建立索引的字段，不写入 ES。</li>
+<li>将不需要建立索引的字段 index 属性设置为 not_analyzed 或 no。对字段不分词，或者不索引，可以减少很多运算操作，降低 CPU 占用。尤其是 binary 类型，默认情况下占用 CPU 非常高，而这种类型进行分词通常没有什么意义。</li>
+<li>减少字段内容长度，如果原始数据的大段内容无须全部建立索引，则可以尽量减少不必要的内容。</li>
+<li>使用不同的分析器（analyzer），不同的分析器在索引过程中运算复杂度也有较大的差异。</li>
+</ol>
+</li>
+<li>
+<p><strong>调整_source 字段</strong>，_source 字段用于存储 doc 原始数据，对于部分不需要存储的字段，可以通过 includes excludes 过滤，或者将_source 禁用，一般用于索引和数据分离。</p>
+</li>
+<li>
+<p><strong>对 Analyzed 的字段禁用 Norms</strong>，Norms 用于在搜索时计算 doc 的评分，如果不需要评分，则可以将其禁用：＂title＂: {＂type＂: ＂string＂,＂norms＂: {＂enabled＂: false}}</p>
+</li>
+<li>
+<p><strong>index_options 设置</strong>，index_options 用于控制在建立倒排索引过程中，哪些内容会被添加到倒排索引，例如，doc 数量、词频、positions、offsets 等信息，优化这些设置可以一定程度降低索引过程中的运算任务，节省 CPU 占用率。不过在实际场景中，通常很难确定业务将来会不会用到这些信息，除非一开始方案就明确是这样设计的。</p>
+</li>
+</ul>
+<h2 id="搜索速度优化">搜索速度优化</h2>
+<h3 id="为文件系统-cache-预留足够的内存">为文件系统 cache 预留足够的内存</h3>
+<p>cache 保存在系统物理内存中（线上应该禁用 swap），命中 cache 可以降低对磁盘的直接访问频率。搜索很依赖对系统 cache 的命中，如果某个请求需要从磁盘读取数据，则一定会产生相对较高的延迟。应该至少为系统 cache 预留一半的可用物理内存，更大的内存有更高的 cache 命中率。</p>
+<h3 id="使用更快的硬件">使用更快的硬件</h3>
+<p>写入性能对 CPU 的性能更敏感，而搜索性能在一般情况下更多的是在于 I/O 能力，使用 SSD 会比旋转类存储介质好得多。尽量避免使用 NFS 等远程文件系统，如果 NFS 比本地存储慢 3 倍，则在搜索场景下响应速度可能会慢 10 倍左右。这可能是因为搜索请求有更多的随机访问。</p>
+<p>如果搜索类型属于计算比较多，则可以考虑使用更快的 CPU。</p>
+<h3 id="文档模型">文档模型</h3>
+<p>为了让搜索时的成本更低，文档应该合理建模。特别是应该避免 join 操作，嵌套（nested）会使查询慢几倍，父子（parent-child）关系可能使查询慢数百倍。</p>
+<h3 id="字段映射-mappings">字段映射 mappings</h3>
+<p>有些字段的内容是数值，但并不意味着其总是应该被映射为数值类型，例如，一些标识符，将它们映射为 keyword 可能会比 integer 或 long 更好。</p>
+<h3 id="为只读索引执行-force-merge">为只读索引执行 force-merge</h3>
+<p>为不再更新的只读索引执行 force merge，将 Lucene 索引合并为单个分段，可以提升查询速度。当一个 Lucene 索引存在多个分段时，每个分段会单独执行搜索再将结果合并，将只读索引强制合并为一个 Lucene 分段不仅可以优化搜索过程，对索引恢复速度也有好处。</p>
+<p>基于日期进行轮询的索引的旧数据一般都不会再更新。此前的章节中说过，应该避免持续地写一个固定的索引，直到它巨大无比，而应该按一定的策略，例如，每天生成一个新的索引，然后用别名关联，或者使用索引通配符。这样，可以每天选一个时间点对昨天的索引执行 force-merge、Shrink 等操作。</p>
+<h3 id="预索引">预索引</h3>
+<p>利用查询中的模式来优化数据的索引方式。例如，如果所有文档都有一个 price 字段，并且大多数查询 range 在固定的范围列表上运行聚合，可以通过将范围预先索引到索引中并使用聚合来加快聚合速度。</p>
+<h3 id="使用-filter-代替-query">使用 filter 代替 query</h3>
+<p>query 和 filter 的主要区别在： filter 是结果导向的而 query 是过程导向。query 倾向于“当前文档和查询的语句的相关度”而 filter 倾向于“当前文档和查询的条件是不是相符”。即在查询过程中，query 是要对查询的每个结果计算相关性得分的，而 filter 不会。另外 filter 有相应的缓存机制，可以提高查询效率。</p>
+<h3 id="避免深度分页">避免深度分页</h3>
+<p>避免单页数据过大，可以参考百度或者淘宝的做法。es 提供两种解决方案 scroll search 和 search after。关于深度分页的详细原理，推荐阅读：详解 Elasticsearch 深度分页问题</p>
+<h3 id="使用-keyword-类型">使用 Keyword 类型</h3>
+<p>并非所有数值数据都应映射为数值字段数据类型。Elasticsearch 为 查询优化数字字段，例如 integeror long。如果不需要范围查找，对于 term 查询而言，keyword 比 integer 性能更好。</p>
+<h3 id="避免使用脚本">避免使用脚本</h3>
+<p>Scripting 是 Elasticsearch 支持的一种专门用于复杂场景下支持自定义编程的强大的脚本功能。相对于 DSL 而言，脚本的性能更差，DSL 能解决 80% 以上的查询需求，如非必须，尽量避免使用 Script</p>
+<h3 id="预热文件系统-cache">预热文件系统 cache</h3>
+<p>如果 ES 主机重启，则文件系统缓存将为空，此时搜索会比较慢。可以使用 index.store.preload 设置，通过指定文件扩展名，显式地告诉操作系统应该将哪些文件加载到内存中，</p>
+<h3 id="调节搜索请求中的-batched_reduce_size">调节搜索请求中的 <code>batched_reduce_size</code></h3>
+<p>该字段是搜索请求中的一个参数。默认情况下，聚合操作在协调节点需要等所有的分片都取回结果后才执行，使用 batched_reduce_size 参数可以不等待全部分片返回结果，而是在指定数量的分片返回结果之后就可以先处理一部分（reduce）。这样可以避免协调节点在等待全部结果的过程中占用大量内存，避免极端情况下可能导致的 OOM。该字段的默认值为 512，从 ES 5.4 开始支持。</p>
+<h3 id="限制搜索请求的分片数">限制搜索请求的分片数</h3>
+<p>一个搜索请求涉及的分片数量越多，协调节点的 CPU 和内存压力就越大。默认情况下，ES 会拒绝超过 1000 个分片的搜索请求。我们应该更好地组织数据，让搜索请求的分片数更少。如果想调节这个值，则可以通过 action.search.shard_count 配置项进行修改。</p>
+<p>虽然限制搜索的分片数并不能直接提升单个搜索请求的速度，但协调节点的压力会间接影响搜索速度，例如，占用更多内存会产生更多的 GC 压力，可能导致更多的 stop-the-world 时间等，因此间接影响了协调节点的性能。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://weread.qq.com/web/reader/f9c32dc07184876ef9cdeb6k2023270027b202cb962a56f" target="_blank" rel="noopener noreffer ">https://weread.qq.com/web/reader/f9c32dc07184876ef9cdeb6k2023270027b202cb962a56f</a></p>
+<p><a href="https://blog.csdn.net/wlei0618/article/details/124104738" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/wlei0618/article/details/124104738</a></p>
+<p><a href="https://pdai.tech/md/db/nosql-es/elasticsearch-y-peformance.html" target="_blank" rel="noopener noreffer ">https://pdai.tech/md/db/nosql-es/elasticsearch-y-peformance.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-08-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/elasticsearch-perf/" data-title="Elasticsearch 性能优化" data-hashtags="ELK,Elasticsearch"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/elasticsearch-perf/" data-hashtag="ELK"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/elasticsearch-perf/" data-title="Elasticsearch 性能优化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/elasticsearch-perf/" data-title="Elasticsearch 性能优化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/elasticsearch-perf/" data-title="Elasticsearch 性能优化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/elk/">ELK</a>,&nbsp;<a href="/tags/elasticsearch/">Elasticsearch</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/elasticsearch-conception/" class="prev" rel="prev" title="Elasticsearch 基本概念和原理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Elasticsearch 基本概念和原理</a>
+            <a href="/elasticsearch-install/" class="next" rel="next" title="Elasticsearch 安装">Elasticsearch 安装<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

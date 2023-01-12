@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/microservice\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "微服务","wordcount":  5593 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "微服务","wordcount":  5608 ,
         "url": "https:\/\/luzhifang.github.io\/microservice\/","datePublished": "2019-02-05T00:00:00+00:00","dateModified": "2019-02-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">微服务</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-05">2019-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5593 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-05">2019-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5608 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -328,7 +328,13 @@
 <li>永远要限制重试的总次数；</li>
 <li>使用带抖动的指数退避策略来均匀地分配重试请求和避免进一步加剧负载；</li>
 <li>仔细考虑哪些错误情况应该触发重试，以及哪些重试不大可能成功、哪些重试永远不会成功；</li>
-<li>需要考虑幂等性。</li>
+<li>需要考虑幂等性。
+<ol>
+<li>加乐观锁</li>
+<li>使用去重索引</li>
+<li>使用 token 机制</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>

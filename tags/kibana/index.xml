@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kibana - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/kibana/</link>
+        <description>Kibana - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Aug 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/kibana/" rel="self" type="application/rss+xml" /><item>
+    <title>Kibana</title>
+    <link>https://luzhifang.github.io/kibana/</link>
+    <pubDate>Mon, 03 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/kibana/</guid>
+    <description><![CDATA[简介 Kibana 可以为 Elasticsearch 提供一个可视化平台，将收集到的数据进行图形化展示。Kibana 7 开始默认支持中文，配图更为方便，推荐使用 安装 二进制安装 1 2 3 4]]></description>
+</item>
+</channel>
+</rss>

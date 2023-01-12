@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Logstash - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Logstash" />
+<meta property="og:description" content="简介 Logstash 可以收集日志数据并对数据进行处理后传递给 ES，但是现阶段通常使用它做数据分析和过滤工作，采集工作交由 filebeat 完成。 因为使用它采集日志的话需要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/logstash/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-02T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Logstash"/>
+<meta name="twitter:description" content="简介 Logstash 可以收集日志数据并对数据进行处理后传递给 ES，但是现阶段通常使用它做数据分析和过滤工作，采集工作交由 filebeat 完成。 因为使用它采集日志的话需要"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/logstash/" /><link rel="prev" href="https://luzhifang.github.io/filebeat/" /><link rel="next" href="https://luzhifang.github.io/kibana/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Logstash",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/logstash\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "ELK, Logstash","wordcount":  1407 ,
+        "url": "https:\/\/luzhifang.github.io\/logstash\/","datePublished": "2020-08-02T00:00:00+00:00","dateModified": "2020-08-02T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Logstash</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/elk/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>ELK</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-08-02">2020-08-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1407 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#安装运行">安装运行</a></li>
+    <li><a href="#工作原理">工作原理</a>
+      <ul>
+        <li><a href="#inputs">inputs</a></li>
+        <li><a href="#filters">filters</a></li>
+        <li><a href="#outputs">outputs</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置文件">配置文件</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<p>Logstash 可以收集日志数据并对数据进行处理后传递给 ES，但是现阶段通常使用它做数据分析和过滤工作，采集工作交由 filebeat 完成。</p>
+<p>因为使用它采集日志的话需要在所有需要收集日志的服务器上安装 Logstash，由于 Logstash 偏重量级，现在通常不会这样做，而是交给各种 beat 去完成这个工作，然后最后交给 Logstash 处理后再传递给 ES。</p>
+<p>如果数据量太大可以在 agent 与 server 端之前部署消息队列，一般使用 Redis 或者 Kafka。</p>
+<h2 id="安装运行">安装运行</h2>
+<ol>
+<li>二进制方式安装</li>
+</ol>
+<p>最新包到官网<a href="https://www.elastic.co/cn/downloads/logstash" target="_blank" rel="noopener noreffer ">下载</a></p>
+<p>运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local
+</span></span><span class="line"><span class="cl">wget https://artifacts.elastic.co/downloads/logstash/logstash-7.17.6-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar zxvf logstash-7.17.6-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">chown -R elastic. /usr/local/logstash-7.17.6/
+</span></span><span class="line"><span class="cl">su elastic
+</span></span><span class="line"><span class="cl">/usr/local/logstash-7.17.6/bin/logstash -f /usr/local/logstash-7.17.6/config/logstash-sample.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>docker 方式安装</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker run -it docker.elastic.co/logstash/logstash:7.17.6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="工作原理">工作原理</h2>
+<p>logstash 处理流程有三步：inputs -&gt; filters -&gt; outputs。</p>
+<ul>
+<li>inputs：负责生产数据</li>
+<li>filters：修改数据</li>
+<li>outputs：搬运数据到其他地方</li>
+</ul>
+<h3 id="inputs">inputs</h3>
+<p>inputs 负责获取数据到 logstash，以下是一些通用的 inputs：</p>
+<ul>
+<li>file：从文件系统上的文件读取，很像 UNIX 命令 <code>tail -0F</code></li>
+<li>syslog：监听知名端口 514 上的 syslog 消息，并根据 RFC3164 格式进行解析</li>
+<li>redis：读取 redis channels 或者 lists</li>
+<li>beats：由 Beats 发送过来，比如 Filebeat</li>
+<li>kafka：从 kafka topic 读取</li>
+</ul>
+<p>更多 inputs，请访问<a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html" target="_blank" rel="noopener noreffer ">链接</a></p>
+<h3 id="filters">filters</h3>
+<p>filters 是 Logstash 管道中的中间处理设备。如果事件符合某些条件，可以将筛选器与条件组合在一起对其执行操作。常用的 filters 包括：</p>
+<ul>
+<li>grok: 转换和构造任意文本。Grok 是目前 Logstash 中将非结构化日志数据解析为结构化可查询数据的最佳方法。Logstash 内置了 120 种模式，您很可能会找到满足您需求的模式! 文档见<a href="https://www.elastic.co/guide/en/logstash/8.5/plugins-filters-grok.html" target="_blank" rel="noopener noreffer ">链接</a></li>
+<li>mutate: 对事件字段执行通用转换。您可以重命名、删除、替换和修改事件中的字段。</li>
+<li>drop: 完全删除事件，如 debug 事件。</li>
+<li>clone: 复制一个事件，可能添加或删除字段。</li>
+<li>geoip: 添加 IP 地址的地理位置信息(也可以在 Kibana 中显示惊人的图表!)</li>
+<li>json: 处理 json 格式的文本，文档见<a href="https://www.elastic.co/guide/en/logstash/8.5/plugins-filters-json.html" target="_blank" rel="noopener noreffer ">链接</a></li>
+</ul>
+<p>更多 filters，请访问<a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html" target="_blank" rel="noopener noreffer ">链接</a></p>
+<h3 id="outputs">outputs</h3>
+<p>outputs 是 Logstash 管道的最后阶段。一个事件可以通过多个输出，但是一旦所有输出处理完成，事件就完成了它的执行。常用的 outputs 包括:</p>
+<ul>
+<li>elasticsearch: 将事件数据发送到 elasticsearch。如果你计划将你的数据以一种高效、方便、易于查询的格式保存，Elasticsearch 就是你的选择。</li>
+<li>file: 将事件数据写入磁盘上的文件。</li>
+<li>Graphite: 将事件数据发送到 Graphite，这是一种流行的用于存储和绘制指标的开源工具。http://graphite.readthedocs.io/en/latest/</li>
+<li>statsd: 将事件数据发送到 statsd，该服务“侦听统计数据，如计数器和计时器，通过 UDP 发送，并将聚合发送到一个或多个可插入的后端服务”。如果您已经在使用 statsd，这可能对您很有用!</li>
+</ul>
+<p>更多 outputs，请访问<a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html" target="_blank" rel="noopener noreffer ">链接</a></p>
+<h2 id="配置文件">配置文件</h2>
+<p>在正式的生产环境中要启动 Logstash 需要配置一系列复杂的规则以满足需求，所以就需要通过配置文件来自定义这些规则。</p>
+<p>Logstash 和 ElasticSearch 一样有 2 个配置文件需要调整，其中 jvm.options 和 Elasticsearch 中的一样的用于优化堆栈内存，另一个 config/logstash.yml，通过该配置文件来进行采集和过滤数据等操作。</p>
+<p>自定义配置文件(logstash-sample.conf)时主要配置的内容包括 input（用于指定输入源，包含本地日志、redis、stdin 标准输入等多种方式）、filter（进行规则过滤和处理）、output（指定输出目标）三个区。在 Logstash 中输入的数据可以通过很多种方式获取，比如本地日志文件、filebeat、数据库等。而输出也可以指定到需要的容器中，如 Elasticsearch</p>
+<p>配置示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">input {
+</span></span><span class="line"><span class="cl">  beats {
+</span></span><span class="line"><span class="cl">    port =&gt; 5044
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">output {
+</span></span><span class="line"><span class="cl">  elasticsearch {
+</span></span><span class="line"><span class="cl">    hosts =&gt; [&#34;http://localhost:9200&#34;]
+</span></span><span class="line"><span class="cl">    index =&gt; &#34;%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}&#34;
+</span></span><span class="line"><span class="cl">    #user =&gt; &#34;elastic&#34;
+</span></span><span class="line"><span class="cl">    #password =&gt; &#34;changeme&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://www.elastic.co/guide/en/logstash/current/pipeline.html" target="_blank" rel="noopener noreffer ">https://www.elastic.co/guide/en/logstash/current/pipeline.html</a></p>
+<p><a href="https://www.linuxe.cn/post-309.html" target="_blank" rel="noopener noreffer ">https://www.linuxe.cn/post-309.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-08-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/logstash/" data-title="Logstash" data-hashtags="ELK,Logstash"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/logstash/" data-hashtag="ELK"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/logstash/" data-title="Logstash"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/logstash/" data-title="Logstash"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/logstash/" data-title="Logstash"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/elk/">ELK</a>,&nbsp;<a href="/tags/logstash/">Logstash</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/filebeat/" class="prev" rel="prev" title="Filebeat"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Filebeat</a>
+            <a href="/kibana/" class="next" rel="next" title="Kibana">Kibana<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

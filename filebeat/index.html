@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Filebeat - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Filebeat" />
+<meta property="og:description" content="简介 首先 filebeat 是 Beats 中的一员。 Beats 在是一个轻量级日志采集器，其实 Beats 家族有 6 个成员，早期的 ELK 架构中使用 Logstash 收集、解析日志，但是 Logstash 对内存、cpu、io 等资" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luzhifang.github.io/filebeat/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-01T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Filebeat"/>
+<meta name="twitter:description" content="简介 首先 filebeat 是 Beats 中的一员。 Beats 在是一个轻量级日志采集器，其实 Beats 家族有 6 个成员，早期的 ELK 架构中使用 Logstash 收集、解析日志，但是 Logstash 对内存、cpu、io 等资"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/filebeat/" /><link rel="prev" href="https://luzhifang.github.io/go-error/" /><link rel="next" href="https://luzhifang.github.io/logstash/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Filebeat",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/filebeat\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "ELK, Filebeat","wordcount":  2044 ,
+        "url": "https:\/\/luzhifang.github.io\/filebeat\/","datePublished": "2020-08-01T00:00:00+00:00","dateModified": "2020-08-01T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Filebeat</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/elk/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>ELK</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-08-01">2020-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2044 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#工作原理">工作原理</a>
+      <ul>
+        <li><a href="#filebeat-的构成">Filebeat 的构成</a></li>
+        <li><a href="#filebeat-如何保存文件的状态">Filebeat 如何保存文件的状态</a></li>
+        <li><a href="#filebeat-何如保证至少一次数据消费">Filebeat 何如保证至少一次数据消费</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装与运行">安装与运行</a></li>
+    <li><a href="#filebeat-模块">filebeat 模块</a></li>
+    <li><a href="#各种组合架构">各种组合架构</a>
+      <ul>
+        <li><a href="#elasticsearchlogstashfilebeat-架构">Elasticsearch+Logstash+Filebeat 架构</a></li>
+        <li><a href="#elasticsearchlogstashkafkafilebeat-架构推荐架构">Elasticsearch+Logstash+Kafka+Filebeat 架构（推荐架构）</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<p>首先 filebeat 是 Beats 中的一员。
+　　 Beats 在是一个轻量级日志采集器，其实 Beats 家族有 6 个成员，早期的 ELK 架构中使用 Logstash 收集、解析日志，但是 Logstash 对内存、cpu、io 等资源消耗比较高。相比 Logstash，Beats 所占系统的 CPU 和内存几乎可以忽略不计。
+目前 Beats 包含六种工具：</p>
+<ul>
+<li>Packetbeat：网络数据（收集网络流量数据）</li>
+<li>Metricbeat：指标（收集系统、进程和文件系统级别的 CPU 和内存使用情况等数据）</li>
+<li>Filebeat：日志文件（收集文件数据）</li>
+<li>Winlogbeat：windows 事件日志（收集 Windows 事件日志数据）</li>
+<li>Auditbeat：审计数据（收集审计日志）</li>
+<li>Heartbeat：运行时间监控（收集系统运行时的数据）</li>
+</ul>
+<h2 id="工作原理">工作原理</h2>
+<p>Filebeat 是用于转发和集中日志数据的轻量级传送工具。Filebeat 监视您指定的日志文件或位置，收集日志事件，并将它们转发到 Elasticsearch 或 Logstash 进行索引。</p>
+<p>Filebeat 的工作方式如下：启动 Filebeat 时，它将启动一个或多个输入，这些输入将在为日志数据指定的位置中查找。对于 Filebeat 所找到的每个日志，Filebeat 都会启动收集器。每个收集器都读取单个日志以获取新内容，并将新日志数据发送到 libbeat，libbeat 将聚集事件，并将聚集的数据发送到为 Filebeat 配置的输出。</p>
+<p>工作的流程图如下：</p>
+<img src="/images/elk/filebeat-architecture.png" alt="" width="80%" />
+<h3 id="filebeat-的构成">Filebeat 的构成</h3>
+<p>Filebeat 由两个组件构成，分别是 input（输入）和 harvester（收集器）</p>
+<ul>
+<li>input(输入)：负责管理 harvester 并找到所有读取源。如果 input 类型是 log，则 input 将查找驱动器上与定义的路径匹配的所有文件，并为每个文件启动一个 harvester。</li>
+<li>harvester(收集器)：负责读取单个文件内容，每个文件启动一个</li>
+</ul>
+<h3 id="filebeat-如何保存文件的状态">Filebeat 如何保存文件的状态</h3>
+<ul>
+<li>Filebeat 保留每个文件的状态，并经常将状态刷新到磁盘中的注册表文件中（默认在/var/lib/filebeat/registry）。</li>
+<li>该状态用于记住 harvester 读取的最后一个偏移量，并确保发送所有日志行。如果无法访问输出（如 Elasticsearch 或 Logstash），Filebeat 将跟踪最后发送的行，并在输出再次可用时继续读取文件。</li>
+<li>当 Filebeat 运行时，每个输入的状态信息也保存在内存中。当 Filebeat 重新启动时，来自注册表文件的数据用于重建状态，Filebeat 在最后一个已知位置继续每个 harvester。</li>
+<li>对于每个输入，Filebeat 都会保留它找到的每个文件的状态。由于文件可以重命名或移动，文件名和路径不足以标识文件。对于每个文件，Filebeat 存储唯一的标识符，以检测文件是否以前被捕获。</li>
+</ul>
+<h3 id="filebeat-何如保证至少一次数据消费">Filebeat 何如保证至少一次数据消费</h3>
+<ul>
+<li>Filebeat 保证事件将至少传递到配置的输出一次，并且不会丢失数据。是因为它将每个事件的传递状态存储在注册表文件中。</li>
+<li>在已定义的输出被阻止且未确认所有事件的情况下，Filebeat 将继续尝试发送事件，直到输出确认已接收到事件为止。</li>
+<li>如果 Filebeat 在发送事件的过程中关闭，它不会等待输出确认所有事件后再关闭。当 Filebeat 重新启动时，将再次将 Filebeat 关闭前未确认的所有事件发送到输出。</li>
+<li>这样可以确保每个事件至少发送一次，但最终可能会有重复的事件发送到输出。通过设置 shutdown_timeout 选项，可以将 Filebeat 配置为在关机前等待特定时间</li>
+</ul>
+<h2 id="安装与运行">安装与运行</h2>
+<ol>
+<li>压缩包方式安装，点击<a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html" target="_blank" rel="noopener noreffer ">链接</a>查看最新版本，运行以下命令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local
+</span></span><span class="line"><span class="cl">curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-xxx-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar xzvf filebeat-xxx-linux-x86_64.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><a href="https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html" target="_blank" rel="noopener noreffer ">docker</a> 方式安装</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">docker run <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>docker.elastic.co/beats/filebeat:8.5.3 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>setup -E setup.kibana.host<span class="o">=</span>kibana:5601 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-E output.elasticsearch.hosts<span class="o">=[</span><span class="s2">&#34;elasticsearch:9200&#34;</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑配置文件 filebeat.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">filebeat.inputs: #采集系统日志
+</span></span><span class="line"><span class="cl">- type: log  #通常采集日志文件的话type就为log，还有stdin、redis、docker等其它类型
+</span></span><span class="line"><span class="cl">  enabled: true  #启用开关
+</span></span><span class="line"><span class="cl">  paths:       - /var/log/message.log
+</span></span><span class="line"><span class="cl">  #include_lines: [&#39;^ERR&#39;,&#39;^WARN&#39;]  #只采集正则所包含的日志
+</span></span><span class="line"><span class="cl">  tags: [&#34;system&#34;]  #定义标签，采集多个日志的时候可以用标签来创建索引，也可以用logstash的type来区分
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动 Filebeat</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./filebeat -e -c filebeat.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="filebeat-模块">filebeat 模块</h2>
+<p>Filebeat 内置有大量 module，比如 Nginx module、MySQL module。使用这些 module 可以简化日志收集的过程，包括 Kibana 出图，甚至可以通过官方 module 学习出图。</p>
+<ol>
+<li>开启 Filebeat 模块相关配置</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">filebeat.config.modules:
+</span></span><span class="line"><span class="cl">  path: ${path.config}/modules.d/*.yml #模块配置文件路径，查看支持的模块时就会从该目录去寻找配置文件
+</span></span><span class="line"><span class="cl">  reload.enabled: true ##开启模块功能
+</span></span><span class="line"><span class="cl">  reload.period: 10s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>查看当前支持的 module，<code>filebeat modules list</code></li>
+<li>启动指定的 module，<code>filebeat modules enable mysql</code></li>
+<li>配置 module，只需要修改日志路径 modules.d/mysql.yml</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- module: mysql
+</span></span><span class="line"><span class="cl">  error:
+</span></span><span class="line"><span class="cl">    enabled: true
+</span></span><span class="line"><span class="cl">    var.paths: [&#34;/var/log/mysql/log/slowlog/mysql.log&#34;]
+</span></span><span class="line"><span class="cl">  slowlog:
+</span></span><span class="line"><span class="cl">    enabled: true
+</span></span><span class="line"><span class="cl">    var.paths: [&#34;/var/log/mysql/log/error.log&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>初始化环境，如果安装有多个 module 的话只用初始化一次。<code>filebeat setup -e</code></li>
+<li>重启 filebeat，需要注意的是索引名是自动创建好了的，不要自定义，然后到 Kibana 中看图即可</li>
+</ol>
+<h2 id="各种组合架构">各种组合架构</h2>
+<h3 id="elasticsearchlogstashfilebeat-架构">Elasticsearch+Logstash+Filebeat 架构</h3>
+<p>如果 Filebeat 直接把日志传给 ES 的话，由于其不支持正则、无法移除字段等，没办法实现数据分析，所以更优的配置是将 Filebeat 收集到的日志输出给一台 Logstash 服务器，由 Logstash 处理后再给 ES。为了实现这个要求，就需要修改 Filebeat 的 output 段以及 Logstash 的 input 段。</p>
+<ol>
+<li>修改 filebeat.yml 的 output.logstash 配置</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">output.logstash:
+</span></span><span class="line"><span class="cl">  hosts: [&#34;127.0.0.1:5044&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>修改 logstash 相关配置</li>
+</ol>
+<h3 id="elasticsearchlogstashkafkafilebeat-架构推荐架构">Elasticsearch+Logstash+Kafka+Filebeat 架构（推荐架构）</h3>
+<p>当生产环境中有多台 Filebeat 同时向 Logstash 传输数据再交给 ES 入库时，后端服务器的负载会比较大，为了减轻这种压力可以在 Filebeat 和 Logstash 之间加上一层消息队列，比如 Redis、Kafka。由于 Redis 太吃内存，而 Kafka 是基于磁盘存储，所以数据量很大的时候更推荐 Kafka</p>
+<ol>
+<li>修改 Filebeat 输出段的配置，将输出传送给 Kafka</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">output.kafka
+</span></span><span class="line"><span class="cl">  hosts: [&#34;127.0.0.1:9092&#34;, &#34;127.0.0.1:9093&#34;]
+</span></span><span class="line"><span class="cl">  topic: system
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>修改 Logstash input 相关配置，从 Kafka 读取数据</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-overview.html" target="_blank" rel="noopener noreffer ">https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-overview.html</a></p>
+<p><a href="https://www.cnblogs.com/zsql/p/13137833.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/zsql/p/13137833.html</a></p>
+<p><a href="https://www.linuxe.cn/post-422.html" target="_blank" rel="noopener noreffer ">https://www.linuxe.cn/post-422.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-08-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/filebeat/" data-title="Filebeat" data-hashtags="ELK,Filebeat"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/filebeat/" data-hashtag="ELK"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/filebeat/" data-title="Filebeat"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/filebeat/" data-title="Filebeat"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/filebeat/" data-title="Filebeat"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/elk/">ELK</a>,&nbsp;<a href="/tags/filebeat/">Filebeat</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-error/" class="prev" rel="prev" title="Go错误处理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go错误处理</a>
+            <a href="/logstash/" class="next" rel="next" title="Logstash">Logstash<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
