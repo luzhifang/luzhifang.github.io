@@ -10,7 +10,15 @@
     <pubDate>Thu, 06 Aug 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/elasticsearch-install/</guid>
-    <description><![CDATA[单节点安装 修改相关配置文件 1 2 3 4 5 echo &#34;vm.max_map_count=262144&#34; &gt;&gt; /etc/sysctl.conf echo &#34;* soft nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* soft nofile 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nofile 131072&#34; &gt;&gt; /etc/security/limits.conf 二进制方式安装 官网下载链接 1 2 3 4 5 6 7]]></description>
+    <description><![CDATA[单节点安装 修改相关配置文件 1 2 3 4 5 6 # 或者执行 sysctl -w vm.max_map_count=262144 echo &#34;vm.max_map_count=262144&#34; &gt;&gt; /etc/sysctl.conf echo &#34;* soft nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nproc 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* soft nofile 131072&#34; &gt;&gt; /etc/security/limits.conf echo &#34;* hard nofile 131072&#34; &gt;&gt; /etc/security/limits.conf 二进制方式安装 官网下载]]></description>
+</item>
+<item>
+    <title>Elasticsearch 常用命令</title>
+    <link>https://luzhifang.github.io/elasticsearch-command/</link>
+    <pubDate>Thu, 06 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/elasticsearch-command/</guid>
+    <description><![CDATA[状态查询 获取所有 _cat 系列的操作 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 curl http://localhost:9200/_cat =^.^= /_cat/allocation /_cat/shards /_cat/shards/{index} /_cat/master /_cat/nodes /_cat/tasks /_cat/indices /_cat/indices/{index} /_cat/segments /_cat/segments/{index} /_cat/count /_cat/count/{index} /_cat/recovery /_cat/recovery/{index} /_cat/health /_cat/pending_tasks /_cat/aliases /_cat/aliases/{alias} /_cat/thread_pool /_cat/thread_pool/{thread_pools} /_cat/plugins /_cat/fielddata /_cat/fielddata/{fields} /_cat/nodeattrs]]></description>
 </item>
 <item>
     <title>Elasticsearch 性能优化</title>

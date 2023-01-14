@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go常用库 - 分类 - 半生戎码</title>
+        <link>https://luzhifang.github.io/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/</link>
+        <description>Go常用库 - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 06 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/" rel="self" type="application/rss+xml" /><item>
+    <title>Go常用库-logrus</title>
+    <link>https://luzhifang.github.io/go-logrus/</link>
+    <pubDate>Sun, 06 Jun 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/go-logrus/</guid>
+    <description><![CDATA[简介 logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。 它有以下特点： 完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning,]]></description>
+</item>
+</channel>
+</rss>
