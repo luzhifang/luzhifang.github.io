@@ -4,10 +4,10 @@
         <link>https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/</link>
         <description>编码 - 标签 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 13 Nov 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 02 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/" rel="self" type="application/rss+xml" /><item>
     <title>Go编码规范</title>
     <link>https://luzhifang.github.io/go-code-style/</link>
-    <pubDate>Sat, 13 Nov 2021 00:00:00 &#43;0000</pubDate>
+    <pubDate>Tue, 02 Jun 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/go-code-style/</guid>
     <description><![CDATA[1. 代码风格 1.1 代码格式 代码都必须用 gofmt 进行格式化。 运算符和操作数之间要留空格。 建议一行代码不超过 120 个字符，超过部分，请采用合适的换行方式换行。但]]></description>

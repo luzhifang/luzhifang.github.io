@@ -4,7 +4,15 @@
         <link>https://luzhifang.github.io/tags/git/</link>
         <description>Git - 标签 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Gitlab Ubuntu 安装</title>
+    <link>https://luzhifang.github.io/gitlab-install/</link>
+    <pubDate>Tue, 08 Jun 2021 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/gitlab-install/</guid>
+    <description><![CDATA[简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。 GitLab 支持不同类型的操作系统，]]></description>
+</item>
+<item>
     <title>Git使用指北</title>
     <link>https://luzhifang.github.io/git-guide/</link>
     <pubDate>Sat, 05 Jun 2021 00:00:00 &#43;0000</pubDate>

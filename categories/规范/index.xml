@@ -4,23 +4,7 @@
         <link>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</link>
         <description>规范 - 分类 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 26 Aug 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/" rel="self" type="application/rss+xml" /><item>
-    <title>scrum</title>
-    <link>https://luzhifang.github.io/scrum/</link>
-    <pubDate>Thu, 26 Aug 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/scrum/</guid>
-    <description><![CDATA[1. 起源 Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。 OODA: 又称为“博伊德循环”，是一种空战]]></description>
-</item>
-<item>
-    <title>开发流程</title>
-    <link>https://luzhifang.github.io/development-workflow/</link>
-    <pubDate>Fri, 06 Aug 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/development-workflow/</guid>
-    <description><![CDATA[1. 需求阶段 市场调研 可行性分析 需求分析 需求文档 需求评审 2. 设计阶段 产品设计 交互设计 视觉设计 技术设计 技术评审 需求排期 3. 开发阶段 3.1 开发 Git Flow 工作流 生成]]></description>
-</item>
-<item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/" rel="self" type="application/rss+xml" /><item>
     <title>Go错误处理</title>
     <link>https://luzhifang.github.io/go-error/</link>
     <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
@@ -35,6 +19,22 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/restful/</guid>
     <description><![CDATA[1. RESTful API 介绍 REST 本身并没有创造新的技术、组件或服务，它代表的是一种软件架构风格，是一组架构约束条件和原则，而不是技术框架。REST 它是 Representational State Transfer 的简]]></description>
+</item>
+<item>
+    <title>开发流程</title>
+    <link>https://luzhifang.github.io/development-workflow/</link>
+    <pubDate>Thu, 06 Sep 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/development-workflow/</guid>
+    <description><![CDATA[1. 需求阶段 市场调研 可行性分析 需求分析 需求文档 需求评审 2. 设计阶段 产品设计 交互设计 视觉设计 技术设计 技术评审 需求排期 3. 开发阶段 3.1 开发 Git Flow 工作流 生成]]></description>
+</item>
+<item>
+    <title>scrum</title>
+    <link>https://luzhifang.github.io/scrum/</link>
+    <pubDate>Sun, 02 Sep 2018 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/scrum/</guid>
+    <description><![CDATA[1. 起源 Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。 OODA: 又称为“博伊德循环”，是一种空战]]></description>
 </item>
 </channel>
 </rss>

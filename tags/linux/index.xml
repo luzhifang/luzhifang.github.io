@@ -55,7 +55,7 @@
 <item>
     <title>Linux性能优化-网络</title>
     <link>https://luzhifang.github.io/linux-perf-net/</link>
-    <pubDate>Tue, 19 Feb 2019 00:00:00 &#43;0000</pubDate>
+    <pubDate>Sat, 09 Feb 2019 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/linux-perf-net/</guid>
     <description><![CDATA[性能指标 通常用带宽、吞吐量、延时、PPS（Packet Per Second）等指标衡量网络的性能。 带宽，表示链路的最大传输速率，单位通常为 b/s （比特]]></description>

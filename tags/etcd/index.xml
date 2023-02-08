@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>etcd - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/etcd/</link>
+        <description>etcd - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/etcd/" rel="self" type="application/rss+xml" /><item>
+    <title>etcd</title>
+    <link>https://luzhifang.github.io/etcd/</link>
+    <pubDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/etcd/</guid>
+    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障。如果你需要一个分布式存储仓库来存储配置信息，并且希望这个仓库]]></description>
+</item>
+</channel>
+</rss>

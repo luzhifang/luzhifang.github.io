@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/docker-implementation\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  2003 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  2012 ,
         "url": "https:\/\/luzhifang.github.io\/docker-implementation\/","datePublished": "2022-02-22T00:00:00+00:00","dateModified": "2022-02-22T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker 实现原理</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2003 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2012 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -135,7 +135,7 @@
             </div><div class="content" id="content"><h2 id="容器的实现原理">容器的实现原理</h2>
 <p>从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰。并且像集装箱一样，拿来就走，随处运行。</p>
 <p>实现容器的核心，就是要生成限制应用运行时的边界。我们知道，编译后的可执行代码加上数据，叫做程序。而把程序运行起来后，就变成了进程，也就是所谓的应用。如果能在应用启动时，给其加上一个边界，这样不就能实现期待的沙盒吗？</p>
-<p>在 Linux 中，实现容器的边界，主要有两种技术 Cgroups 和 Namespace. Cgroups 用于对运行的容器进行资源的限制，Namespace 则会将容器隔离起来，实现边界。</p>
+<p>在 Linux 中，实现容器的边界，主要有两种技术 Cgroups 和 Namespace。 Cgroups 用于对运行的容器进行资源的限制，Namespace 则会将容器隔离起来，实现边界。</p>
 <p>这样看来，容器只是一种被限制的了特殊进程而已。</p>
 <h2 id="docker-容器">Docker 容器</h2>
 <ul>

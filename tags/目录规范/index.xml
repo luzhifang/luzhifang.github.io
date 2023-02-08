@@ -4,10 +4,10 @@
         <link>https://luzhifang.github.io/tags/%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83/</link>
         <description>目录规范 - 标签 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 May 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83/" rel="self" type="application/rss+xml" /><item>
     <title>Go项目目录规范</title>
     <link>https://luzhifang.github.io/go-project-layout/</link>
-    <pubDate>Sun, 16 May 2021 00:00:00 &#43;0000</pubDate>
+    <pubDate>Tue, 16 Jun 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/go-project-layout/</guid>
     <description><![CDATA[目录结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 ├── api ├── assets ├── build │ ├── ci │ └── package ├── cmd │ └── _your_app_]]></description>

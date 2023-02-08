@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/dokcer-dockerfile\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  2354 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "docker, 容器","wordcount":  3055 ,
         "url": "https:\/\/luzhifang.github.io\/dokcer-dockerfile\/","datePublished": "2022-02-28T00:00:00+00:00","dateModified": "2022-02-28T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker Dockerfile</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-28">2022-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2354 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-28">2022-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3055 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -141,6 +141,13 @@
         <li><a href="#label">LABEL</a></li>
       </ul>
     </li>
+    <li><a href="#多阶段构建">多阶段构建</a>
+      <ul>
+        <li><a href="#只构建某一阶段的镜像">只构建某一阶段的镜像</a></li>
+        <li><a href="#构建时从其他镜像复制文件">构建时从其他镜像复制文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#最佳实践">最佳实践</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav></div>
@@ -216,7 +223,7 @@ RUN echo &lsquo;这是一个本地构建的 nginx 镜像&rsquo; &gt; /usr/share/
 <p>将文件从 build context 复制到镜像。COPY 支持两种形式： COPY src dest 与 COPY [&ldquo;src&rdquo;, &ldquo;dest&rdquo;]。</p>
 <p><strong>注意</strong>：src 只能指定 build context 中的文件或目录。</p>
 <h3 id="add">ADD</h3>
-<p>与 COPY 类似（同样需求下，官方推荐使用 COPY），从 build context 复制文件到镜像。不同的是，如果 src 是归档文件（tar、zip、tgz、xz 等），文件会被自动解压到 dest。</p>
+<p>与 COPY 类似（同样需求下，官方推荐使用 COPY），从 build context 复制文件到镜像。不同的是，如果 src 是归档文件（tar、zip、tgz、xz 等），文件会被自动解压到 dest，同时 ADD 也支持 URL 而 COPY 不支持。</p>
 <h3 id="workdir">WORKDIR</h3>
 <p>为后面的 RUN、CMD、ENTRYPOINT、ADD 或 COPY 指令设置镜像中的当前工作目录。</p>
 <h3 id="run">RUN</h3>
@@ -401,10 +408,136 @@ RUN echo &lsquo;这是一个本地构建的 nginx 镜像&rsquo; &gt; /usr/share/
 <pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">LABEL org.opencontainers.image.authors<span class="o">=</span><span class="s2">&#34;ubuntu&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考">参考</h2>
+</div><h2 id="多阶段构建">多阶段构建</h2>
+<p>编译、测试、打包等同时放到一个 Dockerfile 文件，会带来一些问题：</p>
+<ul>
+<li>镜像层次多，镜像体积较大，部署时间变长</li>
+<li>源代码存在泄露的风险</li>
+</ul>
+<p>分散到多个 Dockerfile 文件又太复杂。</p>
+<p>Docker v17.05 开始支持多阶段构建 (multistage builds)。使用多阶段构建我们就可以很容易解决前面提到的问题，并且只需要编写一个 Dockerfile：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM golang:alpine AS builder
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">LABEL stage=gobuilder
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENV CGO_ENABLED 0
+</span></span><span class="line"><span class="cl">ENV GOPROXY https://goproxy.cn,direct
+</span></span><span class="line"><span class="cl">RUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#39; /etc/apk/repositories
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN apk update --no-cache &amp;&amp; apk add --no-cache tzdata
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">WORKDIR /build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ADD go.mod .
+</span></span><span class="line"><span class="cl">ADD go.sum .
+</span></span><span class="line"><span class="cl">RUN go mod download
+</span></span><span class="line"><span class="cl">COPY . .
+</span></span><span class="line"><span class="cl">COPY user-api/etc /app/etc
+</span></span><span class="line"><span class="cl">RUN go build -ldflags=&#34;-s -w&#34; -o /app/user user-api/user.go
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">FROM scratch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+</span></span><span class="line"><span class="cl">COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /usr/share/zoneinfo/Asia/Shanghai
+</span></span><span class="line"><span class="cl">ENV TZ Asia/Shanghai
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">WORKDIR /app
+</span></span><span class="line"><span class="cl">COPY --from=builder /app/user /app/user
+</span></span><span class="line"><span class="cl">COPY --from=builder /app/etc /app/etc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CMD [&#34;./user&#34;, &#34;-f&#34;, &#34;etc/user-api.yaml&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="只构建某一阶段的镜像">只构建某一阶段的镜像</h3>
+<p>我们可以使用 as 来为某一阶段命名，例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM golang:alpine as builder
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如当我们只想构建 builder 阶段的镜像时，增加 &ndash;target=builder 参数即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ docker build --target builder -t username/imagename:tag .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="构建时从其他镜像复制文件">构建时从其他镜像复制文件</h3>
+<p>可以使用 <code>COPY --from=0 /go/src/github.com/go/helloworld/app .</code> 从上一阶段的镜像中复制文件，我们也可以复制任意镜像中的文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ COPY --from<span class="o">=</span>nginx:latest /etc/nginx/nginx.conf /nginx.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最佳实践">最佳实践</h2>
+<ul>
+<li>不要安装无效软件包。</li>
+<li>应简化镜像中同时运行的进程数，理想状况下，每个镜像应该只有一个进程。</li>
+<li>当无法避免同一镜像运行多进程时，应选择合理的初始化进程（init process）。</li>
+<li>最小化层级数
+<ul>
+<li>最新的 docker 只有 RUN， COPY，ADD 创建新层，其他指令创建临时层，不会增加镜像大小。
+<ul>
+<li>比如 EXPOSE、VOLUME 指令就不会生成新层。</li>
+</ul>
+</li>
+<li>多条 RUN 命令可通过连接符连接成一条指令集以减少层数。</li>
+<li>通过多段构建减少镜像层数。</li>
+</ul>
+</li>
+<li>把多行参数按字母排序，可以减少可能出现的重复参数，并且提高可读性。</li>
+<li>编写 dockerfile 的时候，应该把变更频率低的编译指令优先构建以便放在镜像底层以有效利用 build cache。</li>
+<li>复制文件时，每个文件应独立复制，这确保某个文件变更时，只影响该文件对应的缓存。</li>
+</ul>
+<h2 id="参考">参考</h2>
 <p><a href="https://weread.qq.com/web/reader/93d325a0719b200493d5ba9k6f4322302126f4922f45dec" target="_blank" rel="noopener noreffer ">《每天 5 分钟玩转 Docker 容器技术》</a></p>
 <p><a href="https://www.runoob.com/docker/docker-dockerfile.html" target="_blank" rel="noopener noreffer ">https://www.runoob.com/docker/docker-dockerfile.html</a></p>
 <p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer ">https://docs.docker.com/engine/reference/builder/</a></p>
+<p><a href="https://yeasy.gitbook.io/docker_practice/image/multistage-builds" target="_blank" rel="noopener noreffer ">https://yeasy.gitbook.io/docker_practice/image/multistage-builds</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

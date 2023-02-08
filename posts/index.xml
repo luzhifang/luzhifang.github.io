@@ -4,7 +4,23 @@
         <link>https://luzhifang.github.io/posts/</link>
         <description>所有文章 | 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>etcd</title>
+    <link>https://luzhifang.github.io/etcd/</link>
+    <pubDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/etcd/</guid>
+    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障。如果你需要一个分布式存储仓库来存储配置信息，并且希望这个仓库]]></description>
+</item>
+<item>
+    <title>mysql 安装</title>
+    <link>https://luzhifang.github.io/mysql-install/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/mysql-install/</guid>
+    <description><![CDATA[Ubuntu 查看 Ubuntu 版本 cat /etc/lsb-release 添加源 1 vim /etc/apt/sources.list.d/mysql-community.list 1 2 3 4 5 6 7 8 9 10 11 # Ubuntu 20.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu focal mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 18.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu bionic mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 16.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu xenial mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 14.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu trusty mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools 导入 GPG]]></description>
+</item>
+<item>
     <title>Goland 插件推荐</title>
     <link>https://luzhifang.github.io/goland-plugins/</link>
     <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
@@ -67,22 +83,6 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/docker-network-communications/</guid>
     <description><![CDATA[完整示例请移步 Github docker 网卡介绍 1 2 3 4 5 $ docker network ls NETWORK ID NAME DRIVER SCOPE 60ca2bcc3925 bridge bridge local 4fba5fc9c823 host host local 15b262a2e321 none null local bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部]]></description>
-</item>
-<item>
-    <title>Docker 常用命令</title>
-    <link>https://luzhifang.github.io/docker-command/</link>
-    <pubDate>Sat, 26 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/docker-command/</guid>
-    <description><![CDATA[Dcoker 基本概念 Docker 包括三个基本概念： 镜像（Image）：Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外]]></description>
-</item>
-<item>
-    <title>Docker 实现原理</title>
-    <link>https://luzhifang.github.io/docker-implementation/</link>
-    <pubDate>Tue, 22 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/docker-implementation/</guid>
-    <description><![CDATA[容器的实现原理 从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰]]></description>
 </item>
 </channel>
 </rss>

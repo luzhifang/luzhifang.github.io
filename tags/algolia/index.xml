@@ -4,10 +4,10 @@
         <link>https://luzhifang.github.io/tags/algolia/</link>
         <description>algolia - 标签 - 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/algolia/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 08 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/algolia/" rel="self" type="application/rss+xml" /><item>
     <title>hugo添加Algolia搜索系统</title>
     <link>https://luzhifang.github.io/hugo-loveit-algolia/</link>
-    <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
+    <pubDate>Fri, 08 May 2020 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/hugo-loveit-algolia/</guid>
     <description><![CDATA[1. 注册 Algolia 注册 algolia 添加索引 data sources 点击 Settings -&gt; API Keys，查看自己的 Application ID 和 Search-Only API Key 2. 生成索引文件 修改 config.toml 注意 outputs 下面 home 的末尾要有&quot;Algolia&q]]></description>
