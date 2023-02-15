@@ -4,13 +4,29 @@
         <link>https://luzhifang.github.io/posts/</link>
         <description>所有文章 | 半生戎码</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Jan 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s 安装</title>
+    <link>https://luzhifang.github.io/k8s-install/</link>
+    <pubDate>Wed, 11 Jan 2023 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/k8s-install/</guid>
+    <description><![CDATA[目前主流的搭建 k8s 集群的方式有 minikube、二进制包以及 kubeadm。 minikube 方式安装 minikube 一般用于本地开发、测试和学习，不能用于生产环境，是一个]]></description>
+</item>
+<item>
+    <title>Raft 协议</title>
+    <link>https://luzhifang.github.io/raft/</link>
+    <pubDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/raft/</guid>
+    <description><![CDATA[简介 Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节]]></description>
+</item>
+<item>
     <title>etcd</title>
     <link>https://luzhifang.github.io/etcd/</link>
     <pubDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/etcd/</guid>
-    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障。如果你需要一个分布式存储仓库来存储配置信息，并且希望这个仓库]]></description>
+    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障（如数据库选主、分布式锁等）。 在分布式系统中，如何管理节点间的]]></description>
 </item>
 <item>
     <title>mysql 安装</title>
@@ -67,22 +83,6 @@
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/docker-compose/</guid>
     <description><![CDATA[Compose 简介 Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以]]></description>
-</item>
-<item>
-    <title>Docker Dockerfile</title>
-    <link>https://luzhifang.github.io/dokcer-dockerfile/</link>
-    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/dokcer-dockerfile/</guid>
-    <description><![CDATA[什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生]]></description>
-</item>
-<item>
-    <title>Docker 网络互通</title>
-    <link>https://luzhifang.github.io/docker-network-communications/</link>
-    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/docker-network-communications/</guid>
-    <description><![CDATA[完整示例请移步 Github docker 网卡介绍 1 2 3 4 5 $ docker network ls NETWORK ID NAME DRIVER SCOPE 60ca2bcc3925 bridge bridge local 4fba5fc9c823 host host local 15b262a2e321 none null local bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部]]></description>
 </item>
 </channel>
 </rss>

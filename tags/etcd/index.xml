@@ -10,7 +10,7 @@
     <pubDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</pubDate>
     <author>Jeff</author>
     <guid>https://luzhifang.github.io/etcd/</guid>
-    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障。如果你需要一个分布式存储仓库来存储配置信息，并且希望这个仓库]]></description>
+    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障（如数据库选主、分布式锁等）。 在分布式系统中，如何管理节点间的]]></description>
 </item>
 </channel>
 </rss>

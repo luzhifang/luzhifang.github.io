@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>分布式 - 分类 - 半生戎码</title>
+        <link>https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+        <description>分布式 - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
+            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+    <title>Raft 协议</title>
+    <link>https://luzhifang.github.io/raft/</link>
+    <pubDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>Jeff</author>
+    <guid>https://luzhifang.github.io/raft/</guid>
+    <description><![CDATA[简介 Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节]]></description>
+</item>
+</channel>
+</rss>
