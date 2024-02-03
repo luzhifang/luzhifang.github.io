@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/etcd\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "etcd, k8s","wordcount":  3065 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "etcd, k8s","wordcount":  3612 ,
         "url": "https:\/\/luzhifang.github.io\/etcd\/","datePublished": "2022-12-18T00:00:00+00:00","dateModified": "2022-12-18T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">etcd</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/k8s/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>k8s</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-18">2022-12-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3065 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-18">2022-12-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3612 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -119,17 +119,19 @@
         <li><a href="#基础知识">基础知识</a></li>
         <li><a href="#核心组件">核心组件</a></li>
         <li><a href="#读写数据">读写数据</a></li>
-        <li><a href="#选举-leader-节点">选举 Leader 节点</a></li>
-        <li><a href="#是否成功写入">是否成功写入</a></li>
+        <li><a href="#存储机制">存储机制</a></li>
+        <li><a href="#watch-机制">Watch 机制</a></li>
+        <li><a href="#容量管理">容量管理</a></li>
       </ul>
     </li>
+    <li><a href="#常用命令">常用命令</a></li>
     <li><a href="#安装">安装</a>
       <ul>
+        <li><a href="#docker-方式安装">docker 方式安装</a></li>
         <li><a href="#shell-脚本方式安装">shell 脚本方式安装</a></li>
         <li><a href="#二进制方式安装">二进制方式安装</a></li>
       </ul>
     </li>
-    <li><a href="#常用命令">常用命令</a></li>
     <li><a href="#常用参数说明">常用参数说明</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
@@ -161,7 +163,7 @@
 <p>客户端所有的请求都会先发送给 leader，leader 向所有的 followers 同步日志，等收到超过半数的确认后就把该日志存储到磁盘，并返回响应客户端。</p>
 <p>每个 etcd 服务有三大主要部分组成：raft 实现、WAL 日志存储、数据的存储和索引。WAL 会在本地磁盘（就是之前提到的 &ndash;data-dir）上存储日志内容（wal file）和快照（snapshot）。</p>
 <h3 id="核心组件">核心组件</h3>
-<img src="/images/microservice/etcd-architecture.png" alt="" width="90%" />
+<img src="/images/k8s/etcd-architecture.png" alt="" width="90%" />
 <p>从 etcd 的架构图中我们可以看到，etcd 主要分为四个部分。</p>
 <ul>
 <li>HTTP Server：用于处理用户发送的 API 请求以及其它 etcd 节点的同步与心跳信息请求。</li>
@@ -173,14 +175,92 @@
 <h3 id="读写数据">读写数据</h3>
 <p>为了保证数据的强一致性，etcd 集群中所有的数据流向都是一个方向，从 Leader （主节点）流向 Follower，也就是所有 Follower 的数据必须与 Leader 保持一致，如果不一致会被覆盖。</p>
 <p>简单点说就是，用户可以对 etcd 集群中的所有节点进行读写，读取非常简单因为每个节点保存的数据是强一致的。对于写入来说，如果写入请求来自 Leader 节点即可直接写入然后 Leader 节点会把写入分发给所有 Follower；如果写入请求来自其他 Follower 节点，那么写入请求会给转发给 Leader 节点，由 Leader 节点写入之后再分发给集群上的所有其他节点。</p>
-<h3 id="选举-leader-节点">选举 Leader 节点</h3>
-<p><strong>Raft 算法使用随机 Timer 来初始化 Leader 选举流程。</strong> 假设集群中有三个节点，每个节点上都运行了 Timer（每个 Timer 的持续时间是随机的），第一个节点率先完成了 Timer，随后它就会向其他两个节点发送成为 Leader 的请求，其他节点接收到请求后会以投票回应然后第一个节点被选举为 Leader。</p>
-<p>Leader 会定时向所有的 member 发送心跳报文，如果在规定的时间里 Follower 没有收到心跳，就会重新进行选举。</p>
-<h3 id="是否成功写入">是否成功写入</h3>
-<p>etcd 认为写入请求被 Leader 节点处理并分发给了多数节点后，就是一个成功的写入。如何界定多数节点呢？很简单，假设总结点数是 N，那么多数节点就是 &gt;= N/2+1。</p>
-<p>此特性是由于 Raft 算法在做决策时需要多数节点的投票，所以 etcd 一般部署集群推荐奇数个节点，推荐的数量为 3、5 或者 7 个节点构成一个集群。</p>
-<h2 id="安装">安装</h2>
-<h3 id="shell-脚本方式安装">shell 脚本方式安装</h3>
+<h3 id="存储机制">存储机制</h3>
+<p>etcd v3 store 分为两部分，一部分是内存中的索引，kvindex，是基于 Google 开源的一个 Golang 的 btree 实现的，另外一部分是后端存储。按照它的设计，backend 可以对接多种存储，当前使用的 boltdb。boltdb 是一个单机的支持事务的 kv 存储，etcd 的事务是基于 boltdb 的事务实现的。etcd 在 boltdb 中存储的 key 是 reversion，value 是 etcd 自己的 key-value 组合，也就是说 etcd 会在 boltdb 中把每个版本都保存下，从而实现了多版本机制。</p>
+<p>reversion 主要由两部分组成，第一部分 main rev，每次事务进行加一，第二部分 sub rev，同一个事务中的每次操作加一。</p>
+<p>etcd 提供了命令和设置选项来控制 compact，同时支持 put 操作的参数来精确控制某个 key 的历史版本数。</p>
+<p>内存 kvindex 保存的就是 key 和 reversion 之前的映射关系，用来加速查询。</p>
+<img src="/images/k8s/etcd-store.jpg" alt="" width="90%" />
+<h3 id="watch-机制">Watch 机制</h3>
+<p>etcd v3 的 watch 机制支持 watch 某个固定的 key，也支持 watch 一个范围（可以用于模拟目录的结构的 watch），所以 watchGroup 包含两种 watcher，一种是 key watchers，数据结构是每个 key 对应一组 watcher，另外一种是 range watchers, 数据结构是一个 IntervalTree，方便通过区间查找到对应的 watcher。</p>
+<p>同时，每个 WatchableStore 包含两种 watcherGroup，一种是 synced，一种是 unsynced，前者表示该 group 的 watcher 数据都已经同步完毕，在等待新的变更，后者表示该 group 的 watcher 数据同步落后于当前最新变更，还在追赶。</p>
+<p>当 etcd 收到客户端的 watch 请求，如果请求携带了 revision 参数，则比较请求的 revision 和 store 当前的 revision，如果大于当前 revision，则放入 synced 组中，否则放入 unsynced 组。同时 etcd 会启动一个后台的 goroutine 持续同步 unsynced 的 watcher，然后将其迁移到 synced 组。也就是这种机制下，etcd v3 支持从任意版本开始 watch，没有 v2 的 1000 条历史 event 表限制的问题（当然这是指没有 compact 的情况下）</p>
+<h3 id="容量管理">容量管理</h3>
+<p>单个对象不建议超过 1.5M</p>
+<p>默认容量 2G</p>
+<p>不建议超过 8G</p>
+<h2 id="常用命令">常用命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 查看集群成员状态</span>
+</span></span><span class="line"><span class="cl">etcdctl member list --write-out<span class="o">=</span>table
+</span></span><span class="line"><span class="cl"><span class="c1"># 写入数据</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 put /a b
+</span></span><span class="line"><span class="cl"><span class="c1"># 读取数据</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get /a
+</span></span><span class="line"><span class="cl"><span class="c1"># 按key的前缀查询数据</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get --prefix /
+</span></span><span class="line"><span class="cl"><span class="c1"># 只显示键值</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get --prefix / --keys-only --debug
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询历史版本值</span>
+</span></span><span class="line"><span class="cl">etcdctl get x --rev<span class="o">=</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建Snapshot</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints https://127.0.0.1:3379 --cert /tmp/etcd-certs/certs/127.0.0.1.pem --
+</span></span><span class="line"><span class="cl">key /tmp/etcd-certs/certs/127.0.0.1-key.pem --cacert /tmp/etcd-certs/certs/ca.pem
+</span></span><span class="line"><span class="cl">snapshot save snapshot.db
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复数据</span>
+</span></span><span class="line"><span class="cl">etcdctl snapshot restore snapshot.db <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--name infra2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--data-dir<span class="o">=</span>/tmp/etcd/infra2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--initial-cluster
+</span></span><span class="line"><span class="cl"><span class="nv">infra0</span><span class="o">=</span>http://127.0.0.1:3380,infra1<span class="o">=</span>http://127.0.0.1:4380,infra2<span class="o">=</span>http://127.0.0.1:5380 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--initial-cluster-token etcd-cluster-1 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--initial-advertise-peer-urls http://127.0.0.1:5380
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装">安装</h2>
+<h3 id="docker-方式安装">docker 方式安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 启动</span>
+</span></span><span class="line"><span class="cl">docker run -it -d -p 2379:2379 -p 2380:2380 --name etcd quay.io/coreos/etcd
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it etcd etcdctl member list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="shell-脚本方式安装">shell 脚本方式安装</h3>
 <p>编写以下脚本，并运行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -262,33 +342,6 @@
 </span></span><span class="line"><span class="cl">Go OS/Arch: linux/amd64
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="常用命令">常用命令</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 查看集群成员状态</span>
-</span></span><span class="line"><span class="cl">etcdctl member list --write-out<span class="o">=</span>table
-</span></span><span class="line"><span class="cl"><span class="c1"># 写入数据</span>
-</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 put /a b
-</span></span><span class="line"><span class="cl"><span class="c1"># 读取数据</span>
-</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get /a
-</span></span><span class="line"><span class="cl"><span class="c1"># 按key的前缀查询数据</span>
-</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get --prefix /
-</span></span><span class="line"><span class="cl"><span class="c1"># 只显示键值</span>
-</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span>localhost:12379 get --prefix / --keys-only --debug
-</span></span></code></pre></td></tr></table>
-</div>
 </div><h2 id="常用参数说明">常用参数说明</h2>
 <p>&ndash;name：方便理解的节点名称，默认为 default，在集群中应该保持唯一，可以使用 hostname。</p>
 <p>&ndash;data-dir：数据保存的目录，默认为${name}.etcd。</p>
@@ -308,6 +361,7 @@
 <h2 id="参考">参考</h2>
 <p><a href="https://etcd.io/docs/v3.5/install/" target="_blank" rel="noopener noreffer ">https://etcd.io/docs/v3.5/install/</a></p>
 <!-- https://www.cnblogs.com/lishen2021/p/14691019.html -->
+<p><a href="https://github.com/cncamp/101/tree/master/module5/etcd-ha-demo" target="_blank" rel="noopener noreffer ">https://github.com/cncamp/101/tree/master/module5/etcd-ha-demo</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -335,7 +389,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
