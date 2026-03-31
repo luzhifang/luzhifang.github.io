@@ -3,30 +3,52 @@
         <title>链路追踪 - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/</link>
         <description>链路追踪 - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 28 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 28 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" rel="self" type="application/rss+xml" /><item>
     <title>分布式链路追踪系列3-jaeger快速入门</title>
     <link>https://luzhifang.github.io/jaeger/</link>
     <pubDate>Wed, 28 Oct 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/jaeger/</guid>
-    <description><![CDATA[简介 受 Dapper 和 OpenZipkin 启发的 Jaeger 是由 Uber 开源的分布式跟踪系统，兼容 OpenTracing 标准。它用于监视和诊断基于微服务的分布式系统，功能包括： 分布式上下文传播 分布式交易监控]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>受 Dapper 和 OpenZipkin 启发的 Jaeger 是由 Uber 开源的分布式跟踪系统，兼容 OpenTracing 标准。它用于监视和诊断基于微服务的分布式系统，功能包括：</p>
+<ul>
+<li>分布式上下文传播</li>
+<li>分布式交易监控</li>
+<li>根本原因分析</li>
+<li>服务依赖性分析</li>
+<li>性能/延迟优化</li>
+</ul>
+<h2 id="特性">特性</h2>
+<ul>
+<li>兼容 OpenTracing 的数据模型和工具库</li>
+<li>多语言支持</li>
+<li>对每个服务/端点概率使用一致的前期采样</li>
+<li>多种存储后端支持：Cassandra，Elasticsearch，内存。</li>
+<li>系统拓扑图</li>
+<li>自适应采样</li>
+<li>收集后数据处理管道</li>
+</ul>
+<h2 id="架构">架构</h2>
+<p>jaeger 架构如下：</p>]]></description>
 </item>
 <item>
     <title>分布式链路追踪系列2-技术选型</title>
     <link>https://luzhifang.github.io/tracing-tech-selection/</link>
     <pubDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/tracing-tech-selection/</guid>
-    <description><![CDATA[分布式链路追踪系统其中最著名的是 Google Dapper 论文所介绍的 Dapper。源于 Google 为了解决可能由不同团队，不同语言，不同模块，部署在不同服务器，不同数据中]]></description>
+    <description><![CDATA[<p>分布式链路追踪系统其中最著名的是 Google Dapper 论文所介绍的 Dapper。源于 Google 为了解决可能由不同团队，不同语言，不同模块，部署在不同服务器，不同数据中心的所带来的软件复杂性（很难去分析，无法做定位），构建了一个的分布式跟踪系统。</p>]]></description>
 </item>
 <item>
     <title>分布式链路追踪系列1-OpenTracing 规范</title>
     <link>https://luzhifang.github.io/opentracing/</link>
     <pubDate>Thu, 22 Oct 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/opentracing/</guid>
-    <description><![CDATA[简介 OpenTracing 是一个中立的（厂商无关、平台无关）分布式追踪的 API 规范，提供了统一接口方便开发者在自己的服务中集成一种或者多种分布式追踪的实现。 OpenTracing 数据模]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>OpenTracing 是一个中立的（厂商无关、平台无关）分布式追踪的 API 规范，提供了统一接口方便开发者在自己的服务中集成一种或者多种分布式追踪的实现。</p>
+<h2 id="opentracing-数据模型">OpenTracing 数据模型</h2>
+<p><strong>Trace</strong>：OpenTracing 中的<code>Trace</code>（调用链）通过归属于此调用链的<code>Span</code>来隐性的定义，一条<code>Trace</code>可以被认为是一个由多个<code>Span</code>组成的有向无环图（DAG 图）。</p>]]></description>
 </item>
 </channel>
 </rss>

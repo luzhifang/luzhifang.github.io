@@ -4,23 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Protocol Buffers 详解 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Protocol Buffers 详解" />
-<meta property="og:description" content="简介 protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。 Protocol Buffers 是一种灵活，高" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://luzhifang.github.io/protobuf/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-02-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-02-16T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+        <title>Protocol Buffers 详解 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/protobuf/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="Protocol Buffers 详解">
+  <meta property="og:description" content="简介 protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。
+Protocol Buffers 是一种灵活，高效，自动化机制的结构数据序列化方法－可类比 XML，但是比 XML 更小（3 ~ 10 倍）、更快（20 ~ 100 倍）、更为简单。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-02-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-02-16T00:00:00+00:00">
+    <meta property="article:tag" content="Protobuf">
+    <meta property="article:tag" content="Protocol Buffers">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="Protocol Buffers 详解"/>
-<meta name="twitter:description" content="简介 protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。 Protocol Buffers 是一种灵活，高"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="Protocol Buffers 详解">
+  <meta name="twitter:description" content="简介 protocol buffers （ProtoBuf）是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。
+Protocol Buffers 是一种灵活，高效，自动化机制的结构数据序列化方法－可类比 XML，但是比 XML 更小（3 ~ 10 倍）、更快（20 ~ 100 倍）、更为简单。">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/protobuf/" /><link rel="prev" href="https://luzhifang.github.io/microservice/" /><link rel="next" href="https://luzhifang.github.io/ddd/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/protobuf/" /><link rel="prev" href="https://luzhifang.github.io/microservice/" /><link rel="next" href="https://luzhifang.github.io/ddd/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -30,7 +38,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/protobuf\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "protobuf, Protocol Buffers","wordcount":  3681 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "protobuf, Protocol Buffers","wordcount":  3589 ,
         "url": "https:\/\/luzhifang.github.io\/protobuf\/","datePublished": "2019-02-16T00:00:00+00:00","dateModified": "2019-02-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -39,7 +47,18 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -50,16 +69,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -77,20 +96,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -103,9 +122,9 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Protocol Buffers 详解</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-16">2019-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3681 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder" aria-hidden="true"></i>微服务</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2019-02-16">2019-02-16</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 3589 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -153,422 +172,326 @@
 <p>如果是 Linux 操作系统下，可以直接下载：protoc-xxx-linux-x86_64.zip。</p>
 <p>这个版本包含了 protoc 二进制文件以及与 protobuf 一起分发的一组标准.proto 文件。</p>
 <p>进入 bin 文件夹，查看 protoc 的版本信息：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 如果打印出了protoc的版本信息，就表示没有任何问题。</span>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 如果打印出了protoc的版本信息，就表示没有任何问题。</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 可以加到环境变量，方便使用</span>
-</span></span><span class="line"><span class="cl">./protoc --version
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="protoc-使用">protoc 使用</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">protoc --java_out<span class="o">=</span>. test.proto
-</span></span><span class="line"><span class="cl">protoc --go_out<span class="o">=</span>. test.proto
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>go 使用 protoc 的话需要额外安装 protoc-gen-go</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用-docker-生成代码">使用 docker 生成代码</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">docker run --rm -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> -w <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> rvolosatovs/protoc --go_out<span class="o">=</span>. --go-grpc_out<span class="o">=</span>. --grpc-gateway_out<span class="o">=</span>. --openapiv2_out<span class="o">=</span>. -I<span class="o">=</span>. test.proto
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="proto-文件解析">proto 文件解析</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 定义proto的版本
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">syntax</span> <span class="p">=</span> <span class="s">&#34;proto3&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">./protoc --version</span></span></code></pre></div></div>
+<h2 id="protoc-使用">protoc 使用</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">protoc --java_out<span class="o">=</span>. test.proto
+</span></span><span class="line"><span class="cl">protoc --go_out<span class="o">=</span>. test.proto</span></span></code></pre></div></div>
+<p>go 使用 protoc 的话需要额外安装 protoc-gen-go</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">go install google.golang.org/protobuf/cmd/protoc-gen-go@latest</span></span></code></pre></div></div>
+<h2 id="使用-docker-生成代码">使用 docker 生成代码</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">docker run --rm -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> -w <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> rvolosatovs/protoc --go_out<span class="o">=</span>. --go-grpc_out<span class="o">=</span>. --grpc-gateway_out<span class="o">=</span>. --openapiv2_out<span class="o">=</span>. -I<span class="o">=</span>. test.proto</span></span></code></pre></div></div>
+<h2 id="proto-文件解析">proto 文件解析</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="err">定义</span><span class="n">proto的版本</span>
+</span></span><span class="line"><span class="cl"><span class="n">syntax</span> <span class="o">=</span> <span class="s2">&#34;proto3&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 引入其它proto文件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;other.proto&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;other2.proto&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">引入其它</span><span class="n">proto文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="s2">&#34;other.proto&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="s2">&#34;other2.proto&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 定义proto的包名，包名可以避免对message 类型之间的名字冲突，同名的Message可以通过package进行区分。
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 在没有为特定语言定义option xxx_package的时候，它还可以用来生成特定语言的包名，比如Java package, go package。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">定义</span><span class="n">proto的包名</span><span class="err">，包名可以避免对</span><span class="n">message</span> <span class="err">类型之间的名字冲突，同名的</span><span class="n">Message可以通过package进行区分</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">在没有为特定语言定义</span><span class="n">option</span> <span class="n">xxx_package的时候</span><span class="err">，它还可以用来生成特定语言的包名，比如</span><span class="n">Java</span> <span class="n">package</span><span class="p">,</span> <span class="n">go</span> <span class="n">package</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">package</span> <span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// option可以用在proto的scope中，或者message、enum、service的定义中。
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 可以是Protobuf定义的option，或者自定义的option。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">option</span> <span class="nx">java_package</span> <span class="p">=</span> <span class="s">&#34;com.example.foo&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// protoc-gen-go 版本大于1.4.0, proto文件需要加上go_package,否则无法生成
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">option</span> <span class="nx">go_package</span> <span class="p">=</span> <span class="s">&#34;main&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">option可以用在proto的scope中</span><span class="err">，或者</span><span class="n">message</span><span class="err">、</span><span class="k">enum</span><span class="err">、</span><span class="n">service的定义中</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">可以是</span><span class="n">Protobuf定义的option</span><span class="err">，或者自定义的</span><span class="n">option</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span> <span class="n">java_package</span> <span class="o">=</span> <span class="s2">&#34;com.example.foo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">protoc</span><span class="o">-</span><span class="n">gen</span><span class="o">-</span><span class="n">go</span> <span class="err">版本大于</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">proto文件需要加上go_package</span><span class="p">,</span><span class="err">否则无法生成</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span> <span class="n">go_package</span> <span class="o">=</span> <span class="s2">&#34;main&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 定义消息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">message</span> <span class="nx">SearchRequest</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">string</span> <span class="nx">query</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">定义消息</span>
+</span></span><span class="line"><span class="cl"><span class="n">message</span> <span class="n">SearchRequest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">string</span> <span class="n">query</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">message</span> <span class="nx">SearchResponse</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">string</span> <span class="nx">answer</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">message</span> <span class="n">SearchResponse</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">string</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 定义服务
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 需要与协议缓冲区搭配使用，最直接的 RPC 系统是 gRPC
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">service</span> <span class="nx">SearchService</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">rpc</span> <span class="nf">Search</span><span class="p">(</span><span class="nx">SearchRequest</span><span class="p">)</span> <span class="nf">returns</span> <span class="p">(</span><span class="nx">SearchResponse</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="数据类型">数据类型</h2>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">定义服务</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">需要与协议缓冲区搭配使用，最直接的</span> <span class="n">RPC</span> <span class="err">系统是</span> <span class="n">gRPC</span>
+</span></span><span class="line"><span class="cl"><span class="n">service</span> <span class="n">SearchService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rpc</span> <span class="n">Search</span><span class="p">(</span><span class="n">SearchRequest</span><span class="p">)</span> <span class="n">returns</span> <span class="p">(</span><span class="n">SearchResponse</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h2 id="数据类型">数据类型</h2>
 <h3 id="定义消息">定义消息</h3>
 <p>消息（message），在 protobuf 中指的就是我们要定义的数据结构。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syntax = &#34;proto3&#34;;
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syntax = &#34;proto3&#34;;
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">message SearchRequest {
 </span></span><span class="line"><span class="cl">  // 字段类型 字段名称 = 标识号
 </span></span><span class="line"><span class="cl">  string query = 1;
 </span></span><span class="line"><span class="cl">  int32 page_number = 2;
 </span></span><span class="line"><span class="cl">  int32 result_per_page = 3;
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>保留标识号（Reserved）</strong></p>
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div></div>
+<p><strong>保留标识号（Reserved）</strong></p>
 <p>如果你想保留一些标识号，留给以后用，可以使用下面语法：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">message Foo {
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">message Foo {
 </span></span><span class="line"><span class="cl">  reserved 2, 15, 9 to 11; // 保留2，15，9到11这些标识号
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="基本类型">基本类型</h3>
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div></div>
+<h3 id="基本类型">基本类型</h3>
 <table>
-<thead>
-<tr>
-<th>.proto Type</th>
-<th><div style="width:280px">Notes</div></th>
-<th>C++ Type</th>
-<th>Java Type</th>
-<th>Python Type</th>
-<th>Go Type</th>
-<th>Ruby Type</th>
-<th>C# Type</th>
-<th>PHP Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>double</td>
-<td></td>
-<td>double</td>
-<td>double</td>
-<td>float</td>
-<td>float64</td>
-<td>Float</td>
-<td>double</td>
-<td>float</td>
-</tr>
-<tr>
-<td>float</td>
-<td></td>
-<td>float</td>
-<td>float</td>
-<td>float</td>
-<td>float32</td>
-<td>Float</td>
-<td>float</td>
-<td>float</td>
-</tr>
-<tr>
-<td>int32</td>
-<td>使用变长编码，对于负值的效率很低，如果你的域有可能有负值，请使用 sint64 替代</td>
-<td>int32</td>
-<td>int</td>
-<td>int</td>
-<td>int32</td>
-<td>Fixnum 或者 Bignum（根据需要）</td>
-<td>int</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>uint32</td>
-<td>使用变长编码</td>
-<td>uint32</td>
-<td>int</td>
-<td>int/long</td>
-<td>uint32</td>
-<td>Fixnum 或者 Bignum（根据需要）</td>
-<td>uint</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>uint64</td>
-<td>使用变长编码</td>
-<td>uint64</td>
-<td>long</td>
-<td>int/long</td>
-<td>uint64</td>
-<td>Bignum</td>
-<td>ulong</td>
-<td>integer/string</td>
-</tr>
-<tr>
-<td>sint32</td>
-<td>使用变长编码，这些编码在负值时比 int32 高效的多</td>
-<td>int32</td>
-<td>int</td>
-<td>int</td>
-<td>int32</td>
-<td>Fixnum 或者 Bignum（根据需要）</td>
-<td>int</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>sint64</td>
-<td>使用变长编码，有符号的整型值。编码时比通常的 int64 高效。</td>
-<td>int64</td>
-<td>long</td>
-<td>int/long</td>
-<td>int64</td>
-<td>Bignum</td>
-<td>long</td>
-<td>integer/string</td>
-</tr>
-<tr>
-<td>fixed32</td>
-<td>总是 4 个字节，如果数值总是比总是比 228 大的话，这个类型会比 uint32 高效。</td>
-<td>uint32</td>
-<td>int</td>
-<td>int</td>
-<td>uint32</td>
-<td>Fixnum 或者 Bignum（根据需要）</td>
-<td>uint</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>fixed64</td>
-<td>总是 8 个字节，如果数值总是比总是比 256 大的话，这个类型会比 uint64 高效。</td>
-<td>uint64</td>
-<td>long</td>
-<td>int/long</td>
-<td>uint64</td>
-<td>Bignum</td>
-<td>ulong</td>
-<td>integer/string</td>
-</tr>
-<tr>
-<td>sfixed32</td>
-<td>总是 4 个字节</td>
-<td>int32</td>
-<td>int</td>
-<td>int</td>
-<td>int32</td>
-<td>Fixnum 或者 Bignum（根据需要）</td>
-<td>int</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>sfixed64</td>
-<td>总是 8 个字节</td>
-<td>int64</td>
-<td>long</td>
-<td>int/long</td>
-<td>int64</td>
-<td>Bignum</td>
-<td>long</td>
-<td>integer/string</td>
-</tr>
-<tr>
-<td>bool</td>
-<td></td>
-<td>bool</td>
-<td>boolean</td>
-<td>bool</td>
-<td>bool</td>
-<td>TrueClass/FalseClass</td>
-<td>bool</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>string</td>
-<td>一个字符串必须是 UTF-8 编码或者 7-bit ASCII 编码的文本。</td>
-<td>string</td>
-<td>String</td>
-<td>str/unicode</td>
-<td>string</td>
-<td>String (UTF-8)</td>
-<td>string</td>
-<td>string</td>
-</tr>
-<tr>
-<td>bytes</td>
-<td>可能包含任意顺序的字节数据。</td>
-<td>string</td>
-<td>ByteString</td>
-<td>str</td>
-<td>[]byte</td>
-<td>String (ASCII-8BIT)</td>
-<td>ByteString</td>
-<td>string</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>.proto Type</th>
+          <th><div style="width:280px">Notes</div></th>
+          <th>C++ Type</th>
+          <th>Java Type</th>
+          <th>Python Type</th>
+          <th>Go Type</th>
+          <th>Ruby Type</th>
+          <th>C# Type</th>
+          <th>PHP Type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>double</td>
+          <td></td>
+          <td>double</td>
+          <td>double</td>
+          <td>float</td>
+          <td>float64</td>
+          <td>Float</td>
+          <td>double</td>
+          <td>float</td>
+      </tr>
+      <tr>
+          <td>float</td>
+          <td></td>
+          <td>float</td>
+          <td>float</td>
+          <td>float</td>
+          <td>float32</td>
+          <td>Float</td>
+          <td>float</td>
+          <td>float</td>
+      </tr>
+      <tr>
+          <td>int32</td>
+          <td>使用变长编码，对于负值的效率很低，如果你的域有可能有负值，请使用 sint64 替代</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+          <td>int32</td>
+          <td>Fixnum 或者 Bignum（根据需要）</td>
+          <td>int</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>uint32</td>
+          <td>使用变长编码</td>
+          <td>uint32</td>
+          <td>int</td>
+          <td>int/long</td>
+          <td>uint32</td>
+          <td>Fixnum 或者 Bignum（根据需要）</td>
+          <td>uint</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>uint64</td>
+          <td>使用变长编码</td>
+          <td>uint64</td>
+          <td>long</td>
+          <td>int/long</td>
+          <td>uint64</td>
+          <td>Bignum</td>
+          <td>ulong</td>
+          <td>integer/string</td>
+      </tr>
+      <tr>
+          <td>sint32</td>
+          <td>使用变长编码，这些编码在负值时比 int32 高效的多</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+          <td>int32</td>
+          <td>Fixnum 或者 Bignum（根据需要）</td>
+          <td>int</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>sint64</td>
+          <td>使用变长编码，有符号的整型值。编码时比通常的 int64 高效。</td>
+          <td>int64</td>
+          <td>long</td>
+          <td>int/long</td>
+          <td>int64</td>
+          <td>Bignum</td>
+          <td>long</td>
+          <td>integer/string</td>
+      </tr>
+      <tr>
+          <td>fixed32</td>
+          <td>总是 4 个字节，如果数值总是比总是比 228 大的话，这个类型会比 uint32 高效。</td>
+          <td>uint32</td>
+          <td>int</td>
+          <td>int</td>
+          <td>uint32</td>
+          <td>Fixnum 或者 Bignum（根据需要）</td>
+          <td>uint</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>fixed64</td>
+          <td>总是 8 个字节，如果数值总是比总是比 256 大的话，这个类型会比 uint64 高效。</td>
+          <td>uint64</td>
+          <td>long</td>
+          <td>int/long</td>
+          <td>uint64</td>
+          <td>Bignum</td>
+          <td>ulong</td>
+          <td>integer/string</td>
+      </tr>
+      <tr>
+          <td>sfixed32</td>
+          <td>总是 4 个字节</td>
+          <td>int32</td>
+          <td>int</td>
+          <td>int</td>
+          <td>int32</td>
+          <td>Fixnum 或者 Bignum（根据需要）</td>
+          <td>int</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>sfixed64</td>
+          <td>总是 8 个字节</td>
+          <td>int64</td>
+          <td>long</td>
+          <td>int/long</td>
+          <td>int64</td>
+          <td>Bignum</td>
+          <td>long</td>
+          <td>integer/string</td>
+      </tr>
+      <tr>
+          <td>bool</td>
+          <td></td>
+          <td>bool</td>
+          <td>boolean</td>
+          <td>bool</td>
+          <td>bool</td>
+          <td>TrueClass/FalseClass</td>
+          <td>bool</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>string</td>
+          <td>一个字符串必须是 UTF-8 编码或者 7-bit ASCII 编码的文本。</td>
+          <td>string</td>
+          <td>String</td>
+          <td>str/unicode</td>
+          <td>string</td>
+          <td>String (UTF-8)</td>
+          <td>string</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>bytes</td>
+          <td>可能包含任意顺序的字节数据。</td>
+          <td>string</td>
+          <td>ByteString</td>
+          <td>str</td>
+          <td>[]byte</td>
+          <td>String (ASCII-8BIT)</td>
+          <td>ByteString</td>
+          <td>string</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="枚举类型">枚举类型</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syntax = &#34;proto3&#34;;//指定版本信息，不指定会报错
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">syntax</span> <span class="o">=</span> <span class="s2">&#34;proto3&#34;</span><span class="p">;</span><span class="o">//</span><span class="err">指定版本信息，不指定会报错</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">enum PhoneType //枚举消息类型，使用enum关键词定义,一个电话类型的枚举类型
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">    MOBILE = 0; //proto3版本中，首成员必须为0，成员不应有相同的值
-</span></span><span class="line"><span class="cl">    HOME = 1;
-</span></span><span class="line"><span class="cl">    WORK = 2;
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl"><span class="k">enum</span> <span class="n">PhoneType</span> <span class="o">//</span><span class="err">枚举消息类型，使用</span><span class="n">enum关键词定义</span><span class="p">,</span><span class="err">一个电话类型的枚举类型</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MOBILE</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">//</span><span class="n">proto3版本中</span><span class="err">，首成员必须为</span><span class="mi">0</span><span class="err">，成员不应有相同的值</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HOME</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WORK</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">// 定义一个电话消息
-</span></span><span class="line"><span class="cl">message PhoneNumber
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">    string number = 1; // 电话号码字段
-</span></span><span class="line"><span class="cl">    PhoneType type = 2; // 电话类型字段，电话类型使用PhoneType枚举类型
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="数组类型">数组类型</h3>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="err">定义一个电话消息</span>
+</span></span><span class="line"><span class="cl"><span class="n">message</span> <span class="n">PhoneNumber</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">//</span> <span class="err">电话号码字段</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PhoneType</span> <span class="n">type</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="o">//</span> <span class="err">电话类型字段，电话类型使用</span><span class="n">PhoneType枚举类型</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h3 id="数组类型">数组类型</h3>
 <p>在 protobuf 消息中定义数组类型，是通过在字段前面增加 repeated 关键词实现，标记当前字段是一个数组。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">message Msg {
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">message Msg {
 </span></span><span class="line"><span class="cl">  // 只要使用repeated标记类型定义，就表示数组类型。
 </span></span><span class="line"><span class="cl">  repeated int32 arrays = 1;
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="map-类型">map 类型</h3>
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div></div>
+<h3 id="map-类型">map 类型</h3>
 <p>protocol buffers 支持 map 类型定义。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syntax = &#34;proto3&#34;;
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syntax = &#34;proto3&#34;;
 </span></span><span class="line"><span class="cl">message Product
 </span></span><span class="line"><span class="cl">{
 </span></span><span class="line"><span class="cl">    string name = 1; // 商品名
 </span></span><span class="line"><span class="cl">    // 定义一个k/v类型，key是string类型，value也是string类型
 </span></span><span class="line"><span class="cl">    map&lt;string, string&gt; attrs = 2; // 商品属性，键值对
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="消息嵌套">消息嵌套</h3>
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div></div>
+<h3 id="消息嵌套">消息嵌套</h3>
 <p>我们在各种语言开发中类的定义是可以互相嵌套的，也可以使用其他类作为自己的成员属性类型。</p>
 <p>在 protobuf 中同样支持消息嵌套，可以在一个消息中嵌套另外一个消息，字段类型可以是另外一个消息类型。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 定义Result消息
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 定义Result消息
 </span></span><span class="line"><span class="cl">message Result {
 </span></span><span class="line"><span class="cl">  string url = 1;
 </span></span><span class="line"><span class="cl">  string title = 2;
@@ -579,10 +502,8 @@
 </span></span><span class="line"><span class="cl">message SearchResponse {
 </span></span><span class="line"><span class="cl">  // 引用上面定义的Result消息类型，作为results字段的类型
 </span></span><span class="line"><span class="cl">  repeated Result results = 1; // repeated关键词标记，说明results字段是一个数组
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="编码原理">编码原理</h2>
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div></div>
+<h2 id="编码原理">编码原理</h2>
 <p>Protocol buffers 核心就是对单个数据的编码（Varint 编码）以及对数据整体的编码（Message Structure 编码）。</p>
 <p>Protocol Buffer 利用 <code>Varint</code> 原理压缩数据，同时使用<code>Tag - Value</code> (<code>Tag - Length - Value</code>)的编码结构的实现，减少了分隔符的使用，数据存储更加紧凑。</p>
 <h3 id="varint-编码">Varint 编码</h3>
@@ -592,24 +513,20 @@
 <p><strong>最高位为 1 代表后面 7 位仍然表示数字；最高位为 0，后面 7 位用原码补齐。</strong></p>
 </blockquote>
 <p>如果用不到 1 个字节，那么最高有效位设为 0 ，如下面这个例子，1 用一个字节就可以表示，所以 msb 为 0.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="mo">0000</span> <span class="mo">0001</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果需要多个字节表示，msb 就应该设置为 1 。例如 300，如果用 Varint 表示的话：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="mi">1010</span> <span class="mi">1100</span> <span class="mo">0000</span> <span class="mo">0010</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>编码方式：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="mo">0000</span> <span class="mo">0001</span></span></span></code></pre></div></div>
+<p>如果需要多个字节表示，msb 就应该设置为 1 。例如 300，如果用 Varint 表示的话：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="mi">1010</span> <span class="mi">1100</span> <span class="mo">0000</span> <span class="mo">0010</span></span></span></code></pre></div></div>
+<p><strong>编码方式：</strong></p>
 <ol>
 <li>将被编码数转换为二进制表示</li>
 <li>从低位到高位按照 7 位 一组进行划分</li>
@@ -638,48 +555,44 @@
 </blockquote>
 <h3 id="zigzag-编码">ZigZag 编码</h3>
 <p>ZigZag 是将符号数统一映射到无符号号数的一种编码方案，具体映射函数为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Zigzag(n) = (n &lt;&lt; 1) ^ (n &gt;&gt; 31), n 为 sint32 时
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Zigzag(n) = (n &lt;&lt; 1) ^ (n &gt;&gt; 31), n 为 sint32 时
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Zigzag(n) = (n &lt;&lt; 1) ^ (n &gt;&gt; 63), n 为 sint64 时
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>比如：对于 0 -1 1 -2 2 映射到无符号数 0 1 2 3 4。</p>
+</span></span><span class="line"><span class="cl">Zigzag(n) = (n &lt;&lt; 1) ^ (n &gt;&gt; 63), n 为 sint64 时</span></span></code></pre></div></div>
+<p>比如：对于 0 -1 1 -2 2 映射到无符号数 0 1 2 3 4。</p>
 <table>
-<thead>
-<tr>
-<th>原始值</th>
-<th>映射值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>-1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>-2</td>
-<td>4</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>原始值</th>
+          <th>映射值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>-1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>-2</td>
+          <td>4</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="message-structure-编码">Message Structure 编码</h3>
 <p>message 的每个字段 field 在序列化时，一个 field 对应一个 key-value 对，整个二进制文件就是一连串紧密排列的 key-value 对，key 也称为 tag。</p>
@@ -687,45 +600,45 @@
 <p>key 由 wire type 和 FieldNumber 两部分编码而成，具体地说，<code>key=(field_number&lt;&lt;3)|wire_type</code>。</p>
 <p>key 的最低 3 个 bit 为 wire type，wire type 类型如下表所示：</p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Meaning Used For</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Varint</td>
-<td>int32, int64, uint32, uint64, sint32, sint64, bool, enum</td>
-</tr>
-<tr>
-<td>1</td>
-<td>64-bit</td>
-<td>fixed64, sfixed64, double</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Length-delimi</td>
-<td>string, bytes, embedded messages, packed repeated fields</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Start group</td>
-<td>Groups (deprecated)</td>
-</tr>
-<tr>
-<td>4</td>
-<td>End group</td>
-<td>Groups (deprecated)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>32-bit</td>
-<td>fixed32, sfixed32, float</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Type</th>
+          <th>Meaning Used For</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>Varint</td>
+          <td>int32, int64, uint32, uint64, sint32, sint64, bool, enum</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>64-bit</td>
+          <td>fixed64, sfixed64, double</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Length-delimi</td>
+          <td>string, bytes, embedded messages, packed repeated fields</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>Start group</td>
+          <td>Groups (deprecated)</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>End group</td>
+          <td>Groups (deprecated)</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>32-bit</td>
+          <td>fixed32, sfixed32, float</td>
+      </tr>
+  </tbody>
 </table>
 <p>由于 key 的第三位最多表示 8 个值，而 wire type 目前的种类是 6 种。由于采用 varint 的编码方式，只剩下 4 位的空闲存放 field_number，因此之前在定义每个字段的标识号的时候建议不要超过 15。</p>
 <p>wire type 被如此设计，主要是为了解决一个问题，如何知道接下来 value 部分的长度(字节数)，如果：</p>
@@ -756,32 +669,35 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解" data-hashtags="protobuf,Protocol Buffers"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/protobuf/" data-hashtag="protobuf"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解" data-hashtags="protobuf,Protocol Buffers"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/protobuf/" data-hashtag="protobuf"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/protobuf/" data-title="Protocol Buffers 详解" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fprotobuf%2f&amp;text=Protocol%20Buffers%20%e8%af%a6%e8%a7%a3" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/protobuf/">protobuf</a>,&nbsp;<a href="/tags/protocol-buffers/">Protocol Buffers</a></section>
+        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/protobuf/">Protobuf</a>,&nbsp;<a href="/tags/protocol-buffers/">Protocol Buffers</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/microservice/" class="prev" rel="prev" title="微服务"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>微服务</a>
-            <a href="/ddd/" class="next" rel="next" title="DDD">DDD<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/microservice/" class="prev" rel="prev" title="微服务"><i class="fas fa-angle-left" aria-hidden="true"></i>微服务</a>
+            <a href="/ddd/" class="next" rel="next" title="DDD">DDD<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
 </html>

@@ -3,14 +3,22 @@
         <title>日志 - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/%E6%97%A5%E5%BF%97/</link>
         <description>日志 - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E6%97%A5%E5%BF%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E6%97%A5%E5%BF%97/" rel="self" type="application/rss+xml" /><item>
     <title>Go错误处理</title>
     <link>https://luzhifang.github.io/go-error/</link>
     <pubDate>Sat, 06 Jun 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/go-error/</guid>
-    <description><![CDATA[panic 在程序启动的时候，如果有强依赖的服务出现故障时 panic 退出 在程序启动的时候，如果发现有配置明显不符合要求， 可以 panic 退出（防御编程） 其他情况下只要不]]></description>
+    <description><![CDATA[<h2 id="panic">panic</h2>
+<ol>
+<li>
+<p>在程序启动的时候，如果有强依赖的服务出现故障时 panic 退出</p>
+</li>
+<li>
+<p>在程序启动的时候，如果发现有配置明显不符合要求， 可以 panic 退出（防御编程）</p>
+</li>
+<li>
+<p>其他情况下只要不是不可恢复的程序错误，都不应该直接 panic 应该返回 error</p>]]></description>
 </item>
 </channel>
 </rss>

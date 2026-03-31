@@ -4,23 +4,30 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Go命令详解 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Go命令详解" />
-<meta property="og:description" content="概述 输入 go 命令我们可以看到全部命令，使用 go help 可以查看某个命令的详细解释和用法 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 root@luzhifang:~# go Go is" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://luzhifang.github.io/go-command/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-06-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-06-08T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+        <title>Go命令详解 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/go-command/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="Go命令详解">
+  <meta property="og:description" content="概述 输入 go 命令我们可以看到全部命令，使用 go help 可以查看某个命令的详细解释和用法
+root@luzhifang:~# go Go is a tool for managing Go source code. Usage: go &lt;command&gt; [arguments] The commands are: bug start a bug report build compile packages and dependencies clean remove object files and cached files doc show documentation for package or symbol env print Go environment information fix update packages to use new APIs fmt gofmt (reformat) package sources generate generate Go files by processing source get add dependencies to current module and install them install compile and install packages and dependencies list list packages or modules mod module maintenance run compile and run Go program test test packages tool run specified go tool version print Go version vet report likely mistakes in packages Use &#34;go help &lt;command&gt;&#34; for more information about a command. go bug 输入此命名后会直接打开默认浏览器，显示 go 的 github 页面进行 bug 报告，并会自动添加系统的信息。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-06-08T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-06-08T00:00:00+00:00">
+    <meta property="article:tag" content="Go">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="Go命令详解"/>
-<meta name="twitter:description" content="概述 输入 go 命令我们可以看到全部命令，使用 go help 可以查看某个命令的详细解释和用法 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 root@luzhifang:~# go Go is"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="Go命令详解">
+  <meta name="twitter:description" content="概述 输入 go 命令我们可以看到全部命令，使用 go help 可以查看某个命令的详细解释和用法
+root@luzhifang:~# go Go is a tool for managing Go source code. Usage: go &lt;command&gt; [arguments] The commands are: bug start a bug report build compile packages and dependencies clean remove object files and cached files doc show documentation for package or symbol env print Go environment information fix update packages to use new APIs fmt gofmt (reformat) package sources generate generate Go files by processing source get add dependencies to current module and install them install compile and install packages and dependencies list list packages or modules mod module maintenance run compile and run Go program test test packages tool run specified go tool version print Go version vet report likely mistakes in packages Use &#34;go help &lt;command&gt;&#34; for more information about a command. go bug 输入此命名后会直接打开默认浏览器，显示 go 的 github 页面进行 bug 报告，并会自动添加系统的信息。">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/go-command/" /><link rel="prev" href="https://luzhifang.github.io/go-error/" /><link rel="next" href="https://luzhifang.github.io/go-multi-version/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/go-command/" /><link rel="prev" href="https://luzhifang.github.io/go-error/" /><link rel="next" href="https://luzhifang.github.io/go-multi-version/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -30,7 +37,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/go-command\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go","wordcount":  4772 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go","wordcount":  4644 ,
         "url": "https:\/\/luzhifang.github.io\/go-command\/","datePublished": "2020-06-08T00:00:00+00:00","dateModified": "2020-06-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -39,7 +46,18 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -50,16 +68,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -77,20 +95,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -103,9 +121,9 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go命令详解</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-06-08">2020-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4772 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder" aria-hidden="true"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2020-06-08">2020-06-08</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 4644 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -136,39 +154,12 @@
 </nav></div>
             </div><div class="content" id="content"><h2 id="概述">概述</h2>
 <p>输入 go 命令我们可以看到全部命令，使用 go help <command> 可以查看某个命令的详细解释和用法</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">root@luzhifang:~# go
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">root@luzhifang:~# go
 </span></span><span class="line"><span class="cl">Go is a tool <span class="k">for</span> managing Go <span class="nb">source</span> code.
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Usage:
@@ -195,10 +186,8 @@
 </span></span><span class="line"><span class="cl">        version     print Go version
 </span></span><span class="line"><span class="cl">        vet         report likely mistakes in packages
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Use <span class="s2">&#34;go help &lt;command&gt;&#34;</span> <span class="k">for</span> more information about a command.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-bug">go bug</h2>
+</span></span><span class="line"><span class="cl">Use <span class="s2">&#34;go help &lt;command&gt;&#34;</span> <span class="k">for</span> more information about a command.</span></span></code></pre></div></div>
+<h2 id="go-bug">go bug</h2>
 <p>输入此命名后会直接打开默认浏览器，显示 go 的 github 页面进行 bug 报告，并会自动添加系统的信息。</p>
 <h2 id="go-build">go build</h2>
 <p>Build 会编译导入路径命名的包及其依赖项，但不会安装结果。</p>
@@ -212,127 +201,69 @@
 <p>查看 Plan9 汇编代码：go build -gcflags -S main.go</p>
 <p>逃逸分析：go build -gcflags=&quot;-m&quot; main.go</p>
 <p>构建标志由构建，清理，获取，安装，列表，运行和测试命令共享：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-a
-</span></span><span class="line"><span class="cl">	强制重建已经是最新的软件包。
-</span></span><span class="line"><span class="cl">-n
-</span></span><span class="line"><span class="cl">	打印命令但不运行它们。
-</span></span><span class="line"><span class="cl">	go build -n 查看打包执行过程 compile.exe -&gt; buildid.exe -&gt; link.exe
-</span></span><span class="line"><span class="cl">-p n
-</span></span><span class="line"><span class="cl">	可以并行运行
-</span></span><span class="line"><span class="cl">	的程序数，例如构建命令或测试二进制文件。
-</span></span><span class="line"><span class="cl">	默认值是可用的CPU数。
-</span></span><span class="line"><span class="cl">-race
-</span></span><span class="line"><span class="cl">	启用数据竞争检测。仅支持linux / amd64，freebsd / amd64，darwin / amd64和windows / amd64。
-</span></span><span class="line"><span class="cl">-msan
-</span></span><span class="line"><span class="cl">	支持与内存清理程序的互操作。
-</span></span><span class="line"><span class="cl">	仅支持在linux / amd64，linux / arm64上，
-</span></span><span class="line"><span class="cl">	并且仅支持Clang / LLVM作为主机C编译器。
-</span></span><span class="line"><span class="cl">-v
-</span></span><span class="line"><span class="cl">	在编译时打印包的名称。
-</span></span><span class="line"><span class="cl">-work
-</span></span><span class="line"><span class="cl">	打印临时工作目录的名称，退出时不要删除它。
-</span></span><span class="line"><span class="cl">-x
-</span></span><span class="line"><span class="cl">	打印命令。
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">-</span><span class="n">a</span>
+</span></span><span class="line"><span class="cl">	<span class="err">强制重建已经是最新的软件包。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">n</span>
+</span></span><span class="line"><span class="cl">	<span class="err">打印命令但不运行它们。</span>
+</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="n">build</span> <span class="o">-</span><span class="n">n</span> <span class="err">查看打包执行过程</span> <span class="n">compile</span><span class="o">.</span><span class="n">exe</span> <span class="o">-&gt;</span> <span class="n">buildid</span><span class="o">.</span><span class="n">exe</span> <span class="o">-&gt;</span> <span class="n">link</span><span class="o">.</span><span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">p</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">	<span class="err">可以并行运行</span>
+</span></span><span class="line"><span class="cl">	<span class="err">的程序数，例如构建命令或测试二进制文件。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">默认值是可用的</span><span class="n">CPU数</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">race</span>
+</span></span><span class="line"><span class="cl">	<span class="err">启用数据竞争检测。仅支持</span><span class="n">linux</span> <span class="o">/</span> <span class="n">amd64</span><span class="err">，</span><span class="n">freebsd</span> <span class="o">/</span> <span class="n">amd64</span><span class="err">，</span><span class="n">darwin</span> <span class="o">/</span> <span class="n">amd64和windows</span> <span class="o">/</span> <span class="n">amd64</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">msan</span>
+</span></span><span class="line"><span class="cl">	<span class="err">支持与内存清理程序的互操作。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">仅支持在</span><span class="n">linux</span> <span class="o">/</span> <span class="n">amd64</span><span class="err">，</span><span class="n">linux</span> <span class="o">/</span> <span class="n">arm64上</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">	<span class="err">并且仅支持</span><span class="n">Clang</span> <span class="o">/</span> <span class="n">LLVM作为主机C编译器</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">v</span>
+</span></span><span class="line"><span class="cl">	<span class="err">在编译时打印包的名称。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">work</span>
+</span></span><span class="line"><span class="cl">	<span class="err">打印临时工作目录的名称，退出时不要删除它。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">x</span>
+</span></span><span class="line"><span class="cl">	<span class="err">打印命令。</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">-asmflags &#39;[pattern =] arg list&#39;
-</span></span><span class="line"><span class="cl">	传递每个go工具asm调用的参数。
-</span></span><span class="line"><span class="cl">-buildmode mode
-</span></span><span class="line"><span class="cl">	构建模式使用。有关更多信息，请参阅“go help buildmode”。
-</span></span><span class="line"><span class="cl">-compiler
-</span></span><span class="line"><span class="cl">	要使用的编译器名称，如runtime.Compiler（gccgo或gc）。
-</span></span><span class="line"><span class="cl">-gccgoflags &#39;[pattern =] arg list&#39;
-</span></span><span class="line"><span class="cl">	传递每个gccgo编译器/链接器调用的参数。
-</span></span><span class="line"><span class="cl">-gcflags &#39;[pattern =] arg list&#39;
-</span></span><span class="line"><span class="cl">	传递每个go工具编译调用的参数。
-</span></span><span class="line"><span class="cl">-installsuffix suffix
-</span></span><span class="line"><span class="cl">	在软件包安装目录的名称中使用后缀，
-</span></span><span class="line"><span class="cl">	为了使输出与默认构建分开。
-</span></span><span class="line"><span class="cl">	如果使用-race标志，则安装后缀会自动设置为race，
-</span></span><span class="line"><span class="cl">	或者，如果明确设置，则会附加_race。同样对于-msan
-</span></span><span class="line"><span class="cl">	标志。使用需要非默认编译标志的-buildmode选项
-</span></span><span class="line"><span class="cl">	具有类似的效果。
-</span></span><span class="line"><span class="cl">-ldflags &#39;[pattern =] arg list&#39;
-</span></span><span class="line"><span class="cl">	传递每个go工具链接调用的参数。
-</span></span><span class="line"><span class="cl">-linkshared
-</span></span><span class="line"><span class="cl">	链接以前使用
-</span></span><span class="line"><span class="cl">	-buildmode = shared 创建的共享库。
-</span></span><span class="line"><span class="cl">-mod mode
-</span></span><span class="line"><span class="cl">	模块下载模式使用：readonly或vendor。
-</span></span><span class="line"><span class="cl">	有关更多信息，请参阅“go help modules”。
-</span></span><span class="line"><span class="cl">-pkgdir dir
-</span></span><span class="line"><span class="cl">	从dir 安装并加载所有包，而不是通常的位置。
-</span></span><span class="line"><span class="cl">	例如，
-</span></span><span class="line"><span class="cl">	使用非标准配置构建时，请使用-pkgdir将生成的包保留在单独的位置。
-</span></span><span class="line"><span class="cl">-tags &#39;标记列表&#39; 构建期间要考虑满足的以空格分隔的构建标记列表。有关构建标记的更多信息，请参阅
-</span></span><span class="line"><span class="cl">	go / build包文档中的构建约束说明。
-</span></span><span class="line"><span class="cl">-toolexec &#39;cmd args&#39;
-</span></span><span class="line"><span class="cl">	用于调用vet和asm等工具链程序的程序。
-</span></span><span class="line"><span class="cl">	例如，go命令不是运行asm，而是运行
-</span></span><span class="line"><span class="cl">	&#39;cmd args / path / to / asm &lt;asm&gt;的参数&#39;。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-clean">go clean</h2>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">asmflags</span> <span class="s1">&#39;[pattern =] arg list&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">传递每个</span><span class="n">go工具asm调用的参数</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">buildmode</span> <span class="n">mode</span>
+</span></span><span class="line"><span class="cl">	<span class="err">构建模式使用。有关更多信息，请参阅“</span><span class="n">go</span> <span class="n">help</span> <span class="n">buildmode</span><span class="err">”。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">compiler</span>
+</span></span><span class="line"><span class="cl">	<span class="err">要使用的编译器名称，如</span><span class="n">runtime</span><span class="o">.</span><span class="n">Compiler</span><span class="err">（</span><span class="n">gccgo或gc</span><span class="err">）。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">gccgoflags</span> <span class="s1">&#39;[pattern =] arg list&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">传递每个</span><span class="n">gccgo编译器</span><span class="o">/</span><span class="err">链接器调用的参数。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">gcflags</span> <span class="s1">&#39;[pattern =] arg list&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">传递每个</span><span class="n">go工具编译调用的参数</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">installsuffix</span> <span class="n">suffix</span>
+</span></span><span class="line"><span class="cl">	<span class="err">在软件包安装目录的名称中使用后缀，</span>
+</span></span><span class="line"><span class="cl">	<span class="err">为了使输出与默认构建分开。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">如果使用</span><span class="o">-</span><span class="n">race标志</span><span class="err">，则安装后缀会自动设置为</span><span class="n">race</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">	<span class="err">或者，如果明确设置，则会附加</span><span class="n">_race</span><span class="err">。同样对于</span><span class="o">-</span><span class="n">msan</span>
+</span></span><span class="line"><span class="cl">	<span class="err">标志。使用需要非默认编译标志的</span><span class="o">-</span><span class="n">buildmode选项</span>
+</span></span><span class="line"><span class="cl">	<span class="err">具有类似的效果。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">ldflags</span> <span class="s1">&#39;[pattern =] arg list&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">传递每个</span><span class="n">go工具链接调用的参数</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">linkshared</span>
+</span></span><span class="line"><span class="cl">	<span class="err">链接以前使用</span>
+</span></span><span class="line"><span class="cl">	<span class="o">-</span><span class="n">buildmode</span> <span class="o">=</span> <span class="n">shared</span> <span class="err">创建的共享库。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">mod</span> <span class="n">mode</span>
+</span></span><span class="line"><span class="cl">	<span class="err">模块下载模式使用：</span><span class="n">readonly或vendor</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">有关更多信息，请参阅“</span><span class="n">go</span> <span class="n">help</span> <span class="n">modules</span><span class="err">”。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">pkgdir</span> <span class="n">dir</span>
+</span></span><span class="line"><span class="cl">	<span class="err">从</span><span class="n">dir</span> <span class="err">安装并加载所有包，而不是通常的位置。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">例如，</span>
+</span></span><span class="line"><span class="cl">	<span class="err">使用非标准配置构建时，请使用</span><span class="o">-</span><span class="n">pkgdir将生成的包保留在单独的位置</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">tags</span> <span class="s1">&#39;标记列表&#39;</span> <span class="err">构建期间要考虑满足的以空格分隔的构建标记列表。有关构建标记的更多信息，请参阅</span>
+</span></span><span class="line"><span class="cl">	<span class="n">go</span> <span class="o">/</span> <span class="n">build包文档中的构建约束说明</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">toolexec</span> <span class="s1">&#39;cmd args&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">用于调用</span><span class="n">vet和asm等工具链程序的程序</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">例如，</span><span class="n">go命令不是运行asm</span><span class="err">，而是运行</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;cmd args / path / to / asm &lt;asm&gt;的参数&#39;</span><span class="err">。</span></span></span></code></pre></div></div>
+<h2 id="go-clean">go clean</h2>
 <p>删除目标文件和缓存的文件</p>
 <p>用法：go clean [clean flags] [build flags] [packages]</p>
 <p>Clean 从包源目录中删除目标文件。go 命令在临时目录中构建大多数对象，因此 go clean 主要关注其他工具留下的目标文件或 go build 的手动调用。</p>
@@ -360,39 +291,25 @@
 <p>Doc 打印与其参数（包，const，func，类型，var，方法或结构字段）标识的项目相关联的文档注释。</p>
 <p>用法：go doc [-u] [-c] [package | [package.] symbol [.methodOrField]]</p>
 <p>参数列表：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-all
-</span></span><span class="line"><span class="cl">	显示包的所有文档。
-</span></span><span class="line"><span class="cl">-c
-</span></span><span class="line"><span class="cl">	在匹配符号时尊重大小写。
-</span></span><span class="line"><span class="cl">-cmd
-</span></span><span class="line"><span class="cl">	将命令（包main）视为常规包。
-</span></span><span class="line"><span class="cl">	否则，在显示程序包的顶级文档时，将隐藏程序包主导出的符号。
-</span></span><span class="line"><span class="cl">-src
-</span></span><span class="line"><span class="cl">	显示符号的完整源代码。
-</span></span><span class="line"><span class="cl">	这将显示其声明和定义的完整Go源，例如函数定义（包括
-</span></span><span class="line"><span class="cl">	正文），类型声明或封闭const块。因此输出可能包括未导出的细节。
-</span></span><span class="line"><span class="cl">-u
-</span></span><span class="line"><span class="cl">	显示未导出的符号，方法和字段的文档。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-env">go env</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">-</span><span class="n">all</span>
+</span></span><span class="line"><span class="cl">	<span class="err">显示包的所有文档。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">c</span>
+</span></span><span class="line"><span class="cl">	<span class="err">在匹配符号时尊重大小写。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">cmd</span>
+</span></span><span class="line"><span class="cl">	<span class="err">将命令（包</span><span class="n">main</span><span class="err">）视为常规包。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">否则，在显示程序包的顶级文档时，将隐藏程序包主导出的符号。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">src</span>
+</span></span><span class="line"><span class="cl">	<span class="err">显示符号的完整源代码。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">这将显示其声明和定义的完整</span><span class="n">Go源</span><span class="err">，例如函数定义（包括</span>
+</span></span><span class="line"><span class="cl">	<span class="err">正文），类型声明或封闭</span><span class="n">const块</span><span class="err">。因此输出可能包括未导出的细节。</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="n">u</span>
+</span></span><span class="line"><span class="cl">	<span class="err">显示未导出的符号，方法和字段的文档。</span></span></span></code></pre></div></div>
+<h2 id="go-env">go env</h2>
 <p>Env 打印 Go 环境信息。go env -w GOPROXY=https://goproxy.cn,direct -w 参数修改环境信息。</p>
 <p>用法：go env [-json] [var &hellip;]</p>
 <p>默认情况下，env 将信息打印为 shell 脚本（在 Windows 上，即批处理文件）。如果给出一个或多个变量名作为参数，则 env 在其自己的行上打印每个命名变量的值。</p>
@@ -427,26 +344,22 @@
 <p>生成由现有文件中的指令描述的运行命令。这些命令可以运行任何进程，但目的是创建或更新 Go 源文件。</p>
 <p>Go generate 永远不会通过 go build，go get，go test 等自动运行。它必须明确运行。</p>
 <p>Go 生成扫描文件中的指令，这些指令是表单的行，</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// go：生成命令参数...
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-get">go get</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// go：生成命令参数...</span></span></code></pre></div></div>
+<h2 id="go-get">go get</h2>
 <p>下载并安装包和依赖项</p>
 <p>旧版本执行命令后一般会下载在 GOPATH 的 src 目录下。go mod 方式下载的包源码在 GOPATH 目录下的 pkg/mod 目录下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go get github.com/PuerkitoBio/goquery
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>用法：go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go get github.com/PuerkitoBio/goquery</span></span></code></pre></div></div>
+<p>用法：go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]</p>
 <ul>
 <li>-d 标志指示在下载软件包后停止; 也就是说，它指示不安装软件包。</li>
 <li>-f 标志仅在设置-u 时有效，强制 get -u 不验证每个包是否已从其导入路径隐含的源控制存储库中检出。如果源是原始的本地分支，这可能很有用。</li>
@@ -458,15 +371,13 @@
 </ul>
 <h2 id="go-install">go install</h2>
 <p>编译并安装包和依赖项，执行后可执行文件自动安装到 GOPATH/bin 目录下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go install main.go
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>用法：go install [-i] [build flags] [packages]</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go install main.go</span></span></code></pre></div></div>
+<p>用法：go install [-i] [build flags] [packages]</p>
 <p>安装编译并安装导入路径命名的包。</p>
 <p>-i 标志也会安装命名包的依赖项。</p>
 <h2 id="go-list">go list</h2>
@@ -485,15 +396,13 @@
 </ul>
 <h2 id="go-run">go run</h2>
 <p>go run 用于编译并运行源码文件，由于包含编译步骤，所以 go build 参数都可用于 go run，在 go run 中只接受 go 源码文件而不接受代码包。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go run main.go
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-test">go test</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go run main.go</span></span></code></pre></div></div>
+<h2 id="go-test">go test</h2>
 <p>测试包</p>
 <p>用法：go test [build / test flags] [packages] [build / test flags＆test binary flags]</p>
 <ul>
@@ -511,37 +420,12 @@
 </li>
 </ol>
 <p>参数列表：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-args
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-args
 </span></span><span class="line"><span class="cl">    将命令行的其余部分（-args之后的所有内容）
 </span></span><span class="line"><span class="cl">    传递给测试二进制文件，取消解释并保持不变。
 </span></span><span class="line"><span class="cl">    由于此标志占用命令行的其余部分，
@@ -566,10 +450,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">-o file
 </span></span><span class="line"><span class="cl">    将测试二进制文件编译为指定文件。
-</span></span><span class="line"><span class="cl">    测试仍然运行（除非指定了-c或-i）。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="go-version">go version</h2>
+</span></span><span class="line"><span class="cl">    测试仍然运行（除非指定了-c或-i）。</span></span></code></pre></div></div>
+<h2 id="go-version">go version</h2>
 <p>go version 可以查看当前 go 的版本</p>
 <h2 id="go-tool">go tool</h2>
 <p>运行指定的 go 工具</p>
@@ -593,32 +475,35 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解" data-hashtags="Go"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/go-command/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解" data-hashtags="Go"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/go-command/" data-hashtag="Go"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/go-command/" data-title="Go命令详解" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fgo-command%2f&amp;text=Go%e5%91%bd%e4%bb%a4%e8%af%a6%e8%a7%a3" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a></section>
+        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/go-error/" class="prev" rel="prev" title="Go错误处理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go错误处理</a>
-            <a href="/go-multi-version/" class="next" rel="next" title="Go多版本管理器">Go多版本管理器<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/go-error/" class="prev" rel="prev" title="Go错误处理"><i class="fas fa-angle-left" aria-hidden="true"></i>Go错误处理</a>
+            <a href="/go-multi-version/" class="next" rel="next" title="Go多版本管理器">Go多版本管理器<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
 </html>

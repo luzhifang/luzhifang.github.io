@@ -3,14 +3,58 @@
         <title>Gitlab - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/gitlab/</link>
         <description>Gitlab - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/gitlab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 27 Mar 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/gitlab/" rel="self" type="application/rss+xml" /><item>
+    <title>GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录</title>
+    <link>https://luzhifang.github.io/gitlab-domain-migration/</link>
+    <pubDate>Fri, 27 Mar 2026 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>https://luzhifang.github.io/gitlab-domain-migration/</guid>
+    <description><![CDATA[<h2 id="背景">背景</h2>
+<p>需要将自建 GitLab Omnibus 从 HTTPS 迁移到 HTTP，同时更换域名和端口。整体架构为：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">浏览器 → CDN(:8080) → 反向代理 Nginx(:80) → GitLab 服务器(:8080)</span></span></code></pre></div></div>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>旧值</th>
+          <th>新值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>域名</td>
+          <td>git.old-domain.com</td>
+          <td>git.new-domain.com</td>
+      </tr>
+      <tr>
+          <td>协议</td>
+          <td>HTTPS</td>
+          <td>HTTP</td>
+      </tr>
+      <tr>
+          <td>端口</td>
+          <td>8443</td>
+          <td>8080</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="gitlab-配置修改">GitLab 配置修改</h2>
+<p>编辑 <code>/etc/gitlab/gitlab.rb</code>：</p>]]></description>
+</item>
+<item>
     <title>Gitlab Ubuntu 安装</title>
     <link>https://luzhifang.github.io/gitlab-install/</link>
     <pubDate>Tue, 08 Jun 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/gitlab-install/</guid>
-    <description><![CDATA[简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。 GitLab 支持不同类型的操作系统，]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。</p>
+<p>GitLab 支持不同类型的操作系统，例如:Windows，Ubuntu，Debian，CentOS 等。</p>]]></description>
 </item>
 </channel>
 </rss>

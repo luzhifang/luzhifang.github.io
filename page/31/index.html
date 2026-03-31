@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.104.3" />
+	<meta name="generator" content="Hugo 0.160.0-DEV">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="半生戎码" />
-<meta property="og:description" content="Hugo theme - LoveIt" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://luzhifang.github.io/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="og:site_name" content="LoveIt" />
+        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="半生戎码">
+  <meta property="og:description" content="Hugo theme - LoveIt">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="半生戎码"/>
-<meta name="twitter:description" content="Hugo theme - LoveIt"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="半生戎码">
+  <meta name="twitter:description" content="Hugo theme - LoveIt">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="半生戎码">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
         "url": "https:\/\/luzhifang.github.io\/","inLanguage": "zh-CN","author": {
                 "@type": "Person",
-                "name": "luzhifang"
+                "name": "xxxx"
             },"description": "Hugo theme - LoveIt","image": "https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png","thumbnailUrl": "https:\/\/luzhifang.github.io\/images\/screenshot.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "半生戎码"
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -42,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -69,20 +83,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -98,17 +112,122 @@
         data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
         data-sizes="auto"
         alt="/images/avatar.png"
-        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
+        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/development-workflow/">开发流程</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-09-06">2018-09-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B5%81%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>流程</a>&nbsp;<a href="/categories/%E8%A7%84%E8%8C%83/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>规范</a></span></div><div class="content">1. 需求阶段 市场调研 可行性分析 需求分析 需求文档 需求评审 2. 设计阶段 产品设计 交互设计 视觉设计 技术设计 技术评审 需求排期 3. 开发阶段 3.1 开发 Git Flow 工作流 生成</div><div class="post-footer">
-        <a href="/development-workflow/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%B5%81%E7%A8%8B/">流程</a>,&nbsp;<a href="/tags/%E8%A7%84%E8%8C%83/">规范</a></div></div>
+        <a href="/linux-perf-memory/">Linux性能优化-内存</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-01-29">2019-01-29</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div><div class="content"><h2 id="内存性能指标">内存性能指标</h2>
+<img src="/images/linux/memory-indicator-mind.png" alt="" width="90%" />
+<h3 id="系统内存使用情况">系统内存使用情况</h3>
+<ul>
+<li>已用内存和剩余内存很容易理解，就是已经使用和还未使用的内存。</li>
+<li>共享内存是通过 tmpfs 实现的，所以它的大小也就是 tmpfs 使用的内存大小。tmpfs 其实也是一种特殊的缓存。</li>
+<li>可用内存是新进程可以使用的最大内存，它包括剩余内存和可回收缓存。</li>
+<li>缓存包括两部分，一部分是磁盘读取文件的页缓存，用来缓存从磁盘读取的数据，可以加快以后再次访问的速度。另一部分，则是 Slab 分配器中的可回收内存。</li>
+<li>缓冲区是对原始磁盘块的临时存储，用来缓存将要写入磁盘的数据。这样，内核就可以把分散的写集中起来，统一优化磁盘写入。</li>
+</ul>
+<h3 id="进程内存使用情况">进程内存使用情况</h3>
+<ul>
+<li>虚拟内存，包括了进程代码段、数据段、共享内存、已经申请的堆内存和已经换出的内存等。这里要注意，已经申请的内存，即使还没有分配物理内存，也算作虚拟内存。</li>
+<li>常驻内存是进程实际使用的物理内存，不过，它不包括 Swap 和共享内存。</li>
+<li>共享内存，既包括与其他进程共同使用的真实的共享内存，还包括了加载的动态链接库以及程序的代码段等。</li>
+<li>Swap 内存，是指通过 Swap 换出到磁盘的内存。</li>
+</ul>
+<h3 id="缺页异常">缺页异常</h3>
+<ul>
+<li>可以直接从物理内存中分配时，被称为次缺页异常。</li>
+<li>需要磁盘 I/O 介入（比如 Swap）时，被称为主缺页异常。</li>
+</ul>
+<h3 id="swap-的使用情况">Swap 的使用情况</h3>
+<ul>
+<li>已用空间和剩余空间很好理解，就是字面上的意思，已经使用和没有使用的内存空间。</li>
+<li>换入和换出速度，则表示每秒钟换入和换出内存的大小。</li>
+</ul>
+<h2 id="内存性能工具">内存性能工具</h2>
+<img src="/images/linux/memory-indicator-to-tool.png" alt="" width="90%" />
+<p><strong>为了迅速定位内存问题，我通常会先运行几个覆盖面比较大的性能工具，比如 free、top、vmstat、pidstat 等。</strong></p></div><div class="post-footer">
+        <a href="/linux-perf-memory/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/%E5%86%85%E5%AD%98/">内存</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/software-life-cycle/">软件生命周期之需求分析和软件设计</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-09-04">2018-09-04</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>软件工程</a></span></div><div class="content">1. 什么是软件生命周期 软件生命周期又称为软件生存周期或系统开发生命周期，是指从软件的产生直到报废的整个过程，它包括问题定义、可行性分析、总体描</div><div class="post-footer">
-        <a href="/software-life-cycle/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">需求分析</a>,&nbsp;<a href="/tags/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/">软件设计</a></div></div>
+        <a href="/linux-perf-cpu/">Linux性能优化-CPU</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-01-26">2019-01-26</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div><div class="content"><h2 id="各种延时">各种延时</h2>
+<img src="/images/linux/delay.png" alt="" width="90%" />
+<h2 id="cpu-性能指标">CPU 性能指标</h2>
+<ol>
+<li>CPU 使用率
+<ol>
+<li>用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙.</li>
+<li>系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙.</li>
+<li>等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长.</li>
+<li>软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断.</li>
+<li>steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比.</li>
+</ol>
+</li>
+<li>平均负载
+<ol>
+<li>理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重.</li>
+</ol>
+</li>
+<li>进程上下文切换
+<ol>
+<li>包括无法获取资源的自愿切换和系统强制调度时的非自愿切换.</li>
+<li>上下文切换本身是保证 Linux 正常运行的一项核心功能.</li>
+<li>过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上</li>
+</ol>
+</li>
+<li>CPU 缓存命中率
+<ol>
+<li>CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中</li>
+</ol>
+</li>
+</ol>
+<h2 id="性能工具">性能工具</h2>
+<ol>
+<li>平均负载案例
+<ol>
+<li>先用 uptime 查看系统平均负载</li>
+<li>判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程.</li>
+</ol>
+</li>
+<li>上下文切换案例
+<ol>
+<li>先用 vmstat 查看系统上下文切换和中断次数</li>
+<li>再用 pidstat 观察进程的自愿和非自愿上下文切换情况</li>
+<li>最后通过 pidstat 观察线程的上下文切换情况</li>
+</ol>
+</li>
+<li>进程 CPU 使用率高案例
+<ol>
+<li>先用 top 查看系统和进程的 CPU 使用情况,定位到进程</li>
+<li>再用 perf top 观察进程调用链,定位到具体函数</li>
+</ol>
+</li>
+<li>系统 CPU 使用率高案例
+<ol>
+<li>先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程</li>
+<li>重新审视 top 输出</li>
+<li>从 CPU 使用率不高,但是处于 Running 状态的进程入手</li>
+<li>perf record/report 发现短时进程导致 (execsnoop 工具)</li>
+</ol>
+</li>
+<li>不可中断和僵尸进程案例
+<ol>
+<li>先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程</li>
+<li>strace 无法跟踪进程系统调用</li>
+<li>perf 分析调用链发现根源来自磁盘直接 I/O</li>
+</ol>
+</li>
+<li>软中断案例
+<ol>
+<li>top 观察系统软中断 CPU 使用率高</li>
+<li>查看/proc/softirqs 找到变化速率较快的几种软中断</li>
+<li>sar 命令发现是网络小包问题</li>
+<li>tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致</li>
+</ol>
+</li>
+</ol>
+<p>根据不同的性能指标来找合适的工具：</p></div><div class="post-footer">
+        <a href="/linux-perf-cpu/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/cpu/">CPU</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -139,19 +258,22 @@
                     <span class="page-link" aria-hidden="true">&hellip;</span>
                 </li><li class="page-item ">
                     <span class="page-link">
-                        <a href="/page/39/">39</a>
+                        <a href="/page/40/">40</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script>window.config={"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script src="/js/theme.js"></script></body>
 </html>

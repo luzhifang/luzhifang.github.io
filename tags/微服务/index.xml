@@ -3,22 +3,111 @@
         <title>微服务 - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
         <description>微服务 - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="self" type="application/rss+xml" /><item>
     <title>DDD</title>
     <link>https://luzhifang.github.io/ddd/</link>
     <pubDate>Sat, 16 Feb 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/ddd/</guid>
-    <description><![CDATA[基本概念 aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界]]></description>
+    <description><![CDATA[<h2 id="基本概念">基本概念</h2>
+<ul>
+<li>aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界之内应用一组一致的规则。</li>
+<li>bounded context（限界上下文）：特定模型的限界应用。限界上下文使团队所有成员能够明确地知道什么必须保持一致，什么必须独立开发。</li>
+<li>context（上下文）：一个单词或句子出现的环境，它决定了其含义。参见 bounded context 。</li>
+<li>context map（上下文图）：项目所涉及的限界上下文以及它们与模型之间的关系的一种表示。</li>
+<li>core domain（核心领域）：模型的独特部分，是用户的核心目标，它使得应用程序与众不同并且有价值。</li>
+<li>deep model（深层模型）：领域专家们最关心的问题以及与这些问题最相关的知识的清晰表示。深层模型不停留在领域的表层和粗浅的理解上。</li>
+<li>distillation（精炼）：精炼是把一堆混杂在一起的组件分开的过程，从中提取出最重要的内容，使得它更有价值，也更有用。在软件设计中，精炼就是对模型中的关键方面进行抽象，或者是对大系统进行划分，从而把核心领域提取出来。</li>
+<li>领域（domain）：知识、影响或活动的范围。</li>
+<li>领域专家（domain expert）：软件项目的成员之一，精通的是软件的应用领域而不是软件开发。并非软件的任何使用者都是领域专家，领域专家需要具备深厚的专业知识。</li>
+<li>domain layer（领域层）：在分层架构中负责领域逻辑的那部分设计和实现。领域层是在软件中用来表示领域模型的地方。</li>
+<li>entity（实体）：一种对象，它不是由属性来定义的，而是通过一连串的连续事件和标识定义的。</li>
+<li>factory（工厂）：一种封装机制，把复杂的创建逻辑封装起来，并为客户抽象出所创建的对象的类型。</li>
+<li>implicit concept（隐式概念）：一种为了理解模型和设计的意义而必不可少的概念，但它从未被提及。</li>
+<li>layered architecture（分层架构）：一种用于分离软件系统关注点的技术，它把领域层与其他层分开。</li>
+<li>model（模型）：一个抽象的系统，描述了领域的所选方面，可用于解决与该领域有关的问题。</li>
+<li>model driven design （模型驱动的设计）：软件元素的某个子集严格对应于模型的元素。也代表一种合作开发模型和实现以便互相保持一致的过程。</li>
+<li>repository （存储库）：一种把存储、检索和搜索行为封装起来的机制，它类似于一个对象集合。</li>
+<li>service （服务）：一种作为接口提供的操作，它在模型中是独立的，没有封装的状态。</li>
+<li>strategic design（战略设计）：一种针对系统整体的建模和设计决策。这样的决策影响整个项目，而且必须由团队来制定。</li>
+<li>ubiquitous language （通用语言）：围绕领域模型建立的一种语言，团队所有成员都使用这种语言把团队的所有活动与软件联系起来。</li>
+<li>value object （值对象）：一种描述了某种特征或属性但没有概念标识的对象。</li>
+</ul>
+<h2 id="领域建模">领域建模</h2>
+<ul>
+<li>模型是对领域的抽象，建模是针对特定问题建立领域的合理模型</li>
+<li>领域 -&gt; 模型(领域知识/业务需求) -&gt; 代码(技术实现)</li>
+<li>模型分解(领域划分/限界上下文)解决面向对象的复杂性(一个对象太臃肿)</li>
+<li>复杂性来源于业务本身的复杂性和技术引入的额外复杂性</li>
+<li>领域驱动设计通过分解模型和模型驱动设计控制复杂性</li>
+</ul>
+<h3 id="有效建模的要素">有效建模的要素</h3>
+<ol>
+<li>模型和实现的绑定。</li>
+<li>建立了一种基于模型的通用语言。</li>
+<li>开发一个蕴含丰富知识的模型。</li>
+<li>提炼模型。</li>
+<li>头脑风暴和实验。</li>
+</ol>
+<h3 id="领域建模容易产生问题的应对方法">领域建模容易产生问题的应对方法</h3>
+<ol>
+<li>不要单纯以角色的行为(活动)为中心进行沟通和建模</li>
+<li>领域沟通过程中，研发人员发挥主动性，以便发现深层模型</li>
+<li>场景走查</li>
+</ol>
+<h3 id="常用建模方法">常用建模方法</h3>
+<ol>
+<li>Domain Storytelling (领域故事陈述法)<a href="https://github.com/WPS/domain-story-modeler/releases" target="_blank" rel="noopener noreffer ">本地工具</a> <a href="https://www.wps.de/modeler/index.html" target="_blank" rel="noopener noreffer ">在线工具</a></li>
+<li>Event Storming (事件风暴法)</li>
+<li>4C (四色建模法)</li>
+</ol>
+<h2 id="ddd-与其他开发方法的区别">DDD 与其他开发方法的区别</h2>
+<h3 id="ddd-与面向对象-ooad-的区别">DDD 与面向对象 OOAD 的区别</h3>
+<table>
+  <thead>
+      <tr>
+          <th>区别</th>
+          <th>联系</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>OOAD 没有战略设计，DDD 通过战略设计划分领域和模型</td>
+          <td>都是建模和设计方法</td>
+      </tr>
+      <tr>
+          <td>OOAD 仅用对象描述世界，DDD 的描述更细致(实体/值对象/聚合/聚合根)</td>
+          <td>部分建模方法和工具可复用</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="ddd-与敏捷">DDD 与敏捷</h3>
+<table>
+  <thead>
+      <tr>
+          <th>区别</th>
+          <th>联系</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>敏捷：关注流程和文化，DDD：关注建模和设计方法 <br>敏捷：重人员轻文档，DDD：重视统一语言的建立</td>
+          <td>都是软件工程领域的思想，解决软件工程中的不同问题，一般可结合应用</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="战略战术设计">战略战术设计</h2>
+<p>建模和设计的整体流程：挖掘用户故事 -&gt; 建立通用语言 -&gt; 战略设计 -&gt; 战术设计</p>]]></description>
 </item>
 <item>
     <title>微服务</title>
     <link>https://luzhifang.github.io/microservice/</link>
     <pubDate>Fri, 15 Feb 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/microservice/</guid>
-    <description><![CDATA[什么是微服务 随着领域驱动设计、持续交付、按需虚拟化、基础设施自动化、小型自治团队、大型集群系统这些实践的流行，微服务也应运而生。 微服务：把应]]></description>
+    <description><![CDATA[<h2 id="什么是微服务">什么是微服务</h2>
+<p>随着领域驱动设计、持续交付、按需虚拟化、基础设施自动化、小型自治团队、大型集群系统这些实践的流行，微服务也应运而生。</p>
+<p>微服务：把应用程序功能性分解为一组协同工作的小而自治的服务的架构风格。每个服务是一组专注的、内聚的功能职责组成。 每个服务是松耦合的，有自己的私有数据库，通过 API 通信。每个服务可以独立设计、开发、测试、部署和扩展。</p>]]></description>
 </item>
 </channel>
 </rss>

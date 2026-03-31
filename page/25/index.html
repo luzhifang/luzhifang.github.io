@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.104.3" />
+	<meta name="generator" content="Hugo 0.160.0-DEV">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="半生戎码" />
-<meta property="og:description" content="Hugo theme - LoveIt" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://luzhifang.github.io/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="og:site_name" content="LoveIt" />
+        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="半生戎码">
+  <meta property="og:description" content="Hugo theme - LoveIt">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="半生戎码"/>
-<meta name="twitter:description" content="Hugo theme - LoveIt"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="半生戎码">
+  <meta name="twitter:description" content="Hugo theme - LoveIt">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="半生戎码">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
         "url": "https:\/\/luzhifang.github.io\/","inLanguage": "zh-CN","author": {
                 "@type": "Person",
-                "name": "luzhifang"
+                "name": "xxxx"
             },"description": "Hugo theme - LoveIt","image": "https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png","thumbnailUrl": "https:\/\/luzhifang.github.io\/images\/screenshot.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "半生戎码"
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -42,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -69,20 +83,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -98,17 +112,279 @@
         data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
         data-sizes="auto"
         alt="/images/avatar.png"
-        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
+        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/kafka-config/">kafka 配置参数详解</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-10">2020-01-10</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kafka/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Kafka</a>&nbsp;<a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>消息队列</a></span></div><div class="content">Broker 配置参数 属性 默认值 释义 broker.id -1 该参数用来指定 Kafka 集群中 broker 的唯一标识，默认值为-1。如果没有设置，那么 Kafka 会自动生成一个。 listeners null 该参数指明 broker 监听客户端</div><div class="post-footer">
-        <a href="/kafka-config/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/kafka/">Kafka</a>,&nbsp;<a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></div></div>
+        <a href="/linux-ssh-kengen/">Linux使用ssh-kengen生成公私钥和免密登录</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-15">2020-01-15</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div><div class="content"><h2 id="详细命令">详细命令</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">ssh-keygen <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -t rsa <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -m PEM <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -b <span class="m">4096</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -C <span class="s2">&#34;user@server&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -f /home/username/.ssh/keys/privatekey <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -N passphrase</span></span></code></pre></div></div>
+<h2 id="命令释义">命令释义</h2>
+<ol>
+<li>ssh-keygen = 用于创建密钥的程序</li>
+<li>-m PEM = 将密钥的格式设为 PEM</li>
+<li>-t rsa = 要创建的密钥类型，本例中为 RSA 格式</li>
+<li>-b 4096 = 密钥的位数，本例中为 4096</li>
+<li>-C &ldquo;user@server&rdquo; = 追加到公钥文件末尾以便于识别的注释。 通常以电子邮件地址用作注释，但也可以使用任何最适合你基础结构的事物。</li>
+<li>-f /home/username/.ssh/keys/privatekey = 私钥文件的文件名（如果选择不使用默认名称）。 追加了 .pub 的相应公钥文件在相同目录中生成。
+该目录必须存在。</li>
+<li>-N passphrase = 用于访问私钥文件的其他密码。</li>
+</ol>
+<h2 id="使用示例">使用示例：</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">username@hostname:~# ssh-keygen -t rsa
+</span></span><span class="line"><span class="cl">Generating public/private rsa key pair.
+</span></span><span class="line"><span class="cl">Enter file in which to save the key <span class="o">(</span>/home/username/.ssh/id_rsa<span class="o">)</span>:   // 这里输入要生成的文件名
+</span></span><span class="line"><span class="cl">Created directory <span class="s1">&#39;/home/username/.ssh&#39;</span>.                            // 这里输入密码
+</span></span><span class="line"><span class="cl">Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:                         // 这里重复输入密码
+</span></span><span class="line"><span class="cl">Enter same passphrase again:
+</span></span><span class="line"><span class="cl">Your identification has been saved in /home/username/.ssh/id_rsa.
+</span></span><span class="line"><span class="cl">Your public key has been saved in /home/username/.ssh/id_rsa.pub.
+</span></span><span class="line"><span class="cl">The key fingerprint is:
+</span></span><span class="line"><span class="cl">SHA256:LIGNrf7jteWJtB6quaJgOwT4yLkbyIBhCTUOCW58Em0 /home/username/@hostname
+</span></span><span class="line"><span class="cl">The key<span class="err">&#39;</span>s randomart image is:
+</span></span><span class="line"><span class="cl">+---<span class="o">[</span>RSA 2048<span class="o">]</span>----+
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="o">=</span>++              <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="o">=</span><span class="nv">ooE</span> <span class="o">=</span>           <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>oBo.o +          <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>*.o  . o         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="o">=</span>o. . . S        <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="o">=</span>+..   .         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>++. .   + .      <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>oo+  o.+ B .     <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>.+o.+++o<span class="o">=</span> o      <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+----<span class="o">[</span>SHA256<span class="o">]</span>-----+</span></span></code></pre></div></div>
+<h2 id="免密登录">免密登录</h2>
+<ol>
+<li>复制 A 机公钥到 B 机/home/username/.ssh 目录下的 authorized_keys 文件里。</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">scp /home/username/.ssh/id_rsa.pub username@192.168.1.100:/home/username/.ssh/authorized_keys</span></span></code></pre></div></div>
+<ol start="2">
+<li>B 机中给 authorized_keys 文件 600 权限</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">chmod 600 authorized_keys</span></span></code></pre></div></div>
+<ol start="3">
+<li>、A 机登录 B 机</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh 192.168.1.100</span></span></code></pre></div></div></div><div class="post-footer">
+        <a href="/linux-ssh-kengen/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/ssh/">Ssh</a>,&nbsp;<a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/">免密登录</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/kafka-quick-tour/">kafka 快速入门</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-08">2020-01-08</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kafka/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Kafka</a>&nbsp;<a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>消息队列</a></span></div><div class="content">架构 一个典型的 Kafka 体系架构包括若干 Producer、若干 Broker、若干 Consumer，以及一个 ZooKeeper 集群。其中 ZooKeeper 是 Kafka 用来负责集群元数据的管理</div><div class="post-footer">
-        <a href="/kafka-quick-tour/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/kafka/">Kafka</a>,&nbsp;<a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></div></div>
+        <a href="/message-queue-selection/">消息队列选型</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-12">2020-01-12</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><i class="far fa-folder" aria-hidden="true"></i>消息队列</a></span></div><div class="content"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>Kafka</th>
+          <th>RabbitMQ</th>
+          <th>ZeroMQ</th>
+          <th>RocketMQ</th>
+          <th>ActiveMQ</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>资料文档</td>
+          <td>中等</td>
+          <td>多</td>
+          <td>少</td>
+          <td>少</td>
+          <td>多</td>
+      </tr>
+      <tr>
+          <td>开发语言</td>
+          <td>Scala</td>
+          <td>Erlang</td>
+          <td>C</td>
+          <td>Java</td>
+          <td>Java</td>
+      </tr>
+      <tr>
+          <td>支持的协议</td>
+          <td>自定义基于 TCP</td>
+          <td>AMQP</td>
+          <td>TCP、UDP</td>
+          <td>自定义</td>
+          <td>OpenWire、STOMP、REST、XMPP、AMQP</td>
+      </tr>
+      <tr>
+          <td>消息存储</td>
+          <td>内存、磁盘、数据库。支持大量堆积。</td>
+          <td>内存、磁盘。支持少量堆积。</td>
+          <td>消息发送端的内存或者磁盘中。不支持持久化。</td>
+          <td>磁盘。支持大量堆积。</td>
+          <td>内存、磁盘、数据库。支持少量堆积。</td>
+      </tr>
+      <tr>
+          <td>消息事务</td>
+          <td>支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>支持</td>
+      </tr>
+      <tr>
+          <td>负载均衡</td>
+          <td>支持</td>
+          <td>支持不好</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>支持（基于 zookeeper）</td>
+      </tr>
+      <tr>
+          <td>集群方式</td>
+          <td>支持</td>
+          <td>支持简单集群</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>支持</td>
+      </tr>
+      <tr>
+          <td>管理界面</td>
+          <td>一般</td>
+          <td>好</td>
+          <td>无</td>
+          <td>有，非自带</td>
+          <td>一般</td>
+      </tr>
+      <tr>
+          <td>可用性</td>
+          <td>非常高（分布式）</td>
+          <td>高（主从）</td>
+          <td>高</td>
+          <td>非常高（分布式）</td>
+          <td>高（主从）</td>
+      </tr>
+      <tr>
+          <td>消息重复</td>
+          <td>支持 at least once、at most once</td>
+          <td>支持 at least once、at most once</td>
+          <td>有重传，没有持久化</td>
+          <td>支持 at least once</td>
+          <td>支持 at least once</td>
+      </tr>
+      <tr>
+          <td>吞吐量 TPS</td>
+          <td>极大</td>
+          <td>比较大</td>
+          <td>极大</td>
+          <td>大</td>
+          <td>比较大</td>
+      </tr>
+      <tr>
+          <td>消费推拉模式</td>
+          <td>拉</td>
+          <td>推</td>
+          <td>推</td>
+          <td>拉</td>
+          <td>推</td>
+      </tr>
+      <tr>
+          <td>订阅形式和消息分发</td>
+          <td>基于 topic 及按 topic 正则匹配的发布订阅模式</td>
+          <td>direct、topic、Headers 和 fanout。</td>
+          <td>点对点(p2p)</td>
+          <td>基于 topic/messageTag 及按消息类型、属性正则匹配的发布订阅</td>
+          <td>点对点(p2p)、广播（发布-订阅）</td>
+      </tr>
+      <tr>
+          <td>顺序消息</td>
+          <td>支持</td>
+          <td>不支持</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td>消息确认</td>
+          <td>支持</td>
+          <td>支持</td>
+          <td>支持</td>
+          <td>支持</td>
+          <td>支持</td>
+      </tr>
+      <tr>
+          <td>消息回溯</td>
+          <td>支持指定分区 offset 位置的回溯</td>
+          <td>不支持</td>
+          <td>不支持</td>
+          <td>支持指定时间点的回溯</td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td>消息重试</td>
+          <td>不支持，但是可以实现</td>
+          <td>不支持，可以利用消息确认机制实现</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td>并发度</td>
+          <td>高</td>
+          <td>极高</td>
+          <td>高</td>
+          <td>高</td>
+          <td>高</td>
+      </tr>
+      <tr>
+          <td>延迟队列</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td>死信队列</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td>优先级队列</td>
+          <td>不支持</td>
+          <td>支持</td>
+          <td>不支持</td>
+          <td>不支持</td>
+          <td>不支持</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考">参考</h2>
+<p><a href="https://cloud.tencent.com/developer/article/1449951" target="_blank" rel="noopener noreffer ">https://cloud.tencent.com/developer/article/1449951</a></p></div><div class="post-footer">
+        <a href="/message-queue-selection/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -139,19 +415,22 @@
                     <span class="page-link" aria-hidden="true">&hellip;</span>
                 </li><li class="page-item ">
                     <span class="page-link">
-                        <a href="/page/39/">39</a>
+                        <a href="/page/40/">40</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script>window.config={"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script src="/js/theme.js"></script></body>
 </html>

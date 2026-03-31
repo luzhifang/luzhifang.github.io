@@ -4,23 +4,30 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>进程线程协程的区别 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="进程线程协程的区别" />
-<meta property="og:description" content="进程与线程的区别 每个线程都是一个轻量级进程(Light Weight Process)，都有自己的唯一 PID 和一个 TGID(Thread group ID)。TGID 是启动整个进程的 thread 的 PI" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://luzhifang.github.io/process-thread-coroutine/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-06-06T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-06-06T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+        <title>进程线程协程的区别 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/process-thread-coroutine/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="进程线程协程的区别">
+  <meta property="og:description" content="进程与线程的区别 每个线程都是一个轻量级进程(Light Weight Process)，都有自己的唯一 PID 和一个 TGID(Thread group ID)。TGID 是启动整个进程的 thread 的 PID。
+例如，当一个进程被创建的时候，它其实是一个 PID 和 TGID 数值相同线程。当线程 A 启动线程 B 时，线程 B 会有自己的唯一 PID，但它的 TGID 会从 A 继承而来。这样通过 PID 线程可以独立得到调度，而相同的 TGID 可以知道哪些线程属于同一个进程，这样可以共享资源(RAM，虚拟内存、文件等)。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-06-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-06-06T00:00:00+00:00">
+    <meta property="article:tag" content="操作系统">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="进程线程协程的区别"/>
-<meta name="twitter:description" content="进程与线程的区别 每个线程都是一个轻量级进程(Light Weight Process)，都有自己的唯一 PID 和一个 TGID(Thread group ID)。TGID 是启动整个进程的 thread 的 PI"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="进程线程协程的区别">
+  <meta name="twitter:description" content="进程与线程的区别 每个线程都是一个轻量级进程(Light Weight Process)，都有自己的唯一 PID 和一个 TGID(Thread group ID)。TGID 是启动整个进程的 thread 的 PID。
+例如，当一个进程被创建的时候，它其实是一个 PID 和 TGID 数值相同线程。当线程 A 启动线程 B 时，线程 B 会有自己的唯一 PID，但它的 TGID 会从 A 继承而来。这样通过 PID 线程可以独立得到调度，而相同的 TGID 可以知道哪些线程属于同一个进程，这样可以共享资源(RAM，虚拟内存、文件等)。">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/process-thread-coroutine/" /><link rel="prev" href="https://luzhifang.github.io/os-file-system/" /><link rel="next" href="https://luzhifang.github.io/os-io/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/process-thread-coroutine/" /><link rel="prev" href="https://luzhifang.github.io/os-file-system/" /><link rel="next" href="https://luzhifang.github.io/os-io/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -39,7 +46,18 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -50,16 +68,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -77,20 +95,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -103,9 +121,9 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">进程线程协程的区别</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>操作系统</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-06">2018-06-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1669 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder" aria-hidden="true"></i>操作系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-06">2018-06-06</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1669 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -144,70 +162,70 @@
 </ol>
 <h2 id="进程线程和协程的区别和联系">进程、线程和协程的区别和联系</h2>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>进程</th>
-<th>线程</th>
-<th>协程</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>定义</td>
-<td>资源分配和拥有的基本单位</td>
-<td>程序执行的基本单位</td>
-<td>用户态的轻量级线程，线程内部调度的基本单位</td>
-</tr>
-<tr>
-<td>切换情况</td>
-<td>进程 CPU 环境 (栈、寄存器、页表和文件句柄等)的保存以及新调度的进程 CPU 环境的设置</td>
-<td>保存和设置程序计数器、少量寄存器和栈的内容</td>
-<td>先将寄存器上下文和栈保存，等切换回来的时候再进行恢复</td>
-</tr>
-<tr>
-<td>切换者</td>
-<td>操作系统</td>
-<td>操作系统</td>
-<td>用户</td>
-</tr>
-<tr>
-<td>切换过程</td>
-<td>用户态-&gt;内核态-&gt;用户态</td>
-<td>用户态-&gt;内核态-&gt;用户态</td>
-<td>用户态(没有陷入内核)</td>
-</tr>
-<tr>
-<td>调用栈</td>
-<td>内核栈</td>
-<td>内核栈</td>
-<td>用户栈</td>
-</tr>
-<tr>
-<td>拥有资源</td>
-<td>CPU 资源、内存资源、文件资源和句柄等</td>
-<td>程序计数器、寄存器、栈和状态字</td>
-<td>拥有自己的寄存器上下文和栈</td>
-</tr>
-<tr>
-<td>并发性</td>
-<td>不同进程之间切换实现并发，各自占有 CPU 实现并行</td>
-<td>一个进程内部的多个线程并发执行</td>
-<td>同一时间只能执行一个协程，而其他协程处于休眠状态，适合对任务进行分时处理</td>
-</tr>
-<tr>
-<td>系统开销</td>
-<td>切换虚拟地址空间，切换内核栈和硬件上下文，CPU 高速缓存失效、页表切换，开销很大</td>
-<td>切换时只需保存和设置少量寄存器内容，因此开销很小</td>
-<td>直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快</td>
-</tr>
-<tr>
-<td>通信方面</td>
-<td>进程间通信需要借助操作系统</td>
-<td>线程间可以直接读写进程数据段(如全局变量)来进行通信</td>
-<td>共享内存、消息队列</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>进程</th>
+          <th>线程</th>
+          <th>协程</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>定义</td>
+          <td>资源分配和拥有的基本单位</td>
+          <td>程序执行的基本单位</td>
+          <td>用户态的轻量级线程，线程内部调度的基本单位</td>
+      </tr>
+      <tr>
+          <td>切换情况</td>
+          <td>进程 CPU 环境 (栈、寄存器、页表和文件句柄等)的保存以及新调度的进程 CPU 环境的设置</td>
+          <td>保存和设置程序计数器、少量寄存器和栈的内容</td>
+          <td>先将寄存器上下文和栈保存，等切换回来的时候再进行恢复</td>
+      </tr>
+      <tr>
+          <td>切换者</td>
+          <td>操作系统</td>
+          <td>操作系统</td>
+          <td>用户</td>
+      </tr>
+      <tr>
+          <td>切换过程</td>
+          <td>用户态-&gt;内核态-&gt;用户态</td>
+          <td>用户态-&gt;内核态-&gt;用户态</td>
+          <td>用户态(没有陷入内核)</td>
+      </tr>
+      <tr>
+          <td>调用栈</td>
+          <td>内核栈</td>
+          <td>内核栈</td>
+          <td>用户栈</td>
+      </tr>
+      <tr>
+          <td>拥有资源</td>
+          <td>CPU 资源、内存资源、文件资源和句柄等</td>
+          <td>程序计数器、寄存器、栈和状态字</td>
+          <td>拥有自己的寄存器上下文和栈</td>
+      </tr>
+      <tr>
+          <td>并发性</td>
+          <td>不同进程之间切换实现并发，各自占有 CPU 实现并行</td>
+          <td>一个进程内部的多个线程并发执行</td>
+          <td>同一时间只能执行一个协程，而其他协程处于休眠状态，适合对任务进行分时处理</td>
+      </tr>
+      <tr>
+          <td>系统开销</td>
+          <td>切换虚拟地址空间，切换内核栈和硬件上下文，CPU 高速缓存失效、页表切换，开销很大</td>
+          <td>切换时只需保存和设置少量寄存器内容，因此开销很小</td>
+          <td>直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快</td>
+      </tr>
+      <tr>
+          <td>通信方面</td>
+          <td>进程间通信需要借助操作系统</td>
+          <td>线程间可以直接读写进程数据段(如全局变量)来进行通信</td>
+          <td>共享内存、消息队列</td>
+      </tr>
+  </tbody>
 </table>
 <p>1、进程是资源调度的基本单位，运行一个可执行程序会创建一个或多个进程，进程就是运行起来的可执行程序</p>
 <p>2、线程是程序执行的基本单位，是轻量级的进程。每个进程中都有唯一的主线程，且只能有一个，主线程和进程是相互依存的关系，主线程结束进程也会结束。多提一句：协程是用户态的轻量级线程，线程内部调度的基本单位</p>
@@ -220,32 +238,35 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别" data-hashtags="操作系统"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-hashtag="操作系统"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别" data-hashtags="操作系统"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-hashtag="操作系统"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/process-thread-coroutine/" data-title="进程线程协程的区别" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fprocess-thread-coroutine%2f&amp;text=%e8%bf%9b%e7%a8%8b%e7%ba%bf%e7%a8%8b%e5%8d%8f%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
+        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/os-file-system/" class="prev" rel="prev" title="文件系统"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>文件系统</a>
-            <a href="/os-io/" class="next" rel="next" title="IO">IO<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/os-file-system/" class="prev" rel="prev" title="文件系统"><i class="fas fa-angle-left" aria-hidden="true"></i>文件系统</a>
+            <a href="/os-io/" class="next" rel="next" title="IO">IO<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
 </html>

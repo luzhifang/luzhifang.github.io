@@ -1,16 +1,80 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>markdown - 标签 - 半生戎码</title>
+        <title>Markdown - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/markdown/</link>
-        <description>markdown - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Aug 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/markdown/" rel="self" type="application/rss+xml" /><item>
+        <description>Markdown - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Aug 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/markdown/" rel="self" type="application/rss+xml" /><item>
     <title>Markdown指北</title>
     <link>https://luzhifang.github.io/markdown/</link>
     <pubDate>Mon, 05 Aug 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/markdown/</guid>
-    <description><![CDATA[Markdown 简介 Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。 Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。 Markdown 编写]]></description>
+    <description><![CDATA[<h2 id="markdown-简介">Markdown 简介</h2>
+<ul>
+<li>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。</li>
+<li>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。</li>
+<li>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。</li>
+<li>Markdown 编写的文档后缀为 .md, .markdown。</li>
+</ul>
+<h2 id="markdown-应用">Markdown 应用</h2>
+<ul>
+<li>Markdown 能被使用来撰写电子书，如：Gitbook。</li>
+<li>当前许多网站都广泛使用 Markdown 来撰写帮助文档或是用于论坛上发表消息。例如：GitHub、简书、reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge 等。</li>
+</ul>
+<h2 id="markdown-编辑器">Markdown 编辑器</h2>
+<ul>
+<li>Typora 编辑器：Typora 支持 MacOS 、Windows、Linux 平台，且包含多种主题，编辑后直接渲染出效果。支持导出 HTML、PDF、Word、图片等多种类型文件。
+官网：https://typora.io/</li>
+<li>在线编辑器</li>
+<li>其他的文本编辑器(例：VSCODE + 插件)，IDE(idea + 插件)</li>
+</ul>
+<h2 id="markdown-标题">Markdown 标题</h2>
+<ol>
+<li>使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl"><span class="gh"># 一级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">## 二级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">### 三级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">#### 四级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">##### 五级标题
+</span></span></span><span class="line"><span class="cl">###### 六级标题</span></span></code></pre></div></div>
+<h2 id="markdown-换行和段落">Markdown 换行和段落</h2>
+<ol>
+<li>段落的换行是使用两个以上空格加上回车</li>
+<li>在段落后面使用一个空行来表示重新开始一个段落</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落
+</span></span><span class="line"><span class="cl">段落
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">段落</span></span></code></pre></div></div>
+<h2 id="markdown-字体样式">Markdown 字体样式</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">_斜体文本_
+</span></span><span class="line"><span class="cl"><span class="ge">_斜体文本_</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**粗体文本**</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**粗体文本**</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**_粗斜体文本_**</span>
+</span></span><span class="line"><span class="cl">**_粗斜体文本_**</span></span></code></pre></div></div>
+<p><em>斜体文本</em>
+<em>斜体文本</em>
+<strong>粗体文本</strong>
+<strong>粗体文本</strong>
+<strong><em>粗斜体文本</em></strong>
+<strong><em>粗斜体文本</em></strong></p>]]></description>
 </item>
 </channel>
 </rss>

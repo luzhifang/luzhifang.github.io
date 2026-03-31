@@ -3,86 +3,218 @@
         <title>所有文章 - 半生戎码</title>
         <link>https://luzhifang.github.io/posts/</link>
         <description>所有文章 | 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Jan 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 Mar 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Git多账号SSH Key配置</title>
+    <link>https://luzhifang.github.io/git-multi-ssh-key/</link>
+    <pubDate>Tue, 31 Mar 2026 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>https://luzhifang.github.io/git-multi-ssh-key/</guid>
+    <description><![CDATA[<h2 id="背景">背景</h2>
+<p>GitHub/GitLab 等平台不允许同一个 SSH 公钥绑定到多个账号。当你有多个账号（比如个人账号和工作账号）需要在同一台机器上使用 SSH 免密拉取代码时，就需要为每个账号生成独立的 SSH 密钥，并通过 <code>~/.ssh/config</code> 区分。</p>]]></description>
+</item>
+<item>
+    <title>GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录</title>
+    <link>https://luzhifang.github.io/gitlab-domain-migration/</link>
+    <pubDate>Fri, 27 Mar 2026 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>https://luzhifang.github.io/gitlab-domain-migration/</guid>
+    <description><![CDATA[<h2 id="背景">背景</h2>
+<p>需要将自建 GitLab Omnibus 从 HTTPS 迁移到 HTTP，同时更换域名和端口。整体架构为：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">浏览器 → CDN(:8080) → 反向代理 Nginx(:80) → GitLab 服务器(:8080)</span></span></code></pre></div></div>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>旧值</th>
+          <th>新值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>域名</td>
+          <td>git.old-domain.com</td>
+          <td>git.new-domain.com</td>
+      </tr>
+      <tr>
+          <td>协议</td>
+          <td>HTTPS</td>
+          <td>HTTP</td>
+      </tr>
+      <tr>
+          <td>端口</td>
+          <td>8443</td>
+          <td>8080</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="gitlab-配置修改">GitLab 配置修改</h2>
+<p>编辑 <code>/etc/gitlab/gitlab.rb</code>：</p>]]></description>
+</item>
+<item>
     <title>k8s 安装</title>
     <link>https://luzhifang.github.io/k8s-install/</link>
     <pubDate>Wed, 11 Jan 2023 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/k8s-install/</guid>
-    <description><![CDATA[目前主流的搭建 k8s 集群的方式有 minikube、二进制包以及 kubeadm。 minikube 方式安装 minikube 一般用于本地开发、测试和学习，不能用于生产环境，是一个]]></description>
+    <description><![CDATA[<p>目前主流的搭建 k8s 集群的方式有 minikube、二进制包以及 kubeadm。</p>
+<h2 id="minikube-方式安装">minikube 方式安装</h2>
+<p>minikube 一般用于本地开发、测试和学习，不能用于生产环境，是一个工具，minikube 快速搭建一个运行在本地的单节点的 Kubernetes。</p>]]></description>
 </item>
 <item>
     <title>Raft 协议</title>
     <link>https://luzhifang.github.io/raft/</link>
     <pubDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/raft/</guid>
-    <description><![CDATA[简介 Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节点，进而提高系统的整体可用性。Raft 是使用较为广泛的分布式协议，我们熟悉的 etcd 注册中心就采用了这个算法；
+Raft 算法将分布式一致性分解为多个子问题，包括 Leader 选举（Leader election）、日志复制（Log replication）、安全性（Safety）、日志压缩（Log compaction）等。raft 将系统中的角色分为领导者（Leader）、跟从者（Follower）和候选者（Candidate）。</p>]]></description>
 </item>
 <item>
     <title>etcd</title>
     <link>https://luzhifang.github.io/etcd/</link>
     <pubDate>Sun, 18 Dec 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/etcd/</guid>
-    <description><![CDATA[介绍 简介 Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障（如数据库选主、分布式锁等）。 在分布式系统中，如何管理节点间的]]></description>
+    <description><![CDATA[<h2 id="介绍">介绍</h2>
+<h3 id="简介">简介</h3>
+<p>Etcd 是 CoreOS 基于 Raft 开发的分布式 key-value 存储，可用于服务发现、共享配置以及一致性保障（如数据库选主、分布式锁等）。</p>
+<p>在分布式系统中，如何管理节点间的状态一直是一个难题，etcd 像是专门为集群环境的服务发现和注册而设计，它提供了数据 TTL 失效、数据改变监视、多值、目录监听、分布式锁原子操作等功能，可以方便的跟踪并管理集群节点的状态。</p>]]></description>
 </item>
 <item>
     <title>mysql 安装</title>
     <link>https://luzhifang.github.io/mysql-install/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/mysql-install/</guid>
-    <description><![CDATA[Ubuntu 查看 Ubuntu 版本 cat /etc/lsb-release 添加源 1 vim /etc/apt/sources.list.d/mysql-community.list 1 2 3 4 5 6 7 8 9 10 11 # Ubuntu 20.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu focal mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 18.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu bionic mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 16.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu xenial mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 14.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu trusty mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools 导入 GPG]]></description>
+    <description><![CDATA[<h2 id="ubuntu">Ubuntu</h2>
+<ol>
+<li>
+<p>查看 Ubuntu 版本 <code>cat /etc/lsb-release</code></p>
+</li>
+<li>
+<p>添加源</p>
+</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">vim /etc/apt/sources.list.d/mysql-community.list</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Ubuntu 20.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">focal</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 18.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">bionic</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 16.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">xenial</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.6</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 14.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">trusty</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.6</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span></span></span></code></pre></div></div>
+<ol start="3">
+<li>导入 GPG 密钥</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># apt-key adv --keyserver pgp.mit.edu --recv-keys 3A79BD29</span>
+</span></span><span class="line"><span class="cl">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3A79BD29</span></span></code></pre></div></div>
+<ol start="4">
+<li>
+<p>更新库 <code>apt update</code></p>]]></description>
 </item>
 <item>
     <title>Goland 插件推荐</title>
     <link>https://luzhifang.github.io/goland-plugins/</link>
     <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/goland-plugins/</guid>
-    <description><![CDATA[开发效率 Eclipse keymap，eclipse 快捷键。 Translation，翻译插件。 Key Promoter X，快捷键提示。 String Manipulation，字符串处理，]]></description>
+    <description><![CDATA[<h2 id="开发效率">开发效率</h2>
+<ol>
+<li>Eclipse keymap，eclipse 快捷键。</li>
+<li>Translation，翻译插件。</li>
+<li>Key Promoter X，快捷键提示。</li>
+<li>String Manipulation，字符串处理，选中需要处理的内容后，按快捷键 Alt + M，即可弹出工具功能列表。</li>
+<li>Tabnine AI 代码补全</li>
+<li>Protocol Buffers</li>
+<li>GitToolBox，自动 fetching 项目最新代码，显示编辑页光标行的 git 日志</li>
+<li>Goctl，go-zero 框架插件</li>
+</ol>
+<h2 id="编程美化">编程美化</h2>
+<ol>
+<li>Gopher，进度条。</li>
+<li>Rainbow Brackets，通过颜色区分括号嵌套层级，便于阅读，能够更快地对错误代码进行定位和调整。</li>
+<li>Chinese ​(Simplified)​ Language Pack / 中文语言包</li>
+</ol>]]></description>
 </item>
 <item>
     <title>IDEA 插件推荐</title>
     <link>https://luzhifang.github.io/idea-plugins/</link>
     <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/idea-plugins/</guid>
-    <description><![CDATA[Intellij IDEA 的插件主页地址是https://plugins.jetbrains.com。打开网站测速 - 站长工具找到最快的IP，配置到hosts文件中]]></description>
+    <description><![CDATA[<p>Intellij IDEA 的插件主页地址是https://plugins.jetbrains.com。打开<a href="https://tool.chinaz.com/speedtest/plugins.jetbrains.com" target="_blank" rel="noopener noreffer ">网站测速 - 站长工具</a>找到最快的IP，配置到hosts文件中，可以提高插件安装的速度。</p>]]></description>
 </item>
 <item>
     <title>VSCODE 插件推荐</title>
     <link>https://luzhifang.github.io/vscode-plugins/</link>
     <pubDate>Tue, 19 Apr 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/vscode-plugins/</guid>
-    <description><![CDATA[开发效率 EditorConfig for VS Code，代码格式统一。 vscode-json，操作美化 json。 快捷键 cmd+alt+v，验证 cmd+alt+b，格式化 cm]]></description>
+    <description><![CDATA[<h2 id="开发效率">开发效率</h2>
+<ol>
+<li>
+<p>EditorConfig for VS Code，代码格式统一。</p>
+</li>
+<li>
+<p>vscode-json，操作美化 json。</p>
+<p>快捷键</p>
+<ul>
+<li>cmd+alt+v，验证</li>
+<li>cmd+alt+b，格式化</li>
+<li>cmd+alt+u，压缩</li>
+<li>cmd+alt+&rsquo;，加转义字符</li>
+<li>cmd+alt+;，去转义字符</li>
+</ul>
+</li>
+<li>
+<p>Eclipse Keymap，习惯 eclipse 快捷键的可以装这个。</p>]]></description>
 </item>
 <item>
     <title>Windows11 安装 Linux 子系统</title>
     <link>https://luzhifang.github.io/wsl/</link>
     <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/wsl/</guid>
-    <description><![CDATA[启用相关功能 首先搜索【启用或关闭 Winsows 功能】 然后勾选【适用于 linux 的 Windows 子系统】和【虚拟平台】 下载安装 Linux 内核更新包 wsl_update_x64.msi 设置默认版本为 WSL 2 1 wsl --set-default-version 2 安装 Linux 最]]></description>
-</item>
-<item>
-    <title>Windows11 优化</title>
-    <link>https://luzhifang.github.io/win11-optimization/</link>
-    <pubDate>Sat, 19 Mar 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/win11-optimization/</guid>
-    <description><![CDATA[关闭系统透明效果，设置 -&gt; 个性化 -&gt; 颜色 视觉效果调整为最佳性能，高级系统设置 -&gt; 性能 -&gt; 设置 -&gt; 调整为最佳性能 禁用游戏模式，设置 -&gt; 游戏 -&gt; 游戏模式 关闭启]]></description>
-</item>
-<item>
-    <title>Docker Compose</title>
-    <link>https://luzhifang.github.io/docker-compose/</link>
-    <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
-    <guid>https://luzhifang.github.io/docker-compose/</guid>
-    <description><![CDATA[Compose 简介 Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以]]></description>
+    <description><![CDATA[<h2 id="启用相关功能">启用相关功能</h2>
+<p>首先搜索【启用或关闭 Winsows 功能】</p>
+<p>然后勾选【适用于 linux 的 Windows 子系统】和【虚拟平台】</p>
+
+<h2 id="下载安装-linux-内核更新包">下载安装 Linux 内核更新包</h2>
+<p><a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" target="_blank" rel="noopener noreffer ">wsl_update_x64.msi</a></p>
+<h2 id="设置默认版本为-wsl-2">设置默认版本为 WSL 2</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wsl --set-default-version <span class="m">2</span></span></span></code></pre></div></div>
+<h2 id="安装-linux">安装 Linux</h2>
+<p>最后打开应用商店，选择你喜欢的 linux 分发版本安装。</p>]]></description>
 </item>
 </channel>
 </rss>

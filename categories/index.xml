@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 半生戎码</title>
+    <link>https://luzhifang.github.io/categories/</link>
+    <description>Recent content in Categories on 半生戎码</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://luzhifang.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git</title>
+      <link>https://luzhifang.github.io/categories/git/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/git/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>K8s</title>
+      <link>https://luzhifang.github.io/categories/k8s/</link>
+      <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/k8s/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>分布式</title>
+      <link>https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+      <pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mysql</title>
+      <link>https://luzhifang.github.io/categories/mysql/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/mysql/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>工具</title>
+      <link>https://luzhifang.github.io/categories/%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E5%B7%A5%E5%85%B7/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>https://luzhifang.github.io/categories/windows/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/windows/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://luzhifang.github.io/categories/docker/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go常用库</title>
+      <link>https://luzhifang.github.io/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/</link>
+      <pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://luzhifang.github.io/categories/linux/</link>
+      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Regexp</title>
+      <link>https://luzhifang.github.io/categories/regexp/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/regexp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>监控告警</title>
+      <link>https://luzhifang.github.io/categories/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>链路追踪</title>
+      <link>https://luzhifang.github.io/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/</link>
+      <pubDate>Wed, 28 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ELK</title>
+      <link>https://luzhifang.github.io/categories/elk/</link>
+      <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/elk/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go</title>
+      <link>https://luzhifang.github.io/categories/go/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>规范</title>
+      <link>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://luzhifang.github.io/categories/hugo/</link>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Node</title>
+      <link>https://luzhifang.github.io/categories/node/</link>
+      <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/node/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>API</title>
+      <link>https://luzhifang.github.io/categories/api/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/api/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RESTful</title>
+      <link>https://luzhifang.github.io/categories/restful/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/restful/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>消息队列</title>
+      <link>https://luzhifang.github.io/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kafka</title>
+      <link>https://luzhifang.github.io/categories/kafka/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/kafka/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markdown</title>
+      <link>https://luzhifang.github.io/categories/markdown/</link>
+      <pubDate>Mon, 05 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/markdown/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>微服务</title>
+      <link>https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>流程</title>
+      <link>https://luzhifang.github.io/categories/%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E6%B5%81%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>软件工程</title>
+      <link>https://luzhifang.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+      <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>敏捷</title>
+      <link>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</link>
+      <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>网络</title>
+      <link>https://luzhifang.github.io/categories/%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E7%BD%91%E7%BB%9C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>操作系统</title>
+      <link>https://luzhifang.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>https://luzhifang.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

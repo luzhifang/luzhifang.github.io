@@ -3,14 +3,40 @@
         <title>Kibana - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/kibana/</link>
         <description>Kibana - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Aug 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/kibana/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Aug 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/kibana/" rel="self" type="application/rss+xml" /><item>
     <title>Kibana</title>
     <link>https://luzhifang.github.io/kibana/</link>
     <pubDate>Mon, 03 Aug 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/kibana/</guid>
-    <description><![CDATA[简介 Kibana 可以为 Elasticsearch 提供一个可视化平台，将收集到的数据进行图形化展示。Kibana 7 开始默认支持中文，配图更为方便，推荐使用 安装 二进制安装 1 2 3 4]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>Kibana 可以为 Elasticsearch 提供一个可视化平台，将收集到的数据进行图形化展示。Kibana 7 开始默认支持中文，配图更为方便，推荐使用</p>
+<h2 id="安装">安装</h2>
+<ol>
+<li>二进制安装</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local
+</span></span><span class="line"><span class="cl">wget https://artifacts.elastic.co/downloads/kibana/kibana-7.17.6-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar zxvf kibana-7.17.6-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> kibana-7.17.6
+</span></span><span class="line"><span class="cl">./bin/kibana</span></span></code></pre></div></div>
+<ol start="2">
+<li>docker 方式安装</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">docker pull docker.elastic.co/kibana/kibana:7.17.6
+</span></span><span class="line"><span class="cl">docker run -p 5601:5601 docker.elastic.co/kibana/kibana:7.17.6</span></span></code></pre></div></div>
+<h2 id="配置">配置</h2>
+<p>Kibana 配置只需要修改主配置文件 config/kibana.yml 里的以下信息即可</p>]]></description>
 </item>
 </channel>
 </rss>

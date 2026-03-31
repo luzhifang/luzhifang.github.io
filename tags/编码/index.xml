@@ -3,14 +3,65 @@
         <title>编码 - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/</link>
         <description>编码 - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 02 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 02 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E7%BC%96%E7%A0%81/" rel="self" type="application/rss+xml" /><item>
     <title>Go编码规范</title>
     <link>https://luzhifang.github.io/go-code-style/</link>
     <pubDate>Tue, 02 Jun 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/go-code-style/</guid>
-    <description><![CDATA[1. 代码风格 1.1 代码格式 代码都必须用 gofmt 进行格式化。 运算符和操作数之间要留空格。 建议一行代码不超过 120 个字符，超过部分，请采用合适的换行方式换行。但]]></description>
+    <description><![CDATA[<h2 id="1-代码风格">1. 代码风格</h2>
+<h3 id="11-代码格式">1.1 代码格式</h3>
+<ul>
+<li>代码都必须用 <code>gofmt</code> 进行格式化。</li>
+<li>运算符和操作数之间要留空格。</li>
+<li>建议一行代码不超过 120 个字符，超过部分，请采用合适的换行方式换行。但也有些例外场景，例如 import 行、工具自动生成的代码、带 tag 的 struct 字段。</li>
+<li>文件长度不能超过 800 行。</li>
+<li>函数长度不能超过 80 行。</li>
+<li>import 规范
+<ul>
+<li>代码都必须用<code>goimports</code>进行格式化（建议将代码 Go 代码编辑器设置为：保存时运行 <code>goimports</code>）。</li>
+<li>不要使用相对路径引入包，例如 <code>import ../util/net</code> 。</li>
+<li>包名称与导入路径的最后一个目录名不匹配时，或者多个相同包名冲突时，则必须使用导入别名。</li>
+</ul>
+</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// bad</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;github.com/dgrijalva/jwt-go/v4&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="cp">//good</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">jwt</span><span class="w"> </span><span class="s">&#34;github.com/dgrijalva/jwt-go/v4&#34;</span></span></span></code></pre></div></div>
+<pre><code>- 导入的包建议进行分组，匿名包的引用使用一个新的分组，并对匿名包引用进行说明。
+</code></pre>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="w">	</span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// go 标准包</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 第三方包</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="s">&#34;github.com/jinzhu/gorm&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="s">&#34;github.com/spf13/cobra&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="s">&#34;github.com/spf13/viper&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 匿名包单独分组，并对匿名包引用进行说明</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="c1">// import mysql driver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="nx">_</span><span class="w"> </span><span class="s">&#34;github.com/jinzhu/gorm/dialects/mysql&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 内部包</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="nx">v1</span><span class="w"> </span><span class="s">&#34;github.com/marmotedu/api/apiserver/v1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="nx">metav1</span><span class="w"> </span><span class="s">&#34;github.com/marmotedu/apimachinery/pkg/meta/v1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	    </span><span class="s">&#34;github.com/marmotedu/iam/pkg/cli/genericclioptions&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">)</span></span></span></code></pre></div></div>
+<h3 id="12-声明初始化和定义">1.2 声明、初始化和定义</h3>
+<p>当函数中需要使用到多个变量时，可以在函数开始处使用<code>var</code>声明。在函数外部声明必须使用 <code>var</code> ，不要采用 <code>:=</code> ，容易踩到变量的作用域的问题。</p>]]></description>
 </item>
 </channel>
 </rss>

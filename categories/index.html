@@ -4,23 +4,38 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>所有分类 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Categories" />
-<meta property="og:description" content="Hugo theme - LoveIt" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://luzhifang.github.io/categories/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="og:site_name" content="LoveIt" />
+        <title>所有分类 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/categories/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="Categories">
+  <meta property="og:description" content="Hugo theme - LoveIt">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="Categories"/>
-<meta name="twitter:description" content="Hugo theme - LoveIt"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="Categories">
+  <meta name="twitter:description" content="Hugo theme - LoveIt">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/categories/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/categories/" /><link rel="alternate" href="/categories/index.xml" type="application/rss+xml" title="半生戎码">
+    <link rel="feed" href="/categories/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -31,16 +46,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item active" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -58,20 +73,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -81,366 +96,374 @@
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
                 <div class="container"><div class="page archive"><h2 class="single-title animate__animated animate__pulse animate__faster">所有分类</h2><div class="categories-card"><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/linux/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Linux
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/linux-grep-sed-awk/" class="archive-item-link">Linux 文本三剑客</a>
-                                </article><article class="archive-item">
-                                    <a href="/centos6.6-supervisor3.x/" class="archive-item-link">centos6.6安装supervisor3.x方法</a>
-                                </article><article class="archive-item">
-                                    <a href="/linux-ssh-kengen/" class="archive-item-link">Linux使用ssh-kengen生成公私钥和免密登录</a>
-                                </article><article class="archive-item">
-                                    <a href="/vi-editor/" class="archive-item-link">vi编辑器</a>
-                                </article><article class="archive-item">
-                                    <a href="/linux-perf-net/" class="archive-item-link">Linux性能优化-网络</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/linux/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E7%BD%91%E7%BB%9C/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;网络
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/net-perf/" class="archive-item-link">网络性能优化</a>
-                                </article><article class="archive-item">
-                                    <a href="/https/" class="archive-item-link">HTTPS</a>
-                                </article><article class="archive-item">
-                                    <a href="/http/" class="archive-item-link">HTTP</a>
-                                </article><article class="archive-item">
-                                    <a href="/udp/" class="archive-item-link">UDP</a>
-                                </article><article class="archive-item">
-                                    <a href="/ip/" class="archive-item-link">IP</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/%E7%BD%91%E7%BB%9C/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/elk/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;ELK
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/elasticsearch-install/" class="archive-item-link">Elasticsearch 安装</a>
-                                </article><article class="archive-item">
-                                    <a href="/elasticsearch-command/" class="archive-item-link">Elasticsearch 常用命令</a>
-                                </article><article class="archive-item">
-                                    <a href="/elasticsearch-perf/" class="archive-item-link">Elasticsearch 性能优化</a>
-                                </article><article class="archive-item">
-                                    <a href="/elasticsearch-conception/" class="archive-item-link">Elasticsearch 基本概念和原理</a>
-                                </article><article class="archive-item">
-                                    <a href="/kibana/" class="archive-item-link">Kibana</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/elk/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/go/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Go
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/go-project-layout/" class="archive-item-link">Go项目目录规范</a>
-                                </article><article class="archive-item">
-                                    <a href="/go-makefile/" class="archive-item-link">Go Makefile使用</a>
-                                </article><article class="archive-item">
-                                    <a href="/go-multi-version/" class="archive-item-link">Go多版本管理器</a>
-                                </article><article class="archive-item">
-                                    <a href="/go-command/" class="archive-item-link">Go命令详解</a>
-                                </article><article class="archive-item">
-                                    <a href="/go-mod/" class="archive-item-link">Go包管理</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/go/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;操作系统
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/os-io/" class="archive-item-link">IO</a>
-                                </article><article class="archive-item">
-                                    <a href="/process-thread-coroutine/" class="archive-item-link">进程线程协程的区别</a>
-                                </article><article class="archive-item">
-                                    <a href="/os-file-system/" class="archive-item-link">文件系统</a>
-                                </article><article class="archive-item">
-                                    <a href="/os-disk/" class="archive-item-link">磁盘</a>
-                                </article><article class="archive-item">
-                                    <a href="/os-memory/" class="archive-item-link">内存</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/docker/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;docker
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/docker-compose/" class="archive-item-link">Docker Compose</a>
-                                </article><article class="archive-item">
-                                    <a href="/dokcer-dockerfile/" class="archive-item-link">Docker Dockerfile</a>
-                                </article><article class="archive-item">
-                                    <a href="/docker-network-communications/" class="archive-item-link">Docker 网络互通</a>
-                                </article><article class="archive-item">
-                                    <a href="/docker-command/" class="archive-item-link">Docker 常用命令</a>
-                                </article><article class="archive-item">
-                                    <a href="/docker-implementation/" class="archive-item-link">Docker 实现原理</a>
-                                </article><span class="more-post">
-                                    <a href="/categories/docker/" class="more-single-link">更多 >></a>
-                                </span></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;微服务
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/grpc/" class="archive-item-link">Go 使用 gRPC</a>
-                                </article><article class="archive-item">
-                                    <a href="/ddd/" class="archive-item-link">DDD</a>
-                                </article><article class="archive-item">
-                                    <a href="/protobuf/" class="archive-item-link">Protocol Buffers 详解</a>
-                                </article><article class="archive-item">
-                                    <a href="/microservice/" class="archive-item-link">微服务</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E8%A7%84%E8%8C%83/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;规范
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/go-error/" class="archive-item-link">Go错误处理</a>
-                                </article><article class="archive-item">
-                                    <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
-                                </article><article class="archive-item">
-                                    <a href="/development-workflow/" class="archive-item-link">开发流程</a>
-                                </article><article class="archive-item">
-                                    <a href="/scrum/" class="archive-item-link">scrum</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E5%B7%A5%E5%85%B7/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;工具
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/goland-plugins/" class="archive-item-link">Goland 插件推荐</a>
-                                </article><article class="archive-item">
-                                    <a href="/idea-plugins/" class="archive-item-link">IDEA 插件推荐</a>
-                                </article><article class="archive-item">
-                                    <a href="/vscode-plugins/" class="archive-item-link">VSCODE 插件推荐</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;消息队列
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/message-queue-selection/" class="archive-item-link">消息队列选型</a>
-                                </article><article class="archive-item">
-                                    <a href="/kafka-config/" class="archive-item-link">kafka 配置参数详解</a>
-                                </article><article class="archive-item">
-                                    <a href="/kafka-quick-tour/" class="archive-item-link">kafka 快速入门</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;监控告警
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/grafana/" class="archive-item-link">Grafana</a>
-                                </article><article class="archive-item">
-                                    <a href="/alertmanager/" class="archive-item-link">Prometheus Alertmanager</a>
-                                </article><article class="archive-item">
-                                    <a href="/prometheus/" class="archive-item-link">Prometheus</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;链路追踪
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/jaeger/" class="archive-item-link">分布式链路追踪系列3-jaeger快速入门</a>
-                                </article><article class="archive-item">
-                                    <a href="/tracing-tech-selection/" class="archive-item-link">分布式链路追踪系列2-技术选型</a>
-                                </article><article class="archive-item">
-                                    <a href="/opentracing/" class="archive-item-link">分布式链路追踪系列1-OpenTracing 规范</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/git/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Git
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/gitlab-install/" class="archive-item-link">Gitlab Ubuntu 安装</a>
-                                </article><article class="archive-item">
-                                    <a href="/git-guide/" class="archive-item-link">Git使用指北</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/hugo/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;hugo
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/hugo-loveit-algolia/" class="archive-item-link">hugo添加Algolia搜索系统</a>
-                                </article><article class="archive-item">
-                                    <a href="/hugo-loveit/" class="archive-item-link">基于Hugo + Github Pages搭建LoveIt主题个人博客</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/k8s/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;k8s
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/k8s-install/" class="archive-item-link">k8s 安装</a>
-                                </article><article class="archive-item">
-                                    <a href="/etcd/" class="archive-item-link">etcd</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/kafka/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Kafka
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/kafka-config/" class="archive-item-link">kafka 配置参数详解</a>
-                                </article><article class="archive-item">
-                                    <a href="/kafka-quick-tour/" class="archive-item-link">kafka 快速入门</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/windows/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Windows
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/wsl/" class="archive-item-link">Windows11 安装 Linux 子系统</a>
-                                </article><article class="archive-item">
-                                    <a href="/win11-optimization/" class="archive-item-link">Windows11 优化</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/api/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;API
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Go常用库
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/go-logrus/" class="archive-item-link">Go常用库-logrus</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/markdown/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;markdown
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/markdown/" class="archive-item-link">Markdown指北</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/mysql/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;mysql
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/mysql-install/" class="archive-item-link">mysql 安装</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/node/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;Node
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/node-install-upgrade/" class="archive-item-link">Linux安装node和升级node</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/regexp/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;regexp
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/regexp/" class="archive-item-link">正则表达式</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/restful/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;RESTful
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;分布式
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/raft/" class="archive-item-link">Raft 协议</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E6%95%8F%E6%8D%B7/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;敏捷
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/scrum/" class="archive-item-link">scrum</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E6%B5%81%E7%A8%8B/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;流程
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/development-workflow/" class="archive-item-link">开发流程</a>
-                                </article></div>
-                    </div><div class="card-item">
-                        <div class="card-item-wrapper">
-                            <h3 class="card-item-title">
-                                <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
-                                    <i class="far fa-folder fa-fw" aria-hidden="true"></i>&nbsp;软件工程
-                                </a>
-                            </h3><article class="archive-item">
-                                    <a href="/software-life-cycle/" class="archive-item-link">软件生命周期之需求分析和软件设计</a>
-                                </article></div>
-                    </div></div></div></div>
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/linux/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Linux
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/linux-grep-sed-awk/" class="archive-item-link">Linux 文本三剑客</a>
+                            </article><article class="archive-item">
+                                <a href="/centos6.6-supervisor3.x/" class="archive-item-link">centos6.6安装supervisor3.x方法</a>
+                            </article><article class="archive-item">
+                                <a href="/linux-ssh-kengen/" class="archive-item-link">Linux使用ssh-kengen生成公私钥和免密登录</a>
+                            </article><article class="archive-item">
+                                <a href="/vi-editor/" class="archive-item-link">vi编辑器</a>
+                            </article><article class="archive-item">
+                                <a href="/linux-perf-net/" class="archive-item-link">Linux性能优化-网络</a>
+                            </article><span class="more-post">
+                                <a href="/categories/linux/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E7%BD%91%E7%BB%9C/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;网络
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/net-perf/" class="archive-item-link">网络性能优化</a>
+                            </article><article class="archive-item">
+                                <a href="/https/" class="archive-item-link">HTTPS</a>
+                            </article><article class="archive-item">
+                                <a href="/http/" class="archive-item-link">HTTP</a>
+                            </article><article class="archive-item">
+                                <a href="/udp/" class="archive-item-link">UDP</a>
+                            </article><article class="archive-item">
+                                <a href="/ip/" class="archive-item-link">IP</a>
+                            </article><span class="more-post">
+                                <a href="/categories/%E7%BD%91%E7%BB%9C/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/elk/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;ELK
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/elasticsearch-install/" class="archive-item-link">Elasticsearch 安装</a>
+                            </article><article class="archive-item">
+                                <a href="/elasticsearch-command/" class="archive-item-link">Elasticsearch 常用命令</a>
+                            </article><article class="archive-item">
+                                <a href="/elasticsearch-perf/" class="archive-item-link">Elasticsearch 性能优化</a>
+                            </article><article class="archive-item">
+                                <a href="/elasticsearch-conception/" class="archive-item-link">Elasticsearch 基本概念和原理</a>
+                            </article><article class="archive-item">
+                                <a href="/kibana/" class="archive-item-link">Kibana</a>
+                            </article><span class="more-post">
+                                <a href="/categories/elk/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/go/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Go
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/go-project-layout/" class="archive-item-link">Go项目目录规范</a>
+                            </article><article class="archive-item">
+                                <a href="/go-makefile/" class="archive-item-link">Go Makefile使用</a>
+                            </article><article class="archive-item">
+                                <a href="/go-multi-version/" class="archive-item-link">Go多版本管理器</a>
+                            </article><article class="archive-item">
+                                <a href="/go-command/" class="archive-item-link">Go命令详解</a>
+                            </article><article class="archive-item">
+                                <a href="/go-mod/" class="archive-item-link">Go包管理</a>
+                            </article><span class="more-post">
+                                <a href="/categories/go/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;操作系统
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/os-io/" class="archive-item-link">IO</a>
+                            </article><article class="archive-item">
+                                <a href="/process-thread-coroutine/" class="archive-item-link">进程线程协程的区别</a>
+                            </article><article class="archive-item">
+                                <a href="/os-file-system/" class="archive-item-link">文件系统</a>
+                            </article><article class="archive-item">
+                                <a href="/os-disk/" class="archive-item-link">磁盘</a>
+                            </article><article class="archive-item">
+                                <a href="/os-memory/" class="archive-item-link">内存</a>
+                            </article><span class="more-post">
+                                <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/docker/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Docker
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/docker-compose/" class="archive-item-link">Docker Compose</a>
+                            </article><article class="archive-item">
+                                <a href="/dokcer-dockerfile/" class="archive-item-link">Docker Dockerfile</a>
+                            </article><article class="archive-item">
+                                <a href="/docker-network-communications/" class="archive-item-link">Docker 网络互通</a>
+                            </article><article class="archive-item">
+                                <a href="/docker-command/" class="archive-item-link">Docker 常用命令</a>
+                            </article><article class="archive-item">
+                                <a href="/docker-implementation/" class="archive-item-link">Docker 实现原理</a>
+                            </article><span class="more-post">
+                                <a href="/categories/docker/" class="more-single-link">更多 >></a>
+                            </span></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/git/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Git
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/git-multi-ssh-key/" class="archive-item-link">Git多账号SSH Key配置</a>
+                            </article><article class="archive-item">
+                                <a href="/gitlab-domain-migration/" class="archive-item-link">GitLab 更换域名 + HTTPS 切换 HTTP 踩坑实录</a>
+                            </article><article class="archive-item">
+                                <a href="/gitlab-install/" class="archive-item-link">Gitlab Ubuntu 安装</a>
+                            </article><article class="archive-item">
+                                <a href="/git-guide/" class="archive-item-link">Git使用指北</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;微服务
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/grpc/" class="archive-item-link">Go 使用 gRPC</a>
+                            </article><article class="archive-item">
+                                <a href="/ddd/" class="archive-item-link">DDD</a>
+                            </article><article class="archive-item">
+                                <a href="/protobuf/" class="archive-item-link">Protocol Buffers 详解</a>
+                            </article><article class="archive-item">
+                                <a href="/microservice/" class="archive-item-link">微服务</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E8%A7%84%E8%8C%83/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;规范
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/go-error/" class="archive-item-link">Go错误处理</a>
+                            </article><article class="archive-item">
+                                <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
+                            </article><article class="archive-item">
+                                <a href="/development-workflow/" class="archive-item-link">开发流程</a>
+                            </article><article class="archive-item">
+                                <a href="/scrum/" class="archive-item-link">scrum</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;工具
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/goland-plugins/" class="archive-item-link">Goland 插件推荐</a>
+                            </article><article class="archive-item">
+                                <a href="/idea-plugins/" class="archive-item-link">IDEA 插件推荐</a>
+                            </article><article class="archive-item">
+                                <a href="/vscode-plugins/" class="archive-item-link">VSCODE 插件推荐</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;消息队列
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/message-queue-selection/" class="archive-item-link">消息队列选型</a>
+                            </article><article class="archive-item">
+                                <a href="/kafka-config/" class="archive-item-link">kafka 配置参数详解</a>
+                            </article><article class="archive-item">
+                                <a href="/kafka-quick-tour/" class="archive-item-link">kafka 快速入门</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;监控告警
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/grafana/" class="archive-item-link">Grafana</a>
+                            </article><article class="archive-item">
+                                <a href="/alertmanager/" class="archive-item-link">Prometheus Alertmanager</a>
+                            </article><article class="archive-item">
+                                <a href="/prometheus/" class="archive-item-link">Prometheus</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;链路追踪
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/jaeger/" class="archive-item-link">分布式链路追踪系列3-jaeger快速入门</a>
+                            </article><article class="archive-item">
+                                <a href="/tracing-tech-selection/" class="archive-item-link">分布式链路追踪系列2-技术选型</a>
+                            </article><article class="archive-item">
+                                <a href="/opentracing/" class="archive-item-link">分布式链路追踪系列1-OpenTracing 规范</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/hugo/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Hugo
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/hugo-loveit-algolia/" class="archive-item-link">hugo添加Algolia搜索系统</a>
+                            </article><article class="archive-item">
+                                <a href="/hugo-loveit/" class="archive-item-link">基于Hugo + Github Pages搭建LoveIt主题个人博客</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/k8s/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;K8s
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/k8s-install/" class="archive-item-link">k8s 安装</a>
+                            </article><article class="archive-item">
+                                <a href="/etcd/" class="archive-item-link">etcd</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/kafka/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Kafka
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/kafka-config/" class="archive-item-link">kafka 配置参数详解</a>
+                            </article><article class="archive-item">
+                                <a href="/kafka-quick-tour/" class="archive-item-link">kafka 快速入门</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/windows/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Windows
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/wsl/" class="archive-item-link">Windows11 安装 Linux 子系统</a>
+                            </article><article class="archive-item">
+                                <a href="/win11-optimization/" class="archive-item-link">Windows11 优化</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/api/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;API
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Go常用库
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/go-logrus/" class="archive-item-link">Go常用库-logrus</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/markdown/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Markdown
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/markdown/" class="archive-item-link">Markdown指北</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/mysql/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Mysql
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/mysql-install/" class="archive-item-link">mysql 安装</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/node/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Node
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/node-install-upgrade/" class="archive-item-link">Linux安装node和升级node</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/regexp/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;Regexp
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/regexp/" class="archive-item-link">正则表达式</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/restful/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;RESTful
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/restful/" class="archive-item-link">RESTful API 设计规范</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;分布式
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/raft/" class="archive-item-link">Raft 协议</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E6%95%8F%E6%8D%B7/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;敏捷
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/scrum/" class="archive-item-link">scrum</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E6%B5%81%E7%A8%8B/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;流程
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/development-workflow/" class="archive-item-link">开发流程</a>
+                            </article></div>
+                </div><div class="card-item">
+                    <div class="card-item-wrapper">
+                        <h3 class="card-item-title">
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+                                <i class="far fa-folder" aria-hidden="true"></i>&nbsp;软件工程
+                            </a>
+                        </h3><article class="archive-item">
+                                <a href="/software-life-cycle/" class="archive-item-link">软件生命周期之需求分析和软件设计</a>
+                            </article></div>
+                </div></div>
+    </div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
 </html>

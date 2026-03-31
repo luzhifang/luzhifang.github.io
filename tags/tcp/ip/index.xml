@@ -3,14 +3,14 @@
         <title>TCP/IP - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/tcp/ip/</link>
         <description>TCP/IP - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="https://luzhifang.github.io/tags/tcp/ip/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 16 Aug 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/tcp/ip/" rel="self" type="application/rss+xml" /><item>
     <title>网络总结</title>
     <link>https://luzhifang.github.io/summary-of-network-/</link>
     <pubDate>Thu, 16 Aug 2018 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/summary-of-network-/</guid>
-    <description><![CDATA[网络层次划分 为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在 1978 年提出了&quot;]]></description>
+    <description><![CDATA[<h2 id="网络层次划分">网络层次划分</h2>
+<p>为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在 1978 年提出了&quot;开放系统互联参考模型&quot;，即著名的 OSI/RM 模型（Open System Interconnection/Reference Model）。</p>]]></description>
 </item>
 </channel>
 </rss>

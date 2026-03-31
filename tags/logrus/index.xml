@@ -1,16 +1,49 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>logrus - 标签 - 半生戎码</title>
+        <title>Logrus - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/logrus/</link>
-        <description>logrus - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 06 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/logrus/" rel="self" type="application/rss+xml" /><item>
+        <description>Logrus - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 06 Jun 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/logrus/" rel="self" type="application/rss+xml" /><item>
     <title>Go常用库-logrus</title>
     <link>https://luzhifang.github.io/go-logrus/</link>
     <pubDate>Sun, 06 Jun 2021 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/go-logrus/</guid>
-    <description><![CDATA[简介 logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。 它有以下特点： 完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning,]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。</p>
+<p>它有以下特点：</p>
+<ul>
+<li>完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。</li>
+<li>可扩展的 Hook 机制，允许使用者通过 Hook 的方式将日志分发到任意地方，如本地文件系统，logstash，elasticsearch 或者 mq 等，或者通过 Hook 定义日志内容和格式等</li>
+<li>可选的日志输出格式，内置了两种日志格式 JSONFormater 和 TextFormatter，还可以自定义日志格式</li>
+<li>Field 机制，通过 Filed 机制进行结构化的日志记录</li>
+<li>线程安全</li>
+</ul>
+<h2 id="安装">安装</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">go get github.com/sirupsen/logrus</span></span></code></pre></div></div>
+<h2 id="简单示例">简单示例</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Go">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="w"> </span><span class="s">&#34;github.com/sirupsen/logrus&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="p">.</span><span class="nf">WithFields</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fields</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;animal&#34;</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;walrus&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}).</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;a walrus appears&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>输出：</p>]]></description>
 </item>
 </channel>
 </rss>

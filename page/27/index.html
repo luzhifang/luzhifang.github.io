@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.104.3" />
+	<meta name="generator" content="Hugo 0.160.0-DEV">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="半生戎码" />
-<meta property="og:description" content="Hugo theme - LoveIt" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://luzhifang.github.io/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="og:site_name" content="LoveIt" />
+        <title>半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="半生戎码">
+  <meta property="og:description" content="Hugo theme - LoveIt">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="半生戎码"/>
-<meta name="twitter:description" content="Hugo theme - LoveIt"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="半生戎码">
+  <meta name="twitter:description" content="Hugo theme - LoveIt">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="半生戎码">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="半生戎码"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
         "url": "https:\/\/luzhifang.github.io\/","inLanguage": "zh-CN","author": {
                 "@type": "Person",
-                "name": "luzhifang"
+                "name": "xxxx"
             },"description": "Hugo theme - LoveIt","image": "https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png","thumbnailUrl": "https:\/\/luzhifang.github.io\/images\/screenshot.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "半生戎码"
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -42,16 +56,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -69,20 +83,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -98,17 +112,159 @@
         data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
         data-sizes="auto"
         alt="/images/avatar.png"
-        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
+        title="/images/avatar.png" /></a></div><h1 class="home-title">半生戎码</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/luzhifang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github" aria-hidden="true"></i></a><a href="mailto:54luzhifang@gmail.com" title="Email" rel="me"><i class="far fa-envelope" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/grpc/">Go 使用 gRPC</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-02-18">2019-02-18</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div><div class="content">简介 gRPC 是一个高性能、通用的开源 RPC 框架，其由 Google 主要面向移动应用开发并基于 HTTP/2 协议标准而设计，基于 ProtoBuf(Protocol Buffers) 序列化协议开发，且支持众多开发语言。 gRPC 基于 HTTP/2</div><div class="post-footer">
-        <a href="/grpc/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/grpc/">gRPC</a></div></div>
+        <a href="/markdown/">Markdown指北</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-05">2019-08-05</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/markdown/"><i class="far fa-folder" aria-hidden="true"></i>Markdown</a></span></div><div class="content"><h2 id="markdown-简介">Markdown 简介</h2>
+<ul>
+<li>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。</li>
+<li>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。</li>
+<li>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。</li>
+<li>Markdown 编写的文档后缀为 .md, .markdown。</li>
+</ul>
+<h2 id="markdown-应用">Markdown 应用</h2>
+<ul>
+<li>Markdown 能被使用来撰写电子书，如：Gitbook。</li>
+<li>当前许多网站都广泛使用 Markdown 来撰写帮助文档或是用于论坛上发表消息。例如：GitHub、简书、reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge 等。</li>
+</ul>
+<h2 id="markdown-编辑器">Markdown 编辑器</h2>
+<ul>
+<li>Typora 编辑器：Typora 支持 MacOS 、Windows、Linux 平台，且包含多种主题，编辑后直接渲染出效果。支持导出 HTML、PDF、Word、图片等多种类型文件。
+官网：https://typora.io/</li>
+<li>在线编辑器</li>
+<li>其他的文本编辑器(例：VSCODE + 插件)，IDE(idea + 插件)</li>
+</ul>
+<h2 id="markdown-标题">Markdown 标题</h2>
+<ol>
+<li>使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl"><span class="gh"># 一级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">## 二级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">### 三级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">#### 四级标题
+</span></span></span><span class="line"><span class="cl"><span class="gu">##### 五级标题
+</span></span></span><span class="line"><span class="cl">###### 六级标题</span></span></code></pre></div></div>
+<h2 id="markdown-换行和段落">Markdown 换行和段落</h2>
+<ol>
+<li>段落的换行是使用两个以上空格加上回车</li>
+<li>在段落后面使用一个空行来表示重新开始一个段落</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落段落
+</span></span><span class="line"><span class="cl">段落
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">段落</span></span></code></pre></div></div>
+<h2 id="markdown-字体样式">Markdown 字体样式</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">_斜体文本_
+</span></span><span class="line"><span class="cl"><span class="ge">_斜体文本_</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**粗体文本**</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**粗体文本**</span>
+</span></span><span class="line"><span class="cl"><span class="gs">**_粗斜体文本_**</span>
+</span></span><span class="line"><span class="cl">**_粗斜体文本_**</span></span></code></pre></div></div>
+<p><em>斜体文本</em>
+<em>斜体文本</em>
+<strong>粗体文本</strong>
+<strong>粗体文本</strong>
+<strong><em>粗斜体文本</em></strong>
+<strong><em>粗斜体文本</em></strong></p></div><div class="post-footer">
+        <a href="/markdown/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/markdown/">Markdown</a>,&nbsp;<a href="/tags/vi/">Vi</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/ddd/">DDD</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-02-16">2019-02-16</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>微服务</a></span></div><div class="content">基本概念 aggregate （聚合）：聚合就是一组相关对象的集合，我们把聚合作为数据修改的单元。外部对象只能引用聚合中的一个成员，我们把它称为根。在聚合的边界</div><div class="post-footer">
-        <a href="/ddd/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>,&nbsp;<a href="/tags/ddd/">DDD</a></div></div>
+        <a href="/vi-editor/">vi编辑器</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-06-05">2019-06-05</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div><div class="content"><h2 id="1-vi-和-vim-的区别">1. vi 和 vim 的区别</h2>
+<ol>
+<li>vim 是进阶版的 vi</li>
+<li>vim 不但可以用不同颜色显示文字内容</li>
+<li>vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器</li>
+</ol>
+<h2 id="2-vi-编辑器的三种模式">2. vi 编辑器的三种模式</h2>
+<h3 id="21-一般指令模式">2.1. 一般指令模式</h3>
+<ol>
+<li>使用 <code>vi[m] filename</code> 进入一般指令模式</li>
+<li>在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。</li>
+<li>快捷键
+<ol>
+<li>h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行</li>
+<li>Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页</li>
+<li>n+space 光标处向后移动 n 个字符</li>
+<li>0/Home 键移至行首，$/End 键移至行尾</li>
+<li>H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行</li>
+<li>G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G</li>
+<li>n+backspace 键退格几个字符</li>
+<li>n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首</li>
+<li>n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首</li>
+<li>p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴</li>
+<li>J 将光标所在列与下一列的数据结合成同一列</li>
+<li>u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作</li>
+</ol>
+</li>
+</ol>
+<h3 id="22-编辑模式">2.2 编辑模式</h3>
+<ol>
+<li>i 光标处插入，I 该行第一个非空白字符处插入</li>
+<li>a 光标所在的下一个字符处插入，A 该行最后一个字符处插入</li>
+<li>o 光标处向下插入空行，O 光标处向上插入空行</li>
+<li>r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止</li>
+<li>ESC 退出编辑模式</li>
+</ol>
+<h3 id="23-命令行命令模式">2.3. 命令行命令模式</h3>
+<ol>
+<li>在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列</li>
+<li>提供查找、存盘、替换、离开 vi 、显示行号等等的</li>
+<li>快捷键
+<ol>
+<li>/word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反</li>
+<li>:n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2</li>
+<li>:1,$s/word1/word2/g 替换所有行</li>
+<li>:1,$s/word1/word2/gc 二次确认替换</li>
+<li>:w 写入，:w!强制写入</li>
+<li>:q 退出，:q!强制退出</li>
+<li>:wq 保存后离开，:wq!强制保存后离开</li>
+<li>ZZ 文件无修改不保存退出，文件有修改保存后退出</li>
+<li>:w filename 另存为，:r filename 读入文件数据</li>
+<li>:n1,n2 w filename 将 n1 到 n2 行另存为</li>
+<li>:! [shell command] 暂时离开，可接命令</li>
+<li>:set nu 显示行号，:set nonu 取消行号</li>
+</ol>
+</li>
+</ol>
+<h2 id="3-区块选择">3. 区块选择</h2>
+<ol>
+<li>v 字符选择，V 行选择</li>
+<li>Ctrl+v 方块选择</li>
+<li>y 将选中地方复制</li>
+<li>d 将选中地方删除</li>
+<li>p 将选中地方在光标处粘贴</li>
+</ol>
+<h2 id="4-多窗口编辑">4. 多窗口编辑</h2>
+<ol>
+<li>:sp [filename] 打开一个新窗口</li>
+<li>Ctrl+w+[j/↓]移动到下一个窗口</li>
+<li>Ctrl+w+[k/↑]移动到下一个窗口</li>
+<li>Ctrl+w+q 关闭当前窗口，同:q</li>
+</ol>
+<h2 id="5-多文件编辑">5. 多文件编辑</h2>
+<ol>
+<li>vi[m] filename1 filename2… 编辑多个文件</li>
+<li>:n 编辑下一个文件，:N 编辑上一个文件</li>
+<li>:files 列出所有编辑的文件</li>
+</ol></div><div class="post-footer">
+        <a href="/vi-editor/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/vi/">Vi</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -139,19 +295,22 @@
                     <span class="page-link" aria-hidden="true">&hellip;</span>
                 </li><li class="page-item ">
                     <span class="page-link">
-                        <a href="/page/39/">39</a>
+                        <a href="/page/40/">40</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script>window.config={"data":{"id-1":"码养成"},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script src="/js/theme.js"></script></body>
 </html>

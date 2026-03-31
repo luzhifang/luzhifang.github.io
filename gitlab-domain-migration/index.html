@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/gitlab-domain-migration/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录">
+  <meta property="og:description" content="背景 需要将自建 GitLab Omnibus 从 HTTPS 迁移到 HTTP，同时更换域名和端口。整体架构为：
+浏览器 → CDN(:8080) → 反向代理 Nginx(:80) → GitLab 服务器(:8080) 项目 旧值 新值 域名 git.old-domain.com git.new-domain.com 协议 HTTPS HTTP 端口 8443 8080 GitLab 配置修改 编辑 /etc/gitlab/gitlab.rb：">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-03-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-27T00:00:00+00:00">
+    <meta property="article:tag" content="Git">
+    <meta property="article:tag" content="Gitlab">
+    <meta property="article:tag" content="Nginx">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录">
+  <meta name="twitter:description" content="背景 需要将自建 GitLab Omnibus 从 HTTPS 迁移到 HTTP，同时更换域名和端口。整体架构为：
+浏览器 → CDN(:8080) → 反向代理 Nginx(:80) → GitLab 服务器(:8080) 项目 旧值 新值 域名 git.old-domain.com git.new-domain.com 协议 HTTPS HTTP 端口 8443 8080 GitLab 配置修改 编辑 /etc/gitlab/gitlab.rb：">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/gitlab-domain-migration/" /><link rel="prev" href="https://luzhifang.github.io/k8s-install/" /><link rel="next" href="https://luzhifang.github.io/git-multi-ssh-key/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GitLab 更换域名 + HTTPS 切换 HTTP 踩坑实录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luzhifang.github.io\/gitlab-domain-migration\/"
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Git, Gitlab, Nginx","wordcount":  1156 ,
+        "url": "https:\/\/luzhifang.github.io\/gitlab-domain-migration\/","datePublished": "2026-03-27T00:00:00+00:00","dateModified": "2026-03-27T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Jeff"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">GitLab 更换域名 + HTTPS 切换 HTTP 踩坑实录</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder" aria-hidden="true"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2026-03-27">2026-03-27</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1156 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#gitlab-配置修改">GitLab 配置修改</a></li>
+    <li><a href="#踩坑记录">踩坑记录</a>
+      <ul>
+        <li><a href="#坑一puma-和-nginx-端口冲突502">坑一：Puma 和 Nginx 端口冲突（502）</a></li>
+        <li><a href="#坑二残留的-proxy_set_headers-导致-https-跳转">坑二：残留的 proxy_set_headers 导致 HTTPS 跳转</a></li>
+        <li><a href="#坑三反向代理端口丢失">坑三：反向代理端口丢失</a></li>
+      </ul>
+    </li>
+    <li><a href="#cdn-配置">CDN 配置</a></li>
+    <li><a href="#排查命令速查">排查命令速查</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="背景">背景</h2>
+<p>需要将自建 GitLab Omnibus 从 HTTPS 迁移到 HTTP，同时更换域名和端口。整体架构为：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">浏览器 → CDN(:8080) → 反向代理 Nginx(:80) → GitLab 服务器(:8080)</span></span></code></pre></div></div>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>旧值</th>
+          <th>新值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>域名</td>
+          <td>git.old-domain.com</td>
+          <td>git.new-domain.com</td>
+      </tr>
+      <tr>
+          <td>协议</td>
+          <td>HTTPS</td>
+          <td>HTTP</td>
+      </tr>
+      <tr>
+          <td>端口</td>
+          <td>8443</td>
+          <td>8080</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="gitlab-配置修改">GitLab 配置修改</h2>
+<p>编辑 <code>/etc/gitlab/gitlab.rb</code>：</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-ruby">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="n">external_url</span> <span class="s1">&#39;http://git.new-domain.com:8080&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Puma 端口必须避开 nginx 的 8080（见下方踩坑）</span>
+</span></span><span class="line"><span class="cl"><span class="n">puma</span><span class="o">[</span><span class="s1">&#39;port&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="mi">8181</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Nginx 配置</span>
+</span></span><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;listen_port&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="mi">8080</span>
+</span></span><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;listen_https&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;redirect_http_to_https&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;ssl_certificate&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;ssl_certificate_key&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭 Let&#39;s Encrypt</span>
+</span></span><span class="line"><span class="cl"><span class="n">letsencrypt</span><span class="o">[</span><span class="s1">&#39;enable&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">letsencrypt</span><span class="o">[</span><span class="s1">&#39;auto_renew&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span></span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo gitlab-ctl reconfigure
+</span></span><span class="line"><span class="cl">sudo gitlab-ctl restart</span></span></code></pre></div></div>
+<h2 id="踩坑记录">踩坑记录</h2>
+<h3 id="坑一puma-和-nginx-端口冲突502">坑一：Puma 和 Nginx 端口冲突（502）</h3>
+<p><strong>现象</strong>：<code>gitlab-ctl status</code> 显示 Puma 不断重启（pid 显示 0s），所有请求返回 502 Bad Gateway。</p>
+<p><strong>原因</strong>：当 <code>external_url</code> 使用非标准端口时，Puma 默认也会尝试绑定该端口的 TCP 监听。如果 Nginx 也监听同一端口，Puma 绑定失败后整个进程崩溃。</p>
+<p><strong>关键日志</strong>（<code>/var/log/gitlab/puma/current</code>）：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Address already in use - bind(2) for &#34;127.0.0.1&#34; port 8080 (Errno::EADDRINUSE)</span></span></code></pre></div></div>
+<p>而 Workhorse 日志（<code>/var/log/gitlab/gitlab-workhorse/current</code>）会显示：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">badgateway</span><span class="p">:</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">receive</span> <span class="n">response</span><span class="p">:</span> <span class="n">dial</span> <span class="n">unix</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">gitlab</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">rails</span><span class="o">/</span><span class="n">sockets</span><span class="o">/</span><span class="n">gitlab</span><span class="o">.</span><span class="n">socket</span><span class="p">:</span> <span class="n">connect</span><span class="p">:</span> <span class="n">connection</span> <span class="n">refused</span></span></span></code></pre></div></div>
+<p>Puma 的 unix socket 绑定成功后，在绑定 TCP 端口时失败，导致整个进程退出，socket 随之消失。</p>
+<p><strong>修复</strong>：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-ruby">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="n">puma</span><span class="o">[</span><span class="s1">&#39;port&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="mi">8181</span>  <span class="c1"># 改成任意未占用的端口</span></span></span></code></pre></div></div>
+<h3 id="坑二残留的-proxy_set_headers-导致-https-跳转">坑二：残留的 proxy_set_headers 导致 HTTPS 跳转</h3>
+<p><strong>现象</strong>：<code>curl -I http://localhost:8080</code> 返回 302，Location 是 <code>https://</code> 开头。</p>
+<p><strong>原因</strong>：旧配置中有一段硬编码的 proxy headers：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-ruby">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="n">nginx</span><span class="o">[</span><span class="s1">&#39;proxy_set_headers&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;X-Forwarded-Proto&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;https&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;X-Forwarded-Ssl&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;on&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>即使把 <code>X-Forwarded-Proto</code> 改成 <code>http</code>，只要 <code>X-Forwarded-Ssl</code> 仍为 <code>on</code>，GitLab Rails 仍会生成 HTTPS 链接。<strong><code>X-Forwarded-Ssl</code> 的优先级高于 <code>X-Forwarded-Proto</code></strong>。</p>
+<p><strong>修复</strong>：注释掉整个 <code>proxy_set_headers</code> 块，让前端反代自行传入。</p>
+<h3 id="坑三反向代理端口丢失">坑三：反向代理端口丢失</h3>
+<p><strong>现象</strong>：访问 <code>http://git.new-domain.com:8080</code> 跳转到 <code>http://git.new-domain.com/users/sign_in</code>（端口丢失）。</p>
+<p><strong>原因</strong>：反代 Nginx 配置中 <code>Host</code> 设成了内网 IP，<code>X-Forwarded-Port</code> 用的是 <code>$server_port</code>（=80 而非 8080），且缺少 <code>proxy_redirect</code> 指令。</p>
+<p><strong>修复</strong>：反代 Nginx 的关键配置：</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-nginx">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">location</span> <span class="s">^~</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_pass</span> <span class="s">http://10.0.0.100:8080</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1. Host 必须是域名+端口
+</span></span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="n">git.new-domain.com</span><span class="p">:</span><span class="mi">8080</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 2. X-Forwarded-Port 写死为外部端口
+</span></span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Port</span> <span class="mi">8080</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 3. proxy_redirect 改写 Location header，补回端口
+</span></span></span><span class="line"><span class="cl">    <span class="kn">proxy_redirect</span> <span class="s">http://git.new-domain.com/</span> <span class="s">http://git.new-domain.com:8080/</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Host</span> <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h2 id="cdn-配置">CDN 配置</h2>
+<p>如果使用 Cloudflare 等 CDN 代理：</p>
+<ul>
+<li>Cloudflare 支持代理 HTTP 8080 端口</li>
+<li>SSL/TLS 模式须设为 <strong>Flexible</strong>（CDN → 源站走 HTTP）</li>
+<li>若设为 Full，CDN 会用 HTTPS 回源，源站是 HTTP 会返回 502</li>
+</ul>
+<h2 id="排查命令速查">排查命令速查</h2>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 服务状态</span>
+</span></span><span class="line"><span class="cl">sudo gitlab-ctl status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 本地测试</span>
+</span></span><span class="line"><span class="cl">curl -I http://localhost:8080
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 端口监听</span>
+</span></span><span class="line"><span class="cl">ss -tlnp <span class="p">|</span> grep <span class="m">8080</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Puma 日志（最关键）</span>
+</span></span><span class="line"><span class="cl">tail -50 /var/log/gitlab/puma/current
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Workhorse 日志</span>
+</span></span><span class="line"><span class="cl">tail -20 /var/log/gitlab/gitlab-workhorse/current
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Nginx 错误日志</span>
+</span></span><span class="line"><span class="cl">tail -20 /var/log/gitlab/nginx/gitlab_error.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 内存和 OOM</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl">dmesg <span class="p">|</span> grep -i <span class="s2">&#34;oom\|killed&#34;</span> <span class="p">|</span> tail -20</span></span></code></pre></div></div>
+<h2 id="总结">总结</h2>
+<ol>
+<li><strong><code>external_url</code> 的端口会连带影响 Puma</strong>：非标准端口时必须手动设置 <code>puma['port']</code> 避开冲突</li>
+<li><strong><code>X-Forwarded-Ssl: on</code> 优先级高于 <code>X-Forwarded-Proto</code></strong>：切换协议时两者都要改</li>
+<li><strong>反代 Host header 必须传域名+端口</strong>：传内网 IP 会导致 GitLab 生成错误的链接</li>
+<li><strong><code>proxy_redirect</code> 不可少</strong>：反代监听端口与外部访问端口不一致时，需要它改写 Location header</li>
+<li><strong>CDN SSL 模式必须匹配源站协议</strong>：HTTP 源站对应 Flexible，HTTPS 源站对应 Full</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-03-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录" data-hashtags="Git,Gitlab,Nginx"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-hashtag="Git"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/gitlab-domain-migration/" data-title="GitLab 更换域名 &#43; HTTPS 切换 HTTP 踩坑实录" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fgitlab-domain-migration%2f&amp;text=GitLab%20%e6%9b%b4%e6%8d%a2%e5%9f%9f%e5%90%8d%20%2b%20HTTPS%20%e5%88%87%e6%8d%a2%20HTTP%20%e8%b8%a9%e5%9d%91%e5%ae%9e%e5%bd%95" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/gitlab/">Gitlab</a>,&nbsp;<a href="/tags/nginx/">Nginx</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/k8s-install/" class="prev" rel="prev" title="k8s 安装"><i class="fas fa-angle-left" aria-hidden="true"></i>k8s 安装</a>
+            <a href="/git-multi-ssh-key/" class="next" rel="next" title="Git多账号SSH Key配置">Git多账号SSH Key配置<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
+</html>

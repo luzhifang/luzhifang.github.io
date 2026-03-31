@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>多账号 - 标签 - 半生戎码</title>
+        <link>https://luzhifang.github.io/tags/%E5%A4%9A%E8%B4%A6%E5%8F%B7/</link>
+        <description>多账号 - 标签 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 Mar 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/%E5%A4%9A%E8%B4%A6%E5%8F%B7/" rel="self" type="application/rss+xml" /><item>
+    <title>Git多账号SSH Key配置</title>
+    <link>https://luzhifang.github.io/git-multi-ssh-key/</link>
+    <pubDate>Tue, 31 Mar 2026 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>https://luzhifang.github.io/git-multi-ssh-key/</guid>
+    <description><![CDATA[<h2 id="背景">背景</h2>
+<p>GitHub/GitLab 等平台不允许同一个 SSH 公钥绑定到多个账号。当你有多个账号（比如个人账号和工作账号）需要在同一台机器上使用 SSH 免密拉取代码时，就需要为每个账号生成独立的 SSH 密钥，并通过 <code>~/.ssh/config</code> 区分。</p>]]></description>
+</item>
+</channel>
+</rss>

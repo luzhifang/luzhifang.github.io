@@ -3,14 +3,89 @@
         <title>CPU - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/cpu/</link>
         <description>CPU - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/cpu/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/cpu/" rel="self" type="application/rss+xml" /><item>
     <title>Linux性能优化-CPU</title>
     <link>https://luzhifang.github.io/linux-perf-cpu/</link>
     <pubDate>Sat, 26 Jan 2019 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/linux-perf-cpu/</guid>
-    <description><![CDATA[各种延时 CPU 性能指标 CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU]]></description>
+    <description><![CDATA[<h2 id="各种延时">各种延时</h2>
+
+<h2 id="cpu-性能指标">CPU 性能指标</h2>
+<ol>
+<li>CPU 使用率
+<ol>
+<li>用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙.</li>
+<li>系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙.</li>
+<li>等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长.</li>
+<li>软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断.</li>
+<li>steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比.</li>
+</ol>
+</li>
+<li>平均负载
+<ol>
+<li>理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重.</li>
+</ol>
+</li>
+<li>进程上下文切换
+<ol>
+<li>包括无法获取资源的自愿切换和系统强制调度时的非自愿切换.</li>
+<li>上下文切换本身是保证 Linux 正常运行的一项核心功能.</li>
+<li>过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上</li>
+</ol>
+</li>
+<li>CPU 缓存命中率
+<ol>
+<li>CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中</li>
+</ol>
+</li>
+</ol>
+<h2 id="性能工具">性能工具</h2>
+<ol>
+<li>平均负载案例
+<ol>
+<li>先用 uptime 查看系统平均负载</li>
+<li>判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程.</li>
+</ol>
+</li>
+<li>上下文切换案例
+<ol>
+<li>先用 vmstat 查看系统上下文切换和中断次数</li>
+<li>再用 pidstat 观察进程的自愿和非自愿上下文切换情况</li>
+<li>最后通过 pidstat 观察线程的上下文切换情况</li>
+</ol>
+</li>
+<li>进程 CPU 使用率高案例
+<ol>
+<li>先用 top 查看系统和进程的 CPU 使用情况,定位到进程</li>
+<li>再用 perf top 观察进程调用链,定位到具体函数</li>
+</ol>
+</li>
+<li>系统 CPU 使用率高案例
+<ol>
+<li>先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程</li>
+<li>重新审视 top 输出</li>
+<li>从 CPU 使用率不高,但是处于 Running 状态的进程入手</li>
+<li>perf record/report 发现短时进程导致 (execsnoop 工具)</li>
+</ol>
+</li>
+<li>不可中断和僵尸进程案例
+<ol>
+<li>先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程</li>
+<li>strace 无法跟踪进程系统调用</li>
+<li>perf 分析调用链发现根源来自磁盘直接 I/O</li>
+</ol>
+</li>
+<li>软中断案例
+<ol>
+<li>top 观察系统软中断 CPU 使用率高</li>
+<li>查看/proc/softirqs 找到变化速率较快的几种软中断</li>
+<li>sar 命令发现是网络小包问题</li>
+<li>tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致</li>
+</ol>
+</li>
+</ol>
+<p>根据不同的性能指标来找合适的工具：</p>]]></description>
 </item>
 </channel>
 </rss>

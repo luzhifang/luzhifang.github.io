@@ -3,14 +3,15 @@
         <title>分布式 - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
         <description>分布式 - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
     <title>Raft 协议</title>
     <link>https://luzhifang.github.io/raft/</link>
     <pubDate>Mon, 26 Dec 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/raft/</guid>
-    <description><![CDATA[简介 Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节]]></description>
+    <description><![CDATA[<h2 id="简介">简介</h2>
+<p>Raft 协议是一种分布式一致性算法（共识算法），共识就是多个节点对某一个事件达成一致的算法，即使出现部分节点故障，网络延时等情况，也不影响各节点，进而提高系统的整体可用性。Raft 是使用较为广泛的分布式协议，我们熟悉的 etcd 注册中心就采用了这个算法；
+Raft 算法将分布式一致性分解为多个子问题，包括 Leader 选举（Leader election）、日志复制（Log replication）、安全性（Safety）、日志压缩（Log compaction）等。raft 将系统中的角色分为领导者（Leader）、跟从者（Follower）和候选者（Candidate）。</p>]]></description>
 </item>
 </channel>
 </rss>

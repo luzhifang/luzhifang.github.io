@@ -4,23 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Gitlab Ubuntu 安装 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:title" content="Gitlab Ubuntu 安装" />
-<meta property="og:description" content="简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。 GitLab 支持不同类型的操作系统，" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://luzhifang.github.io/gitlab-install/" /><meta property="og:image" content="https://luzhifang.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-06-08T00:00:00+00:00" /><meta property="og:site_name" content="LoveIt" />
+        <title>Gitlab Ubuntu 安装 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/gitlab-install/">
+  <meta property="og:site_name" content="半生戎码">
+  <meta property="og:title" content="Gitlab Ubuntu 安装">
+  <meta property="og:description" content="简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。
+GitLab 支持不同类型的操作系统，例如:Windows，Ubuntu，Debian，CentOS 等。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-06-08T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-06-08T00:00:00+00:00">
+    <meta property="article:tag" content="Git">
+    <meta property="article:tag" content="Gitlab">
+    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://luzhifang.github.io/logo.png"/>
-
-<meta name="twitter:title" content="Gitlab Ubuntu 安装"/>
-<meta name="twitter:description" content="简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。 GitLab 支持不同类型的操作系统，"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
+  <meta name="twitter:title" content="Gitlab Ubuntu 安装">
+  <meta name="twitter:description" content="简介 GitLab 是一个基于 Git 的平台，提供对 Git 存储库的远程访问，并通过创建用于管理代码的私有和公共存储库，有助于软件开发周期。
+GitLab 支持不同类型的操作系统，例如:Windows，Ubuntu，Debian，CentOS 等。">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/gitlab-install/" /><link rel="prev" href="https://luzhifang.github.io/go-logrus/" /><link rel="next" href="https://luzhifang.github.io/docker-install/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/gitlab-install/" /><link rel="prev" href="https://luzhifang.github.io/go-logrus/" /><link rel="next" href="https://luzhifang.github.io/docker-install/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -30,7 +38,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luzhifang.github.io\/gitlab-install\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Git, Gitlab","wordcount":  1088 ,
+        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Git, Gitlab","wordcount":  1026 ,
         "url": "https:\/\/luzhifang.github.io\/gitlab-install\/","datePublished": "2021-06-08T00:00:00+00:00","dateModified": "2021-06-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
@@ -39,7 +47,18 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -50,16 +69,16 @@
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                 </a></div>
         </div>
     </div>
@@ -77,20 +96,20 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-adjust" aria-hidden="true"></i>
             </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -103,9 +122,9 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Gitlab Ubuntu 安装</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://luzhifang.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-08">2021-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1088 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder" aria-hidden="true"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-08">2021-06-08</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1026 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -131,32 +150,12 @@
 <ol>
 <li>apt 安装</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
 </span></span><span class="line"><span class="cl">sudo apt update
 </span></span><span class="line"><span class="cl">sudo apt-get upgrade
 </span></span><span class="line"><span class="cl">sudo apt install ca-certificates curl openssh-server ca-certificates postfix
@@ -176,111 +175,96 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sudo apt install gitlab-ce
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
+</span></span><span class="line"><span class="cl">sudo apt install gitlab-ce</span></span></code></pre></div></div>
+<ol start="2">
 <li>调整防火墙规则</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo ufw allow http
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo ufw allow http
 </span></span><span class="line"><span class="cl">sudo ufw allow https
-</span></span><span class="line"><span class="cl">sudo ufw allow OpenSSH
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
+</span></span><span class="line"><span class="cl">sudo ufw allow OpenSSH</span></span></code></pre></div></div>
+<ol start="3">
 <li>编辑 Gitlab 配置文件</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">vim /etc/gitlab/gitlab.rb
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>修改 external_url</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">external_url &#39;https://example.com&#39; // 此处修改为您的域名或ip地址
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="4">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">vim /etc/gitlab/gitlab.rb</span></span></code></pre></div></div>
+<p>修改 external_url</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">external_url &#39;https://example.com&#39; // 此处修改为您的域名或ip地址</span></span></code></pre></div></div>
+<ol start="4">
 <li>开机启动和禁止</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> gitlab-runsvdir.service
-</span></span><span class="line"><span class="cl">sudo systemctl disable gitlab-runsvdir.service
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="常用命令">常用命令</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> gitlab-runsvdir.service
+</span></span><span class="line"><span class="cl">sudo systemctl disable gitlab-runsvdir.service</span></span></code></pre></div></div>
+<h2 id="常用命令">常用命令</h2>
 <table>
-<thead>
-<tr>
-<th>常用命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sudo gitlab-ctl reconfigure</td>
-<td>重新加载配置，每次修改/etc/gitlab/gitlab.rb 文件之后执行</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl status</td>
-<td>查看 GitLab 状态</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl start</td>
-<td>启动 GitLab</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl stop</td>
-<td>停止 GitLab</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl restart</td>
-<td>重启 GitLab</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl tail</td>
-<td>查看所有日志</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl tail</td>
-<td>nginx/gitlab_acces.log 查看 nginx 访问日志</td>
-</tr>
-<tr>
-<td>sudo gitlab-ctl tail</td>
-<td>postgresql 查看 postgresql 日志</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>常用命令</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>sudo gitlab-ctl reconfigure</td>
+          <td>重新加载配置，每次修改/etc/gitlab/gitlab.rb 文件之后执行</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl status</td>
+          <td>查看 GitLab 状态</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl start</td>
+          <td>启动 GitLab</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl stop</td>
+          <td>停止 GitLab</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl restart</td>
+          <td>重启 GitLab</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl tail</td>
+          <td>查看所有日志</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl tail</td>
+          <td>nginx/gitlab_acces.log 查看 nginx 访问日志</td>
+      </tr>
+      <tr>
+          <td>sudo gitlab-ctl tail</td>
+          <td>postgresql 查看 postgresql 日志</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="配置密码">配置密码</h2>
 <p>在 Web 浏览器中访问 GitLab 服务器的域名：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://example.com // 您external_url配置的地址
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>启动成功后，默认有个管理员账号</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://example.com // 您external_url配置的地址</span></span></code></pre></div></div>
+<p>启动成功后，默认有个管理员账号</p>
 <p>登录名：root</p>
 <p>登录密码：初始密码在这个文件中/etc/gitlab/initial_root_password (可更改)</p>
 <h2 id="设置克隆地址">设置克隆地址</h2>
@@ -295,34 +279,18 @@
 <ol start="2">
 <li>修改配置文件</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#配置邮箱来源， 与展示的名称
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#配置邮箱来源， 与展示的名称
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;gitlab_email_enabled&#39;] = true
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;gitlab_email_from&#39;] = &#39;您的qq邮箱地址&#39;
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;gitlab_email_display_name&#39;] = &#39;您的邮箱显示名称&#39;
@@ -336,97 +304,70 @@
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;smtp_domain&#39;] = &#34;smtp.qq.com&#34;
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;smtp_authentication&#39;] = &#34;login&#34;
 </span></span><span class="line"><span class="cl">gitlab_rails[&#39;smtp_enable_starttls_auto&#39;] = true
-</span></span><span class="line"><span class="cl">gitlab_rails[&#39;smtp_tls&#39;] = true
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 重新加载配置</span>
-</span></span><span class="line"><span class="cl">sudo gitlab-ctl reconfigure
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
+</span></span><span class="line"><span class="cl">gitlab_rails[&#39;smtp_tls&#39;] = true</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 重新加载配置</span>
+</span></span><span class="line"><span class="cl">sudo gitlab-ctl reconfigure</span></span></code></pre></div></div>
+<ol start="3">
 <li>发送测试邮件</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-rails console
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-rails console
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#进入控制台，然后发送邮件</span>
-</span></span><span class="line"><span class="cl">Notify.test_email<span class="o">(</span><span class="s1">&#39;测试邮箱地址&#39;</span>, <span class="s1">&#39;邮件标题&#39;</span>, <span class="s1">&#39;邮件正文&#39;</span><span class="o">)</span>.deliver_now
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="修改端口">修改端口</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nginx[&#39;listen_port&#39;] = 9091 // GitLab端口，默认80端口
-</span></span><span class="line"><span class="cl">unicorn[&#39;port&#39;] = 9092 // 可不修改，默认监听8080端口
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-ctl reconfigure
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="git-pages-设置">Git Pages 设置</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gitlab_pages[‘enable’] = true; 开启 Pages 服务
-</span></span><span class="line"><span class="cl">pages_external_url ‘您的GitLab Pages域名地址&#39;; 替换成你自己的域名
-</span></span><span class="line"><span class="cl">gitlab_pages[‘inplace_chroot’] = true; 以Docker container 方式运行的 Gitlab 必须开启此项
-</span></span><span class="line"><span class="cl">pages_nginx[‘enable’] = true; 开启 Pages 服务的 vhost，该项开启后将会在 /var/opt/gitlab/nginx/conf 目录下生成独立的名为 gitlab-pages.conf Nginx 配置文件。
-</span></span><span class="line"><span class="cl">gitlab_pages[&#39;access_control&#39;] = true 开启 Pages 访问控制。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-ctl reconfigure
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考">参考</h2>
+</span></span><span class="line"><span class="cl">Notify.test_email<span class="o">(</span><span class="s1">&#39;测试邮箱地址&#39;</span>, <span class="s1">&#39;邮件标题&#39;</span>, <span class="s1">&#39;邮件正文&#39;</span><span class="o">)</span>.deliver_now</span></span></code></pre></div></div>
+<h2 id="修改端口">修改端口</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nginx[&#39;listen_port&#39;] = 9091 // GitLab端口，默认80端口
+</span></span><span class="line"><span class="cl">unicorn[&#39;port&#39;] = 9092 // 可不修改，默认监听8080端口</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-ctl reconfigure</span></span></code></pre></div></div>
+<h2 id="git-pages-设置">Git Pages 设置</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo vim /etc/gitlab/gitlab.rb</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">gitlab_pages</span><span class="p">[</span><span class="err">‘</span><span class="n">enable</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span> <span class="err">开启</span> <span class="n">Pages</span> <span class="err">服务</span>
+</span></span><span class="line"><span class="cl"><span class="n">pages_external_url</span> <span class="err">‘您的</span><span class="n">GitLab</span> <span class="n">Pages域名地址</span><span class="s1">&#39;; 替换成你自己的域名</span>
+</span></span><span class="line"><span class="cl"><span class="n">gitlab_pages</span><span class="p">[</span><span class="err">‘</span><span class="n">inplace_chroot</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span> <span class="err">以</span><span class="n">Docker</span> <span class="n">container</span> <span class="err">方式运行的</span> <span class="n">Gitlab</span> <span class="err">必须开启此项</span>
+</span></span><span class="line"><span class="cl"><span class="n">pages_nginx</span><span class="p">[</span><span class="err">‘</span><span class="n">enable</span><span class="err">’</span><span class="p">]</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span> <span class="err">开启</span> <span class="n">Pages</span> <span class="err">服务的</span> <span class="n">vhost</span><span class="err">，该项开启后将会在</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">gitlab</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span> <span class="err">目录下生成独立的名为</span> <span class="n">gitlab</span><span class="o">-</span><span class="n">pages</span><span class="o">.</span><span class="n">conf</span> <span class="n">Nginx</span> <span class="err">配置文件。</span>
+</span></span><span class="line"><span class="cl"><span class="n">gitlab_pages</span><span class="p">[</span><span class="s1">&#39;access_control&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">true</span> <span class="err">开启</span> <span class="n">Pages</span> <span class="err">访问控制。</span></span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">sudo gitlab-ctl reconfigure</span></span></code></pre></div></div>
+<h2 id="参考">参考</h2>
 <p><a href="https://about.gitlab.com/install/#ubuntu" target="_blank" rel="noopener noreffer ">https://about.gitlab.com/install/#ubuntu</a></p>
 <p><a href="https://www.cnblogs.com/bymo/p/9046586.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/bymo/p/9046586.html</a></p>
 <p><a href="https://blog.csdn.net/OldDirverHelpMe/article/details/106536972" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/OldDirverHelpMe/article/details/106536972</a></p>
@@ -442,32 +383,35 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装" data-hashtags="Git,Gitlab"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/gitlab-install/" data-hashtag="Git"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装" data-hashtags="Git,Gitlab"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/gitlab-install/" data-hashtag="Git"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/gitlab-install/" data-title="Gitlab Ubuntu 安装" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fgitlab-install%2f&amp;text=Gitlab%20Ubuntu%20%e5%ae%89%e8%a3%85" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/gitlab/">Gitlab</a></section>
+        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/gitlab/">Gitlab</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/go-logrus/" class="prev" rel="prev" title="Go常用库-logrus"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go常用库-logrus</a>
-            <a href="/docker-install/" class="next" rel="next" title="Ubuntu 安装 Docker">Ubuntu 安装 Docker<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/go-logrus/" class="prev" rel="prev" title="Go常用库-logrus"><i class="fas fa-angle-left" aria-hidden="true"></i>Go常用库-logrus</a>
+            <a href="/docker-install/" class="next" rel="next" title="Ubuntu 安装 Docker">Ubuntu 安装 Docker<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://luzhifang.github.io" target="_blank">luzhifang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":60},"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
 </html>

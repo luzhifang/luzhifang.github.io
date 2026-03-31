@@ -1,16 +1,58 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>mysql - 分类 - 半生戎码</title>
+        <title>Mysql - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/mysql/</link>
-        <description>mysql - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Jun 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/mysql/" rel="self" type="application/rss+xml" /><item>
+        <description>Mysql - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Jun 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/mysql/" rel="self" type="application/rss+xml" /><item>
     <title>mysql 安装</title>
     <link>https://luzhifang.github.io/mysql-install/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/mysql-install/</guid>
-    <description><![CDATA[Ubuntu 查看 Ubuntu 版本 cat /etc/lsb-release 添加源 1 vim /etc/apt/sources.list.d/mysql-community.list 1 2 3 4 5 6 7 8 9 10 11 # Ubuntu 20.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu focal mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 18.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu bionic mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 16.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu xenial mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools # Ubuntu 14.04 LTS deb https://mirrors.tuna.tsinghua.edu.cn/mysql/apt/ubuntu trusty mysql-5.6 mysql-5.7 mysql-8.0 mysql-tools 导入 GPG]]></description>
+    <description><![CDATA[<h2 id="ubuntu">Ubuntu</h2>
+<ol>
+<li>
+<p>查看 Ubuntu 版本 <code>cat /etc/lsb-release</code></p>
+</li>
+<li>
+<p>添加源</p>
+</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">vim /etc/apt/sources.list.d/mysql-community.list</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-Code">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Ubuntu 20.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">focal</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 18.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">bionic</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 16.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">xenial</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.6</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu 14.04 LTS</span>
+</span></span><span class="line"><span class="cl"><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">ubuntu</span> <span class="n">trusty</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.6</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">5.7</span> <span class="n">mysql</span><span class="o">-</span><span class="mf">8.0</span> <span class="n">mysql</span><span class="o">-</span><span class="n">tools</span></span></span></code></pre></div></div>
+<ol start="3">
+<li>导入 GPG 密钥</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># apt-key adv --keyserver pgp.mit.edu --recv-keys 3A79BD29</span>
+</span></span><span class="line"><span class="cl">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3A79BD29</span></span></code></pre></div></div>
+<ol start="4">
+<li>
+<p>更新库 <code>apt update</code></p>]]></description>
 </item>
 </channel>
 </rss>

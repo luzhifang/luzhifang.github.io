@@ -3,14 +3,105 @@
         <title>Github Pages - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/github-pages/</link>
         <description>Github Pages - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 06 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/github-pages/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 06 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/github-pages/" rel="self" type="application/rss+xml" /><item>
     <title>基于Hugo &#43; Github Pages搭建LoveIt主题个人博客</title>
     <link>https://luzhifang.github.io/hugo-loveit/</link>
     <pubDate>Wed, 06 May 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/hugo-loveit/</guid>
-    <description><![CDATA[1. 注册 Github 账号并创建仓库 注册账号和创建仓库此不赘述，说一下需要注意的点 仓库的名字必须以 github.io 结尾 Repository name 需要与 Owner 一致，不一致的话会多一个层级。例：ow]]></description>
+    <description><![CDATA[<h2 id="1-注册-github-账号并创建仓库">1. 注册 <a href="https://github.com/" target="_blank" rel="noopener noreffer ">Github</a> 账号并创建仓库</h2>
+<ul>
+<li>注册账号和创建仓库此不赘述，说一下需要注意的点</li>
+</ul>
+<ol>
+<li>仓库的名字必须以 github.io 结尾</li>
+<li>Repository name 需要与 Owner 一致，不一致的话会多一个层级。例：owner.github.io</li>
+<li>仓库可见性必须是 public</li>
+</ol>
+<h2 id="2-安装-hugo">2. 安装 hugo</h2>
+<ol>
+<li>windows
+<ol>
+<li><a href="https://github.com/gohugoio/hugo/releases/download/v0.104.3/hugo_extended_0.104.3_windows-amd64.zip" target="_blank" rel="noopener noreffer ">下载安装包</a></li>
+<li>解压并发执行文件所在目录添加到环境变量</li>
+</ol>
+</li>
+<li>linux
+<ol>
+<li><a href="https://github.com/gohugoio/hugo/releases/download/v0.104.3/hugo_0.104.3_Linux-64bit.tar.gz" target="_blank" rel="noopener noreffer ">下载安装包</a></li>
+<li>解压并发执行文件所在目录添加到环境变量</li>
+<li>/etc/profile 文件添加一行(export 解压目录)，执行命令 source /etc/profile 使配置文件生效</li>
+</ol>
+</li>
+</ol>
+<h2 id="3-安装git">3. 安装<a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreffer ">git</a></h2>
+<h2 id="4-创建站点和配置主题">4. 创建站点和配置主题</h2>
+<ol>
+<li>选定一个站点放置目录执行一下命令</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">hugo new site myblog
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> myblog
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</span></span><span class="line"><span class="cl">cp myblog/themes/LoveIt/exampleSite/config.toml .
+</span></span><span class="line"><span class="cl">hugo serve</span></span></code></pre></div></div>
+<ol start="2">
+<li>浏览器打开 http://localhost:1313/</li>
+<li>修改 config.toml 以满足自己需要，里面有详细注释</li>
+</ol>
+<h2 id="5-发布内容">5. 发布内容</h2>
+<ol>
+<li>执行 hugo new posts/first_post.md</li>
+<li>添加头部内容</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: 标题
+</span></span><span class="line"><span class="cl">author: 作者
+</span></span><span class="line"><span class="cl">date: 日期(格式：yyyy-MM-dd)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 添加分类
+</span></span><span class="line"><span class="cl">categories:
+</span></span><span class="line"><span class="cl">  <span class="k">-</span> Hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 添加标签
+</span></span><span class="line"><span class="cl">tags:
+</span></span><span class="line"><span class="cl">  <span class="k">-</span> Hugo
+</span></span><span class="line"><span class="cl">  <span class="k">-</span> Github Pages
+</span></span><span class="line"><span class="cl">  <span class="k">-</span> LoveIt
+</span></span><span class="line"><span class="cl">---</span></span></code></pre></div></div>
+<ol start="3">
+<li>接下来就是编写的 markdown 文档了</li>
+</ol>
+<h2 id="6-将博客内容上传至-github">6. 将博客内容上传至 Github</h2>
+<ol>
+<li>在 myblog 目录下执行一下命令</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;first post&#34;</span>
+</span></span><span class="line"><span class="cl">git remote add origin https://github.com/yourusername/yourusername.github.io
+</span></span><span class="line"><span class="cl">git push -u origin main</span></span></code></pre></div></div>
+<ol start="2">
+<li>进入你的 yourusername.github.io 仓库看文件是否上传成功</li>
+<li>访问 <code>https://yourusername.github.io</code></li>
+</ol>]]></description>
 </item>
 </channel>
 </rss>

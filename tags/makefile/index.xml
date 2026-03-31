@@ -3,14 +3,20 @@
         <title>Makefile - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/makefile/</link>
         <description>Makefile - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 10 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/makefile/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 10 Jun 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/makefile/" rel="self" type="application/rss+xml" /><item>
     <title>Go Makefile使用</title>
     <link>https://luzhifang.github.io/go-makefile/</link>
     <pubDate>Wed, 10 Jun 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/go-makefile/</guid>
-    <description><![CDATA[Makefile 简介 Makefile 是一个工程文件的编译规则，描述了整个工程的编译和链接等规则，这些规则里包含了这些内容： 工程中的哪些源文件需要编译，以及如何编译； 需要]]></description>
+    <description><![CDATA[<h2 id="makefile-简介">Makefile 简介</h2>
+<p>Makefile 是一个工程文件的编译规则，描述了整个工程的编译和链接等规则，这些规则里包含了这些内容：</p>
+<ul>
+<li>工程中的哪些源文件需要编译，以及如何编译；</li>
+<li>需要创建哪些库文件，以及如何创建；</li>
+<li>如何最终生成我们想要的可执行文件。</li>
+</ul>
+<p>默认情况下，make 命令会在当前目录下按如下顺序查找 Makefile 文件：“GNUmakefile”、“makefile”、“Makefile”的文件，一旦找到，就开始读取这个文件并执行。</p>]]></description>
 </item>
 </channel>
 </rss>

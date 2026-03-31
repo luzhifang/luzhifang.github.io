@@ -3,14 +3,25 @@
         <title>Grafana - 标签 - 半生戎码</title>
         <link>https://luzhifang.github.io/tags/grafana/</link>
         <description>Grafana - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 02 Nov 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/grafana/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 02 Nov 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/grafana/" rel="self" type="application/rss+xml" /><item>
     <title>Grafana</title>
     <link>https://luzhifang.github.io/grafana/</link>
     <pubDate>Mon, 02 Nov 2020 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/grafana/</guid>
-    <description><![CDATA[Grafana 介绍 Grafana 是一个跨平台的开源的度量分析和可视化工具，可以通过将采集的数据查询然后可视化的展示，并及时通知。它主要有以下六大特点： 展示方式：快速]]></description>
+    <description><![CDATA[<h2 id="grafana-介绍">Grafana 介绍</h2>
+<p>Grafana 是一个跨平台的开源的度量分析和可视化工具，可以通过将采集的数据查询然后可视化的展示，并及时通知。它主要有以下六大特点：</p>
+<ol>
+<li>展示方式：快速灵活的客户端图表，面板插件有许多不同方式的可视化指标和日志，官方库中具有丰富的仪表盘插件，比如热图、折线图、图表等多种展示方式；</li>
+<li>数据源：Graphite，InfluxDB，OpenTSDB，Prometheus，Elasticsearch，CloudWatch 和 KairosDB 等；</li>
+<li>通知提醒：以可视方式定义最重要指标的警报规则，Grafana 将不断计算并发送通知，在数据达到阈值时通过 Slack、PagerDuty 等获得通知；</li>
+<li>混合展示：在同一图表中混合使用不同的数据源，可以基于每个查询指定数据源，甚至自定义数据源；</li>
+<li>注释：使用来自不同数据源的丰富事件注释图表，将鼠标悬停在事件上会显示完整的事件元数据和标记；</li>
+<li>过滤器：Ad-hoc 过滤器允许动态创建新的键/值过滤器，这些过滤器会自动应用于使用该数据源的所有查询。</li>
+</ol>
+<h2 id="安装">安装</h2>
+<h3 id="下载">下载</h3>
+<p>官网下载地址：<a href="https://grafana.com/grafana/download" target="_blank" rel="noopener noreffer ">Grafana</a></p>]]></description>
 </item>
 </channel>
 </rss>

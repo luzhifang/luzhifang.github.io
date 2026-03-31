@@ -1,56 +1,168 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>docker - 分类 - 半生戎码</title>
+        <title>Docker - 分类 - 半生戎码</title>
         <link>https://luzhifang.github.io/categories/docker/</link>
-        <description>docker - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (luzhifang)</managingEditor>
-            <webMaster>54luzhifang@gmail.com (luzhifang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/docker/" rel="self" type="application/rss+xml" /><item>
+        <description>Docker - 分类 - 半生戎码</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/docker/" rel="self" type="application/rss+xml" /><item>
     <title>Docker Compose</title>
     <link>https://luzhifang.github.io/docker-compose/</link>
     <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/docker-compose/</guid>
-    <description><![CDATA[Compose 简介 Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以]]></description>
+    <description><![CDATA[<h2 id="compose-简介">Compose 简介</h2>
+<p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>]]></description>
 </item>
 <item>
     <title>Docker Dockerfile</title>
     <link>https://luzhifang.github.io/dokcer-dockerfile/</link>
     <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/dokcer-dockerfile/</guid>
-    <description><![CDATA[什么是 Dockerfile Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。 Dockerfile 构建镜像的过程 从 base 镜像运行一个容器。 执行一条指令，对容器做修改。 执行类似 docker commit 的操作，生]]></description>
+    <description><![CDATA[<h2 id="什么是-dockerfile">什么是 Dockerfile</h2>
+<p>Dockerfile 是一个文本文件，记录了镜像构建的所有步骤。</p>
+<h2 id="dockerfile-构建镜像的过程">Dockerfile 构建镜像的过程</h2>
+<ol>
+<li>从 base 镜像运行一个容器。</li>
+<li>执行一条指令，对容器做修改。</li>
+<li>执行类似 docker commit 的操作，生成一个新的镜像层。</li>
+<li>Docker 再基于刚刚提交的镜像运行一个新容器。</li>
+<li>重复 2 ～ 4 步，直到 Dockerfile 中的所有指令执行完毕。</li>
+</ol>
+<h2 id="使用-dockerfile-定制镜像">使用 Dockerfile 定制镜像</h2>
+<p>这里仅讲解如何运行 Dockerfile 文件来定制一个镜像，具体 Dockerfile 文件内指令详解，将在下一节中介绍，这里你只要知道构建的流程即可。</p>]]></description>
 </item>
 <item>
     <title>Docker 网络互通</title>
     <link>https://luzhifang.github.io/docker-network-communications/</link>
     <pubDate>Mon, 28 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/docker-network-communications/</guid>
-    <description><![CDATA[完整示例请移步 Github docker 网卡介绍 1 2 3 4 5 $ docker network ls NETWORK ID NAME DRIVER SCOPE 60ca2bcc3925 bridge bridge local 4fba5fc9c823 host host local 15b262a2e321 none null local bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部]]></description>
+    <description><![CDATA[<p>完整示例请移步 <a href="https://github.com/luzhifang/prometheus-grafana-demo" target="_blank" rel="noopener noreffer ">Github</a></p>
+<h2 id="docker-网卡介绍">docker 网卡介绍</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ docker network ls
+</span></span><span class="line"><span class="cl">NETWORK ID     NAME                                         DRIVER    SCOPE
+</span></span><span class="line"><span class="cl">60ca2bcc3925   bridge                                       bridge    <span class="nb">local</span>
+</span></span><span class="line"><span class="cl">4fba5fc9c823   host                                         host      <span class="nb">local</span>
+</span></span><span class="line"><span class="cl">15b262a2e321   none                                         null      local</span></span></code></pre></div></div>
+<ul>
+<li>bridge：默认网卡，类似于 VMware 的 NAT 模式，如果需要访问容器内部的端口需要进行端口映射。</li>
+<li>host：直接使用主机网络，类似于 VMware 的桥接模式，访问容器内部的端口时不需要进行端口映射，直接访问即可，但是可能会与主机的端口号冲突。</li>
+<li>none：禁止所有联网，没有网络驱动。</li>
+</ul>
+<h2 id="docker-自定义网络">docker 自定义网络</h2>
+<p>使用 <code>docker network create custom-local-net</code> 创建一个名为 custom-local-net 的 Docker 网卡，这个网卡是基于 bridge 模式的，但是和 bridge 模式又有一定的区别。</p>]]></description>
 </item>
 <item>
     <title>Docker 常用命令</title>
     <link>https://luzhifang.github.io/docker-command/</link>
     <pubDate>Sat, 26 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/docker-command/</guid>
-    <description><![CDATA[Dcoker 基本概念 Docker 包括三个基本概念： 镜像（Image）：Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外]]></description>
+    <description><![CDATA[<h2 id="dcoker-基本概念">Dcoker 基本概念</h2>
+<p>Docker 包括三个基本概念：</p>
+<ul>
+<li>镜像（Image）：Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</li>
+<li>容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的 类 和 示例 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
+<li>仓库（Repository）：仓库（Repository）类似 Git 的远程仓库，集中存放镜像文件。</li>
+</ul>
+<p>三者之间的关系如下：</p>]]></description>
 </item>
 <item>
     <title>Docker 实现原理</title>
     <link>https://luzhifang.github.io/docker-implementation/</link>
     <pubDate>Tue, 22 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/docker-implementation/</guid>
-    <description><![CDATA[容器的实现原理 从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰]]></description>
+    <description><![CDATA[<h2 id="容器的实现原理">容器的实现原理</h2>
+<p>从本质上，容器其实就是一种沙盒技术。就好像把应用隔离在一个盒子内，使其运行。因为有了盒子边界的存在，应用于应用之间不会相互干扰。并且像集装箱一样，拿来就走，随处运行。</p>]]></description>
 </item>
 <item>
     <title>Ubuntu 安装 Docker</title>
     <link>https://luzhifang.github.io/docker-install/</link>
     <pubDate>Sat, 19 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>Jeff</author>
+    <author>xxxx</author>
     <guid>https://luzhifang.github.io/docker-install/</guid>
-    <description><![CDATA[使用官方安装脚本自动安装 注意：脚本安装适合在测试和开发环境使用。 安装命令如下： 1 2 curl -fsSL get.docker.com -o get-docker.sh sh get-docker.sh --mirror Aliyun 也可以使用国内 daocloud 一键安装命令： 1 curl -sSL https://get.daocloud.io/docker |]]></description>
+    <description><![CDATA[<h2 id="使用官方安装脚本自动安装">使用官方安装脚本自动安装</h2>
+<p>注意：脚本安装适合在测试和开发环境使用。</p>
+<p>安装命令如下：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">curl -fsSL get.docker.com -o get-docker.sh
+</span></span><span class="line"><span class="cl">sh get-docker.sh --mirror Aliyun</span></span></code></pre></div></div>
+<p>也可以使用国内 daocloud 一键安装命令：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">curl -sSL https://get.daocloud.io/docker <span class="p">|</span> sh</span></span></code></pre></div></div>
+<h2 id="手动安装">手动安装</h2>
+<h3 id="更新库和安装依赖">更新库和安装依赖</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install <span class="se">\
+</span></span></span><span class="line"><span class="cl">    ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl">    curl <span class="se">\
+</span></span></span><span class="line"><span class="cl">    gnupg <span class="se">\
+</span></span></span><span class="line"><span class="cl">    lsb-release</span></span></code></pre></div></div>
+<h3 id="添加-docker-的官方-gpg-key">添加 docker 的官方 GPG key</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">mkdir -p /etc/apt/keyrings
+</span></span><span class="line"><span class="cl"><span class="c1"># 官方源</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span>
+</span></span><span class="line"><span class="cl">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg <span class="p">|</span> gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span class="line"><span class="cl">chmod -R <span class="m">0755</span> /etc/apt/keyrings</span></span></code></pre></div></div>
+<h3 id="将-docker-的源添加到-etcaptsourceslistd">将 Docker 的源添加到 /etc/apt/sources.list.d</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 官方源</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># echo \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   $(lsb_release -cs) stable&#34; | tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span></span></code></pre></div></div>
+<h2 id="安装-docker">安装 docker</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span></span></code></pre></div></div>
+<h2 id="启动-docker">启动 docker</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-Shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">service <span class="nb">enable</span> docker
+</span></span><span class="line"><span class="cl">service start docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># wsl2 ubuntu 22.04 启动报错，执行以下命令修复</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update-alternatives --set iptables /usr/sbin/iptables-legacy</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy</span></span></span></code></pre></div></div>
+<h2 id="配置国内镜像源">配置国内镜像源</h2>
+<p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式</p>]]></description>
 </item>
 </channel>
 </rss>
