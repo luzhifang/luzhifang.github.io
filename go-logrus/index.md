@@ -218,3 +218,9 @@ func init() {
 
 https://github.com/sirupsen/logrus
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-logrus/  
+

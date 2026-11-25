@@ -139,3 +139,9 @@ HTTP 1.x 支持有限的并行机制，要求打包资源、跨域分散资源�
 
 [《WEB 性能权威指南》](https://weread.qq.com/web/reader/385322a0718ff624385cba2kd3d322001ad3d9446802347)
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/net-perf/  
+

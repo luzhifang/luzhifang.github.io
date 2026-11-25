@@ -36,3 +36,9 @@ jaeger 兼容 Zipkin，在这点上 Jaeger 完胜。
 
 https://jckling.github.io/2021/04/02/Jaeger/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E4%B8%8E%20Jaeger%20%E5%85%A5%E9%97%A8/
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/tracing-tech-selection/  
+

@@ -75,3 +75,9 @@ Scrum 的基石之一在于，产品负责人告诉开发团队他需要完成�
 
 《敏捷革命》杰夫.萨瑟兰
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/scrum/  
+

@@ -65,3 +65,9 @@ https://www.runoob.com/w3cnote/summary-of-network.html
 https://interviewguide.cn/notes/03-hunting_job/02-interview/03-05-net.html
 
 [《WEB 性能权威指南》](https://weread.qq.com/web/reader/385322a0718ff624385cba2k65132ca01b6512bd43d90e3)
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/udp/  
+

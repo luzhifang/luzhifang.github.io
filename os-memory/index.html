@@ -1,352 +1,56 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>内存 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/os-memory/">
-  <meta property="og:site_name" content="半生戎码">
-  <meta property="og:title" content="内存">
-  <meta property="og:description" content="内存简介 内存架构：缓存 -&gt; 主存 -&gt; 磁盘 -&gt; 磁带
-内存管理：该机制负责对内存架构进行管理，使程序在内存架构的任何一个层次上的存放对于用户来说都是一样的。用户无须担心自己的程序是存储在缓存、主存、磁盘还是磁带上，反正运行、计算、输出的结果都一样。而内存管理实现这种媒介透明的手段就是虚拟内存。">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2018-06-03T00:00:00+00:00">
-    <meta property="article:modified_time" content="2018-06-03T00:00:00+00:00">
-    <meta property="article:tag" content="操作系统">
-    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
-  <meta name="twitter:title" content="内存">
-  <meta name="twitter:description" content="内存简介 内存架构：缓存 -&gt; 主存 -&gt; 磁盘 -&gt; 磁带
-内存管理：该机制负责对内存架构进行管理，使程序在内存架构的任何一个层次上的存放对于用户来说都是一样的。用户无须担心自己的程序是存储在缓存、主存、磁盘还是磁带上，反正运行、计算、输出的结果都一样。而内存管理实现这种媒介透明的手段就是虚拟内存。">
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/os-memory/" /><link rel="prev" href="https://luzhifang.github.io/os-thread/" /><link rel="next" href="https://luzhifang.github.io/os-disk/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "内存",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/luzhifang.github.io\/os-memory\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "操作系统","wordcount":  3110 ,
-        "url": "https:\/\/luzhifang.github.io\/os-memory\/","datePublished": "2018-06-03T00:00:00+00:00","dateModified": "2018-06-03T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
-                "@type": "Person",
-                "name": "Jeff"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust" aria-hidden="true"></i>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust" aria-hidden="true"></i>
-            </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">内存</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder" aria-hidden="true"></i>操作系统</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2018-06-03">2018-06-03</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 3110 字&nbsp;
-                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#内存简介">内存简介</a></li>
-    <li><a href="#虚拟内存">虚拟内存</a></li>
-    <li><a href="#地址空间">地址空间</a></li>
-    <li><a href="#虚拟内存空间分布">虚拟内存空间分布</a></li>
-    <li><a href="#基址极限地址翻译">基址极限地址翻译</a></li>
-    <li><a href="#分页">分页</a>
-      <ul>
-        <li><a href="#页表">页表</a></li>
-        <li><a href="#内存交换swap-space">内存交换（swap space）</a></li>
-        <li><a href="#缺页中断">缺页中断</a></li>
-        <li><a href="#页面更换算法">页面更换算法</a></li>
-      </ul>
-    </li>
-    <li><a href="#页表地址翻译过程">页表地址翻译过程</a></li>
-    <li><a href="#内存操作-api">内存操作 API</a>
-      <ul>
-        <li><a href="#栈内存">栈内存</a></li>
-        <li><a href="#分配堆内存">分配堆内存</a></li>
-        <li><a href="#堆内存释放">堆内存释放</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="内存简介">内存简介</h2>
-<p>内存架构：缓存 -&gt; 主存 -&gt; 磁盘 -&gt; 磁带</p>
-<p>内存管理：该机制负责对内存架构进行管理，使程序在内存架构的任何一个层次上的存放对于用户来说都是一样的。用户无须担心自己的程序是存储在缓存、主存、磁盘还是磁带上，反正运行、计算、输出的结果都一样。而内存管理实现这种媒介透明的手段就是虚拟内存。</p>
-<h2 id="虚拟内存">虚拟内存</h2>
-<p>虚拟内存系统负责为程序提供一个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。操作系统在专门硬件的帮助下，通过每一个虚拟内存的索引，将其转换为物理地址，物理内存根据获得的物理地址去获取所需的信息。</p>
-<p>作为用户级程序的程序员，可以看到的任何地址都是虚拟地址。只有操作系统，通过精妙的虚拟化内存技术，知道这些指令和数据所在的物理内存的位置。</p>
-<p>目标：透明、效率、保护（一个程序不能访问另一个程序地址空间。）</p>
-<h2 id="地址空间">地址空间</h2>
-<p>地址空间（address space）是一个非负整数 地址 的有序合集：{0，1，2，&hellip; }</p>
-<p>在一个带虚拟内存的系统中，CPU 从一个有 N= 2 的 n 次方 个地址的地址空间中生成虚拟地址，这个地址空间就称为虚拟地址空间：{0，1，2，3，&hellip;., N-1}。</p>
-<p>一个系统还有一个物理地址空间，对应于系统中物理内存的 M 个字节： {0，1，2，3，&hellip;, M-1}。</p>
-<p>一个地址空间的大小通常是由表示最大地址所需要的位数来描述的，比如，一个包含 N = 2 的 n 次方 个地址的虚拟地址空间就叫做一个 n 位地址空间，现代操作系统通常支持 32 位或者 64 位虚拟地址空间。</p>
-<h2 id="虚拟内存空间分布">虚拟内存空间分布</h2>
-<p>用户空间内存从低到高是五种不同的内存段：</p>
-<ol>
-<li>只读段：代码和常量等</li>
-<li>数据段：全局变量等</li>
-<li>堆：动态分配的内存，从低地址开始向上增长</li>
-<li>文件映射：动态库、共享内存等，从高地址开始向下增长</li>
-<li>栈：包括局部变量和函数调用的上下文等，栈的大小是固定的。一般 8MB</li>
-</ol>
-<h2 id="基址极限地址翻译">基址极限地址翻译</h2>
-<p>翻译过程非常简单：<code>物理地址=虚拟地址+程序所在区域的起始地址</code>。</p>
-<p>程序所在区域的起始地址称为（程序）基址。</p>
-<p>地址保护也变得非常简单，只要访问的地址满足下列条件即为合法访问：<code>程序所在区域的起始地址≤有效地址≤程序所在区域的起始地址+程序长度</code>。</p>
-<p>由此可见，我们只需要设置两个端值：基址和极限，即可达到地址翻译和地址保护的目的。这两个端值可以由两个寄存器来存放，分别称为基址寄存器和极限寄存器。</p>
-<p>基址极限（包括分段之后包含多个基址极限也存在）管理模式的问题：</p>
-<ol>
-<li>空间浪费（外部碎片太多）</li>
-<li>地址空间增长困难。这有两层意思：一是指空间增长效率低下；二是空间增长存在天花板限制。</li>
-</ol>
-<h2 id="分页">分页</h2>
-<p>分页系统的核心就是将虚拟内存空间和物理内存空间皆划分为大小相同的页面，如 4KB、8KB 或 16KB 等，并以页面作为内存空间的最小分配单位，一个程序的一个页面可以存放在任意一个物理页面里。</p>
-<p>在分页系统下，一个程序发出的虚拟地址由两部分组成：页面号和页内偏移值。例如，对于 32 位寻址的系统，如果页面大小为 4KB，则页面号占 20 位，页内偏移值占 12 位。</p>
-<p>分页的优势：</p>
-<ol>
-<li>物理空间是页面的整数倍，并且空间分配以页面为单位，将不会再产生外部碎片。</li>
-<li>空间增长也容易解决：只需要分配额外的虚拟页面，并找到一个闲置的物理页面存放即可。</li>
-</ol>
-<p>分页的缺点：</p>
-<ol>
-<li>页表很大。（使用多级页表解决）</li>
-<li>页表和多级页表都会使内存访问次数增加，导致翻译速度下降。（使用 TLB 解决）</li>
-</ol>
-<h3 id="页表">页表</h3>
-<p>为了记录地址空间的每个虚拟页放在物理内存中的位置，操作系统通常为每个进程保存一个数据结构，称为页表（page table）。
-例如，对于 32 位寻址的虚拟地址，如果页面大小为 4KB，则虚拟页面数最多可以达到 220，即 1048576 个虚拟页面。那么页表的记录条数就为 1048576 条。</p>
-<p>页面记录内容：缓存禁止位、访问位、修改位、保护标识区、在内存否、物理页面号。</p>
-<p>内存管理单元（MMU）对虚拟地址的翻译只是对页面号的翻译，即将虚拟页面号翻译成物理页面号。而对于偏移值，则不进行任何操作。这是因为虚拟页表和物理页表大小完全一样，虚拟页面里的偏移值和物理页面里的偏移值完全一样，因此无须翻译。</p>
-<h3 id="内存交换swap-space">内存交换（swap space）</h3>
-<p>交换空间就是在硬盘上开辟一部分空间用于物理页的移入和移出。交换空间让操作系统为多个并发运行的进程都提供巨大地址空间的假象。</p>
-<p>内存交换通常在许多进程运行且内存吃紧时进行，而系统负荷降低就暂停。例如:在发现许多进程运行时经常发生缺页，就说明内存紧张，此时可以换出一些进程；如果缺页率明显下降，就可以暂停换出。</p>
-<p>内存交换技术主要是在不同进程（或作业）之间进行，而内存覆盖则用于同一程序或进程中。</p>
-<h3 id="缺页中断">缺页中断</h3>
-<p>在分页系统里，一个虚拟页面既有可能在物理内存，也有可能保存在磁盘上。如果 CPU 发出的虚拟地址对应的页面不在物理内存，就将产生一个缺页中断。</p>
-<p>缺页中断服务程序首先根据虚拟地址计算出该地址在相应程序文件里面的位移量或偏移量（off-set），然后要求文件系统在这个偏移量的地方进行文件读操作（读一个页面）。</p>
-<p>在最坏情况下，每次新的访问都是对一个不在内存的页面进行访问，即每次内存访问都产生一次缺页中断，这样每次内存访问皆变成一次磁盘访问，而由于磁盘访问速度比内存可以慢一百万倍，因此整个系统的效率急剧下降。这种现象就称为<strong>内存抖动</strong>。</p>
-<p>外中断是指由 CPU 执行指令以外的事件引起，如 I/O 完成中断，表示设备输入/输出处理已经完成，处理器能够发送下一个输入/输出请求。此外还有时钟中断、控制台中断等。</p>
-<p>而异常时由 CPU 执行指令的内部事件引起，如非法操作码、地址越界、算术溢出等。</p>
-<h3 id="页面更换算法">页面更换算法</h3>
-<p>缺页中断服务程序将负责把位于磁盘上的数据加载到物理内存来。如果物理内存还有空闲页面，那就直接使用空闲的页面。但如果物理内存已满，则需要挑选某个已经使用过的页面进行替换。</p>
-<p>公平算法主要包括下面 4 种：</p>
-<ol>
-<li>随机算法</li>
-<li>先来先出（FIFO）算法</li>
-<li>第二次机会算法</li>
-<li>时钟算法</li>
-</ol>
-<p>非公平算法则包括如下 5 种：</p>
-<ol>
-<li>最优算法</li>
-<li>NRU 算法</li>
-<li>LRU 算法</li>
-<li>工作集算法</li>
-<li>还有一种混合算法，它既想保持公平，又含有区别对待的考虑：工作集时钟算法。</li>
-</ol>
-<h2 id="页表地址翻译过程">页表地址翻译过程</h2>
-<p>页表命中 CPU 硬件的执行步骤：</p>
-<ol>
-<li>CPU 生成一个虚拟地址，并把它传送给 MMU。</li>
-<li>MMU 生成 PTE（页表条目） 地址。
-<ol>
-<li>命中 TLB 的
-<ol>
-<li>MMU 从 TLB 中取出对应的 PTE</li>
-<li>MMU 将这个虚拟地址翻译成一个物理地址，并且将它发送到高速缓存/主存。</li>
-<li>高速缓存/主存将所请求的数据字返回 CPU。</li>
-</ol>
-</li>
-<li>未命中 TLB
-<ol>
-<li>从高速缓存/主存中请求这个 PTE</li>
-<li>高速缓存/主存向 MMU 返回 PTE。
-<ol>
-<li>未缺页
-<ol>
-<li>PTE 有效位为 1，MMU 构造物理地址，并把它传送给高速缓存/主存。</li>
-<li>高速缓存/主存将所请求的数据字返回 CPU。</li>
-</ol>
-</li>
-<li>缺页
-<ol>
-<li>PTE 有效位为 0，触发一次中断，传递 CPU 中的控制到操作系统内核中的缺页中断处理程序。</li>
-<li>缺页处理程序确定出物理内存中的牺牲页，如果这个页面已经被修改了，则把它换出到磁盘。</li>
-<li>缺页处理程序调入新的页面，并更新内存中的 PTE。</li>
-<li>缺页处理程序返回原来的进程，再次执行导致缺页的指令， CPU 将引起缺页的虚拟地址重新发送给 MMU ，</li>
-<li>因为虚拟页面现在存在主存中，所以会命中，主存将所请求的数据字返回 CPU。</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="内存操作-api">内存操作 API</h2>
-<h3 id="栈内存">栈内存</h3>
-<p>栈内存的申请和释放操作是编译器来隐式管理的，所以有时也称为自动（automatic）内存。</p>
-<p>C 中申请栈内存很容易。比如，假设需要在 func()函数中为一个整形变量 x 申请空间。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-C">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">...</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<h3 id="分配堆内存">分配堆内存</h3>
-<p>malloc 只需要一个 size_t 类型参数，该参数表示你需要多少个字节。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-C">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span></span></span></code></pre></div></div>
-<h3 id="堆内存释放">堆内存释放</h3>
-<p>要释放不再使用的堆内存，程序员只需调用 free()：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-C">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span><span class="line"><span class="cl"><span class="nf">free</span><span class="p">(</span><span class="n">x</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>free 和 malloc 都属于库调用，但是本身是建立在一些系统调用之上的。</p>
-<p>访问堆的一个具体单元，需要两次访问内存，第一次得取得指针，第二次才是真正的数据，而栈只需访问一次。另外，堆的内容被操作系统交换到外存的概率比栈大，栈一般是不会被交换出去的。</p>
-<h2 id="参考">参考</h2>
-<p>《操作系统之哲学原理第 2 版》邹恒明</p>
-<p>《操作系统导论》</p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2018-06-03</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/os-memory/" data-title="内存" data-hashtags="操作系统"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/os-memory/" data-title="内存"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/os-memory/" data-hashtag="操作系统"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/os-memory/" data-title="内存"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/os-memory/" data-title="内存"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/os-memory/" data-title="内存"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/os-memory/" data-title="内存" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fos-memory%2f&amp;text=%e5%86%85%e5%ad%98" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/os-thread/" class="prev" rel="prev" title="线程"><i class="fas fa-angle-left" aria-hidden="true"></i>线程</a>
-            <a href="/os-disk/" class="next" rel="next" title="磁盘">磁盘<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment" aria-hidden="true"></i>
-            </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><title>内存 - 半生戎码</title><meta name=author content="Jeff"><meta name=description content="内存简介内存架构：缓存 -> 主存 -> 磁盘 -> 磁带
+"><meta name=robots content="index, follow"><meta name=keywords content='操作系统'><meta itemprop=name content="内存"><meta itemprop=description content="内存简介内存架构：缓存 -> 主存 -> 磁盘 -> 磁带"><meta itemprop=datePublished content="2018-06-03T00:00:00+00:00"><meta itemprop=dateModified content="2023-02-08T22:59:45+08:00"><meta itemprop=wordCount content="3120"><meta itemprop=image content="https://luzhifang.github.io/images/avatar.png"><meta itemprop=keywords content="操作系统"><meta property="og:url" content="https://luzhifang.github.io/os-memory/"><meta property="og:site_name" content="半生戎码"><meta property="og:title" content="内存"><meta property="og:description" content="内存简介内存架构：缓存 -> 主存 -> 磁盘 -> 磁带"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-06-03T00:00:00+00:00"><meta property="article:modified_time" content="2023-02-08T22:59:45+08:00"><meta property="article:tag" content="操作系统"><meta property="og:image" content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:title content="内存"><meta name=twitter:description content="内存简介内存架构：缓存 -> 主存 -> 磁盘 -> 磁带"><meta name=application-name content="半生戎码"><meta name=apple-mobile-web-app-title content="半生戎码"><meta name=theme-color data-light=#f6f8fa data-dark=#151b23 content="#f6f8fa"><meta name=msapplication-TileColor content="#2d89ef"><link rel=canonical type=text/html href=https://luzhifang.github.io/os-memory/ title="内存 - 半生戎码"><link rel=prev type=text/html href=https://luzhifang.github.io/os-thread/ title=线程><link rel=next type=text/html href=https://luzhifang.github.io/os-disk/ title=磁盘><link rel=alternate type=text/markdown href=https://luzhifang.github.io/os-memory/index.md><link rel=stylesheet href=/css/unocss.min.css><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/pages/posts.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><link rel=preload href=/js/main.min.js as=script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"内存","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/luzhifang.github.io\/os-memory\/"},"genre":"posts","keywords":"操作系统","wordcount":3120,"url":"https:\/\/luzhifang.github.io\/os-memory\/","datePublished":"2018-06-03T00:00:00+00:00","dateModified":"2023-02-08T22:59:45+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Jeff"},"description":""}</script><script src=/js/head.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><nav class=nav-main aria-label=主菜单><ul class=menu><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li></ul></nav><nav class=nav-system aria-label=站点功能><ul class=menu><li class="menu-item delimiter"></li><li class="menu-item search"><button type=button class="search-trigger desktop" aria-label=搜索 title=搜索>
+<i class="fa-solid fa-search" aria-hidden=true></i>
+搜索
+<kbd></kbd></button></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch-item"><button type=button class=theme-switch aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><button type=button class="search-trigger mobile" aria-label=搜索><i class="fa-solid fa-search" aria-hidden=true></i></button><button type=button class=theme-switch aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button>
+<button type=button class=menu-toggle id=menu-toggle-mobile aria-controls=menu-mobile aria-expanded=false aria-labelledby=menu-mobile>
+<span></span><span></span><span></span></button></div><nav><ul class=menu id=menu-mobile><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li><li class="menu-item menu-system"></li></ul></nav></div></header><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>内存</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/authors/jeff/ title=作者 rel=author class=author><img class=avatar src=/images/avatar.png alt=Jeff height=16 width=16>&nbsp;Jeff</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ class=post-category title="分类 - 操作系统"><i class="fa-regular fa-folder" aria-hidden=true></i> 操作系统</a></span></div><div class=post-meta-line><span title="发布于 2018-06-03 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2018-06-03>2018-06-03</time></span>&nbsp;<span title="更新于 2023-02-08 22:59:45"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2023-02-08>2023-02-08</time></span>&nbsp;<span title="3120 字"><i class="fa-solid fa-pencil me-1" aria-hidden=true></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 7 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static></div></div><template data-toc><nav id=TableOfContents><ul><li><a href=#内存简介>内存简介</a></li><li><a href=#虚拟内存>虚拟内存</a></li><li><a href=#地址空间>地址空间</a></li><li><a href=#虚拟内存空间分布>虚拟内存空间分布</a></li><li><a href=#基址极限地址翻译>基址极限地址翻译</a></li><li><a href=#分页>分页</a><ul><li><a href=#页表>页表</a></li><li><a href=#内存交换swap-space>内存交换（swap space）</a></li><li><a href=#缺页中断>缺页中断</a></li><li><a href=#页面更换算法>页面更换算法</a></li></ul></li><li><a href=#页表地址翻译过程>页表地址翻译过程</a></li><li><a href=#内存操作-api>内存操作 API</a><ul><li><a href=#栈内存>栈内存</a></li><li><a href=#分配堆内存>分配堆内存</a></li><li><a href=#堆内存释放>堆内存释放</a></li></ul></li><li><a href=#参考>参考</a></li></ul></nav></template><div class=content id=content><h2 class=heading-element id=内存简介><span>内存简介</span>
+<a href=#%e5%86%85%e5%ad%98%e7%ae%80%e4%bb%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>内存架构：缓存 -> 主存 -> 磁盘 -> 磁带</p><p>内存管理：该机制负责对内存架构进行管理，使程序在内存架构的任何一个层次上的存放对于用户来说都是一样的。用户无须担心自己的程序是存储在缓存、主存、磁盘还是磁带上，反正运行、计算、输出的结果都一样。而内存管理实现这种媒介透明的手段就是虚拟内存。</p><h2 class=heading-element id=虚拟内存><span>虚拟内存</span>
+<a href=#%e8%99%9a%e6%8b%9f%e5%86%85%e5%ad%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>虚拟内存系统负责为程序提供一个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。操作系统在专门硬件的帮助下，通过每一个虚拟内存的索引，将其转换为物理地址，物理内存根据获得的物理地址去获取所需的信息。</p><p>作为用户级程序的程序员，可以看到的任何地址都是虚拟地址。只有操作系统，通过精妙的虚拟化内存技术，知道这些指令和数据所在的物理内存的位置。</p><p>目标：透明、效率、保护（一个程序不能访问另一个程序地址空间。）</p><h2 class=heading-element id=地址空间><span>地址空间</span>
+<a href=#%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>地址空间（address space）是一个非负整数 地址 的有序合集：{0，1，2，&mldr; }</p><p>在一个带虚拟内存的系统中，CPU 从一个有 N= 2 的 n 次方 个地址的地址空间中生成虚拟地址，这个地址空间就称为虚拟地址空间：{0，1，2，3，&mldr;., N-1}。</p><p>一个系统还有一个物理地址空间，对应于系统中物理内存的 M 个字节： {0，1，2，3，&mldr;, M-1}。</p><p>一个地址空间的大小通常是由表示最大地址所需要的位数来描述的，比如，一个包含 N = 2 的 n 次方 个地址的虚拟地址空间就叫做一个 n 位地址空间，现代操作系统通常支持 32 位或者 64 位虚拟地址空间。</p><h2 class=heading-element id=虚拟内存空间分布><span>虚拟内存空间分布</span>
+<a href=#%e8%99%9a%e6%8b%9f%e5%86%85%e5%ad%98%e7%a9%ba%e9%97%b4%e5%88%86%e5%b8%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>用户空间内存从低到高是五种不同的内存段：</p><ol><li>只读段：代码和常量等</li><li>数据段：全局变量等</li><li>堆：动态分配的内存，从低地址开始向上增长</li><li>文件映射：动态库、共享内存等，从高地址开始向下增长</li><li>栈：包括局部变量和函数调用的上下文等，栈的大小是固定的。一般 8MB</li></ol><h2 class=heading-element id=基址极限地址翻译><span>基址极限地址翻译</span>
+<a href=#%e5%9f%ba%e5%9d%80%e6%9e%81%e9%99%90%e5%9c%b0%e5%9d%80%e7%bf%bb%e8%af%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>翻译过程非常简单：<code>物理地址=虚拟地址+程序所在区域的起始地址</code>。</p><p>程序所在区域的起始地址称为（程序）基址。</p><p>地址保护也变得非常简单，只要访问的地址满足下列条件即为合法访问：<code>程序所在区域的起始地址≤有效地址≤程序所在区域的起始地址+程序长度</code>。</p><p>由此可见，我们只需要设置两个端值：基址和极限，即可达到地址翻译和地址保护的目的。这两个端值可以由两个寄存器来存放，分别称为基址寄存器和极限寄存器。</p><p>基址极限（包括分段之后包含多个基址极限也存在）管理模式的问题：</p><ol><li>空间浪费（外部碎片太多）</li><li>地址空间增长困难。这有两层意思：一是指空间增长效率低下；二是空间增长存在天花板限制。</li></ol><h2 class=heading-element id=分页><span>分页</span>
+<a href=#%e5%88%86%e9%a1%b5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>分页系统的核心就是将虚拟内存空间和物理内存空间皆划分为大小相同的页面，如 4KB、8KB 或 16KB 等，并以页面作为内存空间的最小分配单位，一个程序的一个页面可以存放在任意一个物理页面里。</p><p>在分页系统下，一个程序发出的虚拟地址由两部分组成：页面号和页内偏移值。例如，对于 32 位寻址的系统，如果页面大小为 4KB，则页面号占 20 位，页内偏移值占 12 位。</p><p>分页的优势：</p><ol><li>物理空间是页面的整数倍，并且空间分配以页面为单位，将不会再产生外部碎片。</li><li>空间增长也容易解决：只需要分配额外的虚拟页面，并找到一个闲置的物理页面存放即可。</li></ol><p>分页的缺点：</p><ol><li>页表很大。（使用多级页表解决）</li><li>页表和多级页表都会使内存访问次数增加，导致翻译速度下降。（使用 TLB 解决）</li></ol><h3 class=heading-element id=页表><span>页表</span>
+<a href=#%e9%a1%b5%e8%a1%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>为了记录地址空间的每个虚拟页放在物理内存中的位置，操作系统通常为每个进程保存一个数据结构，称为页表（page table）。
+例如，对于 32 位寻址的虚拟地址，如果页面大小为 4KB，则虚拟页面数最多可以达到 220，即 1048576 个虚拟页面。那么页表的记录条数就为 1048576 条。</p><p>页面记录内容：缓存禁止位、访问位、修改位、保护标识区、在内存否、物理页面号。</p><p>内存管理单元（MMU）对虚拟地址的翻译只是对页面号的翻译，即将虚拟页面号翻译成物理页面号。而对于偏移值，则不进行任何操作。这是因为虚拟页表和物理页表大小完全一样，虚拟页面里的偏移值和物理页面里的偏移值完全一样，因此无须翻译。</p><h3 class=heading-element id=内存交换swap-space><span>内存交换（swap space）</span>
+<a href=#%e5%86%85%e5%ad%98%e4%ba%a4%e6%8d%a2swap-space class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>交换空间就是在硬盘上开辟一部分空间用于物理页的移入和移出。交换空间让操作系统为多个并发运行的进程都提供巨大地址空间的假象。</p><p>内存交换通常在许多进程运行且内存吃紧时进行，而系统负荷降低就暂停。例如:在发现许多进程运行时经常发生缺页，就说明内存紧张，此时可以换出一些进程；如果缺页率明显下降，就可以暂停换出。</p><p>内存交换技术主要是在不同进程（或作业）之间进行，而内存覆盖则用于同一程序或进程中。</p><h3 class=heading-element id=缺页中断><span>缺页中断</span>
+<a href=#%e7%bc%ba%e9%a1%b5%e4%b8%ad%e6%96%ad class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在分页系统里，一个虚拟页面既有可能在物理内存，也有可能保存在磁盘上。如果 CPU 发出的虚拟地址对应的页面不在物理内存，就将产生一个缺页中断。</p><p>缺页中断服务程序首先根据虚拟地址计算出该地址在相应程序文件里面的位移量或偏移量（off-set），然后要求文件系统在这个偏移量的地方进行文件读操作（读一个页面）。</p><p>在最坏情况下，每次新的访问都是对一个不在内存的页面进行访问，即每次内存访问都产生一次缺页中断，这样每次内存访问皆变成一次磁盘访问，而由于磁盘访问速度比内存可以慢一百万倍，因此整个系统的效率急剧下降。这种现象就称为<strong>内存抖动</strong>。</p><p>外中断是指由 CPU 执行指令以外的事件引起，如 I/O 完成中断，表示设备输入/输出处理已经完成，处理器能够发送下一个输入/输出请求。此外还有时钟中断、控制台中断等。</p><p>而异常时由 CPU 执行指令的内部事件引起，如非法操作码、地址越界、算术溢出等。</p><h3 class=heading-element id=页面更换算法><span>页面更换算法</span>
+<a href=#%e9%a1%b5%e9%9d%a2%e6%9b%b4%e6%8d%a2%e7%ae%97%e6%b3%95 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>缺页中断服务程序将负责把位于磁盘上的数据加载到物理内存来。如果物理内存还有空闲页面，那就直接使用空闲的页面。但如果物理内存已满，则需要挑选某个已经使用过的页面进行替换。</p><p>公平算法主要包括下面 4 种：</p><ol><li>随机算法</li><li>先来先出（FIFO）算法</li><li>第二次机会算法</li><li>时钟算法</li></ol><p>非公平算法则包括如下 5 种：</p><ol><li>最优算法</li><li>NRU 算法</li><li>LRU 算法</li><li>工作集算法</li><li>还有一种混合算法，它既想保持公平，又含有区别对待的考虑：工作集时钟算法。</li></ol><h2 class=heading-element id=页表地址翻译过程><span>页表地址翻译过程</span>
+<a href=#%e9%a1%b5%e8%a1%a8%e5%9c%b0%e5%9d%80%e7%bf%bb%e8%af%91%e8%bf%87%e7%a8%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>页表命中 CPU 硬件的执行步骤：</p><ol><li>CPU 生成一个虚拟地址，并把它传送给 MMU。</li><li>MMU 生成 PTE（页表条目） 地址。<ol><li>命中 TLB 的<ol><li>MMU 从 TLB 中取出对应的 PTE</li><li>MMU 将这个虚拟地址翻译成一个物理地址，并且将它发送到高速缓存/主存。</li><li>高速缓存/主存将所请求的数据字返回 CPU。</li></ol></li><li>未命中 TLB<ol><li>从高速缓存/主存中请求这个 PTE</li><li>高速缓存/主存向 MMU 返回 PTE。<ol><li>未缺页<ol><li>PTE 有效位为 1，MMU 构造物理地址，并把它传送给高速缓存/主存。</li><li>高速缓存/主存将所请求的数据字返回 CPU。</li></ol></li><li>缺页<ol><li>PTE 有效位为 0，触发一次中断，传递 CPU 中的控制到操作系统内核中的缺页中断处理程序。</li><li>缺页处理程序确定出物理内存中的牺牲页，如果这个页面已经被修改了，则把它换出到磁盘。</li><li>缺页处理程序调入新的页面，并更新内存中的 PTE。</li><li>缺页处理程序返回原来的进程，再次执行导致缺页的指令， CPU 将引起缺页的虚拟地址重新发送给 MMU ，</li><li>因为虚拟页面现在存在主存中，所以会命中，主存将所请求的数据字返回 CPU。</li></ol></li></ol></li></ol></li></ol></li></ol><h2 class=heading-element id=内存操作-api><span>内存操作 API</span>
+<a href=#%e5%86%85%e5%ad%98%e6%93%8d%e4%bd%9c-api class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=栈内存><span>栈内存</span>
+<a href=#%e6%a0%88%e5%86%85%e5%ad%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>栈内存的申请和释放操作是编译器来隐式管理的，所以有时也称为自动（automatic）内存。</p><p>C 中申请栈内存很容易。比如，假设需要在 func()函数中为一个整形变量 x 申请空间。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-c"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=kt>void</span> <span class=nf>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>x</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><h3 class=heading-element id=分配堆内存><span>分配堆内存</span>
+<a href=#%e5%88%86%e9%85%8d%e5%a0%86%e5%86%85%e5%ad%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>malloc 只需要一个 size_t 类型参数，该参数表示你需要多少个字节。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-c"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=o>*</span><span class=nf>malloc</span><span class=p>(</span><span class=kt>size_t</span> <span class=n>size</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div></div><h3 class=heading-element id=堆内存释放><span>堆内存释放</span>
+<a href=#%e5%a0%86%e5%86%85%e5%ad%98%e9%87%8a%e6%94%be class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>要释放不再使用的堆内存，程序员只需调用 free()：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-c"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=kt>int</span> <span class=o>*</span><span class=n>x</span> <span class=o>=</span> <span class=nf>malloc</span><span class=p>(</span><span class=mi>10</span> <span class=o>*</span> <span class=k>sizeof</span><span class=p>(</span><span class=kt>int</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=nf>free</span><span class=p>(</span><span class=n>x</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div></div><p>free 和 malloc 都属于库调用，但是本身是建立在一些系统调用之上的。</p><p>访问堆的一个具体单元，需要两次访问内存，第一次得取得指针，第二次才是真正的数据，而栈只需访问一次。另外，堆的内容被操作系统交换到外存的概率比栈大，栈一般是不会被交换出去的。</p><h2 class=heading-element id=参考><span>参考</span>
+<a href=#%e5%8f%82%e8%80%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>《操作系统之哲学原理第 2 版》邹恒明</p><p>《操作系统导论》</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2023-02-08 22:59:45">更新于 2023-02-08&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/os-memory/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://luzhifang.github.io/os-memory/ data-title=内存 data-hashtags=操作系统><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://luzhifang.github.io/os-memory/ data-hashtag=操作系统><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://luzhifang.github.io/os-memory/ data-title=内存><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ class=post-tag title="标签 - 操作系统">操作系统</a></section><section class="post-actions print-hidden"><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>
+<span class=separator aria-hidden=true></span>
+<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/os-thread/ class=post-nav-item rel=prev title=线程><i class="fa-solid fa-angle-left" aria-hidden=true></i>线程</a><a href=/os-disk/ class=post-nav-item rel=next title=磁盘>磁盘<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div></article><aside class="toc animate__animated animate__fadeIn animate__faster" id=toc-auto aria-label=目录><h2 class=toc-title><span>目录<i class="toc-icon fa-solid fa-angle-down ms-1" aria-hidden=true></i></span>
+<button type=button class=toc-print-btn onclick=event.stopPropagation(),window.print() aria-label=打印><i class="fa-solid fa-print" aria-hidden=true></i></button></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class=footer-bottom><div class=footer-legal><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/authors/jeff/>Jeff</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=footer-tech><div class="footer-line powered">由 <a href="https://github.com/gohugoio/hugo?v=0.170.1" target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.170.1">Hugo</a> 与 <a href="https://github.com/hugo-fixit/FixIt?v=v1.0.0-rc.5" target=_blank rel=external title="FixIt v1.0.0-rc.5">FixIt</a> 驱动</div></div></div></div></footer></div><div class=widgets><div id=mask></div><dialog id=nav-dialog aria-labelledby=nav-dialog-title closedby=any><button type=button class=nav-close-btn aria-label="Close 导航"><i class="fa-solid fa-xmark fa-lg" aria-hidden=true></i></button><div class=toc><h2 class=toc-title id=nav-dialog-title>导航</h2><div class=toc-content id=toc-content-drawer></div></div></dialog><dialog id=search-dialog class=search-dialog aria-label=搜索 closedby=any><div class=search-modal><div class=search-modal-header><span class=search-delimiter></span>
+<button type=button class=search-close-btn aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden=true></i></button></div><div class=search-source-footer><div class="search-shortcuts max-sm:!hidden"><span class=search-shortcut><kbd><i class=lucide-arrow-up aria-hidden=true></i></kbd>
+<kbd><i class=lucide-arrow-down aria-hidden=true></i></kbd>
+切换
+</span><span class=search-shortcut><kbd><i class=lucide-corner-down-left aria-hidden=true></i></kbd>
+选择
+</span><span class=search-shortcut><kbd>ESC</kbd>
+关闭</span></div><span class=search-engine>搜索引擎 <a href=https://fusejs.io/ target=_blank rel="external nofollow noopener noreferrer">Fuse.js</a></span></div></div></dialog><div class=fixed-buttons><button type=button class="fixed-button back-to-top animate__faster hidden" aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></button><button type=button id=nav-drawer-button class="fixed-button nav-drawer-button hidden" aria-label=导航 aria-controls=nav-dialog aria-expanded=false><i class="fa-solid fa-bars" aria-hidden=true></i></button></div><noscript><div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete-js/index.production.js defer></script><script src=/js/lib/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/js/lib/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/js/config/664489298a577a9d960a640cf8c6e3bf.min.js defer></script><script src=/js/lib/file-tree.min.js defer></script><script src=/js/main.min.js defer></script></body></html>

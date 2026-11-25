@@ -164,3 +164,9 @@ https://prometheus.io/docs
 https://songjiayang.gitbooks.io/prometheus
 
 https://yunlzheng.gitbook.io/prometheus-book/
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/prometheus/  
+

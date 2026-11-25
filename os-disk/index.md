@@ -93,3 +93,9 @@ IOPS（Input/Output Per Second）即每秒的输入输出量（或读写次数�
 
 《操作系统导论》
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/os-disk/  
+

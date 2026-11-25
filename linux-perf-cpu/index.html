@@ -1,442 +1,176 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Linux性能优化-CPU - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/linux-perf-cpu/">
-  <meta property="og:site_name" content="半生戎码">
-  <meta property="og:title" content="Linux性能优化-CPU">
-  <meta property="og:description" content="各种延时 CPU 性能指标 CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具 平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具：">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2019-01-26T00:00:00+00:00">
-    <meta property="article:modified_time" content="2019-01-26T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="CPU">
-    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
-  <meta name="twitter:title" content="Linux性能优化-CPU">
-  <meta name="twitter:description" content="各种延时 CPU 性能指标 CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具 平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具：">
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/linux-perf-cpu/" /><link rel="prev" href="https://luzhifang.github.io/development-workflow/" /><link rel="next" href="https://luzhifang.github.io/linux-perf-memory/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Linux性能优化-CPU",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/luzhifang.github.io\/linux-perf-cpu\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Linux, CPU","wordcount":  3748 ,
-        "url": "https:\/\/luzhifang.github.io\/linux-perf-cpu\/","datePublished": "2019-01-26T00:00:00+00:00","dateModified": "2019-01-26T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
-                "@type": "Person",
-                "name": "Jeff"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust" aria-hidden="true"></i>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust" aria-hidden="true"></i>
-            </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Linux性能优化-CPU</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2019-01-26">2019-01-26</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 3748 字&nbsp;
-                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#各种延时">各种延时</a></li>
-    <li><a href="#cpu-性能指标">CPU 性能指标</a></li>
-    <li><a href="#性能工具">性能工具</a></li>
-    <li><a href="#平均负载和-cpu-使用率">平均负载和 CPU 使用率</a>
-      <ul>
-        <li><a href="#平均负载">平均负载</a></li>
-        <li><a href="#cpu-使用率">CPU 使用率</a></li>
-        <li><a href="#排查步骤">排查步骤</a></li>
-      </ul>
-    </li>
-    <li><a href="#上下文切换">上下文切换</a></li>
-    <li><a href="#具体某个应用-cpu-飙高">具体某个应用 CPU 飙高</a></li>
-    <li><a href="#cpu-使用率整体高但各个应用使用率都很低">CPU 使用率整体高，但各个应用使用率都很低</a></li>
-    <li><a href="#iowait-高">iowait 高</a></li>
-    <li><a href="#僵尸进程">僵尸进程</a></li>
-    <li><a href="#中断">中断</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="各种延时">各种延时</h2>
-<img src="/images/linux/delay.png" alt="" width="90%" />
-<h2 id="cpu-性能指标">CPU 性能指标</h2>
-<ol>
-<li>CPU 使用率
-<ol>
-<li>用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙.</li>
-<li>系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙.</li>
-<li>等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长.</li>
-<li>软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断.</li>
-<li>steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比.</li>
-</ol>
-</li>
-<li>平均负载
-<ol>
-<li>理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重.</li>
-</ol>
-</li>
-<li>进程上下文切换
-<ol>
-<li>包括无法获取资源的自愿切换和系统强制调度时的非自愿切换.</li>
-<li>上下文切换本身是保证 Linux 正常运行的一项核心功能.</li>
-<li>过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上</li>
-</ol>
-</li>
-<li>CPU 缓存命中率
-<ol>
-<li>CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中</li>
-</ol>
-</li>
-</ol>
-<h2 id="性能工具">性能工具</h2>
-<ol>
-<li>平均负载案例
-<ol>
-<li>先用 uptime 查看系统平均负载</li>
-<li>判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程.</li>
-</ol>
-</li>
-<li>上下文切换案例
-<ol>
-<li>先用 vmstat 查看系统上下文切换和中断次数</li>
-<li>再用 pidstat 观察进程的自愿和非自愿上下文切换情况</li>
-<li>最后通过 pidstat 观察线程的上下文切换情况</li>
-</ol>
-</li>
-<li>进程 CPU 使用率高案例
-<ol>
-<li>先用 top 查看系统和进程的 CPU 使用情况,定位到进程</li>
-<li>再用 perf top 观察进程调用链,定位到具体函数</li>
-</ol>
-</li>
-<li>系统 CPU 使用率高案例
-<ol>
-<li>先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程</li>
-<li>重新审视 top 输出</li>
-<li>从 CPU 使用率不高,但是处于 Running 状态的进程入手</li>
-<li>perf record/report 发现短时进程导致 (execsnoop 工具)</li>
-</ol>
-</li>
-<li>不可中断和僵尸进程案例
-<ol>
-<li>先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程</li>
-<li>strace 无法跟踪进程系统调用</li>
-<li>perf 分析调用链发现根源来自磁盘直接 I/O</li>
-</ol>
-</li>
-<li>软中断案例
-<ol>
-<li>top 观察系统软中断 CPU 使用率高</li>
-<li>查看/proc/softirqs 找到变化速率较快的几种软中断</li>
-<li>sar 命令发现是网络小包问题</li>
-<li>tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致</li>
-</ol>
-</li>
-</ol>
-<p>根据不同的性能指标来找合适的工具：</p>
-<img src="/images/linux/cpu-indicator-to-tool.png" alt="" width="90%" />
-<p>为了缩小排查范围，我通常会先运行几个支持指标较多的工具，如 top、vmstat 和 pidstat 。看看下面三者的关系：</p>
-<img src="/images/linux/cpu-top-vmstat-pidstat.png" alt="" width="90%" />
-<h2 id="平均负载和-cpu-使用率">平均负载和 CPU 使用率</h2>
-<h3 id="平均负载">平均负载</h3>
-<p>平均负载是指单位时间内，系统处于可运行状态（包括正在运行）和不可中断状态的平均进程数，也就是平均活跃进程数，它和 CPU 使用率并没有直接关系。</p>
-<p>当平均负载高于 CPU 数量 70% 的时候，你就应该分析排查负载高的问题了。</p>
-<h3 id="cpu-使用率">CPU 使用率</h3>
-<p>CPU 使用率，是单位时间内 CPU 繁忙情况的统计，跟平均负载并不一定完全对应。</p>
-<p>CPU 使用率描述了非空闲时间占总 CPU 时间的百分比，根据 CPU 上运行任务的不同，又被分为用户 CPU、系统 CPU、等待 I/O CPU、软中断和硬中断等。</p>
-<ul>
-<li>CPU 密集型进程，使用大量 CPU 会导致平均负载升高，此时这两者是一致的；</li>
-<li>I/O 密集型进程，等待 I/O 也会导致平均负载升高，但 CPU 使用率不一定很高；</li>
-<li>大量等待 CPU 的进程调度也会导致平均负载升高，此时的 CPU 使用率也会比较高。</li>
-</ul>
-<h3 id="排查步骤">排查步骤</h3>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># -d 参数表示高亮显示变化的区域</span>
-</span></span><span class="line"><span class="cl">$ watch -d uptime
-</span></span><span class="line"><span class="cl">11:34:42 up  2:02,  <span class="m">0</span> users,  load average: 0.06, 1.39, 1.94
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -P ALL 表示监控所有 CPU，后面数字 5 表示间隔 5 秒后输出一组数据</span>
-</span></span><span class="line"><span class="cl">$ mpstat -P ALL <span class="m">2</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">11:35:18     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-</span></span><span class="line"><span class="cl">11:35:20     all    0.00    0.00    0.12    0.00    0.00    0.00    0.00    0.00    0.00   99.88
-</span></span><span class="line"><span class="cl">11:35:20       <span class="m">0</span>    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
-</span></span><span class="line"><span class="cl">11:35:20       <span class="m">1</span>    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 间隔 5 秒后输出一组数据，-u 表示 CPU 指标</span>
-</span></span><span class="line"><span class="cl">$ pidstat -u <span class="m">5</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">11:38:16      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
-</span></span><span class="line"><span class="cl">11:38:21        <span class="m">0</span>      <span class="m">7137</span>   50.00    0.00    0.00   50.00   50.00     <span class="m">2</span>  stress
-</span></span><span class="line"><span class="cl">11:38:21        <span class="m">0</span>      <span class="m">7138</span>   49.80    0.00    0.00   50.20   49.80     <span class="m">3</span>  stress</span></span></code></pre></div></div>
-<ol>
-<li>如果%usr 和%nice 比较高，%iowait 比较低则表明是 CPU 密集型</li>
-<li>如果%usr 和%nice 比较低，%iowait 比较高则表明是 IO 密集型</li>
-<li>如果%usr 和%nice 比较低，%iowait 比较低但是%wait 比较高说明进程太多了</li>
-</ol>
-<h2 id="上下文切换">上下文切换</h2>
-<p>CPU 的上下文切换就可以分为几个不同的场景，也就是进程上下文切换、线程上下文切换以及中断上下文切换。</p>
-<p>由于上下文切换需要陷入内核，所以上下文切换属于系统 CPU 使用率。</p>
-<p>根据上下文切换的类型，再做具体分析。</p>
-<ul>
-<li>自愿上下文切换变多了，说明进程都在等待资源，有可能发生了 I/O、内存等其他问题；</li>
-<li>非自愿上下文切换变多了，说明进程都在被强制调度，也就是都在争抢 CPU，说明 CPU 的确成了瓶颈；</li>
-<li>中断次数变多了，说明 CPU 被中断处理程序占用，还需要通过查看 /proc/interrupts 文件来分析具体的中断类型。</li>
-</ul>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 每隔 5 秒输出 1 组数据</span>
-</span></span><span class="line"><span class="cl">$ vmstat <span class="m">5</span>
-</span></span><span class="line"><span class="cl">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
-</span></span><span class="line"><span class="cl"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
-</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span>      <span class="m">0</span> <span class="m">7846784</span>  <span class="m">32708</span> <span class="m">148268</span>    <span class="m">0</span>    <span class="m">0</span>    <span class="m">12</span>   <span class="m">208</span>   <span class="m">33</span>   <span class="m">86</span>  <span class="m">0</span>  <span class="m">0</span> <span class="m">99</span>  <span class="m">0</span>  <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># cs（context switch）是每秒上下文切换的次数。</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># in（interrupt）则是每秒中断的次数。</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># r（Running or Runnable）是就绪队列的长度，也就是正在运行和等待 CPU 的进程数。</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># b（Blocked）则是处于不可中断睡眠状态的进程数。</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -w参数表示输出进程切换指标，-t参数表示输出线程的上下文切换指标，-u 参数则表示输出 CPU 使用指标</span>
-</span></span><span class="line"><span class="cl">$ pidstat -wtu <span class="m">5</span>
-</span></span><span class="line"><span class="cl">11:25:28      UID      TGID       TID    %usr %system  %guest   %wait    %CPU   CPU  Command
-</span></span><span class="line"><span class="cl">11:25:33        <span class="m">0</span>        <span class="m">20</span>         -    0.00    0.20    0.00    0.00    0.20     <span class="m">2</span>  fsnotifier-wsl
-</span></span><span class="line"><span class="cl">11:25:33        <span class="m">0</span>         -        <span class="m">20</span>    0.00    0.20    0.00    0.00    0.20     <span class="m">2</span>  <span class="p">|</span>__fsnotifier-wsl
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">11:25:28      UID      TGID       TID   cswch/s nvcswch/s  Command
-</span></span><span class="line"><span class="cl">11:25:33        <span class="m">0</span>        <span class="m">20</span>         -      2.00      0.00  fsnotifier-wsl
-</span></span><span class="line"><span class="cl">11:25:33        <span class="m">0</span>         -        <span class="m">20</span>      2.00      0.00  <span class="p">|</span>__fsnotifier-wsl
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># cswch ，表示每秒自愿上下文切换（voluntary context switches）的次数，</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 自愿上下文切换是指进程无法获取所需资源，导致的上下文切换。</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># nvcswch ，表示每秒非自愿上下文切换（non voluntary context switches）的次数，</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 非自愿上下文切换是指进程由于时间片已到等原因，被系统强制调度，进而发生的上下文切换。</span></span></span></code></pre></div></div>
-<h2 id="具体某个应用-cpu-飙高">具体某个应用 CPU 飙高</h2>
-<p>碰到 CPU 使用率升高的问题，你可以借助 top、pidstat 等工具，确认引发 CPU 性能问题的来源；</p>
-<ul>
-<li>用户（%user） CPU 和 Nice（%nice） CPU 高，说明用户态进程占用了较多的 CPU，所以应该着重排查进程的性能问题。</li>
-<li>系统（%system） CPU 高，说明内核态占用了较多的 CPU，所以应该着重排查内核线程或者系统调用的性能问题。</li>
-<li>I/O（%iowait） 等待 CPU 高，说明等待 I/O 的时间比较长，所以应该着重排查系统存储是不是出现了 I/O 问题。</li>
-<li>软中断（%softirq）和硬中断（%irq）高，说明软中断或硬中断的处理程序占用了较多的 CPU，所以应该着重排查内核中的中断服务程序。</li>
-</ul>
-<p>再使用 perf 等工具，排查出引起性能问题的具体函数。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">$ top
-</span></span><span class="line"><span class="cl">$ pidstat -u <span class="m">5</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">$ vmstat <span class="m">5</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -g 开启调用关系分析，-p 指定应用的的进程号 12096</span>
-</span></span><span class="line"><span class="cl">$ perf top -g -p <span class="m">21515</span></span></span></code></pre></div></div>
-<h2 id="cpu-使用率整体高但各个应用使用率都很低">CPU 使用率整体高，但各个应用使用率都很低</h2>
-<p>碰到常规问题无法解释的 CPU 使用率情况时，首先要想到有可能是短时应用导致的问题，比如有可能是下面这两种情况。</p>
-<ol>
-<li>应用里直接调用了其他二进制程序，这些程序通常运行时间比较短，通过 top 等工具也不容易发现。</li>
-<li>应用本身在不停地崩溃重启，而启动过程的资源初始化，很可能会占用相当多的 CPU。</li>
-</ol>
-<p>对于这类进程，我们可以用 pstree 或者 execsnoop 找到它们的父进程，再从父进程所在的应用入手，排查问题的根源。</p>
-<h2 id="iowait-高">iowait 高</h2>
-<p>碰到 iowait 升高时，需要先用 dstat、pidstat 等工具，确认是不是磁盘 I/O 的问题，然后再找是哪些进程导致了 I/O。</p>
-<p>等待 I/O 的进程一般是不可中断状态，所以用 ps 命令找到的 D(Disk Sleep) 状态（即不可中断状态）的进程，多为可疑进程。</p>
-<ul>
-<li>可以用 strace -p [pid] 直接分析这个进程的系统调用。</li>
-<li>strace 没查到可使用 perf record -g 记录，perf report 再输出报告</li>
-</ul>
-<h2 id="僵尸进程">僵尸进程</h2>
-<p>僵尸进程表示进程已经退出，但它的父进程还没有回收子进程占用的资源。短暂的僵尸状态我们通常不必理会，但进程长时间处于僵尸状态，就应该注意了，可能有应用程序没有正常处理子进程的退出。</p>
-<p>使用 pstree 找出父进程后，去查看父进程的代码，检查 wait() / waitpid() 的调用，或是 SIGCHLD 信号处理函数的注册就行了。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># -a 表示输出命令行选项</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># p 表 PID</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># s 表示指定进程的父进程</span>
-</span></span><span class="line"><span class="cl">$ pstree -aps <span class="m">12757</span>
-</span></span><span class="line"><span class="cl">init,1
-</span></span><span class="line"><span class="cl">  └─init,6604
-</span></span><span class="line"><span class="cl">      └─init,6605
-</span></span><span class="line"><span class="cl">          └─bash,6606
-</span></span><span class="line"><span class="cl">              └─go,12757 run main.go
-</span></span><span class="line"><span class="cl">                  ├─main,12809
-</span></span><span class="line"><span class="cl">                  │   ├─<span class="o">{</span>main<span class="o">}</span>,12810
-</span></span><span class="line"><span class="cl">                  │   ├─<span class="o">{</span>main<span class="o">}</span>,12811
-</span></span><span class="line"><span class="cl">                  ├─<span class="o">{</span>go<span class="o">}</span>,12758
-</span></span><span class="line"><span class="cl">                  ├─<span class="o">{</span>go<span class="o">}</span>,12759</span></span></code></pre></div></div>
-<h2 id="中断">中断</h2>
-<p>中断是系统用来响应硬件设备请求的一种机制，它会打断进程的正常调度和执行，然后调用内核中的中断处理程序来响应设备的请求。</p>
-<p>Linux 将中断处理过程分成了两个阶段，也就是上半部和下半部：</p>
-<ul>
-<li>上半部用来快速处理中断，也就是我们常说的硬中断，它在中断禁止模式下运行，主要处理跟硬件紧密相关的或时间敏感的工作。</li>
-<li>下半部则是由内核触发，也就是我们常说的软中断，下半部用来延迟处理上半部未完成的工作，通常以内核线程的方式运行。</li>
-</ul>
-<p>上半部会打断 CPU 正在执行的任务，然后立即执行中断处理程序。而下半部以内核线程的方式执行，并且每个 CPU 都对应一个软中断内核线程，名字为 “ksoftirqd/CPU 编号”，比如说， 0 号 CPU 对应的软中断内核线程的名字就是 ksoftirqd/0。</p>
-<p>软中断不只包括了刚刚所讲的硬件设备中断处理程序的下半部，一些内核自定义的事件也属于软中断，比如网络收发、定时、内核调度和 RCU 锁（Read-Copy Update 的缩写，RCU 是 Linux 内核中最常用的锁之一）等。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># 查看软中断</span>
-</span></span><span class="line"><span class="cl">cat /proc/softirqs
-</span></span><span class="line"><span class="cl"><span class="c1"># 查看硬中断</span>
-</span></span><span class="line"><span class="cl">cat /proc/interrupts</span></span></code></pre></div></div>
-<p>软中断 CPU 使用率（softirq）升高是一种很常见的性能问题。虽然软中断的类型很多，但实际生产中，我们遇到的性能瓶颈大多是网络收发类型的软中断，特别是网络接收的软中断。</p>
-<p>在碰到这类问题时，你可以借用 sar、tcpdump 等工具，做进一步分析。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl"><span class="c1"># -i eth0 只抓取 eth0 网卡，-n 不解析协议名和主机名</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># tcp port 80 表示只抓取 tcp 协议并且端口号为 80 的网络帧</span>
-</span></span><span class="line"><span class="cl">$ tcpdump -i eth0 -n tcp port <span class="m">80</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># -n DEV 表示显示网络收发的报告，间隔 1 秒输出一组数据</span>
-</span></span><span class="line"><span class="cl">$ sar -n DEV <span class="m">1</span>
-</span></span><span class="line"><span class="cl">20:52:29        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
-</span></span><span class="line"><span class="cl">20:52:30           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span></span></code></pre></div></div>
-<h2 id="参考">参考</h2>
-<p><a href="https://www.eet-china.com/mp/a117035.html" target="_blank" rel="noopener noreffer ">https://www.eet-china.com/mp/a117035.html</a></p>
-<p><a href="https://weread.qq.com/web/reader/6da3218071fd5aa16dabd75k8e232ec02198e296a067180" target="_blank" rel="noopener noreffer ">性能之巅-洞悉系统、企业与云计算</a></p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2019-01-26</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU" data-hashtags="Linux,CPU"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-hashtag="Linux"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/linux-perf-cpu/" data-title="Linux性能优化-CPU" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2flinux-perf-cpu%2f&amp;text=Linux%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96-CPU" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/cpu/">CPU</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/development-workflow/" class="prev" rel="prev" title="开发流程"><i class="fas fa-angle-left" aria-hidden="true"></i>开发流程</a>
-            <a href="/linux-perf-memory/" class="next" rel="next" title="Linux性能优化-内存">Linux性能优化-内存<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment" aria-hidden="true"></i>
-            </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><title>Linux性能优化-CPU - 半生戎码</title><meta name=author content="Jeff"><meta name=description content="各种延时CPU 性能指标CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具：
+"><meta name=robots content="index, follow"><meta name=keywords content='Linux,CPU'><meta itemprop=name content="Linux性能优化-CPU"><meta itemprop=description content="各种延时CPU 性能指标CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具："><meta itemprop=datePublished content="2019-01-26T00:00:00+00:00"><meta itemprop=dateModified content="2022-12-31T23:43:09+08:00"><meta itemprop=wordCount content="3821"><meta itemprop=image content="https://luzhifang.github.io/images/avatar.png"><meta itemprop=keywords content="Linux,CPU"><meta property="og:url" content="https://luzhifang.github.io/linux-perf-cpu/"><meta property="og:site_name" content="半生戎码"><meta property="og:title" content="Linux性能优化-CPU"><meta property="og:description" content="各种延时CPU 性能指标CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具："><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-01-26T00:00:00+00:00"><meta property="article:modified_time" content="2022-12-31T23:43:09+08:00"><meta property="article:tag" content="Linux"><meta property="article:tag" content="CPU"><meta property="og:image" content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:title content="Linux性能优化-CPU"><meta name=twitter:description content="各种延时CPU 性能指标CPU 使用率 用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙. 系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙. 等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长. 软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断. steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比. 平均负载 理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重. 进程上下文切换 包括无法获取资源的自愿切换和系统强制调度时的非自愿切换. 上下文切换本身是保证 Linux 正常运行的一项核心功能. 过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上 CPU 缓存命中率 CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中 性能工具平均负载案例 先用 uptime 查看系统平均负载 判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程. 上下文切换案例 先用 vmstat 查看系统上下文切换和中断次数 再用 pidstat 观察进程的自愿和非自愿上下文切换情况 最后通过 pidstat 观察线程的上下文切换情况 进程 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,定位到进程 再用 perf top 观察进程调用链,定位到具体函数 系统 CPU 使用率高案例 先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程 重新审视 top 输出 从 CPU 使用率不高,但是处于 Running 状态的进程入手 perf record/report 发现短时进程导致 (execsnoop 工具) 不可中断和僵尸进程案例 先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程 strace 无法跟踪进程系统调用 perf 分析调用链发现根源来自磁盘直接 I/O 软中断案例 top 观察系统软中断 CPU 使用率高 查看/proc/softirqs 找到变化速率较快的几种软中断 sar 命令发现是网络小包问题 tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致 根据不同的性能指标来找合适的工具："><meta name=application-name content="半生戎码"><meta name=apple-mobile-web-app-title content="半生戎码"><meta name=theme-color data-light=#f6f8fa data-dark=#151b23 content="#f6f8fa"><meta name=msapplication-TileColor content="#2d89ef"><link rel=canonical type=text/html href=https://luzhifang.github.io/linux-perf-cpu/ title="Linux性能优化-CPU - 半生戎码"><link rel=prev type=text/html href=https://luzhifang.github.io/development-workflow/ title=开发流程><link rel=next type=text/html href=https://luzhifang.github.io/linux-perf-memory/ title=Linux性能优化-内存><link rel=alternate type=text/markdown href=https://luzhifang.github.io/linux-perf-cpu/index.md><link rel=stylesheet href=/css/unocss.min.css><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/pages/posts.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><link rel=preload href=/js/main.min.js as=script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Linux性能优化-CPU","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/luzhifang.github.io\/linux-perf-cpu\/"},"genre":"posts","keywords":"Linux, CPU","wordcount":3821,"url":"https:\/\/luzhifang.github.io\/linux-perf-cpu\/","datePublished":"2019-01-26T00:00:00+00:00","dateModified":"2022-12-31T23:43:09+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Jeff"},"description":""}</script><script src=/js/head.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><nav class=nav-main aria-label=主菜单><ul class=menu><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li></ul></nav><nav class=nav-system aria-label=站点功能><ul class=menu><li class="menu-item delimiter"></li><li class="menu-item search"><button type=button class="search-trigger desktop" aria-label=搜索 title=搜索>
+<i class="fa-solid fa-search" aria-hidden=true></i>
+搜索
+<kbd></kbd></button></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch-item"><button type=button class=theme-switch aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><button type=button class="search-trigger mobile" aria-label=搜索><i class="fa-solid fa-search" aria-hidden=true></i></button><button type=button class=theme-switch aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button>
+<button type=button class=menu-toggle id=menu-toggle-mobile aria-controls=menu-mobile aria-expanded=false aria-labelledby=menu-mobile>
+<span></span><span></span><span></span></button></div><nav><ul class=menu id=menu-mobile><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li><li class="menu-item menu-system"></li></ul></nav></div></header><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Linux性能优化-CPU</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/authors/jeff/ title=作者 rel=author class=author><img class=avatar src=/images/avatar.png alt=Jeff height=16 width=16>&nbsp;Jeff</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/linux/ class=post-category title="分类 - Linux"><i class="fa-regular fa-folder" aria-hidden=true></i> Linux</a></span></div><div class=post-meta-line><span title="发布于 2019-01-26 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2019-01-26>2019-01-26</time></span>&nbsp;<span title="更新于 2022-12-31 23:43:09"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2022-12-31>2022-12-31</time></span>&nbsp;<span title="3821 字"><i class="fa-solid fa-pencil me-1" aria-hidden=true></i>约 3900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 8 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static></div></div><template data-toc><nav id=TableOfContents><ul><li><a href=#各种延时>各种延时</a></li><li><a href=#cpu-性能指标>CPU 性能指标</a></li><li><a href=#性能工具>性能工具</a></li><li><a href=#平均负载和-cpu-使用率>平均负载和 CPU 使用率</a><ul><li><a href=#平均负载>平均负载</a></li><li><a href=#cpu-使用率>CPU 使用率</a></li><li><a href=#排查步骤>排查步骤</a></li></ul></li><li><a href=#上下文切换>上下文切换</a></li><li><a href=#具体某个应用-cpu-飙高>具体某个应用 CPU 飙高</a></li><li><a href=#cpu-使用率整体高但各个应用使用率都很低>CPU 使用率整体高，但各个应用使用率都很低</a></li><li><a href=#iowait-高>iowait 高</a></li><li><a href=#僵尸进程>僵尸进程</a></li><li><a href=#中断>中断</a></li><li><a href=#参考>参考</a></li></ul></nav></template><div class=content id=content><h2 class=heading-element id=各种延时><span>各种延时</span>
+<a href=#%e5%90%84%e7%a7%8d%e5%bb%b6%e6%97%b6 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><img src=/images/linux/delay.png alt width=90%><h2 class=heading-element id=cpu-性能指标><span>CPU 性能指标</span>
+<a href=#cpu-%e6%80%a7%e8%83%bd%e6%8c%87%e6%a0%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>CPU 使用率<ol><li>用户 CPU 使用率, 包括用户态(user)和低优先级用户态(nice). 该指标过高说明应用程序比较繁忙.</li><li>系统 CPU 使用率, CPU 在内核态运行的时间百分比(不含中断). 该指标高说明内核比较繁忙.</li><li>等待 I/O 的 CPU 使用率, iowait, 该指标高说明系统与硬件设备 I/O 交互时间比较长.</li><li>软/硬中断 CPU 使用率, 该指标高说明系统中发生大量中断.</li><li>steal CPU / guest CPU, 表示虚拟机占用的 CPU 百分比.</li></ol></li><li>平均负载<ol><li>理想情况下平均负载等于逻辑 CPU 个数,表示每个 CPU 都被充分利用. 若大于则说明系统负载较重.</li></ol></li><li>进程上下文切换<ol><li>包括无法获取资源的自愿切换和系统强制调度时的非自愿切换.</li><li>上下文切换本身是保证 Linux 正常运行的一项核心功能.</li><li>过多的切换则会将原本运行进程的 CPU 时间消耗在寄存器,内核占及虚拟内存等数据保存和恢复上</li></ol></li><li>CPU 缓存命中率<ol><li>CPU 缓存的复用情况,命中率越高性能越好. 其中 L1/L2 常用在单核,L3 则用在多核中</li></ol></li></ol><h2 class=heading-element id=性能工具><span>性能工具</span>
+<a href=#%e6%80%a7%e8%83%bd%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>平均负载案例<ol><li>先用 uptime 查看系统平均负载</li><li>判断负载在升高后再用 mpstat 和 pidstat 分别查看每个 CPU 和每个进程 CPU 使用情况.找出导致平均负载较高的进程.</li></ol></li><li>上下文切换案例<ol><li>先用 vmstat 查看系统上下文切换和中断次数</li><li>再用 pidstat 观察进程的自愿和非自愿上下文切换情况</li><li>最后通过 pidstat 观察线程的上下文切换情况</li></ol></li><li>进程 CPU 使用率高案例<ol><li>先用 top 查看系统和进程的 CPU 使用情况,定位到进程</li><li>再用 perf top 观察进程调用链,定位到具体函数</li></ol></li><li>系统 CPU 使用率高案例<ol><li>先用 top 查看系统和进程的 CPU 使用情况,top/pidstat 都无法找到 CPU 使用率高的进程</li><li>重新审视 top 输出</li><li>从 CPU 使用率不高,但是处于 Running 状态的进程入手</li><li>perf record/report 发现短时进程导致 (execsnoop 工具)</li></ol></li><li>不可中断和僵尸进程案例<ol><li>先用 top 观察 iowait 升高,发现大量不可中断和僵尸进程</li><li>strace 无法跟踪进程系统调用</li><li>perf 分析调用链发现根源来自磁盘直接 I/O</li></ol></li><li>软中断案例<ol><li>top 观察系统软中断 CPU 使用率高</li><li>查看/proc/softirqs 找到变化速率较快的几种软中断</li><li>sar 命令发现是网络小包问题</li><li>tcpdump 找出网络帧的类型和来源，确定 SYN FLOOD 攻击导致</li></ol></li></ol><p>根据不同的性能指标来找合适的工具：</p><img src=/images/linux/cpu-indicator-to-tool.png alt width=90%><p>为了缩小排查范围，我通常会先运行几个支持指标较多的工具，如 top、vmstat 和 pidstat 。看看下面三者的关系：</p><img src=/images/linux/cpu-top-vmstat-pidstat.png alt width=90%><h2 class=heading-element id=平均负载和-cpu-使用率><span>平均负载和 CPU 使用率</span>
+<a href=#%e5%b9%b3%e5%9d%87%e8%b4%9f%e8%bd%bd%e5%92%8c-cpu-%e4%bd%bf%e7%94%a8%e7%8e%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=平均负载><span>平均负载</span>
+<a href=#%e5%b9%b3%e5%9d%87%e8%b4%9f%e8%bd%bd class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>平均负载是指单位时间内，系统处于可运行状态（包括正在运行）和不可中断状态的平均进程数，也就是平均活跃进程数，它和 CPU 使用率并没有直接关系。</p><p>当平均负载高于 CPU 数量 70% 的时候，你就应该分析排查负载高的问题了。</p><h3 class=heading-element id=cpu-使用率><span>CPU 使用率</span>
+<a href=#cpu-%e4%bd%bf%e7%94%a8%e7%8e%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>CPU 使用率，是单位时间内 CPU 繁忙情况的统计，跟平均负载并不一定完全对应。</p><p>CPU 使用率描述了非空闲时间占总 CPU 时间的百分比，根据 CPU 上运行任务的不同，又被分为用户 CPU、系统 CPU、等待 I/O CPU、软中断和硬中断等。</p><ul><li>CPU 密集型进程，使用大量 CPU 会导致平均负载升高，此时这两者是一致的；</li><li>I/O 密集型进程，等待 I/O 也会导致平均负载升高，但 CPU 使用率不一定很高；</li><li>大量等待 CPU 的进程调度也会导致平均负载升高，此时的 CPU 使用率也会比较高。</li></ul><h3 class=heading-element id=排查步骤><span>排查步骤</span>
+<a href=#%e6%8e%92%e6%9f%a5%e6%ad%a5%e9%aa%a4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1># -d 参数表示高亮显示变化的区域</span>
+</span></span><span class=line><span class=cl>$ watch -d uptime
+</span></span><span class=line><span class=cl>11:34:42 up  2:02,  <span class=m>0</span> users,  load average: 0.06, 1.39, 1.94
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># -P ALL 表示监控所有 CPU，后面数字 5 表示间隔 5 秒后输出一组数据</span>
+</span></span><span class=line><span class=cl>$ mpstat -P ALL <span class=m>2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>11:35:18     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+</span></span><span class=line><span class=cl>11:35:20     all    0.00    0.00    0.12    0.00    0.00    0.00    0.00    0.00    0.00   99.88
+</span></span><span class=line><span class=cl>11:35:20       <span class=m>0</span>    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+</span></span><span class=line><span class=cl>11:35:20       <span class=m>1</span>    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 间隔 5 秒后输出一组数据，-u 表示 CPU 指标</span>
+</span></span><span class=line><span class=cl>$ pidstat -u <span class=m>5</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>11:38:16      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+</span></span><span class=line><span class=cl>11:38:21        <span class=m>0</span>      <span class=m>7137</span>   50.00    0.00    0.00   50.00   50.00     <span class=m>2</span>  stress
+</span></span><span class=line><span class=cl>11:38:21        <span class=m>0</span>      <span class=m>7138</span>   49.80    0.00    0.00   50.20   49.80     <span class=m>3</span>  stress</span></span></code></pre></td></tr></table></div></div></div><ol><li>如果%usr 和%nice 比较高，%iowait 比较低则表明是 CPU 密集型</li><li>如果%usr 和%nice 比较低，%iowait 比较高则表明是 IO 密集型</li><li>如果%usr 和%nice 比较低，%iowait 比较低但是%wait 比较高说明进程太多了</li></ol><h2 class=heading-element id=上下文切换><span>上下文切换</span>
+<a href=#%e4%b8%8a%e4%b8%8b%e6%96%87%e5%88%87%e6%8d%a2 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>CPU 的上下文切换就可以分为几个不同的场景，也就是进程上下文切换、线程上下文切换以及中断上下文切换。</p><p>由于上下文切换需要陷入内核，所以上下文切换属于系统 CPU 使用率。</p><p>根据上下文切换的类型，再做具体分析。</p><ul><li>自愿上下文切换变多了，说明进程都在等待资源，有可能发生了 I/O、内存等其他问题；</li><li>非自愿上下文切换变多了，说明进程都在被强制调度，也就是都在争抢 CPU，说明 CPU 的确成了瓶颈；</li><li>中断次数变多了，说明 CPU 被中断处理程序占用，还需要通过查看 /proc/interrupts 文件来分析具体的中断类型。</li></ul><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1># 每隔 5 秒输出 1 组数据</span>
+</span></span><span class=line><span class=cl>$ vmstat <span class=m>5</span>
+</span></span><span class=line><span class=cl>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+</span></span><span class=line><span class=cl> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+</span></span><span class=line><span class=cl> <span class=m>0</span>  <span class=m>0</span>      <span class=m>0</span> <span class=m>7846784</span>  <span class=m>32708</span> <span class=m>148268</span>    <span class=m>0</span>    <span class=m>0</span>    <span class=m>12</span>   <span class=m>208</span>   <span class=m>33</span>   <span class=m>86</span>  <span class=m>0</span>  <span class=m>0</span> <span class=m>99</span>  <span class=m>0</span>  <span class=m>0</span>
+</span></span><span class=line><span class=cl><span class=c1># cs（context switch）是每秒上下文切换的次数。</span>
+</span></span><span class=line><span class=cl><span class=c1># in（interrupt）则是每秒中断的次数。</span>
+</span></span><span class=line><span class=cl><span class=c1># r（Running or Runnable）是就绪队列的长度，也就是正在运行和等待 CPU 的进程数。</span>
+</span></span><span class=line><span class=cl><span class=c1># b（Blocked）则是处于不可中断睡眠状态的进程数。</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># -w参数表示输出进程切换指标，-t参数表示输出线程的上下文切换指标，-u 参数则表示输出 CPU 使用指标</span>
+</span></span><span class=line><span class=cl>$ pidstat -wtu <span class=m>5</span>
+</span></span><span class=line><span class=cl>11:25:28      UID      TGID       TID    %usr %system  %guest   %wait    %CPU   CPU  Command
+</span></span><span class=line><span class=cl>11:25:33        <span class=m>0</span>        <span class=m>20</span>         -    0.00    0.20    0.00    0.00    0.20     <span class=m>2</span>  fsnotifier-wsl
+</span></span><span class=line><span class=cl>11:25:33        <span class=m>0</span>         -        <span class=m>20</span>    0.00    0.20    0.00    0.00    0.20     <span class=m>2</span>  <span class=p>|</span>__fsnotifier-wsl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>11:25:28      UID      TGID       TID   cswch/s nvcswch/s  Command
+</span></span><span class=line><span class=cl>11:25:33        <span class=m>0</span>        <span class=m>20</span>         -      2.00      0.00  fsnotifier-wsl
+</span></span><span class=line><span class=cl>11:25:33        <span class=m>0</span>         -        <span class=m>20</span>      2.00      0.00  <span class=p>|</span>__fsnotifier-wsl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cswch ，表示每秒自愿上下文切换（voluntary context switches）的次数，</span>
+</span></span><span class=line><span class=cl><span class=c1># 自愿上下文切换是指进程无法获取所需资源，导致的上下文切换。</span>
+</span></span><span class=line><span class=cl><span class=c1># nvcswch ，表示每秒非自愿上下文切换（non voluntary context switches）的次数，</span>
+</span></span><span class=line><span class=cl><span class=c1># 非自愿上下文切换是指进程由于时间片已到等原因，被系统强制调度，进而发生的上下文切换。</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=具体某个应用-cpu-飙高><span>具体某个应用 CPU 飙高</span>
+<a href=#%e5%85%b7%e4%bd%93%e6%9f%90%e4%b8%aa%e5%ba%94%e7%94%a8-cpu-%e9%a3%99%e9%ab%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>碰到 CPU 使用率升高的问题，你可以借助 top、pidstat 等工具，确认引发 CPU 性能问题的来源；</p><ul><li>用户（%user） CPU 和 Nice（%nice） CPU 高，说明用户态进程占用了较多的 CPU，所以应该着重排查进程的性能问题。</li><li>系统（%system） CPU 高，说明内核态占用了较多的 CPU，所以应该着重排查内核线程或者系统调用的性能问题。</li><li>I/O（%iowait） 等待 CPU 高，说明等待 I/O 的时间比较长，所以应该着重排查系统存储是不是出现了 I/O 问题。</li><li>软中断（%softirq）和硬中断（%irq）高，说明软中断或硬中断的处理程序占用了较多的 CPU，所以应该着重排查内核中的中断服务程序。</li></ul><p>再使用 perf 等工具，排查出引起性能问题的具体函数。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>$ top
+</span></span><span class=line><span class=cl>$ pidstat -u <span class=m>5</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>$ vmstat <span class=m>5</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># -g 开启调用关系分析，-p 指定应用的的进程号 12096</span>
+</span></span><span class=line><span class=cl>$ perf top -g -p <span class=m>21515</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=cpu-使用率整体高但各个应用使用率都很低><span>CPU 使用率整体高，但各个应用使用率都很低</span>
+<a href=#cpu-%e4%bd%bf%e7%94%a8%e7%8e%87%e6%95%b4%e4%bd%93%e9%ab%98%e4%bd%86%e5%90%84%e4%b8%aa%e5%ba%94%e7%94%a8%e4%bd%bf%e7%94%a8%e7%8e%87%e9%83%bd%e5%be%88%e4%bd%8e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>碰到常规问题无法解释的 CPU 使用率情况时，首先要想到有可能是短时应用导致的问题，比如有可能是下面这两种情况。</p><ol><li>应用里直接调用了其他二进制程序，这些程序通常运行时间比较短，通过 top 等工具也不容易发现。</li><li>应用本身在不停地崩溃重启，而启动过程的资源初始化，很可能会占用相当多的 CPU。</li></ol><p>对于这类进程，我们可以用 pstree 或者 execsnoop 找到它们的父进程，再从父进程所在的应用入手，排查问题的根源。</p><h2 class=heading-element id=iowait-高><span>iowait 高</span>
+<a href=#iowait-%e9%ab%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>碰到 iowait 升高时，需要先用 dstat、pidstat 等工具，确认是不是磁盘 I/O 的问题，然后再找是哪些进程导致了 I/O。</p><p>等待 I/O 的进程一般是不可中断状态，所以用 ps 命令找到的 D(Disk Sleep) 状态（即不可中断状态）的进程，多为可疑进程。</p><ul><li>可以用 strace -p [pid] 直接分析这个进程的系统调用。</li><li>strace 没查到可使用 perf record -g 记录，perf report 再输出报告</li></ul><h2 class=heading-element id=僵尸进程><span>僵尸进程</span>
+<a href=#%e5%83%b5%e5%b0%b8%e8%bf%9b%e7%a8%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>僵尸进程表示进程已经退出，但它的父进程还没有回收子进程占用的资源。短暂的僵尸状态我们通常不必理会，但进程长时间处于僵尸状态，就应该注意了，可能有应用程序没有正常处理子进程的退出。</p><p>使用 pstree 找出父进程后，去查看父进程的代码，检查 wait() / waitpid() 的调用，或是 SIGCHLD 信号处理函数的注册就行了。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1># -a 表示输出命令行选项</span>
+</span></span><span class=line><span class=cl><span class=c1># p 表 PID</span>
+</span></span><span class=line><span class=cl><span class=c1># s 表示指定进程的父进程</span>
+</span></span><span class=line><span class=cl>$ pstree -aps <span class=m>12757</span>
+</span></span><span class=line><span class=cl>init,1
+</span></span><span class=line><span class=cl>  └─init,6604
+</span></span><span class=line><span class=cl>      └─init,6605
+</span></span><span class=line><span class=cl>          └─bash,6606
+</span></span><span class=line><span class=cl>              └─go,12757 run main.go
+</span></span><span class=line><span class=cl>                  ├─main,12809
+</span></span><span class=line><span class=cl>                  │   ├─<span class=o>{</span>main<span class=o>}</span>,12810
+</span></span><span class=line><span class=cl>                  │   ├─<span class=o>{</span>main<span class=o>}</span>,12811
+</span></span><span class=line><span class=cl>                  ├─<span class=o>{</span>go<span class=o>}</span>,12758
+</span></span><span class=line><span class=cl>                  ├─<span class=o>{</span>go<span class=o>}</span>,12759</span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=中断><span>中断</span>
+<a href=#%e4%b8%ad%e6%96%ad class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>中断是系统用来响应硬件设备请求的一种机制，它会打断进程的正常调度和执行，然后调用内核中的中断处理程序来响应设备的请求。</p><p>Linux 将中断处理过程分成了两个阶段，也就是上半部和下半部：</p><ul><li>上半部用来快速处理中断，也就是我们常说的硬中断，它在中断禁止模式下运行，主要处理跟硬件紧密相关的或时间敏感的工作。</li><li>下半部则是由内核触发，也就是我们常说的软中断，下半部用来延迟处理上半部未完成的工作，通常以内核线程的方式运行。</li></ul><p>上半部会打断 CPU 正在执行的任务，然后立即执行中断处理程序。而下半部以内核线程的方式执行，并且每个 CPU 都对应一个软中断内核线程，名字为 “ksoftirqd/CPU 编号”，比如说， 0 号 CPU 对应的软中断内核线程的名字就是 ksoftirqd/0。</p><p>软中断不只包括了刚刚所讲的硬件设备中断处理程序的下半部，一些内核自定义的事件也属于软中断，比如网络收发、定时、内核调度和 RCU 锁（Read-Copy Update 的缩写，RCU 是 Linux 内核中最常用的锁之一）等。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1># 查看软中断</span>
+</span></span><span class=line><span class=cl>cat /proc/softirqs
+</span></span><span class=line><span class=cl><span class=c1># 查看硬中断</span>
+</span></span><span class=line><span class=cl>cat /proc/interrupts</span></span></code></pre></td></tr></table></div></div></div><p>软中断 CPU 使用率（softirq）升高是一种很常见的性能问题。虽然软中断的类型很多，但实际生产中，我们遇到的性能瓶颈大多是网络收发类型的软中断，特别是网络接收的软中断。</p><p>在碰到这类问题时，你可以借用 sar、tcpdump 等工具，做进一步分析。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl><span class=c1># -i eth0 只抓取 eth0 网卡，-n 不解析协议名和主机名</span>
+</span></span><span class=line><span class=cl><span class=c1># tcp port 80 表示只抓取 tcp 协议并且端口号为 80 的网络帧</span>
+</span></span><span class=line><span class=cl>$ tcpdump -i eth0 -n tcp port <span class=m>80</span>
+</span></span><span class=line><span class=cl><span class=c1># -n DEV 表示显示网络收发的报告，间隔 1 秒输出一组数据</span>
+</span></span><span class=line><span class=cl>$ sar -n DEV <span class=m>1</span>
+</span></span><span class=line><span class=cl>20:52:29        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+</span></span><span class=line><span class=cl>20:52:30           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=参考><span>参考</span>
+<a href=#%e5%8f%82%e8%80%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p><a href=https://www.eet-china.com/mp/a117035.html target=_blank rel="external nofollow noopener noreferrer">https://www.eet-china.com/mp/a117035.html<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><p><a href=https://weread.qq.com/web/reader/6da3218071fd5aa16dabd75k8e232ec02198e296a067180 target=_blank rel="external nofollow noopener noreferrer">性能之巅-洞悉系统、企业与云计算<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2022-12-31 23:43:09">更新于 2022-12-31&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/linux-perf-cpu/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://luzhifang.github.io/linux-perf-cpu/ data-title=Linux性能优化-CPU data-hashtags=Linux,CPU><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://luzhifang.github.io/linux-perf-cpu/ data-hashtag=Linux><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://luzhifang.github.io/linux-perf-cpu/ data-title=Linux性能优化-CPU><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/tags/linux/ class=post-tag title="标签 - Linux">Linux</a><a href=/tags/cpu/ class=post-tag title="标签 - CPU">CPU</a></section><section class="post-actions print-hidden"><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>
+<span class=separator aria-hidden=true></span>
+<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/development-workflow/ class=post-nav-item rel=prev title=开发流程><i class="fa-solid fa-angle-left" aria-hidden=true></i>开发流程</a><a href=/linux-perf-memory/ class=post-nav-item rel=next title=Linux性能优化-内存>Linux性能优化-内存<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div></article><aside class="toc animate__animated animate__fadeIn animate__faster" id=toc-auto aria-label=目录><h2 class=toc-title><span>目录<i class="toc-icon fa-solid fa-angle-down ms-1" aria-hidden=true></i></span>
+<button type=button class=toc-print-btn onclick=event.stopPropagation(),window.print() aria-label=打印><i class="fa-solid fa-print" aria-hidden=true></i></button></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class=footer-bottom><div class=footer-legal><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/authors/jeff/>Jeff</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=footer-tech><div class="footer-line powered">由 <a href="https://github.com/gohugoio/hugo?v=0.170.1" target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.170.1">Hugo</a> 与 <a href="https://github.com/hugo-fixit/FixIt?v=v1.0.0-rc.5" target=_blank rel=external title="FixIt v1.0.0-rc.5">FixIt</a> 驱动</div></div></div></div></footer></div><div class=widgets><div id=mask></div><dialog id=nav-dialog aria-labelledby=nav-dialog-title closedby=any><button type=button class=nav-close-btn aria-label="Close 导航"><i class="fa-solid fa-xmark fa-lg" aria-hidden=true></i></button><div class=toc><h2 class=toc-title id=nav-dialog-title>导航</h2><div class=toc-content id=toc-content-drawer></div></div></dialog><dialog id=search-dialog class=search-dialog aria-label=搜索 closedby=any><div class=search-modal><div class=search-modal-header><span class=search-delimiter></span>
+<button type=button class=search-close-btn aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden=true></i></button></div><div class=search-source-footer><div class="search-shortcuts max-sm:!hidden"><span class=search-shortcut><kbd><i class=lucide-arrow-up aria-hidden=true></i></kbd>
+<kbd><i class=lucide-arrow-down aria-hidden=true></i></kbd>
+切换
+</span><span class=search-shortcut><kbd><i class=lucide-corner-down-left aria-hidden=true></i></kbd>
+选择
+</span><span class=search-shortcut><kbd>ESC</kbd>
+关闭</span></div><span class=search-engine>搜索引擎 <a href=https://fusejs.io/ target=_blank rel="external nofollow noopener noreferrer">Fuse.js</a></span></div></div></dialog><div class=fixed-buttons><button type=button class="fixed-button back-to-top animate__faster hidden" aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></button><button type=button id=nav-drawer-button class="fixed-button nav-drawer-button hidden" aria-label=导航 aria-controls=nav-dialog aria-expanded=false><i class="fa-solid fa-bars" aria-hidden=true></i></button></div><noscript><div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete-js/index.production.js defer></script><script src=/js/lib/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/js/lib/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/js/config/79dbf4bccc0c55fef31e5ee00e4632c4.min.js defer></script><script src=/js/lib/file-tree.min.js defer></script><script src=/js/main.min.js defer></script></body></html>

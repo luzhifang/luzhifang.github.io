@@ -1,17 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Node - 标签 - 半生戎码</title>
-        <link>https://luzhifang.github.io/tags/node/</link>
-        <description>Node - 标签 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/node/" rel="self" type="application/rss+xml" /><item>
-    <title>Linux安装node和升级node</title>
-    <link>https://luzhifang.github.io/node-install-upgrade/</link>
-    <pubDate>Sun, 16 Feb 2020 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
-    <guid>https://luzhifang.github.io/node-install-upgrade/</guid>
-    <description><![CDATA[<h2 id="下载-node">下载 Node</h2>
-<p>进入 Node 最新版下载 <a href="https://nodejs.org/en/download/current/" target="_blank" rel="noopener noreffer ">https://nodejs.org/en/download/current/</a>
-例：<code>https://nodejs.org/dist/v16.17.1/node-v16.17.1-linux-x64.tar.xz</code></p>]]></description>
-</item>
-</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Node - 标签 - 半生戎码</title><link>https://luzhifang.github.io/tags/node/</link><description>半生戎码 - Jeff 的技术博客</description><generator>Hugo 0.170.1 &amp; FixIt v1.0.0-rc.5</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (Jeff)</managingEditor><webMaster>54luzhifang@gmail.com (Jeff)</webMaster><lastBuildDate>Sat, 31 Dec 2022 23:43:09 +0800</lastBuildDate><atom:link href="https://luzhifang.github.io/tags/node/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux安装node和升级node</title><link>https://luzhifang.github.io/node-install-upgrade/</link><pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate><author>54luzhifang@gmail.com (Jeff)</author><guid>https://luzhifang.github.io/node-install-upgrade/</guid><category domain="https://luzhifang.github.io/categories/node/">Node</category><description>&lt;h2 class="heading-element" id="下载-node"&gt;&lt;span&gt;下载 Node&lt;/span&gt;&#13;&#10; &lt;a href="#%e4%b8%8b%e8%bd%bd-node" class="heading-mark"&gt;&lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"&gt;&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&#13;&#10;&lt;/h2&gt;&lt;p&gt;进入 Node 最新版下载 &lt;a href="https://nodejs.org/en/download/current/" target="_blank" rel="external nofollow noopener noreferrer"&gt;https://nodejs.org/en/download/current/&lt;i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;&#10;例：&lt;code&gt;https://nodejs.org/dist/v16.17.1/node-v16.17.1-linux-x64.tar.xz&lt;/code&gt;&lt;/p&gt;</description></item></channel></rss>

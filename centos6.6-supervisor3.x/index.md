@@ -42,3 +42,9 @@ echo_supervisord_conf > /etc/supervisord.conf
 files = /etc/supervisord.d/\*.ini
 ```
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/centos6.6-supervisor3.x/  
+

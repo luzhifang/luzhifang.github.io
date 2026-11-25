@@ -31,3 +31,9 @@ https://cloud.tencent.com/developer/article/1449951
 
 https://cloud.tencent.com/developer/article/1944357
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/message-queue-selection/  
+

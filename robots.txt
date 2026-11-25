@@ -4,6 +4,13 @@ Disallow: /images/
 Disallow: /js/
 Disallow: /css/
 
+Disallow: /*link/
+Disallow: /*offline/
+Disallow: /*404.html$
+Disallow: /*.md$
+
+
+
 User-agent: MJ12bot
 Disallow: /
 
@@ -61,4 +68,34 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://luzhifang.github.io/sitemap.xml
+# OpenAI, ChatGPT
+User-agent: GPTBot
+Disallow: /
+
+# Google AI (Bard, etc)
+User-agent: Google-Extended
+Disallow: /
+
+# Block common crawl
+User-agent: CCBot
+Disallow: /
+
+# Facebook
+User-agent: FacebookBot
+Disallow: /
+
+# Cohere.ai
+User-agent: cohere-ai
+Disallow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Disallow: /
+
+# Anthropic
+User-agent: anthropic-ai
+Disallow: /
+
+# Claudebot by Anthropic
+User-agent: ClaudeBot
+Disallow: /Sitemap: https://luzhifang.github.io/sitemap.xml

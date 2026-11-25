@@ -25,3 +25,9 @@
 
 本站由 Hugo, LoveIt 主题, Github Pages 等生成。
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/about/  
+

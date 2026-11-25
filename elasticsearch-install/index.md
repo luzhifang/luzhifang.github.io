@@ -135,3 +135,9 @@ path.logs: /home/ubuntu/es/logs
 
 https://blog.csdn.net/carefree2005/article/details/118027877
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/elasticsearch-install/  
+

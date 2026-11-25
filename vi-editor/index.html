@@ -1,264 +1,29 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>vi编辑器 - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/vi-editor/">
-  <meta property="og:site_name" content="半生戎码">
-  <meta property="og:title" content="vi编辑器">
-  <meta property="og:description" content="1. vi 和 vim 的区别 vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式 2.1. 一般指令模式 使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n&#43;[hjkl↑↓←→]，n&#43;Enter 向下移动 n 行 Ctrl&#43;f 向下一页，Ctrl&#43;b 向上一页，Ctrl&#43;d 向下半页，Ctrl&#43;u 向上半页 n&#43;space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n&#43;backspace 键退格几个字符 n&#43;dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n&#43;yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl&#43;r 恢复，.(小数点)重复前一个动作 2.2 编辑模式 i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式 在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择 v 字符选择，V 行选择 Ctrl&#43;v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑 :sp [filename] 打开一个新窗口 Ctrl&#43;w&#43;[j/↓]移动到下一个窗口 Ctrl&#43;w&#43;[k/↑]移动到下一个窗口 Ctrl&#43;w&#43;q 关闭当前窗口，同:q 5. 多文件编辑 vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2019-06-05T00:00:00+00:00">
-    <meta property="article:modified_time" content="2019-06-05T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Vi">
-    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
-  <meta name="twitter:title" content="vi编辑器">
-  <meta name="twitter:description" content="1. vi 和 vim 的区别 vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式 2.1. 一般指令模式 使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n&#43;[hjkl↑↓←→]，n&#43;Enter 向下移动 n 行 Ctrl&#43;f 向下一页，Ctrl&#43;b 向上一页，Ctrl&#43;d 向下半页，Ctrl&#43;u 向上半页 n&#43;space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n&#43;backspace 键退格几个字符 n&#43;dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n&#43;yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl&#43;r 恢复，.(小数点)重复前一个动作 2.2 编辑模式 i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式 在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择 v 字符选择，V 行选择 Ctrl&#43;v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑 :sp [filename] 打开一个新窗口 Ctrl&#43;w&#43;[j/↓]移动到下一个窗口 Ctrl&#43;w&#43;[k/↑]移动到下一个窗口 Ctrl&#43;w&#43;q 关闭当前窗口，同:q 5. 多文件编辑 vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件">
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/vi-editor/" /><link rel="prev" href="https://luzhifang.github.io/grpc/" /><link rel="next" href="https://luzhifang.github.io/markdown/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "vi编辑器",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/luzhifang.github.io\/vi-editor\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Linux, vi","wordcount":  1060 ,
-        "url": "https:\/\/luzhifang.github.io\/vi-editor\/","datePublished": "2019-06-05T00:00:00+00:00","dateModified": "2019-06-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
-                "@type": "Person",
-                "name": "Jeff"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust" aria-hidden="true"></i>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust" aria-hidden="true"></i>
-            </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">vi编辑器</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2019-06-05">2019-06-05</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1060 字&nbsp;
-                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-vi-和-vim-的区别">1. vi 和 vim 的区别</a></li>
-    <li><a href="#2-vi-编辑器的三种模式">2. vi 编辑器的三种模式</a>
-      <ul>
-        <li><a href="#21-一般指令模式">2.1. 一般指令模式</a></li>
-        <li><a href="#22-编辑模式">2.2 编辑模式</a></li>
-        <li><a href="#23-命令行命令模式">2.3. 命令行命令模式</a></li>
-      </ul>
-    </li>
-    <li><a href="#3-区块选择">3. 区块选择</a></li>
-    <li><a href="#4-多窗口编辑">4. 多窗口编辑</a></li>
-    <li><a href="#5-多文件编辑">5. 多文件编辑</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="1-vi-和-vim-的区别">1. vi 和 vim 的区别</h2>
-<ol>
-<li>vim 是进阶版的 vi</li>
-<li>vim 不但可以用不同颜色显示文字内容</li>
-<li>vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器</li>
-</ol>
-<h2 id="2-vi-编辑器的三种模式">2. vi 编辑器的三种模式</h2>
-<h3 id="21-一般指令模式">2.1. 一般指令模式</h3>
-<ol>
-<li>使用 <code>vi[m] filename</code> 进入一般指令模式</li>
-<li>在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。</li>
-<li>快捷键
-<ol>
-<li>h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行</li>
-<li>Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页</li>
-<li>n+space 光标处向后移动 n 个字符</li>
-<li>0/Home 键移至行首，$/End 键移至行尾</li>
-<li>H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行</li>
-<li>G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G</li>
-<li>n+backspace 键退格几个字符</li>
-<li>n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首</li>
-<li>n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首</li>
-<li>p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴</li>
-<li>J 将光标所在列与下一列的数据结合成同一列</li>
-<li>u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作</li>
-</ol>
-</li>
-</ol>
-<h3 id="22-编辑模式">2.2 编辑模式</h3>
-<ol>
-<li>i 光标处插入，I 该行第一个非空白字符处插入</li>
-<li>a 光标所在的下一个字符处插入，A 该行最后一个字符处插入</li>
-<li>o 光标处向下插入空行，O 光标处向上插入空行</li>
-<li>r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止</li>
-<li>ESC 退出编辑模式</li>
-</ol>
-<h3 id="23-命令行命令模式">2.3. 命令行命令模式</h3>
-<ol>
-<li>在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列</li>
-<li>提供查找、存盘、替换、离开 vi 、显示行号等等的</li>
-<li>快捷键
-<ol>
-<li>/word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反</li>
-<li>:n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2</li>
-<li>:1,$s/word1/word2/g 替换所有行</li>
-<li>:1,$s/word1/word2/gc 二次确认替换</li>
-<li>:w 写入，:w!强制写入</li>
-<li>:q 退出，:q!强制退出</li>
-<li>:wq 保存后离开，:wq!强制保存后离开</li>
-<li>ZZ 文件无修改不保存退出，文件有修改保存后退出</li>
-<li>:w filename 另存为，:r filename 读入文件数据</li>
-<li>:n1,n2 w filename 将 n1 到 n2 行另存为</li>
-<li>:! [shell command] 暂时离开，可接命令</li>
-<li>:set nu 显示行号，:set nonu 取消行号</li>
-</ol>
-</li>
-</ol>
-<h2 id="3-区块选择">3. 区块选择</h2>
-<ol>
-<li>v 字符选择，V 行选择</li>
-<li>Ctrl+v 方块选择</li>
-<li>y 将选中地方复制</li>
-<li>d 将选中地方删除</li>
-<li>p 将选中地方在光标处粘贴</li>
-</ol>
-<h2 id="4-多窗口编辑">4. 多窗口编辑</h2>
-<ol>
-<li>:sp [filename] 打开一个新窗口</li>
-<li>Ctrl+w+[j/↓]移动到下一个窗口</li>
-<li>Ctrl+w+[k/↑]移动到下一个窗口</li>
-<li>Ctrl+w+q 关闭当前窗口，同:q</li>
-</ol>
-<h2 id="5-多文件编辑">5. 多文件编辑</h2>
-<ol>
-<li>vi[m] filename1 filename2… 编辑多个文件</li>
-<li>:n 编辑下一个文件，:N 编辑上一个文件</li>
-<li>:files 列出所有编辑的文件</li>
-</ol>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2019-06-05</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器" data-hashtags="Linux,vi"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/vi-editor/" data-hashtag="Linux"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/vi-editor/" data-title="vi编辑器" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fvi-editor%2f&amp;text=vi%e7%bc%96%e8%be%91%e5%99%a8" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/vi/">Vi</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/grpc/" class="prev" rel="prev" title="Go 使用 gRPC"><i class="fas fa-angle-left" aria-hidden="true"></i>Go 使用 gRPC</a>
-            <a href="/markdown/" class="next" rel="next" title="Markdown指北">Markdown指北<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment" aria-hidden="true"></i>
-            </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><title>vi编辑器 - 半生戎码</title><meta name=author content="Jeff"><meta name=description content="1. vi 和 vim 的区别vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式2.1. 一般指令模式使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行 Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页 n+space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n+backspace 键退格几个字符 n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作 2.2 编辑模式i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择v 字符选择，V 行选择 Ctrl+v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑:sp [filename] 打开一个新窗口 Ctrl+w+[j/↓]移动到下一个窗口 Ctrl+w+[k/↑]移动到下一个窗口 Ctrl+w+q 关闭当前窗口，同:q 5. 多文件编辑vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件 "><meta name=robots content="index, follow"><meta name=keywords content='Linux,vi'><meta itemprop=name content="vi编辑器"><meta itemprop=description content="1. vi 和 vim 的区别vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式2.1. 一般指令模式使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行 Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页 n+space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n+backspace 键退格几个字符 n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作 2.2 编辑模式i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择v 字符选择，V 行选择 Ctrl+v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑:sp [filename] 打开一个新窗口 Ctrl+w+[j/↓]移动到下一个窗口 Ctrl+w+[k/↑]移动到下一个窗口 Ctrl+w+q 关闭当前窗口，同:q 5. 多文件编辑vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件"><meta itemprop=datePublished content="2019-06-05T00:00:00+00:00"><meta itemprop=dateModified content="2022-12-31T23:43:09+08:00"><meta itemprop=wordCount content="1060"><meta itemprop=image content="https://luzhifang.github.io/images/avatar.png"><meta itemprop=keywords content="Linux,Vi"><meta property="og:url" content="https://luzhifang.github.io/vi-editor/"><meta property="og:site_name" content="半生戎码"><meta property="og:title" content="vi编辑器"><meta property="og:description" content="1. vi 和 vim 的区别vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式2.1. 一般指令模式使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行 Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页 n+space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n+backspace 键退格几个字符 n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作 2.2 编辑模式i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择v 字符选择，V 行选择 Ctrl+v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑:sp [filename] 打开一个新窗口 Ctrl+w+[j/↓]移动到下一个窗口 Ctrl+w+[k/↑]移动到下一个窗口 Ctrl+w+q 关闭当前窗口，同:q 5. 多文件编辑vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-06-05T00:00:00+00:00"><meta property="article:modified_time" content="2022-12-31T23:43:09+08:00"><meta property="article:tag" content="Linux"><meta property="article:tag" content="Vi"><meta property="og:image" content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:title content="vi编辑器"><meta name=twitter:description content="1. vi 和 vim 的区别vim 是进阶版的 vi vim 不但可以用不同颜色显示文字内容 vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器 2. vi 编辑器的三种模式2.1. 一般指令模式使用 vi[m] filename 进入一般指令模式 在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。 快捷键 h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行 Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页 n+space 光标处向后移动 n 个字符 0/Home 键移至行首，$/End 键移至行尾 H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行 G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G n+backspace 键退格几个字符 n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首 n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首 p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴 J 将光标所在列与下一列的数据结合成同一列 u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作 2.2 编辑模式i 光标处插入，I 该行第一个非空白字符处插入 a 光标所在的下一个字符处插入，A 该行最后一个字符处插入 o 光标处向下插入空行，O 光标处向上插入空行 r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止 ESC 退出编辑模式 2.3. 命令行命令模式在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列 提供查找、存盘、替换、离开 vi 、显示行号等等的 快捷键 /word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反 :n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2 :1,$s/word1/word2/g 替换所有行 :1,$s/word1/word2/gc 二次确认替换 :w 写入，:w!强制写入 :q 退出，:q!强制退出 :wq 保存后离开，:wq!强制保存后离开 ZZ 文件无修改不保存退出，文件有修改保存后退出 :w filename 另存为，:r filename 读入文件数据 :n1,n2 w filename 将 n1 到 n2 行另存为 :! [shell command] 暂时离开，可接命令 :set nu 显示行号，:set nonu 取消行号 3. 区块选择v 字符选择，V 行选择 Ctrl+v 方块选择 y 将选中地方复制 d 将选中地方删除 p 将选中地方在光标处粘贴 4. 多窗口编辑:sp [filename] 打开一个新窗口 Ctrl+w+[j/↓]移动到下一个窗口 Ctrl+w+[k/↑]移动到下一个窗口 Ctrl+w+q 关闭当前窗口，同:q 5. 多文件编辑vi[m] filename1 filename2… 编辑多个文件 :n 编辑下一个文件，:N 编辑上一个文件 :files 列出所有编辑的文件"><meta name=application-name content="半生戎码"><meta name=apple-mobile-web-app-title content="半生戎码"><meta name=theme-color data-light=#f6f8fa data-dark=#151b23 content="#f6f8fa"><meta name=msapplication-TileColor content="#2d89ef"><link rel=canonical type=text/html href=https://luzhifang.github.io/vi-editor/ title="vi编辑器 - 半生戎码"><link rel=prev type=text/html href=https://luzhifang.github.io/grpc/ title="Go 使用 gRPC"><link rel=next type=text/html href=https://luzhifang.github.io/markdown/ title=Markdown指北><link rel=alternate type=text/markdown href=https://luzhifang.github.io/vi-editor/index.md><link rel=stylesheet href=/css/unocss.min.css><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/pages/posts.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><link rel=preload href=/js/main.min.js as=script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"vi编辑器","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/luzhifang.github.io\/vi-editor\/"},"genre":"posts","keywords":"Linux, vi","wordcount":1060,"url":"https:\/\/luzhifang.github.io\/vi-editor\/","datePublished":"2019-06-05T00:00:00+00:00","dateModified":"2022-12-31T23:43:09+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Jeff"},"description":""}</script><script src=/js/head.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><nav class=nav-main aria-label=主菜单><ul class=menu><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li></ul></nav><nav class=nav-system aria-label=站点功能><ul class=menu><li class="menu-item delimiter"></li><li class="menu-item search"><button type=button class="search-trigger desktop" aria-label=搜索 title=搜索>
+<i class="fa-solid fa-search" aria-hidden=true></i>
+搜索
+<kbd></kbd></button></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch-item"><button type=button class=theme-switch aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><button type=button class="search-trigger mobile" aria-label=搜索><i class="fa-solid fa-search" aria-hidden=true></i></button><button type=button class=theme-switch aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button>
+<button type=button class=menu-toggle id=menu-toggle-mobile aria-controls=menu-mobile aria-expanded=false aria-labelledby=menu-mobile>
+<span></span><span></span><span></span></button></div><nav><ul class=menu id=menu-mobile><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li><li class="menu-item menu-system"></li></ul></nav></div></header><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>vi编辑器</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/authors/jeff/ title=作者 rel=author class=author><img class=avatar src=/images/avatar.png alt=Jeff height=16 width=16>&nbsp;Jeff</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/linux/ class=post-category title="分类 - Linux"><i class="fa-regular fa-folder" aria-hidden=true></i> Linux</a></span></div><div class=post-meta-line><span title="发布于 2019-06-05 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2019-06-05>2019-06-05</time></span>&nbsp;<span title="更新于 2022-12-31 23:43:09"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2022-12-31>2022-12-31</time></span>&nbsp;<span title="1060 字"><i class="fa-solid fa-pencil me-1" aria-hidden=true></i>约 1100 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 3 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static></div></div><template data-toc><nav id=TableOfContents><ul><li><a href=#1-vi-和-vim-的区别>1. vi 和 vim 的区别</a></li><li><a href=#2-vi-编辑器的三种模式>2. vi 编辑器的三种模式</a><ul><li><a href=#21-一般指令模式>2.1. 一般指令模式</a></li><li><a href=#22-编辑模式>2.2 编辑模式</a></li><li><a href=#23-命令行命令模式>2.3. 命令行命令模式</a></li></ul></li><li><a href=#3-区块选择>3. 区块选择</a></li><li><a href=#4-多窗口编辑>4. 多窗口编辑</a></li><li><a href=#5-多文件编辑>5. 多文件编辑</a></li></ul></nav></template><div class=content id=content><h2 class=heading-element id=1-vi-和-vim-的区别><span>1. vi 和 vim 的区别</span>
+<a href=#1-vi-%e5%92%8c-vim-%e7%9a%84%e5%8c%ba%e5%88%ab class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>vim 是进阶版的 vi</li><li>vim 不但可以用不同颜色显示文字内容</li><li>vim 能够进行如 shell script, C program 等程序编辑功能， 你可以将 vim 作为一种程序编辑器</li></ol><h2 class=heading-element id=2-vi-编辑器的三种模式><span>2. vi 编辑器的三种模式</span>
+<a href=#2-vi-%e7%bc%96%e8%be%91%e5%99%a8%e7%9a%84%e4%b8%89%e7%a7%8d%e6%a8%a1%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=21-一般指令模式><span>2.1. 一般指令模式</span>
+<a href=#21-%e4%b8%80%e8%88%ac%e6%8c%87%e4%bb%a4%e6%a8%a1%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li>使用 <code>vi[m] filename</code> 进入一般指令模式</li><li>在这个模式中， 你可以使用“上下左右”按键来移动光标，你可以使用“删除字符”或“删除整列”来处理文件内容， 也可以使用“复制、贴上”来处理你的文件数据。</li><li>快捷键<ol><li>h(←) j(↓) k(↑) l(→)，n+[hjkl↑↓←→]，n+Enter 向下移动 n 行</li><li>Ctrl+f 向下一页，Ctrl+b 向上一页，Ctrl+d 向下半页，Ctrl+u 向上半页</li><li>n+space 光标处向后移动 n 个字符</li><li>0/Home 键移至行首，$/End 键移至行尾</li><li>H 移至屏幕第一行第一个字符，M 移至屏幕中央，L 移至屏幕最后一行</li><li>G 移至文件最后一行，nG 移至文件第 n 行，gg 移至文件第一行，相当于 1G</li><li>n+backspace 键退格几个字符</li><li>n+dd 删除 n 行，d1G 删除光标至第一行，dG 删除光标至最后一行，d$删除光标至行尾，d0 删除光标至行首</li><li>n+yy 向下复制 n 行，y1G 复制光标至第一行，yG 复制光标至最后一行，y$复制光标至行尾，y0 复制光标至行首</li><li>p 光标处下一行或下一个字符粘贴，P 光标处上一行或上一个字符粘贴</li><li>J 将光标所在列与下一列的数据结合成同一列</li><li>u 撤销，Ctrl+r 恢复，.(小数点)重复前一个动作</li></ol></li></ol><h3 class=heading-element id=22-编辑模式><span>2.2 编辑模式</span>
+<a href=#22-%e7%bc%96%e8%be%91%e6%a8%a1%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li>i 光标处插入，I 该行第一个非空白字符处插入</li><li>a 光标所在的下一个字符处插入，A 该行最后一个字符处插入</li><li>o 光标处向下插入空行，O 光标处向上插入空行</li><li>r 只会取代光标处的那一个字符，R 会一直取代光标所在的文字，直到按下 ESC 为止</li><li>ESC 退出编辑模式</li></ol><h3 class=heading-element id=23-命令行命令模式><span>2.3. 命令行命令模式</span>
+<a href=#23-%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%91%bd%e4%bb%a4%e6%a8%a1%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li>在一般模式中，输入[: / ? ]三个中的任何一个按钮，就可以将光标移动到最下面那一列</li><li>提供查找、存盘、替换、离开 vi 、显示行号等等的</li><li>快捷键<ol><li>/word 光标之下查找，?word 光标之上查找。n 重复前一个查找，N 与 n 相反</li><li>:n1,n2s/word1/word2/g 替换 n1 与 n2 行之间的 word1 为 word2</li><li>:1,$s/word1/word2/g 替换所有行</li><li>:1,$s/word1/word2/gc 二次确认替换</li><li>:w 写入，:w!强制写入</li><li>:q 退出，:q!强制退出</li><li>:wq 保存后离开，:wq!强制保存后离开</li><li>ZZ 文件无修改不保存退出，文件有修改保存后退出</li><li>:w filename 另存为，:r filename 读入文件数据</li><li>:n1,n2 w filename 将 n1 到 n2 行另存为</li><li>:! [shell command] 暂时离开，可接命令</li><li>:set nu 显示行号，:set nonu 取消行号</li></ol></li></ol><h2 class=heading-element id=3-区块选择><span>3. 区块选择</span>
+<a href=#3-%e5%8c%ba%e5%9d%97%e9%80%89%e6%8b%a9 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>v 字符选择，V 行选择</li><li>Ctrl+v 方块选择</li><li>y 将选中地方复制</li><li>d 将选中地方删除</li><li>p 将选中地方在光标处粘贴</li></ol><h2 class=heading-element id=4-多窗口编辑><span>4. 多窗口编辑</span>
+<a href=#4-%e5%a4%9a%e7%aa%97%e5%8f%a3%e7%bc%96%e8%be%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>:sp [filename] 打开一个新窗口</li><li>Ctrl+w+[j/↓]移动到下一个窗口</li><li>Ctrl+w+[k/↑]移动到下一个窗口</li><li>Ctrl+w+q 关闭当前窗口，同:q</li></ol><h2 class=heading-element id=5-多文件编辑><span>5. 多文件编辑</span>
+<a href=#5-%e5%a4%9a%e6%96%87%e4%bb%b6%e7%bc%96%e8%be%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>vi[m] filename1 filename2… 编辑多个文件</li><li>:n 编辑下一个文件，:N 编辑上一个文件</li><li>:files 列出所有编辑的文件</li></ol></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2022-12-31 23:43:09">更新于 2022-12-31&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/vi-editor/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://luzhifang.github.io/vi-editor/ data-title=vi编辑器 data-hashtags=Linux,vi><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://luzhifang.github.io/vi-editor/ data-hashtag=Linux><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://luzhifang.github.io/vi-editor/ data-title=vi编辑器><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/tags/linux/ class=post-tag title="标签 - Linux">Linux</a><a href=/tags/vi/ class=post-tag title="标签 - Vi">Vi</a></section><section class="post-actions print-hidden"><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>
+<span class=separator aria-hidden=true></span>
+<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/grpc/ class=post-nav-item rel=prev title="Go 使用 gRPC"><i class="fa-solid fa-angle-left" aria-hidden=true></i>Go 使用 gRPC</a><a href=/markdown/ class=post-nav-item rel=next title=Markdown指北>Markdown指北<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div></article><aside class="toc animate__animated animate__fadeIn animate__faster" id=toc-auto aria-label=目录><h2 class=toc-title><span>目录<i class="toc-icon fa-solid fa-angle-down ms-1" aria-hidden=true></i></span>
+<button type=button class=toc-print-btn onclick=event.stopPropagation(),window.print() aria-label=打印><i class="fa-solid fa-print" aria-hidden=true></i></button></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class=footer-bottom><div class=footer-legal><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/authors/jeff/>Jeff</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=footer-tech><div class="footer-line powered">由 <a href="https://github.com/gohugoio/hugo?v=0.170.1" target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.170.1">Hugo</a> 与 <a href="https://github.com/hugo-fixit/FixIt?v=v1.0.0-rc.5" target=_blank rel=external title="FixIt v1.0.0-rc.5">FixIt</a> 驱动</div></div></div></div></footer></div><div class=widgets><div id=mask></div><dialog id=nav-dialog aria-labelledby=nav-dialog-title closedby=any><button type=button class=nav-close-btn aria-label="Close 导航"><i class="fa-solid fa-xmark fa-lg" aria-hidden=true></i></button><div class=toc><h2 class=toc-title id=nav-dialog-title>导航</h2><div class=toc-content id=toc-content-drawer></div></div></dialog><dialog id=search-dialog class=search-dialog aria-label=搜索 closedby=any><div class=search-modal><div class=search-modal-header><span class=search-delimiter></span>
+<button type=button class=search-close-btn aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden=true></i></button></div><div class=search-source-footer><div class="search-shortcuts max-sm:!hidden"><span class=search-shortcut><kbd><i class=lucide-arrow-up aria-hidden=true></i></kbd>
+<kbd><i class=lucide-arrow-down aria-hidden=true></i></kbd>
+切换
+</span><span class=search-shortcut><kbd><i class=lucide-corner-down-left aria-hidden=true></i></kbd>
+选择
+</span><span class=search-shortcut><kbd>ESC</kbd>
+关闭</span></div><span class=search-engine>搜索引擎 <a href=https://fusejs.io/ target=_blank rel="external nofollow noopener noreferrer">Fuse.js</a></span></div></div></dialog><div class=fixed-buttons><button type=button class="fixed-button back-to-top animate__faster hidden" aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></button><button type=button id=nav-drawer-button class="fixed-button nav-drawer-button hidden" aria-label=导航 aria-controls=nav-dialog aria-expanded=false><i class="fa-solid fa-bars" aria-hidden=true></i></button></div><noscript><div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete-js/index.production.js defer></script><script src=/js/lib/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/js/lib/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/js/config/4404dd6d170aeca36ac6802615c21f09.min.js defer></script><script src=/js/lib/file-tree.min.js defer></script><script src=/js/main.min.js defer></script></body></html>

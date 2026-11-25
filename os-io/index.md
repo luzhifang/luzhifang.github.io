@@ -122,3 +122,9 @@ AIO 实现了 IO 全流程的非阻塞，就是应用进程发出系统调用后
 
 https://www.51cto.com/article/693213.html
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/os-io/  
+

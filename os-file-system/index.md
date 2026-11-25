@@ -122,3 +122,9 @@ Linux 给文件别名的方式有两种：硬链接（Hard Link） 和软链接�
 
 《操作系统导论》
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/os-file-system/  
+

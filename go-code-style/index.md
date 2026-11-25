@@ -899,3 +899,9 @@ var _ http.Handler = LogHandler{}
 
 [可直接套用的Go编码规范](https://github.com/marmotedu/geekbang-go/blob/master/可直接套用的Go编码规范.md)
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-code-style/  
+

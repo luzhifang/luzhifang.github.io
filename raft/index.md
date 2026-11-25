@@ -70,3 +70,9 @@ Raft 算法实现日志同步的具体过程如下：
 
 https://thesecretlivesofdata.com/raft/
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/raft/  
+

@@ -148,3 +148,9 @@ Kafka 实现了零拷贝原理来快速移动数据，避免了内核之间的�
 
 《深入理解 Kafka：核心设计与实践原理》 朱忠华
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/kafka-quick-tour/  
+

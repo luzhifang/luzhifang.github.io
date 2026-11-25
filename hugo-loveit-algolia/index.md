@@ -88,3 +88,9 @@
 
    4. 执行 `npm run algolia`
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/hugo-loveit-algolia/  
+

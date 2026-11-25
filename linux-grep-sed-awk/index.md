@@ -434,3 +434,9 @@ awk 'BEGIN{srand();while(i<2){k=int(rand()*10)+1;if(!(k in a)){a[k];i++}}}(NR in
 
 - awk 还支持 if else while for do while 自定义函数.awk 脚本.awk
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/linux-grep-sed-awk/  
+

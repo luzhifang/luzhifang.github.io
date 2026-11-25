@@ -1,17 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>敏捷 - 分类 - 半生戎码</title>
-        <link>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</link>
-        <description>敏捷 - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Sep 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/" rel="self" type="application/rss+xml" /><item>
-    <title>scrum</title>
-    <link>https://luzhifang.github.io/scrum/</link>
-    <pubDate>Sun, 02 Sep 2018 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
-    <guid>https://luzhifang.github.io/scrum/</guid>
-    <description><![CDATA[<h2 id="1-起源">1. 起源</h2>
-<p>Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。</p>
-<p>OODA: 又称为“博伊德循环”，是一种空战理论。OODA 指 observe-orient-decide-act，意为“观察-&gt;导向-&gt;决定-&gt;行动”。该理论认为双方都从观察开始，包括观察自己、环境和敌人，在观察的基础上获取相关外部信息，根据感知到的外部威胁，及时调整系统，做出应对决定，并采取相应行动。</p>]]></description>
-</item>
-</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>敏捷 - 分类 - 半生戎码</title><link>https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/</link><description>半生戎码 - Jeff 的技术博客</description><generator>Hugo 0.170.1 &amp; FixIt v1.0.0-rc.5</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (Jeff)</managingEditor><webMaster>54luzhifang@gmail.com (Jeff)</webMaster><lastBuildDate>Wed, 08 Feb 2023 22:59:45 +0800</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/index.xml" rel="self" type="application/rss+xml"/><item><title>scrum</title><link>https://luzhifang.github.io/scrum/</link><pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate><author>54luzhifang@gmail.com (Jeff)</author><guid>https://luzhifang.github.io/scrum/</guid><category domain="https://luzhifang.github.io/categories/%E6%95%8F%E6%8D%B7/">敏捷</category><category domain="https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/">规范</category><description>&lt;h2 class="heading-element" id="1-起源"&gt;&lt;span&gt;1. 起源&lt;/span&gt;&#13;&#10; &lt;a href="#1-%e8%b5%b7%e6%ba%90" class="heading-mark"&gt;&lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"&gt;&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&#13;&#10;&lt;/h2&gt;&lt;p&gt;Scrum（司克兰）源自日本的“丰田生产系统”（Toyota Production System）和美国空军的 OODA 循环理论。&lt;/p&gt;</description></item></channel></rss>

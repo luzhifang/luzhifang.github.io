@@ -323,3 +323,9 @@ https://github.com/marmotedu/geekbang-go/tree/master/makefile
 
 https://seisman.github.io/how-to-write-makefile/Makefile.pdf
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-makefile/  
+

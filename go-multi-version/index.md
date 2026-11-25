@@ -30,3 +30,9 @@
 9. g use 1.14.6 切换至 1.14.6 版本
 10. g uninstall 1.14.6 卸载一个已安装的 go 版本
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-multi-version/  
+

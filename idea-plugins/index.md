@@ -46,3 +46,9 @@ Intellij IDEA 的插件主页地址是https://plugins.jetbrains.com。打开[网
 
 1. Leetcode，刷题神器。
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/idea-plugins/  
+

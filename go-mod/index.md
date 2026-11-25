@@ -93,3 +93,9 @@ go get -u github.com/jinzhu/gorm@v1.0.0
 1. 用途：防止下载依赖包被恶意篡改
 2. 生成过程：如果本地计算出的依赖包版本哈希值与 GOSUMDB 服务器给出的哈希值不一致，go 命令将拒绝向下执行，也不会更新 go.sum 文件。
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-mod/  
+

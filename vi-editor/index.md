@@ -74,3 +74,9 @@
 2. :n 编辑下一个文件，:N 编辑上一个文件
 3. :files 列出所有编辑的文件
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/vi-editor/  
+

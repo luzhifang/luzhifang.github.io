@@ -134,3 +134,10 @@ git config user.email "work@example.com"
 | 使用别名 clone | `git@github-work:company/repo.git` |
 | 设置用户信息 | 仓库级别 `git config` 或 `includeIf` |
 
+
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/git-multi-ssh-key/  
+

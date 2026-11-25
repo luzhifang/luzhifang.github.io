@@ -1,16 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>API - 分类 - 半生戎码</title>
-        <link>https://luzhifang.github.io/categories/api/</link>
-        <description>API - 分类 - 半生戎码</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Feb 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/api/" rel="self" type="application/rss+xml" /><item>
-    <title>RESTful API 设计规范</title>
-    <link>https://luzhifang.github.io/restful/</link>
-    <pubDate>Thu, 06 Feb 2020 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
-    <guid>https://luzhifang.github.io/restful/</guid>
-    <description><![CDATA[<h2 id="1-restful-api-介绍">1. RESTful API 介绍</h2>
-<p>REST 本身并没有创造新的技术、组件或服务，它代表的是一种软件架构风格，是一组架构约束条件和原则，而不是技术框架。REST 它是 Representational State Transfer 的简称，中文的含义是: &ldquo;表征状态转移&rdquo; 或 &ldquo;表现层状态转化&rdquo;。它是基于 HTTP、URI、XML、JSON 等标准和协议，支持轻量级、跨平台、跨语言的架构设计。</p>]]></description>
-</item>
-</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>API - 分类 - 半生戎码</title><link>https://luzhifang.github.io/categories/api/</link><description>半生戎码 - Jeff 的技术博客</description><generator>Hugo 0.170.1 &amp; FixIt v1.0.0-rc.5</generator><language>zh-CN</language><managingEditor>54luzhifang@gmail.com (Jeff)</managingEditor><webMaster>54luzhifang@gmail.com (Jeff)</webMaster><lastBuildDate>Wed, 08 Feb 2023 22:59:45 +0800</lastBuildDate><atom:link href="https://luzhifang.github.io/categories/api/index.xml" rel="self" type="application/rss+xml"/><item><title>RESTful API 设计规范</title><link>https://luzhifang.github.io/restful/</link><pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate><author>54luzhifang@gmail.com (Jeff)</author><guid>https://luzhifang.github.io/restful/</guid><category domain="https://luzhifang.github.io/categories/%E8%A7%84%E8%8C%83/">规范</category><category domain="https://luzhifang.github.io/categories/api/">API</category><category domain="https://luzhifang.github.io/categories/restful/">RESTful</category><description>&lt;h2 class="heading-element" id="1-restful-api-介绍"&gt;&lt;span&gt;1. RESTful API 介绍&lt;/span&gt;&#13;&#10; &lt;a href="#1-restful-api-%e4%bb%8b%e7%bb%8d" class="heading-mark"&gt;&lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"&gt;&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&#13;&#10;&lt;/h2&gt;&lt;p&gt;REST 本身并没有创造新的技术、组件或服务，它代表的是一种软件架构风格，是一组架构约束条件和原则，而不是技术框架。REST 它是 Representational State Transfer 的简称，中文的含义是: &amp;ldquo;表征状态转移&amp;rdquo; 或 &amp;ldquo;表现层状态转化&amp;rdquo;。它是基于 HTTP、URI、XML、JSON 等标准和协议，支持轻量级、跨平台、跨语言的架构设计。&lt;/p&gt;</description></item></channel></rss>

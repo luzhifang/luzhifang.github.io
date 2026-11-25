@@ -274,3 +274,9 @@ finish ●\       |         |       |       |
        |        |         |       |       |
 ```
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/git-guide/  
+

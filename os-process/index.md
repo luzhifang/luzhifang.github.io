@@ -129,3 +129,9 @@ linux 通过`ipcs`命令可以查看消息队列、共享内存、信号量的�
 
 《操作系统导论》
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/os-process/  
+

@@ -71,3 +71,9 @@ chmod 600 authorized_keys
 ssh 192.168.1.100
 ```
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/linux-ssh-kengen/  
+

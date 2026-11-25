@@ -182,3 +182,9 @@ free 和 malloc 都属于库调用，但是本身是建立在一些系统调用�
 
 《操作系统导论》
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/os-memory/  
+

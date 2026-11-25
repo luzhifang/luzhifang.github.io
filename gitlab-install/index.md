@@ -188,3 +188,9 @@ https://cloud.tencent.com/developer/article/1711802
 
 https://www.webfunny.com/blog/post/207
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/gitlab-install/  
+

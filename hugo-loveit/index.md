@@ -79,3 +79,9 @@ git push -u origin main
 2. 进入你的 yourusername.github.io 仓库看文件是否上传成功
 3. 访问 `https://yourusername.github.io`
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/hugo-loveit/  
+

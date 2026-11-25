@@ -158,3 +158,10 @@ dmesg | grep -i "oom\|killed" | tail -20
 4. **`proxy_redirect` 不可少**：反代监听端口与外部访问端口不一致时，需要它改写 Location header
 5. **CDN SSL 模式必须匹配源站协议**：HTTP 源站对应 Flexible，HTTPS 源站对应 Full
 
+
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/gitlab-domain-migration/  
+

@@ -211,3 +211,9 @@ https://etcd.io/docs/v3.5/install/
 <!-- https://www.cnblogs.com/lishen2021/p/14691019.html -->
 
 https://github.com/cncamp/101/tree/master/module5/etcd-ha-demo
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/etcd/  
+

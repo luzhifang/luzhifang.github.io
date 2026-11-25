@@ -358,3 +358,9 @@ https://www.infoq.cn/article/kdw69bdimlx6fsgz1bg3
 
 http://autumn200.com/2019/04/24/Micro-service-architecture-design/
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/microservice/  
+

@@ -250,3 +250,9 @@ https://github.com/opentracing/specification/blob/master/specification.md
 
 https://github.com/opentracing/specification/blob/master/semantic_conventions.md
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/opentracing/  
+

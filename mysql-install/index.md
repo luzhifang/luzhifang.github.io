@@ -64,3 +64,9 @@ https://www.cnblogs.com/immaxfang/p/16804455.html
 https://blog.csdn.net/weixin_44129085/article/details/105403674
 
 https://downloads.mysql.com/archives/community/
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/mysql-install/  
+

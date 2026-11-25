@@ -1,398 +1,194 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Go常用库-logrus - 半生戎码</title><meta name="Description" content="Hugo theme - LoveIt"><meta property="og:url" content="https://luzhifang.github.io/go-logrus/">
-  <meta property="og:site_name" content="半生戎码">
-  <meta property="og:title" content="Go常用库-logrus">
-  <meta property="og:description" content="简介 logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。
-它有以下特点：
-完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。 可扩展的 Hook 机制，允许使用者通过 Hook 的方式将日志分发到任意地方，如本地文件系统，logstash，elasticsearch 或者 mq 等，或者通过 Hook 定义日志内容和格式等 可选的日志输出格式，内置了两种日志格式 JSONFormater 和 TextFormatter，还可以自定义日志格式 Field 机制，通过 Filed 机制进行结构化的日志记录 线程安全 安装 go get github.com/sirupsen/logrus 简单示例 package main import ( log &#34;github.com/sirupsen/logrus&#34; ) func main() { log.WithFields(log.Fields{ &#34;animal&#34;: &#34;walrus&#34;, }).Info(&#34;a walrus appears&#34;) } 输出：">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2021-06-06T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-06-06T00:00:00+00:00">
-    <meta property="article:tag" content="Go常用库">
-    <meta property="article:tag" content="Logrus">
-    <meta property="og:image" content="https://luzhifang.github.io/logo.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://luzhifang.github.io/logo.png">
-  <meta name="twitter:title" content="Go常用库-logrus">
-  <meta name="twitter:description" content="简介 logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。
-它有以下特点：
-完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。 可扩展的 Hook 机制，允许使用者通过 Hook 的方式将日志分发到任意地方，如本地文件系统，logstash，elasticsearch 或者 mq 等，或者通过 Hook 定义日志内容和格式等 可选的日志输出格式，内置了两种日志格式 JSONFormater 和 TextFormatter，还可以自定义日志格式 Field 机制，通过 Filed 机制进行结构化的日志记录 线程安全 安装 go get github.com/sirupsen/logrus 简单示例 package main import ( log &#34;github.com/sirupsen/logrus&#34; ) func main() { log.WithFields(log.Fields{ &#34;animal&#34;: &#34;walrus&#34;, }).Info(&#34;a walrus appears&#34;) } 输出：">
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://luzhifang.github.io/go-logrus/" /><link rel="prev" href="https://luzhifang.github.io/git-guide/" /><link rel="next" href="https://luzhifang.github.io/gitlab-install/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Go常用库-logrus",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/luzhifang.github.io\/go-logrus\/"
-        },"image": ["https:\/\/luzhifang.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go常用库, logrus","wordcount":  1476 ,
-        "url": "https:\/\/luzhifang.github.io\/go-logrus\/","datePublished": "2021-06-06T00:00:00+00:00","dateModified": "2021-06-06T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/luzhifang.github.io\/images\/avatar.png"},"author": {
-                "@type": "Person",
-                "name": "Jeff"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust" aria-hidden="true"></i>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="半生戎码"><span class="header-title-pre"><i class='fas fa-home fa-fw'></i></span>Zhifang&#39;s Blog</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/luzhifang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust" aria-hidden="true"></i>
-            </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go常用库-logrus</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>Jeff</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/"><i class="far fa-folder" aria-hidden="true"></i>Go常用库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-06">2021-06-06</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1476 字&nbsp;
-                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#简介">简介</a></li>
-    <li><a href="#安装">安装</a></li>
-    <li><a href="#简单示例">简单示例</a></li>
-    <li><a href="#日志级别">日志级别</a>
-      <ul>
-        <li><a href="#设置日志级别">设置日志级别</a></li>
-      </ul>
-    </li>
-    <li><a href="#字段">字段</a></li>
-    <li><a href="#默认字段">默认字段</a></li>
-    <li><a href="#日志条目">日志条目</a></li>
-    <li><a href="#设置输出方式">设置输出方式</a></li>
-    <li><a href="#格式化">格式化</a></li>
-    <li><a href="#记录函数名">记录函数名</a></li>
-    <li><a href="#切分日志文件">切分日志文件</a></li>
-    <li><a href="#hooks">Hooks</a></li>
-    <li><a href="#线程安全">线程安全</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="简介">简介</h2>
-<p>logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。</p>
-<p>它有以下特点：</p>
-<ul>
-<li>完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。</li>
-<li>可扩展的 Hook 机制，允许使用者通过 Hook 的方式将日志分发到任意地方，如本地文件系统，logstash，elasticsearch 或者 mq 等，或者通过 Hook 定义日志内容和格式等</li>
-<li>可选的日志输出格式，内置了两种日志格式 JSONFormater 和 TextFormatter，还可以自定义日志格式</li>
-<li>Field 机制，通过 Filed 机制进行结构化的日志记录</li>
-<li>线程安全</li>
-</ul>
-<h2 id="安装">安装</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Shell">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">go get github.com/sirupsen/logrus</span></span></code></pre></div></div>
-<h2 id="简单示例">简单示例</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="w"> </span><span class="s">&#34;github.com/sirupsen/logrus&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="p">.</span><span class="nf">WithFields</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fields</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;animal&#34;</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;walrus&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}).</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;a walrus appears&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>输出：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">time=&#34;2021-11-11T17:41:48+08:00&#34; level=info msg=&#34;a walrus appears&#34; animal=walrus</span></span></code></pre></div></div>
-<h2 id="日志级别">日志级别</h2>
-<p>Logrus 有七个日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Trace</span><span class="p">(</span><span class="s">&#34;Something very low level.&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Debug</span><span class="p">(</span><span class="s">&#34;Useful debugging information.&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Something noteworthy happened!&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Warn</span><span class="p">(</span><span class="s">&#34;You should probably take a look at this.&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Something failed but I&#39;m not quitting.&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// Calls os.Exit(1) after logging</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Bye.&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// Calls panic() after logging</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">Panic</span><span class="p">(</span><span class="s">&#34;I&#39;m bailing.&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
-<h3 id="设置日志级别">设置日志级别</h3>
-<p>你可以在 Logger 上设置日志记录级别，然后它只会记录具有该级别或以上级别任何内容的条目：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="c1">// 会记录info及以上级别 (warn, error, fatal, panic)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">SetLevel</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">InfoLevel</span><span class="p">)</span></span></span></code></pre></div></div>
-<h2 id="字段">字段</h2>
-<p>Logrus 鼓励通过日志字段进行谨慎的结构化日志记录，而不是冗长的、不可解析的错误消息。</p>
-<p>例如，区别于使用 log.Fatalf(&ldquo;Failed to send event %s to topic %s with key %d&rdquo;)，你应该使用如下方式记录更容易发现的内容:</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">WithFields</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fields</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;event&#34;</span><span class="p">:</span><span class="w"> </span><span class="nx">event</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;topic&#34;</span><span class="p">:</span><span class="w"> </span><span class="nx">topic</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;key&#34;</span><span class="p">:</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}).</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Failed to send event&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
-<p>WithFields 的调用是可选的。</p>
-<h2 id="默认字段">默认字段</h2>
-<p>通常，将一些字段始终附加到应用程序的全部或部分的日志语句中会很有帮助。例如，你可能希望始终在请求的上下文中记录 request_id 和 user_ip。</p>
-<p>区别于在每一行日志中写上 log.WithFields(log.Fields{&ldquo;request_id&rdquo;: request_id, &ldquo;user_ip&rdquo;: user_ip})，你可以向下面的示例代码一样创建一个 logrus.Entry 去传递这些字段。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">requestLogger</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">log</span><span class="p">.</span><span class="nf">WithFields</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fields</span><span class="p">{</span><span class="s">&#34;request_id&#34;</span><span class="p">:</span><span class="w"> </span><span class="nx">request_id</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;user_ip&#34;</span><span class="p">:</span><span class="w"> </span><span class="nx">user_ip</span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">requestLogger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;something happened on that request&#34;</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">request_id</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">user_ip</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">requestLogger</span><span class="p">.</span><span class="nf">Warn</span><span class="p">(</span><span class="s">&#34;something not great happened&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
-<h2 id="日志条目">日志条目</h2>
-<p>除了使用 WithField 或 WithFields 添加的字段外，一些字段会自动添加到所有日志记录事中:</p>
-<p>time：记录日志时的时间戳
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><title>Go常用库-logrus - 半生戎码</title><meta name=author content="Jeff"><meta name=description content="简介logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。
+"><meta name=robots content="index, follow"><meta name=keywords content='Go常用库,logrus'><meta itemprop=name content="Go常用库-logrus"><meta itemprop=description content="简介logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。"><meta itemprop=datePublished content="2021-06-06T00:00:00+00:00"><meta itemprop=dateModified content="2023-01-14T13:21:06+08:00"><meta itemprop=wordCount content="1560"><meta itemprop=image content="https://luzhifang.github.io/images/avatar.png"><meta itemprop=keywords content="Go常用库,Logrus"><meta property="og:url" content="https://luzhifang.github.io/go-logrus/"><meta property="og:site_name" content="半生戎码"><meta property="og:title" content="Go常用库-logrus"><meta property="og:description" content="简介logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-06-06T00:00:00+00:00"><meta property="article:modified_time" content="2023-01-14T13:21:06+08:00"><meta property="article:tag" content="Go常用库"><meta property="article:tag" content="Logrus"><meta property="og:image" content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://luzhifang.github.io/images/avatar.png"><meta name=twitter:title content="Go常用库-logrus"><meta name=twitter:description content="简介logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。"><meta name=application-name content="半生戎码"><meta name=apple-mobile-web-app-title content="半生戎码"><meta name=theme-color data-light=#f6f8fa data-dark=#151b23 content="#f6f8fa"><meta name=msapplication-TileColor content="#2d89ef"><link rel=canonical type=text/html href=https://luzhifang.github.io/go-logrus/ title="Go常用库-logrus - 半生戎码"><link rel=prev type=text/html href=https://luzhifang.github.io/git-guide/ title=Git使用指北><link rel=next type=text/html href=https://luzhifang.github.io/gitlab-install/ title="Gitlab Ubuntu 安装"><link rel=alternate type=text/markdown href=https://luzhifang.github.io/go-logrus/index.md><link rel=stylesheet href=/css/unocss.min.css><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/pages/posts.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><link rel=preload href=/js/main.min.js as=script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go常用库-logrus","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/luzhifang.github.io\/go-logrus\/"},"genre":"posts","keywords":"Go常用库, logrus","wordcount":1560,"url":"https:\/\/luzhifang.github.io\/go-logrus\/","datePublished":"2021-06-06T00:00:00+00:00","dateModified":"2023-01-14T13:21:06+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Jeff"},"description":""}</script><script src=/js/head.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><nav class=nav-main aria-label=主菜单><ul class=menu><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li></ul></nav><nav class=nav-system aria-label=站点功能><ul class=menu><li class="menu-item delimiter"></li><li class="menu-item search"><button type=button class="search-trigger desktop" aria-label=搜索 title=搜索>
+<i class="fa-solid fa-search" aria-hidden=true></i>
+搜索
+<kbd></kbd></button></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch-item"><button type=button class=theme-switch aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=半生戎码 class=header-title-link><span class=header-title-text>Zhifang's Blog</span></a><span class=header-subtitle></span></div><button type=button class="search-trigger mobile" aria-label=搜索><i class="fa-solid fa-search" aria-hidden=true></i></button><button type=button class=theme-switch aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></button>
+<button type=button class=menu-toggle id=menu-toggle-mobile aria-controls=menu-mobile aria-expanded=false aria-labelledby=menu-mobile>
+<span></span><span></span><span></span></button></div><nav><ul class=menu id=menu-mobile><li class=menu-item><a class=menu-link href=/posts/><i class="fa-solid fa-archive fa-sm" aria-hidden=true></i> 所有文章</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-sm" aria-hidden=true></i> 标签</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/about/><i class="fa-solid fa-user fa-sm" aria-hidden=true></i> 关于</a></li><li class=menu-item><a class=menu-link href=https://github.com/luzhifang title=GitHub rel="noopener noreferrer" target=_blank><i class="fa-brands fa-github fa-fw fa-sm" aria-hidden=true></i></a></li><li class="menu-item menu-system"></li></ul></nav></div></header><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Go常用库-logrus</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/authors/jeff/ title=作者 rel=author class=author><img class=avatar src=/images/avatar.png alt=Jeff height=16 width=16>&nbsp;Jeff</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/go%E5%B8%B8%E7%94%A8%E5%BA%93/ class=post-category title="分类 - Go常用库"><i class="fa-regular fa-folder" aria-hidden=true></i> Go常用库</a></span></div><div class=post-meta-line><span title="发布于 2021-06-06 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2021-06-06>2021-06-06</time></span>&nbsp;<span title="更新于 2023-01-14 13:21:06"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2023-01-14>2023-01-14</time></span>&nbsp;<span title="1560 字"><i class="fa-solid fa-pencil me-1" aria-hidden=true></i>约 1600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 4 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static></div></div><template data-toc><nav id=TableOfContents><ul><li><a href=#简介>简介</a></li><li><a href=#安装>安装</a></li><li><a href=#简单示例>简单示例</a></li><li><a href=#日志级别>日志级别</a><ul><li><a href=#设置日志级别>设置日志级别</a></li></ul></li><li><a href=#字段>字段</a></li><li><a href=#默认字段>默认字段</a></li><li><a href=#日志条目>日志条目</a></li><li><a href=#设置输出方式>设置输出方式</a></li><li><a href=#格式化>格式化</a></li><li><a href=#记录函数名>记录函数名</a></li><li><a href=#切分日志文件>切分日志文件</a></li><li><a href=#hooks>Hooks</a></li><li><a href=#线程安全>线程安全</a></li><li><a href=#参考>参考</a></li></ul></nav></template><div class=content id=content><h2 class=heading-element id=简介><span>简介</span>
+<a href=#%e7%ae%80%e4%bb%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>logrus 是一个结构化、插件化的日志记录库。完全兼容 golang 标准库中的日志模块。</p><p>它有以下特点：</p><ul><li>完全兼容标准日志库，拥有七种日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。</li><li>可扩展的 Hook 机制，允许使用者通过 Hook 的方式将日志分发到任意地方，如本地文件系统，logstash，elasticsearch 或者 mq 等，或者通过 Hook 定义日志内容和格式等</li><li>可选的日志输出格式，内置了两种日志格式 JSONFormater 和 TextFormatter，还可以自定义日志格式</li><li>Field 机制，通过 Filed 机制进行结构化的日志记录</li><li>线程安全</li></ul><h2 class=heading-element id=安装><span>安装</span>
+<a href=#%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-shell"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Shell data-lang=Shell><span class=line><span class=cl>go get github.com/sirupsen/logrus</span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=简单示例><span>简单示例</span>
+<a href=#%e7%ae%80%e5%8d%95%e7%a4%ba%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=w> </span><span class=s>&#34;github.com/sirupsen/logrus&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=p>.</span><span class=nf>WithFields</span><span class=p>(</span><span class=nx>log</span><span class=p>.</span><span class=nx>Fields</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;animal&#34;</span><span class=p>:</span><span class=w> </span><span class=s>&#34;walrus&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>}).</span><span class=nf>Info</span><span class=p>(</span><span class=s>&#34;a walrus appears&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p>输出：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-fallback"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>time=&#34;2021-11-11T17:41:48+08:00&#34; level=info msg=&#34;a walrus appears&#34; animal=walrus</span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=日志级别><span>日志级别</span>
+<a href=#%e6%97%a5%e5%bf%97%e7%ba%a7%e5%88%ab class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>Logrus 有七个日志级别：Trace, Debug, Info, Warning, Error, Fataland Panic。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Trace</span><span class=p>(</span><span class=s>&#34;Something very low level.&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Debug</span><span class=p>(</span><span class=s>&#34;Useful debugging information.&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Info</span><span class=p>(</span><span class=s>&#34;Something noteworthy happened!&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Warn</span><span class=p>(</span><span class=s>&#34;You should probably take a look at this.&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Error</span><span class=p>(</span><span class=s>&#34;Something failed but I&#39;m not quitting.&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Calls os.Exit(1) after logging</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Fatal</span><span class=p>(</span><span class=s>&#34;Bye.&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Calls panic() after logging</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>Panic</span><span class=p>(</span><span class=s>&#34;I&#39;m bailing.&#34;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div></div><h3 class=heading-element id=设置日志级别><span>设置日志级别</span>
+<a href=#%e8%ae%be%e7%bd%ae%e6%97%a5%e5%bf%97%e7%ba%a7%e5%88%ab class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>你可以在 Logger 上设置日志记录级别，然后它只会记录具有该级别或以上级别任何内容的条目：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=c1>// 会记录info及以上级别 (warn, error, fatal, panic)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>SetLevel</span><span class=p>(</span><span class=nx>log</span><span class=p>.</span><span class=nx>InfoLevel</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=字段><span>字段</span>
+<a href=#%e5%ad%97%e6%ae%b5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>Logrus 鼓励通过日志字段进行谨慎的结构化日志记录，而不是冗长的、不可解析的错误消息。</p><p>例如，区别于使用 log.Fatalf(&ldquo;Failed to send event %s to topic %s with key %d&rdquo;)，你应该使用如下方式记录更容易发现的内容:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>WithFields</span><span class=p>(</span><span class=nx>log</span><span class=p>.</span><span class=nx>Fields</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;event&#34;</span><span class=p>:</span><span class=w> </span><span class=nx>event</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;topic&#34;</span><span class=p>:</span><span class=w> </span><span class=nx>topic</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;key&#34;</span><span class=p>:</span><span class=w> </span><span class=nx>key</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}).</span><span class=nf>Fatal</span><span class=p>(</span><span class=s>&#34;Failed to send event&#34;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div></div><p>WithFields 的调用是可选的。</p><h2 class=heading-element id=默认字段><span>默认字段</span>
+<a href=#%e9%bb%98%e8%ae%a4%e5%ad%97%e6%ae%b5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>通常，将一些字段始终附加到应用程序的全部或部分的日志语句中会很有帮助。例如，你可能希望始终在请求的上下文中记录 request_id 和 user_ip。</p><p>区别于在每一行日志中写上 log.WithFields(log.Fields{&ldquo;request_id&rdquo;: request_id, &ldquo;user_ip&rdquo;: user_ip})，你可以向下面的示例代码一样创建一个 logrus.Entry 去传递这些字段。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>requestLogger</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>log</span><span class=p>.</span><span class=nf>WithFields</span><span class=p>(</span><span class=nx>log</span><span class=p>.</span><span class=nx>Fields</span><span class=p>{</span><span class=s>&#34;request_id&#34;</span><span class=p>:</span><span class=w> </span><span class=nx>request_id</span><span class=p>,</span><span class=w> </span><span class=s>&#34;user_ip&#34;</span><span class=p>:</span><span class=w> </span><span class=nx>user_ip</span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>requestLogger</span><span class=p>.</span><span class=nf>Info</span><span class=p>(</span><span class=s>&#34;something happened on that request&#34;</span><span class=p>)</span><span class=w> </span><span class=err>#</span><span class=w> </span><span class=nx>will</span><span class=w> </span><span class=nx>log</span><span class=w> </span><span class=nx>request_id</span><span class=w> </span><span class=nx>and</span><span class=w> </span><span class=nx>user_ip</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>requestLogger</span><span class=p>.</span><span class=nf>Warn</span><span class=p>(</span><span class=s>&#34;something not great happened&#34;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=日志条目><span>日志条目</span>
+<a href=#%e6%97%a5%e5%bf%97%e6%9d%a1%e7%9b%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>除了使用 WithField 或 WithFields 添加的字段外，一些字段会自动添加到所有日志记录事中:</p><p>time：记录日志时的时间戳
 msg：记录的日志信息
-level：记录的日志级别</p>
-<h2 id="设置输出方式">设置输出方式</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="c1">// 输出到 Stdout</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">SetOutput</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 输出到文件里</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">logfile</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="s">&#34;./logrus.log&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_RDWR</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_APPEND</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">logrus</span><span class="p">.</span><span class="nf">SetOutput</span><span class="p">(</span><span class="nx">logfile</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 输出到多个地方</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">logrus</span><span class="p">.</span><span class="nf">SetOutput</span><span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nf">MultiWriter</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">logfile</span><span class="p">))</span></span></span></code></pre></div></div>
-<h2 id="格式化">格式化</h2>
-<p>logrus 内置以下两种日志格式化程序：</p>
-<p>logrus.TextFormatter logrus.JSONFormatter</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">SetFormatter</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">log</span><span class="p">.</span><span class="nx">JSONFormatter</span><span class="p">{})</span></span></span></code></pre></div></div>
-<p>可以根据 Formatter 接口自定义日志格式。</p>
-<p>还支持一些第三方的格式化程序，详见项目首页。</p>
-<h2 id="记录函数名">记录函数名</h2>
-<p>如果你希望将调用的函数名添加为字段，请通过以下方式设置：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nf">SetReportCaller</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span></span></span></code></pre></div></div>
-<p>这会将调用者添加为”method”，如下所示：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{&#34;animal&#34;:&#34;penguin&#34;,&#34;level&#34;:&#34;fatal&#34;,&#34;method&#34;:&#34;github.com/sirupsen/arcticcreatures.migrate&#34;,&#34;msg&#34;:&#34;a penguin swims by&#34;,&#34;time&#34;:&#34;2014-03-10 19:57:38.562543129 -0400 EDT&#34;}</span></span></code></pre></div></div>
-<p>注意：，开启这个模式会增加性能开销。</p>
-<h2 id="切分日志文件">切分日志文件</h2>
-<p>如果日志文件太大了，想切分成小文件，但是 logrus 没有提供这个功能。</p>
-<p>一种是借助 linux 系统的 logrotate 命令来切分 logrus 生成的日志文件。</p>
-<p>另外一种是用 logrus 的 hook 功能，做一个切分日志的插件。</p>
-<p>我们使用<a href="https://github.com/natefinch/lumberjack" target="_blank" rel="noopener noreffer ">lumberjack</a>切分。</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="w"> </span><span class="s">&#34;github.com/sirupsen/logrus&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;gopkg.in/natefinch/lumberjack.v2&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">logger</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">lumberjack</span><span class="p">.</span><span class="nx">Logger</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Filename</span><span class="p">:</span><span class="w">   </span><span class="s">&#34;./testlogrus.log&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">MaxSize</span><span class="p">:</span><span class="w">    </span><span class="mi">500</span><span class="p">,</span><span class="w">  </span><span class="c1">// 日志文件大小，单位是 MB</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">MaxBackups</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">    </span><span class="c1">// 最大过期日志保留个数</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">MaxAge</span><span class="p">:</span><span class="w">     </span><span class="mi">28</span><span class="p">,</span><span class="w">   </span><span class="c1">// 保留过期文件最大时间，单位 天</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Compress</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// 是否压缩日志，默认是不压缩。这里设置为true，压缩日志</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="p">.</span><span class="nf">SetOutput</span><span class="p">(</span><span class="nx">logger</span><span class="p">)</span><span class="w"> </span><span class="c1">// logrus 设置日志的输出方式</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<h2 id="hooks">Hooks</h2>
-<p>你可以添加日志级别的钩子（Hook）。例如，向异常跟踪服务发送 Error、Fatal 和 Panic、信息到 StatsD 或同时将日志发送到多个位置，例如 syslog。</p>
-<p>Logrus 配有内置钩子。在 init 中添加这些内置钩子或你自定义的钩子：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-Go">
-        <span class="code-title"><i class="arrow fas fa-angle-right" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="w"> </span><span class="s">&#34;github.com/sirupsen/logrus&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;gopkg.in/gemnasium/logrus-airbrake-hook.v2&#34;</span><span class="w"> </span><span class="c1">// the package is named &#34;airbrake&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">logrus_syslog</span><span class="w"> </span><span class="s">&#34;github.com/sirupsen/logrus/hooks/syslog&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s">&#34;log/syslog&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// Use the Airbrake hook to report errors that have Error severity or above to</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// an exception tracker. You can create custom hooks, see the Hooks section.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="p">.</span><span class="nf">AddHook</span><span class="p">(</span><span class="nx">airbrake</span><span class="p">.</span><span class="nf">NewHook</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;xyz&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;production&#34;</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">hook</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">logrus_syslog</span><span class="p">.</span><span class="nf">NewSyslogHook</span><span class="p">(</span><span class="s">&#34;udp&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;localhost:514&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">syslog</span><span class="p">.</span><span class="nx">LOG_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Unable to connect to local syslog daemon&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nf">AddHook</span><span class="p">(</span><span class="nx">hook</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>意：Syslog 钩子还支持连接到本地 syslog（例如. “/dev/log” or “/var/run/syslog” or “/var/run/log”)。有关详细信息，请查看<a href="https://github.com/sirupsen/logrus/blob/master/hooks/syslog/README.md" target="_blank" rel="noopener noreffer ">syslog hook README</a>。</p>
-<h2 id="线程安全">线程安全</h2>
-<p>默认的 logger 在并发写的时候是被 mutex 保护的，比如当同时调用 hook 和写 log 时 mutex 就会被请求，有另外一种情况，文件是以 appending mode 打开的， 此时的并发操作就是安全的，可以用 logger.SetNoLock()来关闭它。</p>
-<h2 id="参考">参考</h2>
-<p><a href="https://github.com/sirupsen/logrus" target="_blank" rel="noopener noreffer ">https://github.com/sirupsen/logrus</a></p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-06-06</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus" data-hashtags="Go常用库,logrus"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luzhifang.github.io/go-logrus/" data-hashtag="Go常用库"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@16.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://luzhifang.github.io/go-logrus/" data-title="Go常用库-logrus" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2fluzhifang.github.io%2fgo-logrus%2f&amp;text=Go%e5%b8%b8%e7%94%a8%e5%ba%93-logrus" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags" aria-hidden="true"></i>&nbsp;<a href="/tags/go%E5%B8%B8%E7%94%A8%E5%BA%93/">Go常用库</a>,&nbsp;<a href="/tags/logrus/">Logrus</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/git-guide/" class="prev" rel="prev" title="Git使用指北"><i class="fas fa-angle-left" aria-hidden="true"></i>Git使用指北</a>
-            <a href="/gitlab-install/" class="next" rel="next" title="Gitlab Ubuntu 安装">Gitlab Ubuntu 安装<i class="fas fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.160.0-DEV">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 1.0.0"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment" aria-hidden="true"></i>
-            </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"algoliaAppID":"F9FD4RV8W1","algoliaIndex":"blog","algoliaSearchKey":"860ac69376949c49c568927a0d84b09a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script src="/js/theme.js"></script></body>
-</html>
+level：记录的日志级别</p><h2 class=heading-element id=设置输出方式><span>设置输出方式</span>
+<a href=#%e8%ae%be%e7%bd%ae%e8%be%93%e5%87%ba%e6%96%b9%e5%bc%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=c1>// 输出到 Stdout</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>SetOutput</span><span class=p>(</span><span class=nx>os</span><span class=p>.</span><span class=nx>Stdout</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 输出到文件里</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>logfile</span><span class=p>,</span><span class=w> </span><span class=nx>_</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>os</span><span class=p>.</span><span class=nf>OpenFile</span><span class=p>(</span><span class=s>&#34;./logrus.log&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>os</span><span class=p>.</span><span class=nx>O_CREATE</span><span class=p>|</span><span class=nx>os</span><span class=p>.</span><span class=nx>O_RDWR</span><span class=p>|</span><span class=nx>os</span><span class=p>.</span><span class=nx>O_APPEND</span><span class=p>,</span><span class=w> </span><span class=mo>0644</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>logrus</span><span class=p>.</span><span class=nf>SetOutput</span><span class=p>(</span><span class=nx>logfile</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 输出到多个地方</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>logrus</span><span class=p>.</span><span class=nf>SetOutput</span><span class=p>(</span><span class=nx>io</span><span class=p>.</span><span class=nf>MultiWriter</span><span class=p>(</span><span class=nx>os</span><span class=p>.</span><span class=nx>Stdout</span><span class=p>,</span><span class=w> </span><span class=nx>logfile</span><span class=p>))</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=格式化><span>格式化</span>
+<a href=#%e6%a0%bc%e5%bc%8f%e5%8c%96 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>logrus 内置以下两种日志格式化程序：</p><p>logrus.TextFormatter logrus.JSONFormatter</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>SetFormatter</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>log</span><span class=p>.</span><span class=nx>JSONFormatter</span><span class=p>{})</span></span></span></code></pre></td></tr></table></div></div></div><p>可以根据 Formatter 接口自定义日志格式。</p><p>还支持一些第三方的格式化程序，详见项目首页。</p><h2 class=heading-element id=记录函数名><span>记录函数名</span>
+<a href=#%e8%ae%b0%e5%bd%95%e5%87%bd%e6%95%b0%e5%90%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>如果你希望将调用的函数名添加为字段，请通过以下方式设置：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>log</span><span class=p>.</span><span class=nf>SetReportCaller</span><span class=p>(</span><span class=kc>true</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div></div><p>这会将调用者添加为”method”，如下所示：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-fallback"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=1 style=--fi-max-shown-lines:60;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{&#34;animal&#34;:&#34;penguin&#34;,&#34;level&#34;:&#34;fatal&#34;,&#34;method&#34;:&#34;github.com/sirupsen/arcticcreatures.migrate&#34;,&#34;msg&#34;:&#34;a penguin swims by&#34;,&#34;time&#34;:&#34;2014-03-10 19:57:38.562543129 -0400 EDT&#34;}</span></span></code></pre></td></tr></table></div></div></div><p>注意：，开启这个模式会增加性能开销。</p><h2 class=heading-element id=切分日志文件><span>切分日志文件</span>
+<a href=#%e5%88%87%e5%88%86%e6%97%a5%e5%bf%97%e6%96%87%e4%bb%b6 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>如果日志文件太大了，想切分成小文件，但是 logrus 没有提供这个功能。</p><p>一种是借助 linux 系统的 logrotate 命令来切分 logrus 生成的日志文件。</p><p>另外一种是用 logrus 的 hook 功能，做一个切分日志的插件。</p><p>我们使用<a href=https://github.com/natefinch/lumberjack target=_blank rel="external nofollow noopener noreferrer">lumberjack<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden=true></i></a>切分。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=w> </span><span class=s>&#34;github.com/sirupsen/logrus&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;gopkg.in/natefinch/lumberjack.v2&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>logger</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=o>&amp;</span><span class=nx>lumberjack</span><span class=p>.</span><span class=nx>Logger</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Filename</span><span class=p>:</span><span class=w>   </span><span class=s>&#34;./testlogrus.log&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>MaxSize</span><span class=p>:</span><span class=w>    </span><span class=mi>500</span><span class=p>,</span><span class=w>  </span><span class=c1>// 日志文件大小，单位是 MB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>MaxBackups</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w>    </span><span class=c1>// 最大过期日志保留个数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>MaxAge</span><span class=p>:</span><span class=w>     </span><span class=mi>28</span><span class=p>,</span><span class=w>   </span><span class=c1>// 保留过期文件最大时间，单位 天</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Compress</span><span class=p>:</span><span class=w>   </span><span class=kc>true</span><span class=p>,</span><span class=w> </span><span class=c1>// 是否压缩日志，默认是不压缩。这里设置为true，压缩日志</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=p>.</span><span class=nf>SetOutput</span><span class=p>(</span><span class=nx>logger</span><span class=p>)</span><span class=w> </span><span class=c1>// logrus 设置日志的输出方式</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><h2 class=heading-element id=hooks><span>Hooks</span>
+<a href=#hooks class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>你可以添加日志级别的钩子（Hook）。例如，向异常跟踪服务发送 Error、Fatal 和 Panic、信息到 StatsD 或同时将日志发送到多个位置，例如 syslog。</p><p>Logrus 配有内置钩子。在 init 中添加这些内置钩子或你自定义的钩子：</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><button type=button class=ellipses-btn aria-label="Show more options"><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></button><button type=button class="action-btn line-nos-btn" aria-label=切换行号 title=切换行号><i class="fa-solid fa-list-ol" aria-hidden=true></i></button><button type=button class="action-btn line-wrap-btn" aria-label=切换自动换行 title=切换自动换行><i class="fa-solid fa-right-left" aria-hidden=true></i></button><button type=button class="action-btn copy-btn" aria-label=复制到剪贴板 title=复制到剪贴板 data-copied-text=已复制><i class="fa-regular fa-clone" aria-hidden=true></i></button></div><div class=code-wrapper data-max=60 data-line-digit=2 style=--fi-max-shown-lines:60;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=w> </span><span class=s>&#34;github.com/sirupsen/logrus&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;gopkg.in/gemnasium/logrus-airbrake-hook.v2&#34;</span><span class=w> </span><span class=c1>// the package is named &#34;airbrake&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>logrus_syslog</span><span class=w> </span><span class=s>&#34;github.com/sirupsen/logrus/hooks/syslog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=s>&#34;log/syslog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>init</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c1>// Use the Airbrake hook to report errors that have Error severity or above to</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c1>// an exception tracker. You can create custom hooks, see the Hooks section.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>log</span><span class=p>.</span><span class=nf>AddHook</span><span class=p>(</span><span class=nx>airbrake</span><span class=p>.</span><span class=nf>NewHook</span><span class=p>(</span><span class=mi>123</span><span class=p>,</span><span class=w> </span><span class=s>&#34;xyz&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;production&#34;</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>hook</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>logrus_syslog</span><span class=p>.</span><span class=nf>NewSyslogHook</span><span class=p>(</span><span class=s>&#34;udp&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;localhost:514&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>syslog</span><span class=p>.</span><span class=nx>LOG_INFO</span><span class=p>,</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>log</span><span class=p>.</span><span class=nf>Error</span><span class=p>(</span><span class=s>&#34;Unable to connect to local syslog daemon&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>log</span><span class=p>.</span><span class=nf>AddHook</span><span class=p>(</span><span class=nx>hook</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p>意：Syslog 钩子还支持连接到本地 syslog（例如. “/dev/log” or “/var/run/syslog” or “/var/run/log”)。有关详细信息，请查看<a href=https://github.com/sirupsen/logrus/blob/master/hooks/syslog/README.md target=_blank rel="external nofollow noopener noreferrer">syslog hook README<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden=true></i></a>。</p><h2 class=heading-element id=线程安全><span>线程安全</span>
+<a href=#%e7%ba%bf%e7%a8%8b%e5%ae%89%e5%85%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>默认的 logger 在并发写的时候是被 mutex 保护的，比如当同时调用 hook 和写 log 时 mutex 就会被请求，有另外一种情况，文件是以 appending mode 打开的， 此时的并发操作就是安全的，可以用 logger.SetNoLock()来关闭它。</p><h2 class=heading-element id=参考><span>参考</span>
+<a href=#%e5%8f%82%e8%80%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p><a href=https://github.com/sirupsen/logrus target=_blank rel="external nofollow noopener noreferrer">https://github.com/sirupsen/logrus<i class="fa-solid fa-external-link-alt fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2023-01-14 13:21:06">更新于 2023-01-14&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/go-logrus/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://luzhifang.github.io/go-logrus/ data-title=Go常用库-logrus data-hashtags=Go常用库,logrus><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://luzhifang.github.io/go-logrus/ data-hashtag=Go常用库><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://luzhifang.github.io/go-logrus/ data-title=Go常用库-logrus><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/tags/go%E5%B8%B8%E7%94%A8%E5%BA%93/ class=post-tag title="标签 - Go常用库">Go常用库</a><a href=/tags/logrus/ class=post-tag title="标签 - Logrus">Logrus</a></section><section class="post-actions print-hidden"><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>
+<span class=separator aria-hidden=true></span>
+<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/git-guide/ class=post-nav-item rel=prev title=Git使用指北><i class="fa-solid fa-angle-left" aria-hidden=true></i>Git使用指北</a><a href=/gitlab-install/ class=post-nav-item rel=next title="Gitlab Ubuntu 安装">Gitlab Ubuntu 安装<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div></article><aside class="toc animate__animated animate__fadeIn animate__faster" id=toc-auto aria-label=目录><h2 class=toc-title><span>目录<i class="toc-icon fa-solid fa-angle-down ms-1" aria-hidden=true></i></span>
+<button type=button class=toc-print-btn onclick=event.stopPropagation(),window.print() aria-label=打印><i class="fa-solid fa-print" aria-hidden=true></i></button></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class=footer-bottom><div class=footer-legal><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/authors/jeff/>Jeff</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div><div class=footer-tech><div class="footer-line powered">由 <a href="https://github.com/gohugoio/hugo?v=0.170.1" target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.170.1">Hugo</a> 与 <a href="https://github.com/hugo-fixit/FixIt?v=v1.0.0-rc.5" target=_blank rel=external title="FixIt v1.0.0-rc.5">FixIt</a> 驱动</div></div></div></div></footer></div><div class=widgets><div id=mask></div><dialog id=nav-dialog aria-labelledby=nav-dialog-title closedby=any><button type=button class=nav-close-btn aria-label="Close 导航"><i class="fa-solid fa-xmark fa-lg" aria-hidden=true></i></button><div class=toc><h2 class=toc-title id=nav-dialog-title>导航</h2><div class=toc-content id=toc-content-drawer></div></div></dialog><dialog id=search-dialog class=search-dialog aria-label=搜索 closedby=any><div class=search-modal><div class=search-modal-header><span class=search-delimiter></span>
+<button type=button class=search-close-btn aria-label="Close Search Dialog"><i class="fa-solid fa-xmark" aria-hidden=true></i></button></div><div class=search-source-footer><div class="search-shortcuts max-sm:!hidden"><span class=search-shortcut><kbd><i class=lucide-arrow-up aria-hidden=true></i></kbd>
+<kbd><i class=lucide-arrow-down aria-hidden=true></i></kbd>
+切换
+</span><span class=search-shortcut><kbd><i class=lucide-corner-down-left aria-hidden=true></i></kbd>
+选择
+</span><span class=search-shortcut><kbd>ESC</kbd>
+关闭</span></div><span class=search-engine>搜索引擎 <a href=https://fusejs.io/ target=_blank rel="external nofollow noopener noreferrer">Fuse.js</a></span></div></div></dialog><div class=fixed-buttons><button type=button class="fixed-button back-to-top animate__faster hidden" aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></button><button type=button id=nav-drawer-button class="fixed-button nav-drawer-button hidden" aria-label=导航 aria-controls=nav-dialog aria-expanded=false><i class="fa-solid fa-bars" aria-hidden=true></i></button></div><noscript><div class="noscript-warning bg-danger text-white text-base font-bold fixed text-center inset-x-0 bottom-0 w-full z-fixed">该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete-js/index.production.js defer></script><script src=/js/lib/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/js/lib/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/js/config/dfe3b4418203e85133c75046785e52c8.min.js defer></script><script src=/js/lib/file-tree.min.js defer></script><script src=/js/main.min.js defer></script></body></html>

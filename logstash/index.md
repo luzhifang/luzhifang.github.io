@@ -109,3 +109,9 @@ https://www.elastic.co/guide/en/logstash/current/pipeline.html
 
 https://www.linuxe.cn/post-309.html
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/logstash/  
+

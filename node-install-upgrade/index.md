@@ -32,3 +32,9 @@ npm -v
 3. 升级到 nodejs 最新稳定版本 `sudo n stable`
 4. 查看当前版本 `node -v`
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/node-install-upgrade/  
+

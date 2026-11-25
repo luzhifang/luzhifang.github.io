@@ -90,3 +90,9 @@ https://www.elastic.co/guide/cn/kibana/current/getting-started.html
 
 https://www.linuxe.cn/post-309.html
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/kibana/  
+

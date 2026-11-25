@@ -60,3 +60,9 @@ go version
 
 先卸载再安装
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/go-install/  
+

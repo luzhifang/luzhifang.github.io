@@ -188,3 +188,9 @@ curl -X POST -H "content-type:application/json" 'http://localhost:9200/_aliases'
 
 ## 参考
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/elasticsearch-command/  
+

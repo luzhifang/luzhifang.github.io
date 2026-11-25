@@ -18,3 +18,9 @@
 2. Rainbow Brackets，通过颜色区分括号嵌套层级，便于阅读，能够更快地对错误代码进行定位和调整。
 3. Chinese ​(Simplified)​ Language Pack / 中文语言包
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/goland-plugins/  
+

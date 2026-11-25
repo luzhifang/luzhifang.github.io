@@ -100,3 +100,9 @@
 
 《深入理解 Kafka：核心设计与实践原理》 朱忠华
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/kafka-config/  
+

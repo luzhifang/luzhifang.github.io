@@ -195,3 +195,9 @@ https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/crea
 
 https://cloud.tencent.com/developer/article/2164600
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/k8s-install/  
+

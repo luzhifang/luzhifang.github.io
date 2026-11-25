@@ -135,3 +135,9 @@ RESTful 规范中的请求应该返回统一的数据格式。对于返回的数
 
 https://blog.restcase.com
 
+
+---
+
+> 作者: [Jeff](https://luzhifang.github.io)  
+> URL: https://luzhifang.github.io/restful/  
+
